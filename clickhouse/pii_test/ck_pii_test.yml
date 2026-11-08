@@ -1,0 +1,17 @@
+# ClickHouse dbt YAML — model TEST PII (không thuộc phân hệ nào, chạy tay)
+
+version: 2
+
+models:
+  - name: pii_test_opr_practitioner_360_profile_flat
+    description: "TEST PII — clone của nhnck_opr_practitioner_360_profile_flat, mã hóa full_nm và identification_nbr"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - pii_test

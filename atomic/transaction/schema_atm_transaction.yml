@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: atm_securities_trade
+    description: "Atomic model của bảng Securities Trade – Multi Source"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["trade_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'securities_trade'
+      tags:
+        - layer_atomic
+
+  - name: atm_securities_trade_ordertrade_trade_book_hnx
+    description: "Atomic model của bảng Securities Trade – ORDERTRADE.TRADE_BOOK_HNX"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_securities_trade_ordertrade_trade_book_hose
+    description: "Atomic model của bảng Securities Trade – ORDERTRADE.TRADE_BOOK_HOSE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_security_match_log
+    description: "Atomic model của bảng Security Match Log"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["trading_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'security_match_log'
+      source_system: ["MDDS_JAD_TRANSLOG"]
+      tags:
+        - layer_atomic
+
+  - name: atm_sp_license_application_fee
+    description: "Atomic model của bảng Securities Practitioner License Application Fee"
+    config:
+      materialized: scd4a
+      unique_key: ["sp_license_application_fee_id"]
+      source_system: ["NHNCK_APPLICATION_FEES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sp_license_application_fee'
+      tags:
+        - layer_atomic

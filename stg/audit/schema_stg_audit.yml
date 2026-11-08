@@ -1,0 +1,653 @@
+version: 2
+
+models:
+
+  - name: stg_audit_af_approval
+    description: "Staging model của bảng AUDIT.AF_APPROVAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'af_approval'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_af_auditor_practice_history
+    description: "Staging model của bảng AUDIT.AF_AUDITOR_PRACTICE_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'af_auditor_practice_history'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_af_auditor_profiles
+    description: "Staging model của bảng AUDIT.AF_AUDITOR_PROFILES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'af_auditor_profiles'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_af_auditor_status_history
+    description: "Staging model của bảng AUDIT.AF_AUDITOR_STATUS_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'af_auditor_status_history'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_af_inspection
+    description: "Staging model của bảng AUDIT.AF_INSPECTION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'af_inspection'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_af_legal_representative
+    description: "Staging model của bảng AUDIT.AF_LEGAL_REPRESENTATIVE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'af_legal_representative'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_af_profiles
+    description: "Staging model của bảng AUDIT.AF_PROFILES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'af_profiles'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_af_sanctions
+    description: "Staging model của bảng AUDIT.AF_SANCTIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'af_sanctions'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_af_status_history
+    description: "Staging model của bảng AUDIT.AF_STATUS_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'af_status_history'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_af_suspension
+    description: "Staging model của bảng AUDIT.AF_SUSPENSION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'af_suspension'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_af_technical_audit
+    description: "Staging model của bảng AUDIT.AF_TECHNICAL_AUDIT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'af_technical_audit'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_af_warning
+    description: "Staging model của bảng AUDIT.AF_WARNING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'af_warning'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_alert_template_audit_dtl
+    description: "Staging model của bảng AUDIT.ALERT_TEMPLATE_AUDIT_DTL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'alert_template_audit_dtl'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_alert_template_audit_hdr
+    description: "Staging model của bảng AUDIT.ALERT_TEMPLATE_AUDIT_HDR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'alert_template_audit_hdr'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_company_change_role_his
+    description: "Staging model của bảng AUDIT.COMPANY_CHANGE_ROLE_HIS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'company_change_role_his'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_company_data
+    description: "Staging model của bảng AUDIT.COMPANY_DATA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'company_data'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_company_digital_certificates
+    description: "Staging model của bảng AUDIT.COMPANY_DIGITAL_CERTIFICATES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'company_digital_certificates'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_countries
+    description: "Staging model của bảng AUDIT.COUNTRIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'countries'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_data
+    description: "Staging model của bảng AUDIT.DATA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'data'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_databasechangelog
+    description: "Staging model của bảng AUDIT.DATABASECHANGELOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'databasechangelog'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_databasechangeloglock
+    description: "Staging model của bảng AUDIT.DATABASECHANGELOGLOCK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'databasechangeloglock'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_data_types
+    description: "Staging model của bảng AUDIT.DATA_TYPES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'data_types'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_data_values
+    description: "Staging model của bảng AUDIT.DATA_VALUES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'data_values'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_departments
+    description: "Staging model của bảng AUDIT.DEPARTMENTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'departments'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_fields
+    description: "Staging model của bảng AUDIT.FIELDS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'fields'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_files
+    description: "Staging model của bảng AUDIT.FILES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'files'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_forms
+    description: "Staging model của bảng AUDIT.FORMS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'forms'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_form_fields
+    description: "Staging model của bảng AUDIT.FORM_FIELDS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'form_fields'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_form_field_history
+    description: "Staging model của bảng AUDIT.FORM_FIELD_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'form_field_history'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_history_change_log
+    description: "Staging model của bảng AUDIT.HISTORY_CHANGE_LOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'history_change_log'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_holiday_calendar
+    description: "Staging model của bảng AUDIT.HOLIDAY_CALENDAR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'holiday_calendar'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_hte_notifications_dtl
+    description: "Staging model của bảng AUDIT.HTE_NOTIFICATIONS_DTL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'hte_notifications_dtl'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_hte_notifications_result
+    description: "Staging model của bảng AUDIT.HTE_NOTIFICATIONS_RESULT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'hte_notifications_result'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_hte_violation_report
+    description: "Staging model của bảng AUDIT.HTE_VIOLATION_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'hte_violation_report'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_logins
+    description: "Staging model của bảng AUDIT.LOGINS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'logins'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_login_permission_by_code
+    description: "Staging model của bảng AUDIT.LOGIN_PERMISSION_BY_CODE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'login_permission_by_code'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_lookup_values
+    description: "Staging model của bảng AUDIT.LOOKUP_VALUES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'lookup_values'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_notifications
+    description: "Staging model của bảng AUDIT.NOTIFICATIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'notifications'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_notifications_dtl
+    description: "Staging model của bảng AUDIT.NOTIFICATIONS_DTL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'notifications_dtl'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_notifications_result
+    description: "Staging model của bảng AUDIT.NOTIFICATIONS_RESULT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'notifications_result'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_rcol
+    description: "Staging model của bảng AUDIT.RCOL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'rcol'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_report_catalog
+    description: "Staging model của bảng AUDIT.REPORT_CATALOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'report_catalog'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_rep_column
+    description: "Staging model của bảng AUDIT.REP_COLUMN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'rep_column'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_rep_data
+    description: "Staging model của bảng AUDIT.REP_DATA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'rep_data'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_rep_forms
+    description: "Staging model của bảng AUDIT.REP_FORMS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'rep_forms'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_rep_row
+    description: "Staging model của bảng AUDIT.REP_ROW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'rep_row'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_rrow
+    description: "Staging model của bảng AUDIT.RROW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'rrow'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_sms_log
+    description: "Staging model của bảng AUDIT.SMS_LOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'sms_log'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_violation_report
+    description: "Staging model của bảng AUDIT.VIOLATION_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'violation_report'
+      tags:
+        - layer_staging
+        - domain_audit
+
+  - name: stg_audit_violation_templates
+    description: "Staging model của bảng AUDIT.VIOLATION_TEMPLATES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_audit_schema") }}'
+      alias: 'violation_templates'
+      tags:
+        - layer_staging
+        - domain_audit

@@ -1,0 +1,290 @@
+# Datamart schema — Module PTTT (Phan tich thi truong)
+# Auto-tong hop tu cac model da code dot nay. Trang thai: draft, can review truoc khi build.
+
+version: 2
+
+models:
+  - name: dtm_corp_bond_industry_dim
+    description: "Datamart model của bảng Corporate Bond Industry Dimension (PTTT)"
+    config:
+      materialized: scd4a
+      unique_key: ["corp_bond_industry_dim_id"]
+      source_system: ["IDS_CATEGORIES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'corp_bond_industry_dim'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_order_size_snpst
+    description: "Datamart model của bảng Fact Order Size Snapshot (PTTT) — quy mô lệnh phân loại từng giao dịch khớp từ securities_trade (O_PTTT_49, 2026-10-14), grain 1 dòng / (mã, nhóm quy mô lệnh, ngày)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_order_size_snpst'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_foreign_net_trade_snpst
+    description: "Datamart model của bảng Fact Foreign Net Trade Snapshot (PTTT)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_foreign_net_trade_snpst'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_proprietary_net_trade_snpst
+    description: "Datamart model của bảng Fact Proprietary Net Trade Snapshot (PTTT)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_proprietary_net_trade_snpst'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_domestic_institution_net_trade_snpst
+    description: "Datamart model của bảng Fact Domestic Institution Net Trade Snapshot (PTTT)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_domestic_institution_net_trade_snpst'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_domestic_individual_net_trade_snpst
+    description: "Datamart model của bảng Fact Domestic Individual Net Trade Snapshot (PTTT)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_domestic_individual_net_trade_snpst'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_corporate_bond_sector_snpst
+    description: "Datamart model của bảng Fact Corporate Bond Sector Snapshot (PTTT)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_corporate_bond_sector_snpst'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_investor_group_dim
+    description: "Datamart model của bảng Investor Group Dimension (seed tĩnh, 6 nhóm NĐT — chỉ 4 nhóm được fct_investor_flow_snpst populate). Data cố định, không có nguồn atomic để so sánh -> KHÔNG dùng scd4a/scd2/upsert (MERGE) và KHÔNG dùng 'table' built-in (auto CREATE OR REPLACE). Dùng incremental_strategy 'insert_overwrite' built-in của dbt-spark (không partition_by -> overwrite toàn bộ bảng mỗi lần chạy, tương đương truncate+insert atomic), bảng phải được tạo sẵn bằng DDL."
+    config:
+      materialized: incremental
+      incremental_strategy: insert_overwrite
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'investor_group_dim'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_investor_flow_snpst
+    description: "Datamart model của bảng Fact Investor Flow Snapshot (PTTT) — populate đủ 6/6 nhóm NĐT theo LLD 2026-09-23; trading_val_ratio = (buy_val + sell_val) / tổng (buy_val + sell_val) của 4 nhóm loại trừ nhau trong ngày (O_PTTT_47, 2026-10-13); buy_val/sell_val lọc board G1,G2,G3,G4,G7,G8 (O_PTTT_46), không còn cột PENDING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_investor_flow_snpst'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_cap_grp_snpst
+    description: "Datamart model của bảng Fact Cap Group Snapshot (PTTT) — cap_group_code/total_trading_val/liquidity_share_ratio đã nối vào atm_status_threshold_config (index_code='CAP_GROUP', 2026-09-24), không còn cột PENDING; CẢNH BÁO mã CK ngoài mọi ngưỡng cấu hình sẽ có cap_group_code NULL — cần nghiệp vụ xác nhận ngưỡng đã phủ kín market_cap_usd"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_cap_grp_snpst'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_macro_indicator_snpst
+    description: "Datamart model của bảng Fact Macro Indicator Snapshot (PTTT) — đủ nguồn atm_cl_risk_indicator/atm_cl_risk_indicator_value, không có cột PENDING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_macro_indicator_snpst'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_market_risk_snpst
+    description: "Datamart model của bảng Fact Market Risk Snapshot (PTTT) — toàn bộ 61/61 cột đã tính được, không còn cột PENDING. [2026-09-25] FIX QUAN TRỌNG: atm_market_index_snapshot là dữ liệu trong phiên (nhiều bản ghi/ngày, có index_time) — thêm dedup ROW_NUMBER theo index_time DESC trước khi tính mọi chỉ số phái sinh (volatility/z-score/risk_index/systemic_vol/turnover_velocity...), sửa lỗi nhân dòng do đọc thẳng không dedup trước đó. CẢNH BÁO rủi ro dữ liệu còn tồn đọng cần Data Modeler/BA xác nhận trước production: (1) risk_factor_group của atm_risk_weight_config chưa xác nhận giá trị thật; (2) cell_id='TS024' cho dư nợ margin chưa BA xác nhận chính thức (gap O_PTTT_15), và margin_balance_delta/total_margin_balance dùng sc_rpt_code='BCTHHD_CTCK' không khả thi với atomic hiện tại (sc_rpt_code chỉ là raw form_report_id); (3) total_margin_limit_amt không phân biệt được BCTCHN/BCTCRL qua sc_rpt_code thật nên dùng fallback TS359→TS223/TS221; (4) N=30 (Margin Stress) và N=252 (Turnover Velocity) vẫn hardcode, LLD chưa chốt tham số; (5) corr_index_interbank_rate/corr_index_dxy cần xác nhận lại code INTERBANK_IR/DXY trong dữ liệu thật"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_market_risk_snpst'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_corporate_bond_market_snpst
+    description: "Datamart model của bảng Fact Corporate Bond Market Snapshot (PTTT) — [2026-10-01] thêm bond_trading_val (GTGD TP, market_id_code='BDO') và bond_yield_weighted_average (YTM bình quân gia quyền theo GTGD) — không cần Corporate Bond Match Log"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_corporate_bond_market_snpst'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_corporate_bond_maturity_wall
+    description: "Datamart model của bảng Fact Corporate Bond Maturity Wall (PTTT) — [2026-10-01] 2 luồng LISTED (atm_security_trading_snapshot) / PRIVATE (atm_private_corp_bond_offering) phân biệt bằng bond_flow_code + bond_code; securities_dim_id nullable (chỉ LISTED); thêm maturity_dt, đổi tên bond_outstanding_value -> bond_outstanding_val, bỏ maturity_value_high_risk (K_PTTT_178 lọc ở BI). Open issue O_PTTT_30"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_corporate_bond_maturity_wall'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_opr_corporate_bond_issuer_credit_monitor
+    description: "Datamart model của bảng Operational Corporate Bond Issuer Credit Monitor (PTTT) — 7 cột tài chính (D/E, ROE...) nay đã tính được từ atm_fr_value/atm_fr_catalog/atm_fr_row/atm_fr_column, không còn cột PENDING. [2026-09-25] LLD xác nhận chính thức mapping approval_status_code='APPROVED' và SUBSTR(fr_code,1,2), không còn là giả định suy luận; chỉ còn kỳ báo cáo :p_year/:p_month (giả định = YEAR/MONTH của etl_date) là chưa được LLD xác nhận rõ"
+    config:
+      materialized: scd4a
+      unique_key: ["issuer_symbol_code", "snpst_dt"]
+      source_system: ["MDDS_JAD_STOCKINFOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_corporate_bond_issuer_credit_monitor'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_sector_dim
+    description: "Datamart model của bảng Sector Dimension (dùng chung cho fct_sector_risk_snpst) — CẢNH BÁO: chưa xác nhận được với GSDC xem có bảng industry dimension nào khác đã tồn tại chưa (HLD ghi 'đã chuyển sở hữu sang GSDC' nhưng grep không tìm thấy), cần đối chiếu trước khi lên production tránh trùng lặp"
+    config:
+      materialized: scd4a
+      unique_key: ["sector_dim_id"]
+      source_system: ["IDS_CATEGORIES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'sector_dim'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_sector_risk_snpst
+    description: "Datamart model của bảng Fact Sector Risk Snapshot (PTTT) — LLD chính thức hoá 16 cột (đổi sector_dim_id→industry_dim_id, bỏ 3 cột avg_pdrawdown/avg_pvolatility/avg_pselling, thêm net_profit_after_tax_amt_sector/sector_pe 2026-09-25); sector_debt_score/sector_rating đã tính được; [2026-09-25] W1/W2/W3 giờ LOOKUP thật từ atm_risk_weight_config (risk_factor_code W1_DRAWDOWN/W2_VOLATILITY/W3_SELLING, không còn hardcode 1/3); Pselling đổi sang data thật từ atm_security_match_log (trade_direction_code='S'), không còn proxy theo biến động giá — cần Data Modeler xác nhận risk_factor_group và trade_direction_code='S' trước production"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_sector_risk_snpst'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_securities_company_safety_snpst
+    description: "Datamart model của bảng Fact Securities Company Safety Snapshot (PTTT, Nhóm 25 — Danh sách giám sát rủi ro dư nợ margin) — 1 dòng/CTCK/tháng báo cáo, mỗi snapshot (ds_snpst_dt = etl_date) chỉ chứa tháng báo cáo của ngày đó (ngày cuối tháng → chính tháng đó, ngày khác → tháng liền trước), VCSH/nợ phải trả theo quý cố định (T1-T3 → Q4 năm trước, T4-T6 → Q1, T7-T9 → Q2, T10-T12 → Q3), nguồn atm_sc_periodic_report + atm_sc_report_input_submission/value (gap O_PTTT_13 đã resolve 2026-10-02)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_securities_company_safety_snpst'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_futures_intraday_snpst
+    description: "Datamart model của bảng Fact Futures Intraday Snapshot (PTTT) — 1 row/mã HĐTL/ngày, nguồn atm_security_trading_snapshot (stock_tp_code='4', floor_code='03') + atm_securities_trade (market_id_code='DVX')"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_futures_intraday_snpst'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_futures_investor_flow_snpst
+    description: "Datamart model của bảng Fact Futures Investor Flow Snapshot (PTTT) — 1 row/mã HĐTL/ngày với cặp cột buy/sell tách riêng theo Nước ngoài và Tự doanh nằm ngang hàng (grain LLD ghi 'per nhóm NĐT' nhưng danh sách cột không có FK investor_group_dim — cần LLD xác nhận lại)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_futures_investor_flow_snpst'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_market_statistics_snpst
+    description: "Datamart model của bảng Fact Market Statistics Snapshot (PTTT) — 1 row/chỉ số/ngày. CẢNH BÁO: đã diễn giải lại công thức close_price/total_trading_val_matched so với LLD gốc (LLD viết nhầm theo fact per-mã-CK đơn lẻ, không khớp grain per-index) bằng cách JOIN atm_index_constituent_snapshot để aggregate đúng theo index_code — cần LLD xác nhận lại; đã bổ sung total_outstanding_share_quantity, net_profit_after_tax_amt, idx_eps, idx_pe (2026-09-25, chain LNST fr_value/pc_report_submission)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_market_statistics_snpst'
+      tags:
+        - layer_datamart
+        - domain_pttt
+
+  - name: dtm_fct_securities_company_balance_snpst
+    description: "Datamart model của bảng Fact Securities Company Balance Snapshot (PTTT) — nợ phải trả + VCSH CTCK niêm yết theo quý (IDS BCDKT), phục vụ K_PTTT_198/200. Grain 1 CTCK × quý; mỗi ngày ghi lại mọi quý đã công bố (O_PTTT_32)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_securities_company_balance_snpst'
+      tags:
+        - layer_datamart
+        - domain_pttt

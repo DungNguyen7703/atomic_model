@@ -1,0 +1,1421 @@
+version: 2
+
+models:
+  - name: atm_custodian_bank
+    description: "Atomic model của bảng Custodian Bank – Multi Source"
+    config:
+      materialized: scd4a
+      unique_key: ["custodian_bank_id"]
+      source_system: ["FIMS_BANKMONI", "FMS_BANK_MONI"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'custodian_bank'
+      tags:
+        - layer_atomic
+
+  - name: atm_custodian_bank_fims_bankmoni
+    description: "Atomic model của bảng Custodian Bank – FIMS.BANKMONI"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_custodian_bank_fms_bank_moni
+    description: "Atomic model của bảng Custodian Bank – FMS.BANK_MONI"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_discretionary_investment_investor
+    description: "Atomic model của bảng Discretionary Investment Investor"
+    config:
+      materialized: scd4a
+      unique_key: ["discretionary_investment_investor_id"]
+      source_system: ["FMS_INVES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'discretionary_investment_investor'
+      tags:
+        - layer_atomic
+
+  - name: atm_et_registration
+    description: "Atomic model của bảng External Tax Registration"
+    config:
+      materialized: scd4a
+      unique_key: ["et_registration_id"]
+      source_system: ["KNT_TAX_REGISTRATION_INFO"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'et_registration'
+      tags:
+        - layer_atomic
+
+  - name: atm_et_registration_representative
+    description: "Atomic model của bảng External Tax Registration Representative"
+    config:
+      materialized: scd4a
+      unique_key: ["et_registration_representative_id"]
+      source_system: ["KNT_TAX_REG_REPRESENTATIVE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'et_registration_representative'
+      tags:
+        - layer_atomic
+
+  - name: atm_fmc_insider
+    description: "Atomic model của bảng Fund Management Company Insider"
+    config:
+      materialized: scd4a
+      unique_key: ["fmc_insider_id"]
+      source_system: ["FMS_INSIDER"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'fmc_insider'
+      tags:
+        - layer_atomic
+
+  - name: atm_foreign_fm_ou_staff
+    description: "Atomic model của bảng Foreign Fund Management Organization Unit Staff"
+    config:
+      materialized: scd4a
+      unique_key: ["foreign_fm_ou_staff_id"]
+      source_system: ["FMS_STF_FG_BRCH"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'foreign_fm_ou_staff'
+      tags:
+        - layer_atomic
+
+  - name: atm_foreign_fm_ou
+    description: "Atomic model của bảng Foreign Fund Management Organization Unit"
+    config:
+      materialized: scd4a
+      unique_key: ["foreign_fm_ou_id"]
+      source_system: ["FMS_FOR_BRCH"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'foreign_fm_ou'
+      tags:
+        - layer_atomic
+
+  - name: atm_foreign_investor
+    description: "Atomic model của bảng Foreign Investor"
+    config:
+      materialized: scd4a
+      unique_key: ["foreign_investor_id", "old_id"]
+      source_system: ["FIMS_INVESTOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'foreign_investor'
+      tags:
+        - layer_atomic
+
+  - name: atm_foreign_ownership_information
+    description: "Atomic model của bảng Foreign Ownership Information Snapshot (VSDC)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt", "src_stm_code"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'foreign_ownership_information'
+      tags:
+        - layer_atomic
+
+  - name: atm_major_shareholder_ownership
+    description: "Atomic model của bảng Major Shareholder Ownership Snapshot (VSDC)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt", "src_stm_code"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'major_shareholder_ownership'
+      tags:
+        - layer_atomic
+
+  - name: atm_fund_distribution_agent
+    description: "Atomic model của bảng Fund Distribution Agent"
+    config:
+      materialized: scd4a
+      unique_key: ["fund_distribution_agent_id"]
+      source_system: ["FMS_AGENCIES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'fund_distribution_agent'
+      tags:
+        - layer_atomic
+
+  - name: atm_fund_management_company
+    description: "Atomic model của bảng Fund Management Company"
+    config:
+      materialized: scd4a
+      unique_key: ["fmc_id"]
+      source_system: ["FMS_SECURITIES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'fund_management_company'
+      tags:
+        - layer_atomic
+
+  - name: atm_fmc_employee_x_investment_fund_relationship
+    description: "Atomic model của bảng Fund Management Company Employee X Investment Fund Relationship"
+    config:
+      materialized: scd2
+      unique_key: ["fmc_employee_id", "investment_fund_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'fmc_employee_x_investment_fund_relationship'
+      tags:
+        - layer_atomic
+
+  - name: atm_fund_distribution_agent_x_investment_fund_relationship
+    description: "Atomic model của bảng Fund Distribution Agent X Investment Fund Relationship"
+    config:
+      materialized: scd2
+      unique_key: ["fund_distribution_agent_id", "investment_fund_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'fund_distribution_agent_x_investment_fund_relationship'
+      tags:
+        - layer_atomic
+
+  - name: atm_identity_and_access_management_user
+    description: "Atomic model của bảng Identity and Access Management User"
+    config:
+      materialized: scd4a
+      unique_key: ["identity_and_access_management_user_id"]
+      source_system: ["IAM_USERS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'identity_and_access_management_user'
+      tags:
+        - layer_atomic
+
+  - name: atm_individual
+    description: "Atomic model của bảng Individual"
+    config:
+      materialized: scd4a
+      unique_key: ["individual_id"]
+      source_system: ["NHNCK_IDENTITY_INFO_C06S"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'individual'
+      tags:
+        - layer_atomic
+
+  - name: atm_investment_fund
+    description: "Atomic model của bảng Investment Fund"
+    config:
+      materialized: scd4a
+      unique_key: ["investment_fund_id"]
+      source_system: ["FMS_FUNDS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'investment_fund'
+      tags:
+        - layer_atomic
+
+  - name: atm_investment_fund_representative_board_member
+    description: "Atomic model của bảng Investment Fund Representative Board Member"
+    config:
+      materialized: scd4a
+      unique_key: ["investment_fund_representative_board_member_id"]
+      source_system: ["FMS_REPRESENT"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'investment_fund_representative_board_member'
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification
+    description: "Atomic model của bảng Involved Party Alternative Identification – Multi Source"
+    config:
+      materialized: scd4a
+      unique_key: ["ip_id", "identification_tp_code", "src_stm_code"]
+      source_system: ["FIMS_INVESTOR", "FIMS_TRADINGREPRESENTATIVE", "FMS_FOR_BRCH", "FMS_FUNDS", "FMS_INSIDER", "FMS_INVES", "FMS_MB_FUND", "FMS_REPRESENT", "FMS_SECURITIES", "FMS_STF_FG_BRCH", "FMS_BANK_MONI", "FMS_DISTRIBUTOR_AGENT", "FMS_TL_PROFILES", "FMS_AGENCIES", "IAM_USERS", "KNT_TAX_REG_REPRESENTATIVE", "NHNCK_IDENTITY_INFO_C06S", "NHNCK_PROFESSIONALS", "SCMS_SC_FIRM_BRANCH", "SCMS_SC_FIRM_INFO", "SCMS_SC_FIRM_INSIDER_RELATION", "SCMS_SC_FIRM_RELATED_PERSON", "SCMS_SC_FIRM_SENIOR_PERSONNEL", "SCMS_SC_FIRM_SHAREHOLDER", "SCMS_SC_FIRM_SHAREHOLDER_RELATION", "SCMS_SC_FIRM_SHAREHOLDER_REPRESENTATIVE", "SCMS_BANK", "SCMS_SC_FIRM_FOREIGN_BRANCH", "SCMS_SC_FIRM_FOREIGN_BRANCH_PERSONNEL", "SCMS_SC_FIRM_FOREIGN_REP_OFFICE", "SCMS_SC_FIRM_FOREIGN_REP_OFFICE_PERSONNEL", "SCMS_SC_FIRM_MAJOR_SHAREHOLDER_RELATION", "SCMS_SC_FIRM_REP_OFFICE", "SCMS_SC_FIRM_TRANSACTION_OFFICE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'ip_alternative_identification'
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_fims_bankmoni
+    description: "Atomic model của bảng Involved Party Alternative Identification – FIMS.BANKMONI"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_fims_securitiescompany
+    description: "Atomic model của bảng Involved Party Alternative Identification – FIMS.SECURITIESCOMPANY"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_ids_company_profiles
+    description: "Atomic model của bảng Involved Party Alternative Identification – IDS.COMPANY_PROFILES"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_ids_company_relationship
+    description: "Atomic model của bảng Involved Party Alternative Identification – IDS.COMPANY_RELATIONSHIP"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+        
+  - name: atm_ip_alternative_identification_ids_identity
+    description: "[MOI 2026-09-25] Atomic model của bảng Involved Party Alternative Identification – IDS.IDENTITY"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_fims_investor
+    description: "Atomic model của bảng Involved Party Alternative Identification – FIMS.INVESTOR"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_fims_tradingrepresentative
+    description: "Atomic model của bảng Involved Party Alternative Identification – FIMS.TRADINGREPRESENTATIVE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_fms_for_brch
+    description: "Atomic model của bảng Involved Party Alternative Identification – FMS.FOR_BRCH"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_fms_funds
+    description: "Atomic model của bảng Involved Party Alternative Identification – FMS.FUNDS"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_fms_insider
+    description: "Atomic model của bảng Involved Party Alternative Identification – FMS.INSIDER"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_fms_inves
+    description: "Atomic model của bảng Involved Party Alternative Identification – FMS.INVES"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_fms_mb_fund
+    description: "Atomic model của bảng Involved Party Alternative Identification – FMS.MB_FUND"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_fms_represent
+    description: "Atomic model của bảng Involved Party Alternative Identification – FMS.REPRESENT"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_fms_securities
+    description: "Atomic model của bảng Involved Party Alternative Identification – FMS.SECURITIES"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_fms_stf_fg_brch
+    description: "Atomic model của bảng Involved Party Alternative Identification – FMS.STF_FG_BRCH"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_fms_bank_moni
+    description: "Atomic model của bảng Involved Party Alternative Identification – FMS.BANK_MONI"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_fms_agencies
+    description: "Atomic model của bảng Involved Party Alternative Identification – FMS.AGENCIES"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_fms_tl_profiles
+    description: "Atomic model của bảng Involved Party Alternative Identification – FMS.TL_PROFILES"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_fms_distributor_agent
+    description: "Atomic model của bảng Involved Party Alternative Identification – FMS.DISTRIBUTOR_AGENT"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_iam_users
+    description: "Atomic model của bảng Involved Party Alternative Identification – IAM.USERS"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_knt_tax_reg_representative
+    description: "Atomic model của bảng Involved Party Alternative Identification – KNT.TAX_REG_REPRESENTATIVE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_nhnck_identity_info_c06s
+    description: "Atomic model của bảng Involved Party Alternative Identification – NHNCK.IDENTITY_INFO_C06S"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_nhnck_professionals
+    description: "Atomic model của bảng Involved Party Alternative Identification – NHNCK.PROFESSIONALS"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_scms_sc_firm_branch
+    description: "Atomic model của bảng Involved Party Alternative Identification – SCMS.SC_FIRM_BRANCH"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_scms_sc_firm_info
+    description: "Atomic model của bảng Involved Party Alternative Identification – SCMS.SC_FIRM_INFO"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_scms_sc_firm_insider_relation
+    description: "Atomic model của bảng Involved Party Alternative Identification – SCMS.SC_FIRM_INSIDER_RELATION"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_scms_sc_firm_related_person
+    description: "Atomic model của bảng Involved Party Alternative Identification – SCMS.SC_FIRM_RELATED_PERSON"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_scms_sc_firm_senior_personnel
+    description: "Atomic model của bảng Involved Party Alternative Identification – SCMS.SC_FIRM_SENIOR_PERSONNEL"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_scms_sc_firm_shareholder
+    description: "Atomic model của bảng Involved Party Alternative Identification – SCMS.SC_FIRM_SHAREHOLDER"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_scms_sc_firm_shareholder_relation
+    description: "Atomic model của bảng Involved Party Alternative Identification – SCMS.SC_FIRM_SHAREHOLDER_RELATION"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_scms_sc_firm_shareholder_representative
+    description: "Atomic model của bảng Involved Party Alternative Identification – SCMS.SC_FIRM_SHAREHOLDER_REPRESENTATIVE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address
+    description: "Atomic model của bảng Involved Party Electronic Address – Multi Source"
+    config:
+      materialized: scd4a
+      unique_key: ["ip_id", "electronic_adr_tp_code", "src_stm_code"]
+      source_system: ["FIMS_INVESTOR", "FIMS_TRADINGREPRESENTATIVE", "FMS_AGENCIES", "FMS_BRANCHS", "FMS_FOR_BRCH", "FMS_INSIDER", "FMS_REPRESENT", "FMS_SECURITIES", "FMS_STF_FG_BRCH", "FMS_BANK_MONI", "FMS_DISTRIBUTOR_AGENT", "FMS_TL_PROFILES", "IAM_USERS", "KNT_TAX_REGISTRATION_INFO", "KNT_TAX_REG_REPRESENTATIVE", "NHNCK_ORGANIZATIONS", "NHNCK_PROFESSIONALS", "NHNCK_UNITS", "SCMS_SC_FIRM_BRANCH", "SCMS_SC_FIRM_INFO", "SCMS_SC_FIRM_INSIDER_RELATION", "SCMS_SC_FIRM_RELATED_PERSON", "SCMS_SC_FIRM_REP_OFFICE", "SCMS_SC_FIRM_SENIOR_PERSONNEL", "SCMS_SC_FIRM_SHAREHOLDER", "SCMS_SC_FIRM_TRANSACTION_OFFICE", "SCMS_BANK", "SCMS_SC_FIRM_FOREIGN_BRANCH", "SCMS_SC_FIRM_FOREIGN_BRANCH_PERSONNEL", "SCMS_SC_FIRM_FOREIGN_REP_OFFICE", "SCMS_SC_FIRM_FOREIGN_REP_OFFICE_PERSONNEL", "SCMS_SC_FIRM_MAJOR_SHAREHOLDER_RELATION"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'ip_electronic_address'
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_fims_investor
+    description: "Atomic model của bảng Involved Party Electronic Address – FIMS.INVESTOR"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_fms_agencies
+    description: "Atomic model của bảng Involved Party Electronic Address – FMS.AGENCIES"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_fms_for_brch
+    description: "Atomic model của bảng Involved Party Electronic Address – FMS.FOR_BRCH"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_fms_insider
+    description: "Atomic model của bảng Involved Party Electronic Address – FMS.INSIDER"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_fms_represent
+    description: "Atomic model của bảng Involved Party Electronic Address – FMS.REPRESENT"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_fms_securities
+    description: "Atomic model của bảng Involved Party Electronic Address – FMS.SECURITIES"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_fms_stf_fg_brch
+    description: "Atomic model của bảng Involved Party Electronic Address – FMS.STF_FG_BRCH"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_fms_bank_moni
+    description: "Atomic model của bảng Involved Party Electronic Address – FMS.BANK_MONI"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_fms_tl_profiles
+    description: "Atomic model của bảng Involved Party Electronic Address – FMS.TL_PROFILES"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_fms_distributor_agent
+    description: "Atomic model của bảng Involved Party Electronic Address – FMS.DISTRIBUTOR_AGENT"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_iam_users
+    description: "Atomic model của bảng Involved Party Electronic Address – IAM.USERS"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_knt_tax_reg_representative
+    description: "Atomic model của bảng Involved Party Electronic Address – KNT.TAX_REG_REPRESENTATIVE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_knt_tax_registration_info
+    description: "Atomic model của bảng Involved Party Electronic Address – KNT.TAX_REGISTRATION_INFO"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_nhnck_organizations
+    description: "Atomic model của bảng Involved Party Electronic Address – NHNCK.ORGANIZATIONS"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_nhnck_professionals
+    description: "Atomic model của bảng Involved Party Electronic Address – NHNCK.PROFESSIONALS"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_nhnck_units
+    description: "Atomic model của bảng Involved Party Electronic Address – NHNCK.UNITS"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_scms_sc_firm_branch
+    description: "Atomic model của bảng Involved Party Electronic Address – SCMS.SC_FIRM_BRANCH"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_scms_sc_firm_info
+    description: "Atomic model của bảng Involved Party Electronic Address – SCMS.SC_FIRM_INFO"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_scms_sc_firm_insider_relation
+    description: "Atomic model của bảng Involved Party Electronic Address – SCMS.SC_FIRM_INSIDER_RELATION"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_scms_sc_firm_related_person
+    description: "Atomic model của bảng Involved Party Electronic Address – SCMS.SC_FIRM_RELATED_PERSON"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_scms_sc_firm_rep_office
+    description: "Atomic model của bảng Involved Party Electronic Address – SCMS.SC_FIRM_REP_OFFICE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_scms_sc_firm_senior_personnel
+    description: "Atomic model của bảng Involved Party Electronic Address – SCMS.SC_FIRM_SENIOR_PERSONNEL"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_scms_sc_firm_shareholder
+    description: "Atomic model của bảng Involved Party Electronic Address – SCMS.SC_FIRM_SHAREHOLDER"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_scms_sc_firm_transaction_office
+    description: "Atomic model của bảng Involved Party Electronic Address – SCMS.SC_FIRM_TRANSACTION_OFFICE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address
+    description: "Atomic model của bảng Involved Party Postal Address – Multi Source"
+    config:
+      materialized: scd4a
+      unique_key: ["ip_id", "adr_tp_code", "src_stm_code"]
+      source_system: ["FIMS_INVESTOR", "FIMS_TRADINGREPRESENTATIVE", "FMS_AGENCIES", "FMS_BRANCHS", "FMS_FOR_BRCH", "FMS_INSIDER", "FMS_INVES", "FMS_MB_FUND", "FMS_REPRESENT", "FMS_SECURITIES", "FMS_STF_FG_BRCH", "FMS_BANK_MONI", "FMS_DISTRIBUTOR_AGENT", "FMS_TL_PROFILES", "IAM_USERS", "KNT_TAX_REGISTRATION_INFO", "NHNCK_IDENTITY_INFO_C06S", "NHNCK_ORGANIZATIONS", "NHNCK_PROFESSIONALS", "NHNCK_UNITS", "SCMS_SC_FIRM_BRANCH", "SCMS_SC_FIRM_INFO", "SCMS_SC_FIRM_INSIDER_RELATION", "SCMS_SC_FIRM_RELATED_PERSON", "SCMS_SC_FIRM_REP_OFFICE", "SCMS_SC_FIRM_SENIOR_PERSONNEL", "SCMS_SC_FIRM_SHAREHOLDER", "SCMS_SC_FIRM_TRANSACTION_OFFICE", "SCMS_BANK", "SCMS_SC_FIRM_FOREIGN_BRANCH", "SCMS_SC_FIRM_FOREIGN_BRANCH_PERSONNEL", "SCMS_SC_FIRM_FOREIGN_REP_OFFICE", "SCMS_SC_FIRM_FOREIGN_REP_OFFICE_PERSONNEL", "SCMS_SC_FIRM_MAJOR_SHAREHOLDER_RELATION"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'ip_postal_address'
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_fims_investor
+    description: "Atomic model của bảng Involved Party Postal Address – FIMS.INVESTOR"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_fms_agencies
+    description: "Atomic model của bảng Involved Party Postal Address – FMS.AGENCIES"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_fms_for_brch
+    description: "Atomic model của bảng Involved Party Postal Address – FMS.FOR_BRCH"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_fms_insider
+    description: "Atomic model của bảng Involved Party Postal Address – FMS.INSIDER"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_fms_inves
+    description: "Atomic model của bảng Involved Party Postal Address – FMS.INVES"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_fms_represent
+    description: "Atomic model của bảng Involved Party Postal Address – FMS.REPRESENT"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_fms_securities
+    description: "Atomic model của bảng Involved Party Postal Address – FMS.SECURITIES"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_fms_stf_fg_brch
+    description: "Atomic model của bảng Involved Party Postal Address – FMS.STF_FG_BRCH"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_fms_bank_moni
+    description: "Atomic model của bảng Involved Party Postal Address – FMS.BANK_MONI"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_fms_tl_profiles
+    description: "Atomic model của bảng Involved Party Postal Address – FMS.TL_PROFILES"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_fms_distributor_agent
+    description: "Atomic model của bảng Involved Party Postal Address – FMS.DISTRIBUTOR_AGENT"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_iam_users
+    description: "Atomic model của bảng Involved Party Postal Address – IAM.USERS"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_ids_company_profiles
+    description: "Atomic model của bảng Involved Party Postal Address – IDS.COMPANY_PROFILES"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_knt_tax_registration_info
+    description: "Atomic model của bảng Involved Party Postal Address – KNT.TAX_REGISTRATION_INFO"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_nhnck_organizations
+    description: "Atomic model của bảng Involved Party Postal Address – NHNCK.ORGANIZATIONS"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_nhnck_professionals
+    description: "Atomic model của bảng Involved Party Postal Address – NHNCK.PROFESSIONALS"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_nhnck_units
+    description: "Atomic model của bảng Involved Party Postal Address – NHNCK.UNITS"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_scms_sc_firm_branch
+    description: "Atomic model của bảng Involved Party Postal Address – SCMS.SC_FIRM_BRANCH"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_scms_sc_firm_info
+    description: "Atomic model của bảng Involved Party Postal Address – SCMS.SC_FIRM_INFO"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_scms_sc_firm_insider_relation
+    description: "Atomic model của bảng Involved Party Postal Address – SCMS.SC_FIRM_INSIDER_RELATION"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_scms_sc_firm_related_person
+    description: "Atomic model của bảng Involved Party Postal Address – SCMS.SC_FIRM_RELATED_PERSON"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_scms_sc_firm_rep_office
+    description: "Atomic model của bảng Involved Party Postal Address – SCMS.SC_FIRM_REP_OFFICE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_scms_sc_firm_senior_personnel
+    description: "Atomic model của bảng Involved Party Postal Address – SCMS.SC_FIRM_SENIOR_PERSONNEL"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_scms_sc_firm_shareholder
+    description: "Atomic model của bảng Involved Party Postal Address – SCMS.SC_FIRM_SHAREHOLDER"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_scms_sc_firm_transaction_office
+    description: "Atomic model của bảng Involved Party Postal Address – SCMS.SC_FIRM_TRANSACTION_OFFICE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_legal_entity
+    description: "Atomic model của bảng Legal Entity"
+    config:
+      materialized: scd4a
+      unique_key: ["legal_entity_id"]
+      source_system: ["IDS_LEGAL_ENTITIES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'legal_entity'
+      tags:
+        - layer_atomic
+
+  - name: atm_legal_entity_position
+    description: "Atomic model của bảng Legal Entity Position"
+    config:
+      materialized: scd4a
+      unique_key: ["legal_entity_position_id"]
+      source_system: ["IDS_POSITIONS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'legal_entity_position'
+      tags:
+        - layer_atomic
+
+  - name: atm_public_company
+    description: "Atomic model của bảng Public Company"
+    config:
+      materialized: scd4a
+      unique_key: ["pc_id"]
+      source_system: ["IDS_COMPANY_PROFILES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'public_company'
+      tags:
+        - layer_atomic
+
+  - name: atm_ra_organization_unit
+    description: "Atomic model của bảng Regulatory Authority Organization Unit – Multi Source"
+    config:
+      materialized: scd4a
+      unique_key: ["ra_ou_id"]
+      source_system: ["NHNCK_DEPARTMENTS", "NHNCK_UNITS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'ra_organization_unit'
+      tags:
+        - layer_atomic
+
+  - name: atm_ra_organization_unit_nhnck_departments
+    description: "Atomic model của bảng Regulatory Authority Organization Unit – NHNCK.DEPARTMENTS"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ra_organization_unit_nhnck_units
+    description: "Atomic model của bảng Regulatory Authority Organization Unit – NHNCK.UNITS"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_insider_related_person
+    description: "Atomic model của bảng Securities Company Insider Related Person"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_insider_related_person_id"]
+      source_system: ["SCMS_SC_FIRM_INSIDER_RELATION"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_insider_related_person'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_organization_unit
+    description: "Atomic model của bảng Securities Company Organization Unit – Multi Source"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_ou_id"]
+      source_system: ["SCMS_SC_FIRM_BRANCH", "SCMS_SC_FIRM_REP_OFFICE", "SCMS_SC_FIRM_TRANSACTION_OFFICE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_organization_unit'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_organization_unit_scms_sc_firm_branch
+    description: "Atomic model của bảng Securities Company Organization Unit – SCMS.SC_FIRM_BRANCH"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_organization_unit_scms_sc_firm_rep_office
+    description: "Atomic model của bảng Securities Company Organization Unit – SCMS.SC_FIRM_REP_OFFICE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_organization_unit_scms_sc_firm_transaction_office
+    description: "Atomic model của bảng Securities Company Organization Unit – SCMS.SC_FIRM_TRANSACTION_OFFICE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_related_person
+    description: "Atomic model của bảng Securities Company Related Person"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_related_person_id"]
+      source_system: ["SCMS_SC_FIRM_RELATED_PERSON"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_related_person'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_senior_personnel
+    description: "Atomic model của bảng Securities Company Senior Personnel"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_senior_personnel_id"]
+      source_system: ["SCMS_SC_FIRM_SENIOR_PERSONNEL"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_senior_personnel'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_shareholder
+    description: "Atomic model của bảng Securities Company Shareholder"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_shareholder_id"]
+      source_system: ["SCMS_SC_FIRM_SHAREHOLDER"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_shareholder'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_shareholder_relation
+    description: "Atomic model của bảng Securities Company Shareholder Relation"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_shareholder_relation_id"]
+      source_system: ["SCMS_SC_FIRM_SHAREHOLDER_RELATION"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_shareholder_relation'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_shareholder_representative
+    description: "Atomic model của bảng Securities Company Shareholder Representative"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_shareholder_representative_id"]
+      source_system: ["SCMS_SC_FIRM_SHAREHOLDER_REPRESENTATIVE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_shareholder_representative'
+      tags:
+        - layer_atomic
+
+  - name: atm_securities_company
+    description: "Atomic model của bảng Securities Company – Multi Source"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_id"]
+      source_system: ["FIMS_SECURITIESCOMPANY", "SCMS_SC_FIRM_INFO"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'securities_company'
+      tags:
+        - layer_atomic
+
+  - name: atm_securities_company_fims_securitiescompany
+    description: "Atomic model của bảng Securities Company – FIMS.SECURITIESCOMPANY"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_securities_company_scms_sc_firm_info
+    description: "Atomic model của bảng Securities Company – SCMS.SC_FIRM_INFO"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_securities_organization_reference
+    description: "Atomic model của bảng Securities Organization Reference"
+    config:
+      materialized: scd4a
+      unique_key: ["securities_organization_reference_id"]
+      source_system: ["NHNCK_ORGANIZATIONS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'securities_organization_reference'
+      tags:
+        - layer_atomic
+
+  - name: atm_securities_practitioner
+    description: "Atomic model của bảng Securities Practitioner"
+    config:
+      materialized: scd4a
+      unique_key: ["sp_id"]
+      source_system: ["NHNCK_PROFESSIONALS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'securities_practitioner'
+      tags:
+        - layer_atomic
+
+  - name: atm_sp_employment_status
+    description: "Atomic model của bảng Securities Practitioner Employment Status"
+    config:
+      materialized: scd4a
+      unique_key: ["sp_employment_status_id"]
+      source_system: ["NHNCK_PROFESSIONAL_WORK_HISTORIES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sp_employment_status'
+      tags:
+        - layer_atomic
+
+  - name: atm_sp_reason_change_history
+    description: "Atomic model của bảng Securities Practitioner Reason Change History"
+    config:
+      materialized: scd4a
+      unique_key: ["sp_reason_change_history_id"]
+      source_system: ["NHNCK_PROFESSIONAL_HISTORIES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sp_reason_change_history'
+      tags:
+        - layer_atomic
+
+  - name: atm_sp_related_party
+    description: "Atomic model của bảng Securities Practitioner Related Party"
+    config:
+      materialized: scd4a
+      unique_key: ["sp_related_party_id"]
+      source_system: ["NHNCK_PROFESSIONAL_RELATIONSHIPS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sp_related_party'
+      tags:
+        - layer_atomic
+
+  - name: atm_ra_organization_unit_x_sp_license_certificate_type_relationship
+    description: "Atomic model của bảng Regulatory Authority Organization Unit X Securities Practitioner License Certificate Type Relationship"
+    config:
+      materialized: scd4a
+      unique_key: ["ra_ou_id", "sp_license_certificate_tp_id"]
+      source_system: ["NHNCK_CERTIFICATE_DEPARTMENTS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'ra_organization_unit_x_sp_license_certificate_type_relationship'
+      tags:
+        - layer_atomic
+        
+  - name: atm_pc_entity_role
+    description: "Atomic model của bảng Public Company Entity Role (IDS.COMPANY_ENTITY_ROLE) - vai trò pháp nhân đối với công ty đại chúng (NNB = Người nội bộ)"
+    config:
+      materialized: scd4a
+      unique_key: ["pc_entity_role_id"]
+      source_system: ["IDS_COMPANY_ENTITY_ROLE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'pc_entity_role'
+      tags:
+        - layer_atomic
+
+  - name: atm_fmc_employee
+    description: "Atomic model của bảng Fund Management Company Employee"
+    config:
+      materialized: scd4a
+      unique_key: ["fmc_employee_id"]
+      source_system: ["FMS_TL_PROFILES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'fmc_employee'
+      tags:
+        - layer_atomic
+
+  - name: atm_securities_distribution_agent
+    description: "Atomic model của bảng Securities Distribution Agent"
+    config:
+      materialized: scd4a
+      unique_key: ["securities_distribution_agent_id"]
+      source_system: ["FMS_DISTRIBUTOR_AGENT"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'securities_distribution_agent'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_x_cl_sc_firm_service_relationship
+    description: "Atomic model của bảng Securities Company X Classification Securities Company Firm Service Relationship"
+    config:
+      materialized: scd2
+      unique_key: ["sc_id", "cl_sc_firm_service_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_x_cl_sc_firm_service_relationship'
+      tags:
+        - layer_atomic
+
+  - name: atm_fund_distribution_agent_x_investment_fund_x_cl_fms_agency_type_relationship
+    description: "Atomic model của bảng Fund Distribution Agent X Investment Fund X Classification FMS Agency Type Relationship"
+    config:
+      materialized: scd2
+      unique_key: ["investment_fund_id", "fund_distribution_agent_id", "cl_fms_agency_tp_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'fund_distribution_agent_x_investment_fund_x_cl_fms_agency_type_relationship'
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_fims_bankmoni
+    description: "Atomic model của bảng Involved Party Electronic Address – FIMS.BANKMONI"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_fims_bankmoni
+    description: "Atomic model của bảng Involved Party Postal Address – FIMS.BANKMONI"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_fims_securitiescompany
+    description: "Atomic model của bảng Involved Party Electronic Address – FIMS.SECURITIESCOMPANY"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_fims_securitiescompany
+    description: "Atomic model của bảng Involved Party Postal Address – FIMS.SECURITIESCOMPANY"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_bank
+    description: "Atomic model của bảng Securities Company Bank"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_bank_id"]
+      source_system: ["SCMS_BANK"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_bank'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_foreign_organization_unit
+    description: "Atomic model của bảng Securities Company Foreign Organization Unit – Multi Source"
+    config:
+      materialized: scd2
+      unique_key: ["sc_foreign_ou_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_foreign_organization_unit'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_foreign_organization_unit_scms_sc_firm_foreign_branch
+    description: "Atomic model của bảng Securities Company Foreign Organization Unit – SCMS.SC_FIRM_FOREIGN_BRANCH"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_foreign_organization_unit_scms_sc_firm_foreign_rep_office
+    description: "Atomic model của bảng Securities Company Foreign Organization Unit – SCMS.SC_FIRM_FOREIGN_REP_OFFICE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_foreign_organization_unit_x_cl_sc_firm_service_relationship
+    description: "Atomic model của bảng Securities Company Foreign Organization Unit X Classification Securities Company Firm Service Relationship"
+    config:
+      materialized: scd2
+      unique_key: ["sc_foreign_ou_id", "cl_sc_firm_service_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_foreign_organization_unit_x_cl_sc_firm_service_relationship'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_foreign_branch_personnel
+    description: "Atomic model của bảng Securities Company Foreign Branch Personnel"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_foreign_branch_personnel_id"]
+      source_system: ["SCMS_SC_FIRM_FOREIGN_BRANCH_PERSONNEL"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_foreign_branch_personnel'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_foreign_representative_office_personnel
+    description: "Atomic model của bảng Securities Company Foreign Representative Office Personnel"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_foreign_representative_office_personnel_id"]
+      source_system: ["SCMS_SC_FIRM_FOREIGN_REP_OFFICE_PERSONNEL"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_foreign_representative_office_personnel'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_major_shareholder_relation
+    description: "Atomic model của bảng Securities Company Major Shareholder Relation"
+    config:
+      materialized: scd2
+      unique_key: ["sc_major_shareholder_relation_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_major_shareholder_relation'
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_scms_bank
+    description: "Atomic model của bảng Involved Party Alternative Identification – SCMS.BANK"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_scms_sc_firm_foreign_branch
+    description: "Atomic model của bảng Involved Party Alternative Identification – SCMS.SC_FIRM_FOREIGN_BRANCH"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_scms_sc_firm_foreign_branch_personnel
+    description: "Atomic model của bảng Involved Party Alternative Identification – SCMS.SC_FIRM_FOREIGN_BRANCH_PERSONNEL"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_scms_sc_firm_foreign_rep_office
+    description: "Atomic model của bảng Involved Party Alternative Identification – SCMS.SC_FIRM_FOREIGN_REP_OFFICE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_scms_sc_firm_foreign_rep_office_personnel
+    description: "Atomic model của bảng Involved Party Alternative Identification – SCMS.SC_FIRM_FOREIGN_REP_OFFICE_PERSONNEL"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_scms_sc_firm_major_shareholder_relation
+    description: "Atomic model của bảng Involved Party Alternative Identification – SCMS.SC_FIRM_MAJOR_SHAREHOLDER_RELATION"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_scms_sc_firm_rep_office
+    description: "Atomic model của bảng Involved Party Alternative Identification – SCMS.SC_FIRM_REP_OFFICE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_alternative_identification_scms_sc_firm_transaction_office
+    description: "Atomic model của bảng Involved Party Alternative Identification – SCMS.SC_FIRM_TRANSACTION_OFFICE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_scms_bank
+    description: "Atomic model của bảng Involved Party Electronic Address – SCMS.BANK"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_scms_sc_firm_foreign_branch
+    description: "Atomic model của bảng Involved Party Electronic Address – SCMS.SC_FIRM_FOREIGN_BRANCH"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_scms_sc_firm_foreign_branch_personnel
+    description: "Atomic model của bảng Involved Party Electronic Address – SCMS.SC_FIRM_FOREIGN_BRANCH_PERSONNEL"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_scms_sc_firm_foreign_rep_office
+    description: "Atomic model của bảng Involved Party Electronic Address – SCMS.SC_FIRM_FOREIGN_REP_OFFICE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_scms_sc_firm_foreign_rep_office_personnel
+    description: "Atomic model của bảng Involved Party Electronic Address – SCMS.SC_FIRM_FOREIGN_REP_OFFICE_PERSONNEL"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_electronic_address_scms_sc_firm_major_shareholder_relation
+    description: "Atomic model của bảng Involved Party Electronic Address – SCMS.SC_FIRM_MAJOR_SHAREHOLDER_RELATION"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_scms_bank
+    description: "Atomic model của bảng Involved Party Postal Address – SCMS.BANK"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_scms_sc_firm_foreign_branch
+    description: "Atomic model của bảng Involved Party Postal Address – SCMS.SC_FIRM_FOREIGN_BRANCH"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_scms_sc_firm_foreign_branch_personnel
+    description: "Atomic model của bảng Involved Party Postal Address – SCMS.SC_FIRM_FOREIGN_BRANCH_PERSONNEL"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_scms_sc_firm_foreign_rep_office
+    description: "Atomic model của bảng Involved Party Postal Address – SCMS.SC_FIRM_FOREIGN_REP_OFFICE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_scms_sc_firm_foreign_rep_office_personnel
+    description: "Atomic model của bảng Involved Party Postal Address – SCMS.SC_FIRM_FOREIGN_REP_OFFICE_PERSONNEL"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_ip_postal_address_scms_sc_firm_major_shareholder_relation
+    description: "Atomic model của bảng Involved Party Postal Address – SCMS.SC_FIRM_MAJOR_SHAREHOLDER_RELATION"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic

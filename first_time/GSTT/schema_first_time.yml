@@ -1,0 +1,1095 @@
+# ==========================================================================================
+# FIRST-TIME: bo model khoi tao du lieu lich su (MDDS, so lenh/khop lenh HNX-HOSE, VSDC, mart + flat GSTT).
+# - Ten model = 'ft_' + ten model daily; ghi vao DUNG bang vat ly cua model daily qua config ft_target
+#   (materialization ft_incremental_rebase / ft_scd4a trong macros/first_time).
+# - Tag first_time + domain_first_time: orchestrator chi chay khi chon dich danh (tag first_time hoac ten).
+# - Sinh tu dong 2026-10-09 (tuan.nguyenvanb). Cau hinh lay tu yml daily tuong ung.
+# ==========================================================================================
+version: 2
+models:
+- name: ft_atm_foreign_ownership_info
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_foreign_ownership_info - ghi vao bang that foreign_ownership_info.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: foreign_ownership_info
+    incremental_strategy: append
+    partition_by:
+    - ds_snpst_dt
+    - src_stm_code
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("atm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_atm_index_constituent_snapshot
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_index_constituent_snapshot - ghi vao bang that index_constituent_snapshot.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: index_constituent_snapshot
+    incremental_strategy: append
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("atm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_atm_listed_share_information
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_listed_share_information - ghi vao bang that listed_share_information.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: listed_share_information
+    incremental_strategy: append
+    partition_by:
+    - ds_snpst_dt
+    - src_stm_code
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("atm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_atm_listed_share_information_hnx_listed_securities_list
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_listed_share_information_hnx_listed_securities_list - ghi vao bang that (ephemeral).'
+  config:
+    materialized: ephemeral
+    tags:
+    - first_time
+    - domain_first_time
+    incremental_strategy: append
+- name: ft_atm_listed_share_information_hose_listed_securities_list
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_listed_share_information_hose_listed_securities_list - ghi vao bang that (ephemeral).'
+  config:
+    materialized: ephemeral
+    tags:
+    - first_time
+    - domain_first_time
+    incremental_strategy: append
+- name: ft_atm_listed_share_information_vsdc_outstanding_shares
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_listed_share_information_vsdc_outstanding_shares - ghi vao bang that (ephemeral).'
+  config:
+    materialized: ephemeral
+    tags:
+    - first_time
+    - domain_first_time
+    incremental_strategy: append
+- name: ft_atm_major_shareholder_ownership
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_major_shareholder_ownership - ghi vao bang that major_shareholder_ownership.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: major_shareholder_ownership
+    incremental_strategy: append
+    partition_by:
+    - ds_snpst_dt
+    - src_stm_code
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("atm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_atm_market_index_snapshot
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_market_index_snapshot - ghi vao bang that market_index_snapshot.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: market_index_snapshot
+    incremental_strategy: append
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("atm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_atm_market_price_snapshot
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_market_price_snapshot - ghi vao bang that market_price_snapshot.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: market_price_snapshot
+    incremental_strategy: append
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("atm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_atm_sc_report_input_value
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_sc_report_input_value - ghi vao bang that sc_report_input_value.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: sc_report_input_value
+    incremental_strategy: append
+    ft_skip_count_check: true
+    ft_spark_conf:
+      spark.sql.iceberg.distribution-mode: hash
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("atm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_atm_securities_order
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_securities_order - ghi vao bang that securities_order.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: securities_order
+    incremental_strategy: append
+    ft_spark_conf:
+      spark.sql.iceberg.distribution-mode: none
+    partition_by:
+    - trade_dt
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("atm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_atm_securities_order_ordertrade_order_book_hnx
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_securities_order_ordertrade_order_book_hnx - ghi vao bang that (ephemeral).'
+  config:
+    materialized: ephemeral
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_atm_securities_order_ordertrade_order_book_hose
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_securities_order_ordertrade_order_book_hose - ghi vao bang that (ephemeral).'
+  config:
+    materialized: ephemeral
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_atm_securities_trade
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_securities_trade - ghi vao bang that securities_trade.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: securities_trade
+    incremental_strategy: append
+    ft_spark_conf:
+      spark.sql.iceberg.distribution-mode: none
+    partition_by:
+    - trade_dt
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("atm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_atm_securities_trade_ordertrade_trade_book_hnx
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_securities_trade_ordertrade_trade_book_hnx - ghi vao bang that (ephemeral).'
+  config:
+    materialized: ephemeral
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_atm_securities_trade_ordertrade_trade_book_hose
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_securities_trade_ordertrade_trade_book_hose - ghi vao bang that (ephemeral).'
+  config:
+    materialized: ephemeral
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_atm_security_trading_snapshot
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_security_trading_snapshot - ghi vao bang that security_trading_snapshot.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: security_trading_snapshot
+    incremental_strategy: append
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("atm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_fct_foreign_trading_min_snpst
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_fct_foreign_trading_min_snpst - ghi vao bang that fct_foreign_trading_min_snpst.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: fct_foreign_trading_min_snpst
+    incremental_strategy: append
+    partition_by:
+    - snpst_dt_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_fct_hnx_securities_order
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_fct_hnx_securities_order - ghi vao bang that fct_hnx_securities_order.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: fct_hnx_securities_order
+    incremental_strategy: append
+    partition_by:
+    - trade_dt_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_fct_hnx_securities_trade
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_fct_hnx_securities_trade - ghi vao bang that fct_hnx_securities_trade.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: fct_hnx_securities_trade
+    incremental_strategy: append
+    partition_by:
+    - trade_dt_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_fct_hose_securities_order
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_fct_hose_securities_order - ghi vao bang that fct_hose_securities_order.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: fct_hose_securities_order
+    incremental_strategy: append
+    partition_by:
+    - trade_dt_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_fct_hose_securities_trade
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_fct_hose_securities_trade - ghi vao bang that fct_hose_securities_trade.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: fct_hose_securities_trade
+    incremental_strategy: append
+    partition_by:
+    - trade_dt_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_fct_index_constituent_snpst
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_fct_index_constituent_snpst - ghi vao bang that fct_index_constituent_snpst.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: fct_index_constituent_snpst
+    incremental_strategy: append
+    partition_by:
+    - snpst_dt_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_fct_instrument_price_daily
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_fct_instrument_price_daily - ghi vao bang that fct_instrument_price_daily.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: fct_instrument_price_daily
+    incremental_strategy: append
+    partition_by:
+    - trade_dt_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_fct_instrument_price_intraday
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_fct_instrument_price_intraday - ghi vao bang that fct_instrument_price_intraday.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: fct_instrument_price_intraday
+    incremental_strategy: append
+    partition_by:
+    - trade_dt_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_fct_investor_category_index_trading_snpst
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_fct_investor_category_index_trading_snpst - ghi vao bang that fct_investor_category_index_trading_snpst.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: fct_investor_category_index_trading_snpst
+    incremental_strategy: append
+    partition_by:
+    - snpst_dt_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_fct_investor_category_trading_snpst
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_fct_investor_category_trading_snpst - ghi vao bang that fct_investor_category_trading_snpst.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: fct_investor_category_trading_snpst
+    ft_skip_count_check: true
+    incremental_strategy: append
+    partition_by:
+    - snpst_dt_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_fct_major_shareholder_ownership_snpst
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_fct_major_shareholder_ownership_snpst - ghi vao bang that fct_major_shareholder_ownership_snpst.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: fct_major_shareholder_ownership_snpst
+    incremental_strategy: append
+    ft_spark_conf:
+      spark.sql.iceberg.distribution-mode: hash
+    partition_by:
+    - snpst_dt_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_fct_market_index_intraday
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_fct_market_index_intraday - ghi vao bang that fct_market_index_intraday.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: fct_market_index_intraday
+    incremental_strategy: append
+    partition_by:
+    - trade_dt_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_fct_market_index_snpst
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_fct_market_index_snpst - ghi vao bang that fct_market_index_snpst.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: fct_market_index_snpst
+    incremental_strategy: append
+    partition_by:
+    - snpst_dt_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_fct_security_trading_daily
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_fct_security_trading_daily - ghi vao bang that fct_security_trading_daily.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: fct_security_trading_daily
+    incremental_strategy: append
+    partition_by:
+    - trade_dt_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_fct_security_trading_intraday
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_fct_security_trading_intraday - ghi vao bang that fct_security_trading_intraday.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: fct_security_trading_intraday
+    incremental_strategy: append
+    partition_by:
+    - cdr_dt_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_fct_stock_portfolio_snpst
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_fct_stock_portfolio_snpst - ghi vao bang that fct_stock_portfolio_snpst.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: fct_stock_portfolio_snpst
+    incremental_strategy: append
+    partition_by:
+    - snpst_dt_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_index_constituent_dim
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_index_constituent_dim - ghi vao bang that index_constituent_dim.'
+  config:
+    materialized: ft_scd4a
+    ft_target: index_constituent_dim
+    ft_hstr_by_day: true
+    ft_source_system:
+    - MDDS_JAD_CSIDXINFOR
+    unique_key:
+    - index_constituent_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_legal_entity_position_dim
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_legal_entity_position_dim - ghi vao bang that legal_entity_position_dim.'
+  config:
+    materialized: ft_scd4a
+    ft_target: legal_entity_position_dim
+    ft_hstr_by_day: true
+    ft_source_system:
+    - IDS_POSITIONS
+    unique_key:
+    - legal_entity_position_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_market_index_dim
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_market_index_dim - ghi vao bang that market_index_dim.'
+  config:
+    materialized: ft_scd4a
+    ft_target: market_index_dim
+    ft_hstr_by_day: true
+    ft_source_system:
+    - MDDS_JAD_MARKETINFOR
+    unique_key:
+    - market_index_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_opr_public_company_insider_ownership
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_opr_public_company_insider_ownership - ghi vao bang that opr_public_company_insider_ownership.'
+  config:
+    materialized: ft_scd4a
+    ft_target: opr_public_company_insider_ownership
+    ft_hstr_by_day: true
+    ft_source_system:
+    - IDS_COMPANY_ENTITY_ROLE
+    unique_key:
+    - public_company_entity_role_code
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_opr_security_index_constituent_ref
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_opr_security_index_constituent_ref - ghi vao bang that opr_security_index_constituent_ref.'
+  config:
+    materialized: ft_scd4a
+    ft_target: opr_security_index_constituent_ref
+    ft_hstr_by_day: true
+    ft_source_system:
+    - MDDS_JAD_CSIDXINFOR
+    unique_key:
+    - index_code
+    - symbol
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_opr_security_ref
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_opr_security_ref - ghi vao bang that opr_security_ref.'
+  config:
+    materialized: ft_scd4a
+    ft_target: opr_security_ref
+    ft_hstr_by_day: true
+    ft_source_system:
+    - MDDS_JAD_STOCKINFOR
+    unique_key:
+    - symbol
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_security_trading_snpst_dim
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_security_trading_snpst_dim - ghi vao bang that security_trading_snpst_dim.'
+  config:
+    materialized: ft_scd4a
+    ft_target: security_trading_snpst_dim
+    ft_hstr_by_day: true
+    ft_source_system:
+    - MDDS_JAD_STOCKINFOR
+    unique_key:
+    - security_trading_snpst_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_gstt_fct_foreign_trading_min_snpst_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_fct_foreign_trading_min_snpst_flat - ghi vao bang that gstt_fct_foreign_trading_min_snpst_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_fct_foreign_trading_min_snpst_flat
+    incremental_strategy: ft_ck_by_day
+    partition_by:
+    - cdr_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+    ft_day_column: cdr_dt
+- name: ft_gstt_fct_hnx_securities_order_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_fct_hnx_securities_order_flat - ghi vao bang that gstt_fct_hnx_securities_order_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_fct_hnx_securities_order_flat
+    incremental_strategy: ft_ck_by_day
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+    ft_day_column: cdr_dt
+- name: ft_gstt_fct_hnx_securities_trade_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_fct_hnx_securities_trade_flat - ghi vao bang that gstt_fct_hnx_securities_trade_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_fct_hnx_securities_trade_flat
+    incremental_strategy: ft_ck_by_day
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+    ft_day_column: cdr_dt
+- name: ft_gstt_fct_hose_securities_order_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_fct_hose_securities_order_flat - ghi vao bang that gstt_fct_hose_securities_order_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_fct_hose_securities_order_flat
+    incremental_strategy: ft_ck_by_day
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+    ft_day_column: cdr_dt
+- name: ft_gstt_fct_hose_securities_trade_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_fct_hose_securities_trade_flat - ghi vao bang that gstt_fct_hose_securities_trade_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_fct_hose_securities_trade_flat
+    incremental_strategy: ft_ck_by_day
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+    ft_day_column: cdr_dt
+- name: ft_gstt_fct_index_constituent_snpst_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_fct_index_constituent_snpst_flat - ghi vao bang that gstt_fct_index_constituent_snpst_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_fct_index_constituent_snpst_flat
+    incremental_strategy: ft_ck_by_day
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+    ft_day_column: cdr_dt
+- name: ft_gstt_fct_instrument_price_daily_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_fct_instrument_price_daily_flat - ghi vao bang that gstt_fct_instrument_price_daily_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_fct_instrument_price_daily_flat
+    incremental_strategy: ft_ck_by_day
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+    ft_day_column: cdr_dt
+- name: ft_gstt_fct_instrument_price_intraday_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_fct_instrument_price_intraday_flat - ghi vao bang that gstt_fct_instrument_price_intraday_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_fct_instrument_price_intraday_flat
+    incremental_strategy: ft_ck_by_day
+    ft_ck_repartition: hash
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+    ft_day_column: cdr_dt
+- name: ft_gstt_fct_investor_category_index_trading_snpst_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_fct_investor_category_index_trading_snpst_flat - ghi vao bang that gstt_fct_investor_category_index_trading_snpst_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_fct_investor_category_index_trading_snpst_flat
+    incremental_strategy: ft_ck_by_day
+    partition_by:
+    - cdr_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+    ft_day_column: cdr_dt
+- name: ft_gstt_fct_investor_category_trading_snpst_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_fct_investor_category_trading_snpst_flat - ghi vao bang that gstt_fct_investor_category_trading_snpst_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_fct_investor_category_trading_snpst_flat
+    incremental_strategy: ft_ck_by_day
+    partition_by:
+    - cdr_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+    ft_day_column: cdr_dt
+- name: ft_gstt_fct_major_shareholder_ownership_snpst_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_fct_major_shareholder_ownership_snpst_flat - ghi vao bang that gstt_fct_major_shareholder_ownership_snpst_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_fct_major_shareholder_ownership_snpst_flat
+    incremental_strategy: ft_ck_by_day
+    partition_by:
+    - cdr_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+    ft_day_column: cdr_dt
+    ft_ck_repartition: hash
+- name: ft_gstt_fct_market_index_intraday_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_fct_market_index_intraday_flat - ghi vao bang that gstt_fct_market_index_intraday_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_fct_market_index_intraday_flat
+    incremental_strategy: ft_ck_by_day
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+    ft_day_column: cdr_dt
+- name: ft_gstt_fct_security_trading_daily_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_fct_security_trading_daily_flat - ghi vao bang that gstt_fct_security_trading_daily_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_fct_security_trading_daily_flat
+    incremental_strategy: ft_ck_by_day
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+    ft_day_column: cdr_dt
+- name: ft_gstt_fct_security_trading_intraday_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_fct_security_trading_intraday_flat - ghi vao bang that gstt_fct_security_trading_intraday_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_fct_security_trading_intraday_flat
+    incremental_strategy: ft_ck_by_day
+    ft_ck_repartition: hash
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+    ft_day_column: cdr_dt
+- name: ft_gstt_fct_stock_portfolio_snpst_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_fct_stock_portfolio_snpst_flat - ghi vao bang that gstt_fct_stock_portfolio_snpst_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_fct_stock_portfolio_snpst_flat
+    incremental_strategy: ft_ck_by_day
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+    ft_day_column: cdr_dt
+- name: ft_gstt_opr_public_company_insider_ownership_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_opr_public_company_insider_ownership_flat - ghi vao bang that gstt_opr_public_company_insider_ownership_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_opr_public_company_insider_ownership_flat
+    incremental_strategy: ck_snapshot
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_gstt_opr_security_index_constituent_ref_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_opr_security_index_constituent_ref_flat - ghi vao bang that gstt_opr_security_index_constituent_ref_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_opr_security_index_constituent_ref_flat
+    incremental_strategy: ft_ck_by_day
+    ft_day_column: ds_snpst_dt
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_gstt_opr_security_ref_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_opr_security_ref_flat - ghi vao bang that gstt_opr_security_ref_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_opr_security_ref_flat
+    incremental_strategy: ft_ck_by_day
+    ft_day_column: ds_snpst_dt
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_ods_hnx_listed_securities_list
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua ods_hnx_listed_securities_list - ghi vao bang that listed_securities_list.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: listed_securities_list
+    incremental_strategy: append
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("ods_hnx_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_ods_hnx_order_book
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua ods_hnx_order_book - ghi vao bang that order_book.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: order_book
+    incremental_strategy: append
+    partition_by:
+    - trade_date
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("ods_hnx_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_ods_hnx_trade_book
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua ods_hnx_trade_book - ghi vao bang that trade_book.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: trade_book
+    incremental_strategy: append
+    partition_by:
+    - trade_date
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("ods_hnx_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_ods_hose_listed_securities_list
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua ods_hose_listed_securities_list - ghi vao bang that listed_securities_list.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: listed_securities_list
+    incremental_strategy: append
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("ods_hose_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_ods_hose_order_book
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua ods_hose_order_book - ghi vao bang that order_book.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: order_book
+    incremental_strategy: append
+    partition_by:
+    - trade_date
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("ods_hose_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_ods_hose_trade_book
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua ods_hose_trade_book - ghi vao bang that trade_book.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: trade_book
+    incremental_strategy: append
+    partition_by:
+    - trade_date
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("ods_hose_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_ods_mdds_jad_csidxinfor
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua ods_mdds_jad_csidxinfor - ghi vao bang that jad_csidxinfor.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: jad_csidxinfor
+    incremental_strategy: append
+    partition_by:
+    - tradingdate
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("ods_mdds_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_ods_mdds_jad_marketinfor
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua ods_mdds_jad_marketinfor - ghi vao bang that jad_marketinfor.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: jad_marketinfor
+    incremental_strategy: append
+    partition_by:
+    - tradingdate
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("ods_mdds_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_ods_mdds_jad_stockinfor
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua ods_mdds_jad_stockinfor - ghi vao bang that jad_stockinfor.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: jad_stockinfor
+    incremental_strategy: append
+    partition_by:
+    - tradingdate
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("ods_mdds_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_ods_mdds_jad_tradingviewhistory1day
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua ods_mdds_jad_tradingviewhistory1day - ghi vao bang that jad_tradingviewhistory1day.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: jad_tradingviewhistory1day
+    incremental_strategy: append
+    partition_by:
+    - tradingdate
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("ods_mdds_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_ods_mdds_jad_tvhistory1m
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua ods_mdds_jad_tvhistory1m - ghi vao bang that jad_tvhistory1m.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: jad_tvhistory1m
+    incremental_strategy: append
+    partition_by:
+    - tradingdate
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("ods_mdds_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_ods_scms_report_input_cell_value
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua ods_scms_report_input_cell_value - ghi vao bang that report_input_cell_value.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: report_input_cell_value
+    incremental_strategy: append
+    ft_skip_count_check: true
+    ft_spark_conf:
+      spark.sql.iceberg.distribution-mode: hash
+    partition_by:
+    - data_dt
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("ods_scms_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_ods_vsdc_foreign_investor_info
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua ods_vsdc_foreign_investor_info - ghi vao bang that foreign_investor_info.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: foreign_investor_info
+    incremental_strategy: append
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("ods_vsdc_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_ods_vsdc_major_shareholder
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua ods_vsdc_major_shareholder - ghi vao bang that major_shareholder.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: major_shareholder
+    incremental_strategy: append
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("ods_vsdc_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_ods_vsdc_outstanding_shares
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua ods_vsdc_outstanding_shares - ghi vao bang that outstanding_shares.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: outstanding_shares
+    incremental_strategy: append
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("ods_vsdc_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_qlkd_fct_market_index_snpst_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua qlkd_fct_market_index_snpst_flat - ghi vao bang that qlkd_fct_market_index_snpst_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: qlkd_fct_market_index_snpst_flat
+    incremental_strategy: ft_ck_by_day
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+    ft_day_column: cdr_dt
+- name: ft_stg_mdds_jad_csidxinfor
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua stg_mdds_jad_csidxinfor - ghi vao bang that jad_csidxinfor.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: jad_csidxinfor
+    incremental_strategy: append
+    partition_by:
+    - tradingdate
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("stg_mdds_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_stg_mdds_jad_marketinfor
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua stg_mdds_jad_marketinfor - ghi vao bang that jad_marketinfor.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: jad_marketinfor
+    incremental_strategy: append
+    partition_by:
+    - tradingdate
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("stg_mdds_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_stg_mdds_jad_stockinfor
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua stg_mdds_jad_stockinfor - ghi vao bang that jad_stockinfor.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: jad_stockinfor
+    incremental_strategy: append
+    partition_by:
+    - tradingdate
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("stg_mdds_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_stg_mdds_jad_tradingviewhistory1day
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua stg_mdds_jad_tradingviewhistory1day - ghi vao bang that jad_tradingviewhistory1day.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: jad_tradingviewhistory1day
+    incremental_strategy: append
+    partition_by:
+    - tradingdate
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("stg_mdds_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_stg_mdds_jad_tvhistory1m
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua stg_mdds_jad_tvhistory1m - ghi vao bang that jad_tvhistory1m.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: jad_tvhistory1m
+    incremental_strategy: append
+    partition_by:
+    - tradingdate
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("stg_mdds_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_dtm_opr_trading_liquidity_explorer
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua dtm_opr_trading_liquidity_explorer - ghi vao bang that opr_trading_liquidity_explorer.'
+  config:
+    materialized: ft_scd4a
+    ft_target: opr_trading_liquidity_explorer
+    ft_hstr_by_day: true
+    ft_hstr_skip_inactive: true
+    ft_source_system:
+    - MDDS_JAD_STOCKINFOR
+    unique_key:
+    - trade_dt
+    - symbol
+    - index_code
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_gstt_opr_trading_liquidity_explorer_flat
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua gstt_opr_trading_liquidity_explorer_flat - ghi vao bang that gstt_opr_trading_liquidity_explorer_flat.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: gstt_opr_trading_liquidity_explorer_flat
+    incremental_strategy: ft_ck_by_day
+    ft_day_column: ds_snpst_dt
+    partition_by:
+    - ds_snpst_dt
+    file_format: '{{ var(''file_format'') }}'
+    schema: '{{ var(''ck_schema'') }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_stg_scms_report_input_cell_value
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua stg_scms_report_input_cell_value - ghi vao bang that report_input_cell_value.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: report_input_cell_value
+    incremental_strategy: append
+    ft_skip_count_check: true
+    ft_spark_conf:
+      spark.sql.iceberg.distribution-mode: hash
+    partition_by:
+    - data_dt
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("stg_scms_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time

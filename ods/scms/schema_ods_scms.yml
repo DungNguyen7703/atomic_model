@@ -1,0 +1,609 @@
+version: 2
+
+models:
+  - name: ods_scms_report_input_submission
+    description: "ODS model của bảng SCMS.REPORT_INPUT_SUBMISSION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'report_input_submission'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_report_input_cell_value
+    description: "ODS model của bảng SCMS.REPORT_INPUT_CELL_VALUE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'report_input_cell_value'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_alert_indicator
+    description: "ODS model của bảng SCMS.ALERT_INDICATOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'alert_indicator'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_bank
+    description: "ODS model của bảng SCMS.BANK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'bank'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_cat_district
+    description: "ODS model của bảng SCMS.CAT_DISTRICT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'cat_district'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_cat_event_type
+    description: "ODS model của bảng SCMS.CAT_EVENT_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'cat_event_type'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_cat_nationality
+    description: "ODS model của bảng SCMS.CAT_NATIONALITY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'cat_nationality'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_cat_province
+    description: "ODS model của bảng SCMS.CAT_PROVINCE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'cat_province'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_cat_sc_firm_status
+    description: "ODS model của bảng SCMS.CAT_SC_FIRM_STATUS — [CAP NHAT 2026-09-25] Data change mode doi Append->Update (BRD-SRC-SCMS-CAT_SC_FIRM_STATUS, Data Modeler xac nhan 2026-09-16): bang danh muc (master), Update toan bo moi lan ETL. Doi incremental_strategy sang snapshot, giong pattern ods_scms_cat_event_type."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'cat_sc_firm_status'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_cat_ward
+    description: "ODS model của bảng SCMS.CAT_WARD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'cat_ward'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_disclosure_securities_offering
+    description: "ODS model của bảng SCMS.DISCLOSURE_SECURITIES_OFFERING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'disclosure_securities_offering'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_form_report
+    description: "ODS model của bảng SCMS.FORM_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'form_report'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_lnk_sc_firm_foreign_branch_service
+    description: "ODS model của bảng SCMS.LNK_SC_FIRM_FOREIGN_BRANCH_SERVICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'lnk_sc_firm_foreign_branch_service'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_adhoc_report
+    description: "ODS model của bảng SCMS.SC_FIRM_ADHOC_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_adhoc_report'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_admin_penalty_decision
+    description: "ODS model của bảng SCMS.SC_FIRM_ADMIN_PENALTY_DECISION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_admin_penalty_decision'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_alert_violation
+    description: "ODS model của bảng SCMS.SC_FIRM_ALERT_VIOLATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_alert_violation'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_branch
+    description: "ODS model của bảng SCMS.SC_FIRM_BRANCH"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_branch'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_foreign_branch
+    description: "ODS model của bảng SCMS.SC_FIRM_FOREIGN_BRANCH"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_foreign_branch'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_foreign_branch_periodic_report
+    description: "ODS model của bảng SCMS.SC_FIRM_FOREIGN_BRANCH_PERIODIC_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_foreign_branch_periodic_report'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_foreign_branch_personnel
+    description: "ODS model của bảng SCMS.SC_FIRM_FOREIGN_BRANCH_PERSONNEL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_foreign_branch_personnel'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_foreign_rep_office
+    description: "ODS model của bảng SCMS.SC_FIRM_FOREIGN_REP_OFFICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_foreign_rep_office'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_foreign_rep_office_periodic_report
+    description: "ODS model của bảng SCMS.SC_FIRM_FOREIGN_REP_OFFICE_PERIODIC_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_foreign_rep_office_periodic_report'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_foreign_rep_office_personnel
+    description: "ODS model của bảng SCMS.SC_FIRM_FOREIGN_REP_OFFICE_PERSONNEL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_foreign_rep_office_personnel'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_info
+    description: "ODS model của bảng SCMS.SC_FIRM_INFO"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_info'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_insider_relation
+    description: "ODS model của bảng SCMS.SC_FIRM_INSIDER_RELATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_insider_relation'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_major_shareholder_relation
+    description: "ODS model của bảng SCMS.SC_FIRM_MAJOR_SHAREHOLDER_RELATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_major_shareholder_relation'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_periodic_report
+    description: "ODS model của bảng SCMS.SC_FIRM_PERIODIC_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_periodic_report'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_profile_change
+    description: "ODS model của bảng SCMS.SC_FIRM_PROFILE_CHANGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_profile_change'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_related_person
+    description: "ODS model của bảng SCMS.SC_FIRM_RELATED_PERSON"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_related_person'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_rep_office
+    description: "ODS model của bảng SCMS.SC_FIRM_REP_OFFICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_rep_office'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_senior_personnel
+    description: "ODS model của bảng SCMS.SC_FIRM_SENIOR_PERSONNEL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_senior_personnel'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_shareholder
+    description: "ODS model của bảng SCMS.SC_FIRM_SHAREHOLDER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_shareholder'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_shareholder_ownership_change
+    description: "ODS model của bảng SCMS.SC_FIRM_SHAREHOLDER_OWNERSHIP_CHANGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_shareholder_ownership_change'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_shareholder_relation
+    description: "ODS model của bảng SCMS.SC_FIRM_SHAREHOLDER_RELATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_shareholder_relation'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_shareholder_representative
+    description: "ODS model của bảng SCMS.SC_FIRM_SHAREHOLDER_REPRESENTATIVE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_shareholder_representative'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_transaction_office
+    description: "ODS model của bảng SCMS.SC_FIRM_TRANSACTION_OFFICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_transaction_office'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_form_report_deep_config
+    description: "ODS model của bảng SCMS.FORM_REPORT_DEEP_CONFIG (explode sheets_json theo sheet/cell)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'form_report_deep_config'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_lnk_transaction_office_service
+    description: "ODS model của bảng SCMS.LNK_TRANSACTION_OFFICE_SERVICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'lnk_transaction_office_service'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_lnk_sc_firm_service
+    description: "ODS model của bảng SCMS.LNK_SC_FIRM_SERVICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'lnk_sc_firm_service'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_cat_service_legal_capital
+    description: "ODS model của bảng SCMS.CAT_SERVICE_LEGAL_CAPITAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'cat_service_legal_capital'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_cat_company_type
+    description: "ODS model của bảng SCMS.CAT_COMPANY_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'cat_company_type'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_bank_periodic_report
+    description: "ODS model của bảng SCMS.BANK_PERIODIC_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'bank_periodic_report'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_cat_filter
+    description: "ODS model của bảng SCMS.CAT_FILTER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'cat_filter'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_cat_position
+    description: "ODS model của bảng SCMS.CAT_POSITION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'cat_position'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_form_indicator_input
+    description: "ODS model của bảng SCMS.FORM_INDICATOR_INPUT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'form_indicator_input'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_form_sheet
+    description: "ODS model của bảng SCMS.FORM_SHEET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'form_sheet'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_form_sheet_cell
+    description: "ODS model của bảng SCMS.FORM_SHEET_CELL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'form_sheet_cell'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_form_sheet_column
+    description: "ODS model của bảng SCMS.FORM_SHEET_COLUMN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'form_sheet_column'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_form_sheet_row
+    description: "ODS model của bảng SCMS.FORM_SHEET_ROW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'form_sheet_row'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_lnk_event_type_form
+    description: "ODS model của bảng SCMS.LNK_EVENT_TYPE_FORM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'lnk_event_type_form'
+      tags:
+        - layer_ods
+        - domain_scms

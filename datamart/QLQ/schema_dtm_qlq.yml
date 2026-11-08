@@ -1,0 +1,366 @@
+version: 2
+
+models:
+  - name: dtm_fct_foreign_fund_management_organization_unit_snpst
+    description: "Datamart model của bảng Fact Foreign Fund Management Organization Unit Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_foreign_fund_management_organization_unit_snpst'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_fct_fund_distribution_agent_snpst
+    description: "Datamart model của bảng Fact Fund Distribution Agent Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_fund_distribution_agent_snpst'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_fct_fund_management_company_snpst
+    description: "Datamart model của bảng Fact Fund Management Company Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_fund_management_company_snpst'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_fct_investment_fund_count_snpst
+    description: "Datamart model của bảng Fact Investment Fund Count Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_investment_fund_count_snpst'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_opr_foreign_fund_management_organization_unit_profile
+    description: "Datamart model của bảng Foreign Fund Management Organization Unit Profile"
+    config:
+      materialized: scd4a
+      unique_key: ["foreign_fund_management_organization_unit_code"]
+      source_system: ["FMS_FOR_BRCH"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_foreign_fund_management_organization_unit_profile'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_opr_fund_distribution_agent_fund_list
+    description: "Datamart model của bảng Fund Distribution Agent Fund List"
+    config:
+      materialized: scd4a
+      unique_key: ["fund_distribution_agent_code", "investment_fund_code"]
+      source_system: ["FMS_FUD_AG_AGT"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_fund_distribution_agent_fund_list'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_opr_fund_distribution_agent_profile
+    description: "Datamart model của bảng Fund Distribution Agent Profile"
+    config:
+      materialized: scd4a
+      unique_key: ["securities_distribution_agent_code"]
+      source_system: ["FMS_DISTRIBUTOR_AGENT"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_fund_distribution_agent_profile'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_opr_fund_management_company_fund_list
+    description: "Datamart model của bảng Fund Management Company Fund List"
+    config:
+      materialized: scd4a
+      unique_key: ["investment_fund_code"]
+      source_system: ["FMS_FUNDS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_fund_management_company_fund_list'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_opr_fund_management_company_profile
+    description: "Datamart model của bảng Fund Management Company Profile"
+    config:
+      materialized: scd4a
+      unique_key: ["fmc_code"]
+      source_system: ["FMS_SECURITIES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_fund_management_company_profile'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_opr_fund_management_report_sheet_list
+    description: "Datamart model của bảng Fund Management Report Sheet List"
+    config:
+      materialized: scd4a
+      unique_key: ["fmr_sheet_code"]
+      source_system: ["FMS_SHEET"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_fund_management_report_sheet_list'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_opr_investment_fund_manager_list
+    description: "Datamart model của bảng Investment Fund Manager List"
+    config:
+      materialized: scd4a
+      unique_key: ["investment_fund_code", "fmc_employee_code"]
+      source_system: ["FMS_FUND_TL_PRO"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_investment_fund_manager_list'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_opr_investment_fund_profile
+    description: "Datamart model của bảng Investment Fund Profile"
+    config:
+      materialized: scd4a
+      unique_key: ["investment_fund_code"]
+      source_system: ["FMS_FUNDS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_investment_fund_profile'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_opr_investment_fund_representative_board_member_list
+    description: "Datamart model của bảng Investment Fund Representative Board Member List"
+    config:
+      materialized: scd4a
+      unique_key: ["investment_fund_representative_board_member_code"]
+      source_system: ["FMS_REPRESENT"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_investment_fund_representative_board_member_list'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_custodian_bank_dim
+    description: "Datamart model của bảng Custodian Bank Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["custodian_bank_id"]
+      source_system: ["FMS_BANK_MONI"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'custodian_bank_dim'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_foreign_fund_management_organization_unit_dim
+    description: "Datamart model của bảng Foreign Fund Management Organization Unit Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["foreign_fund_management_organization_unit_id"]
+      source_system: ["FMS_FOR_BRCH"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'foreign_fund_management_organization_unit_dim'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_foreign_fund_management_organization_unit_staff_dim
+    description: "Datamart model của bảng Foreign Fund Management Organization Unit Staff Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["foreign_fund_management_organization_unit_staff_id"]
+      source_system: ["FMS_STF_FG_BRCH"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'foreign_fund_management_organization_unit_staff_dim'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_fund_distribution_agent_dim
+    description: "Datamart model của bảng Fund Distribution Agent Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["fund_distribution_agent_id"]
+      source_system: ["FMS_AGENCIES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fund_distribution_agent_dim'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_fund_management_company_dim
+    description: "Datamart model của bảng Fund Management Company Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["fmc_id"]
+      source_system: ["FMS_SECURITIES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fund_management_company_dim'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_investment_fund_dim
+    description: "Datamart model của bảng Investment Fund Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["investment_fund_id"]
+      source_system: ["FMS_FUNDS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'investment_fund_dim'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_fund_type_dim
+    description: "Datamart model của bảng Fund Type Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["fund_type_id"]
+      source_system: ["FMS_FUND_TYPE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fund_type_dim'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_securities_distribution_agent_dim
+    description: "Datamart model của bảng Securities Distribution Agent Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["securities_distribution_agent_id"]
+      source_system: ["FMS_DISTRIBUTOR_AGENT"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'securities_distribution_agent_dim'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_fund_management_rpt_cell_dim
+    description: "Datamart model của bảng Fund Management Report Cell Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["fund_management_rpt_cell_id"]
+      source_system: ["FMS_SHEET"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fund_management_rpt_cell_dim'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_fct_fund_management_rpt_cell_val
+    description: "Datamart model của bảng Fact Fund Management Report Cell Value"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["submitted_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_fund_management_rpt_cell_val'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_opr_investment_fund_distribution_agent_list
+    description: "Datamart model của bảng Opr Investment Fund Distribution Agent List"
+    config:
+      materialized: scd4a
+      unique_key: ["investment_fund_code", "fund_distribution_agent_code"]
+      source_system: ["FMS_FUD_AG_AGT"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_investment_fund_distribution_agent_list'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_opr_fund_management_company_contract_list
+    description: "Datamart model của bảng Opr Fund Management Company Contract List"
+    config:
+      materialized: scd4a
+      unique_key: ["fmr_submission_code", "table_idx"]
+      source_system: ["FMS_RPT_VALUES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_fund_management_company_contract_list'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_opr_foreign_fund_management_organization_unit_contract_list
+    description: "Datamart model của bảng Opr Foreign Fund Management Organization Unit Contract List"
+    config:
+      materialized: scd4a
+      unique_key: ["fmr_submission_code", "dynamic_row_nbr"]
+      source_system: ["FMS_RPT_VALUES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_foreign_fund_management_organization_unit_contract_list'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_fund_management_company_staff_trade_rpt
+    description: "Datamart model của bảng Fund Management Company Staff Trade Report"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["trade_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fund_management_company_staff_trade_rpt'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_opr_fund_management_company_employee_investor_account_list
+    description: "Datamart model của bảng Opr Fund Management Company Employee Investor Account List"
+    config:
+      materialized: scd4a
+      unique_key: ["fmc_employee_code", "investor_account_nbr"]
+      source_system: ["FMS_TL_PROFILES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_fund_management_company_employee_investor_account_list'
+      tags:
+        - layer_datamart
+        - domain_qlq

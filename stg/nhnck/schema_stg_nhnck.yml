@@ -1,0 +1,1082 @@
+version: 2
+
+models:
+  - name: stg_nhnck_application_archives
+    description: "Staging model của bảng NHNCK.APPLICATION_ARCHIVES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'application_archives'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_application_decisions
+    description: "Staging model của bảng NHNCK.APPLICATION_DECISIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'application_decisions'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_application_document_histories
+    description: "Staging model của bảng NHNCK.APPLICATION_DOCUMENT_HISTORIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'application_document_histories'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_application_documents
+    description: "Staging model của bảng NHNCK.APPLICATION_DOCUMENTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'application_documents'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_application_experiences
+    description: "Staging model của bảng NHNCK.APPLICATION_EXPERIENCES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'application_experiences'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_application_fees
+    description: "Staging model của bảng NHNCK.APPLICATION_FEES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'application_fees'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_application_group_members
+    description: "Staging model của bảng NHNCK.APPLICATION_GROUP_MEMBERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'application_group_members'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_application_groups
+    description: "Staging model của bảng NHNCK.APPLICATION_GROUPS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'application_groups'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_application_histories
+    description: "Staging model của bảng NHNCK.APPLICATION_HISTORIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'application_histories'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_application_professionals
+    description: "Staging model của bảng NHNCK.APPLICATION_PROFESSIONALS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'application_professionals'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_application_re_exams
+    description: "Staging model của bảng NHNCK.APPLICATION_RE_EXAMS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'application_re_exams'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_application_sources
+    description: "Staging model của bảng NHNCK.APPLICATION_SOURCES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'application_sources'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_application_specializations
+    description: "Staging model của bảng NHNCK.APPLICATION_SPECIALIZATIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'application_specializations'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_application_statuses
+    description: "Staging model của bảng NHNCK.APPLICATION_STATUSES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'application_statuses'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_application_supplements
+    description: "Staging model của bảng NHNCK.APPLICATION_SUPPLEMENTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'application_supplements'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_applications
+    description: "Staging model của bảng NHNCK.APPLICATIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'applications'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_auto_increment_codes
+    description: "Staging model của bảng NHNCK.AUTO_INCREMENT_CODES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'auto_increment_codes'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_banks
+    description: "Staging model của bảng NHNCK.BANKS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'banks'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_certificate_archives
+    description: "Staging model của bảng NHNCK.CERTIFICATE_ARCHIVES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'certificate_archives'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_certificate_conversion_requests
+    description: "Staging model của bảng NHNCK.CERTIFICATE_CONVERSION_REQUESTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'certificate_conversion_requests'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_certificate_departments
+    description: "Staging model của bảng NHNCK.CERTIFICATE_DEPARTMENTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'certificate_departments'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_certificate_documents
+    description: "Staging model của bảng NHNCK.CERTIFICATE_DOCUMENTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'certificate_documents'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_certificate_number_templates
+    description: "Staging model của bảng NHNCK.CERTIFICATE_NUMBER_TEMPLATES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'certificate_number_templates'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_certificate_record_group_members
+    description: "Staging model của bảng NHNCK.CERTIFICATE_RECORD_GROUP_MEMBERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'certificate_record_group_members'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_certificate_record_groups
+    description: "Staging model của bảng NHNCK.CERTIFICATE_RECORD_GROUPS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'certificate_record_groups'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_certificate_record_status_histories
+    description: "Staging model của bảng NHNCK.CERTIFICATE_RECORD_STATUS_HISTORIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'certificate_record_status_histories'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_certificate_records
+    description: "Staging model của bảng NHNCK.CERTIFICATE_RECORDS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'certificate_records'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_certificate_specializations
+    description: "Staging model của bảng NHNCK.CERTIFICATE_SPECIALIZATIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'certificate_specializations'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_certificates
+    description: "Staging model của bảng NHNCK.CERTIFICATES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'certificates'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_countries
+    description: "Staging model của bảng NHNCK.COUNTRIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'countries'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_decision_documents
+    description: "Staging model của bảng NHNCK.DECISION_DOCUMENTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'decision_documents'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_decisions
+    description: "Staging model của bảng NHNCK.DECISIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'decisions'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_department_access
+    description: "Staging model của bảng NHNCK.DEPARTMENT_ACCESS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'department_access'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_departments
+    description: "Staging model của bảng NHNCK.DEPARTMENTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'departments'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_digital_certificate_users
+    description: "Staging model của bảng NHNCK.DIGITAL_CERTIFICATE_USERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'digital_certificate_users'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_digital_certificates
+    description: "Staging model của bảng NHNCK.DIGITAL_CERTIFICATES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'digital_certificates'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_districts
+    description: "Staging model của bảng NHNCK.DISTRICTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'districts'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_documents
+    description: "Staging model của bảng NHNCK.DOCUMENTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'documents'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_education_levels
+    description: "Staging model của bảng NHNCK.EDUCATION_LEVELS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'education_levels'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_exam_details
+    description: "Staging model của bảng NHNCK.EXAM_DETAILS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'exam_details'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_exam_session_fees
+    description: "Staging model của bảng NHNCK.EXAM_SESSION_FEES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'exam_session_fees'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_exam_sessions
+    description: "Staging model của bảng NHNCK.EXAM_SESSIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'exam_sessions'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_forms
+    description: "Staging model của bảng NHNCK.FORMS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'forms'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_identity_info_c06s
+    description: "Staging model của bảng NHNCK.IDENTITY_INFO_C06S"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'identity_info_c06s'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_legal_documents
+    description: "Staging model của bảng NHNCK.LEGAL_DOCUMENTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'legal_documents'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_notification_configurations
+    description: "Staging model của bảng NHNCK.NOTIFICATION_CONFIGURATIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'notification_configurations'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_notifications
+    description: "Staging model của bảng NHNCK.NOTIFICATIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'notifications'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_organization_report_yearlys
+    description: "Staging model của bảng NHNCK.ORGANIZATION_REPORT_YEARLYS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'organization_report_yearlys'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_organization_reports
+    description: "Staging model của bảng NHNCK.ORGANIZATION_REPORTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'organization_reports'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_organizations
+    description: "Staging model của bảng NHNCK.ORGANIZATIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'organizations'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_permission_roles
+    description: "Staging model của bảng NHNCK.PERMISSION_ROLES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'permission_roles'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_permissions
+    description: "Staging model của bảng NHNCK.PERMISSIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'permissions'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_positions
+    description: "Staging model của bảng NHNCK.POSITIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'positions'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_post_cert_training_courses
+    description: "Staging model của bảng NHNCK.POST_CERT_TRAINING_COURSES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'post_cert_training_courses'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_post_cert_training_results
+    description: "Staging model của bảng NHNCK.POST_CERT_TRAINING_RESULTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'post_cert_training_results'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_procedure_documents
+    description: "Staging model của bảng NHNCK.PROCEDURE_DOCUMENTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'procedure_documents'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_procedure_forms
+    description: "Staging model của bảng NHNCK.PROCEDURE_FORMS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'procedure_forms'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_procedures
+    description: "Staging model của bảng NHNCK.PROCEDURES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'procedures'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_professional_histories
+    description: "Staging model của bảng NHNCK.PROFESSIONAL_HISTORIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'professional_histories'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_professional_relationships
+    description: "Staging model của bảng NHNCK.PROFESSIONAL_RELATIONSHIPS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'professional_relationships'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_professional_trainings
+    description: "Staging model của bảng NHNCK.PROFESSIONAL_TRAININGS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'professional_trainings'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_professional_work_histories
+    description: "Staging model của bảng NHNCK.PROFESSIONAL_WORK_HISTORIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'professional_work_histories'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_professionals
+    description: "Staging model của bảng NHNCK.PROFESSIONALS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'professionals'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_provinces
+    description: "Staging model của bảng NHNCK.PROVINCES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'provinces'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_roles
+    description: "Staging model của bảng NHNCK.ROLES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'roles'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_specialization_course_details
+    description: "Staging model của bảng NHNCK.SPECIALIZATION_COURSE_DETAILS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'specialization_course_details'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_specialization_courses
+    description: "Staging model của bảng NHNCK.SPECIALIZATION_COURSES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'specialization_courses'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_specializations
+    description: "Staging model của bảng NHNCK.SPECIALIZATIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'specializations'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_units
+    description: "Staging model của bảng NHNCK.UNITS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'units'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_user_roles
+    description: "Staging model của bảng NHNCK.USER_ROLES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'user_roles'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_users
+    description: "Staging model của bảng NHNCK.USERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'users'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_verify_application_statuses
+    description: "Staging model của bảng NHNCK.VERIFY_APPLICATION_STATUSES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'verify_application_statuses'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_violations
+    description: "Staging model của bảng NHNCK.VIOLATIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'violations'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_conversion_practice_history_confirms
+    description: "Staging model của bảng NHNCK.CONVERSION_PRACTICE_HISTORY_CONFIRMS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'conversion_practice_history_confirms'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_mcdt_result_outbox
+    description: "Staging model của bảng NHNCK.MCDT_RESULT_OUTBOX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'mcdt_result_outbox'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_report_templates
+    description: "Staging model của bảng NHNCK.REPORT_TEMPLATES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'report_templates'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_signing_certificate
+    description: "Staging model của bảng NHNCK.SIGNING_CERTIFICATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'signing_certificate'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_signing_note
+    description: "Staging model của bảng NHNCK.SIGNING_NOTE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'signing_note'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_signing_profile
+    description: "Staging model của bảng NHNCK.SIGNING_PROFILE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'signing_profile'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_signing_session
+    description: "Staging model của bảng NHNCK.SIGNING_SESSION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'signing_session'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_signing_signature_image
+    description: "Staging model của bảng NHNCK.SIGNING_SIGNATURE_IMAGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'signing_signature_image'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  - name: stg_nhnck_verify_certificate_conversion_statuses
+    description: "Staging model của bảng NHNCK.VERIFY_CERTIFICATE_CONVERSION_STATUSES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'verify_certificate_conversion_statuses'
+      tags:
+        - layer_staging
+        - domain_nhnck
+
+  # ==== Append -> incremental_strategy: append ====
+
+  - name: stg_nhnck_signing_audit
+    description: "Staging model của bảng NHNCK.SIGNING_AUDIT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_nhnck_schema") }}'
+      alias: 'signing_audit'
+      tags:
+        - layer_staging
+        - domain_nhnck

@@ -1,0 +1,140 @@
+version: 2
+
+models:
+  - name: atm_pc_evaluation_period
+    description: "Atomic model của bảng Public Company Evaluation Period"
+    config:
+      materialized: scd4a
+      unique_key: ["pc_evaluation_period_id"]
+      source_system: ["IDS_EVALUATION_PERIODS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'pc_evaluation_period'
+      tags:
+        - layer_atomic
+
+  - name: atm_pd_subject_behavior
+    description: "Atomic model của bảng Penalty Decision Subject Behavior"
+    config:
+      materialized: scd4a
+      unique_key: ["pd_subject_behavior_id"]
+      source_system: ["THANHTRA_PENALTY_DECISION_SUBJECT_BEHAVIOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'pd_subject_behavior'
+      tags:
+        - layer_atomic
+
+  - name: atm_penalty_decision
+    description: "Atomic model của bảng Penalty Decision"
+    config:
+      materialized: scd4a
+      unique_key: ["pd_id"]
+      source_system: ["THANHTRA_PENALTY_DECISION"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'penalty_decision'
+      tags:
+        - layer_atomic
+
+  - name: atm_pd_subject
+    description: "Atomic model của bảng Penalty Decision Subject"
+    config:
+      materialized: scd4a
+      unique_key: ["pd_subject_id"]
+      source_system: ["THANHTRA_PENALTY_DECISION_SUBJECT"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'pd_subject'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_alert_violation
+    description: "Atomic model của bảng Securities Company Alert Violation"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_alert_violation'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_disclosure_securities_offering
+    description: "Atomic model của bảng Securities Company Disclosure Securities Offering"
+    config:
+      materialized: scd2
+      unique_key: ["sc_disclosure_securities_offering_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_disclosure_securities_offering'
+      tags:
+        - layer_atomic
+        
+  - name: atm_penalty_decision_x_violation_record_relationship
+    description: "Atomic model của bảng Penalty Decision X Violation Record"
+    config:
+      materialized: scd2
+      unique_key: ["pd_id", "violation_record_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'penalty_decision_x_violation_record_relationship'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_shareholder_ownership_change
+    description: "Atomic model của bảng Securities Company Shareholder Ownership Change"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_shareholder_ownership_change'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_alert_indicator
+    description: "Atomic model của bảng Securities Company Alert Indicator"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_alert_indicator_id"]
+      source_system: ["SCMS_ALERT_INDICATOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_alert_indicator'
+      tags:
+        - layer_atomic
+
+  - name: atm_pd_circumstance
+    description: "Atomic model của bảng Penalty Decision Circumstance"
+    config:
+      materialized: scd4a
+      unique_key: ["pd_circumstance_id"]
+      source_system: ["THANHTRA_PENALTY_DECISION_CIRCUMSTANCE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'pd_circumstance'
+      tags:
+        - layer_atomic
+
+  - name: atm_pd_subject_behavior_x_penalty_type_relationship
+    description: "Atomic model của bảng Penalty Decision Subject Behavior X Penalty Type Relationship"
+    config:
+      materialized: scd2
+      unique_key: ["pd_subject_behavior_id", "cl_thanhtra_penalty_tp_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'pd_subject_behavior_x_penalty_type_relationship'
+      tags:
+        - layer_atomic

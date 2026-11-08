@@ -1,0 +1,363 @@
+version: 2
+
+models:
+  - name: ods_thanhtra_examination_annual_plan
+    description: "ODS model của bảng THANHTRA.EXAMINATION_ANNUAL_PLAN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'examination_annual_plan'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_examination_annual_plan_target
+    description: "ODS model của bảng THANHTRA.EXAMINATION_ANNUAL_PLAN_TARGET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'examination_annual_plan_target'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_examination_result_notice
+    description: "ODS model của bảng THANHTRA.EXAMINATION_RESULT_NOTICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'examination_result_notice'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_examination_result_notice_remedial
+    description: "ODS model của bảng THANHTRA.EXAMINATION_RESULT_NOTICE_REMEDIAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'examination_result_notice_remedial'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_examination_team
+    description: "ODS model của bảng THANHTRA.EXAMINATION_TEAM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'examination_team'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_examination_team_member
+    description: "ODS model của bảng THANHTRA.EXAMINATION_TEAM_MEMBER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'examination_team_member'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_examination_team_target
+    description: "ODS model của bảng THANHTRA.EXAMINATION_TEAM_TARGET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'examination_team_target'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_inspection_annual_plan
+    description: "ODS model của bảng THANHTRA.INSPECTION_ANNUAL_PLAN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'inspection_annual_plan'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_inspection_annual_plan_target
+    description: "ODS model của bảng THANHTRA.INSPECTION_ANNUAL_PLAN_TARGET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'inspection_annual_plan_target'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_inspection_conclusion
+    description: "ODS model của bảng THANHTRA.INSPECTION_CONCLUSION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'inspection_conclusion'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_inspection_team
+    description: "ODS model của bảng THANHTRA.INSPECTION_TEAM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'inspection_team'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_inspection_team_member
+    description: "ODS model của bảng THANHTRA.INSPECTION_TEAM_MEMBER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'inspection_team_member'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_inspection_team_target
+    description: "ODS model của bảng THANHTRA.INSPECTION_TEAM_TARGET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'inspection_team_target'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_legal_document
+    description: "ODS model của bảng THANHTRA.LEGAL_DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'legal_document'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_penalty_decision
+    description: "ODS model của bảng THANHTRA.PENALTY_DECISION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'penalty_decision'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_penalty_decision_circumstance
+    description: "ODS model của bảng THANHTRA.PENALTY_DECISION_CIRCUMSTANCE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'penalty_decision_circumstance'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_penalty_decision_subject
+    description: "ODS model của bảng THANHTRA.PENALTY_DECISION_SUBJECT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'penalty_decision_subject'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_penalty_decision_subject_behavior
+    description: "ODS model của bảng THANHTRA.PENALTY_DECISION_SUBJECT_BEHAVIOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'penalty_decision_subject_behavior'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_penalty_type
+    description: "ODS model của bảng THANHTRA.PENALTY_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'penalty_type'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_petition
+    description: "ODS model của bảng THANHTRA.PETITION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'petition'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_post_inspection_processing
+    description: "ODS model của bảng THANHTRA.POST_INSPECTION_PROCESSING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'post_inspection_processing'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_violation_behavior
+    description: "ODS model của bảng THANHTRA.VIOLATION_BEHAVIOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'violation_behavior'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_violation_case
+    description: "ODS model của bảng THANHTRA.VIOLATION_CASE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'violation_case'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_violation_case_output_document
+    description: "ODS model của bảng THANHTRA.VIOLATION_CASE_OUTPUT_DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'violation_case_output_document'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_violation_case_received_document
+    description: "ODS model của bảng THANHTRA.VIOLATION_CASE_RECEIVED_DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'violation_case_received_document'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_violation_record
+    description: "ODS model của bảng THANHTRA.VIOLATION_RECORD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'violation_record'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_violation_record_behavior
+    description: "ODS model của bảng THANHTRA.VIOLATION_RECORD_BEHAVIOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'violation_record_behavior'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_penalty_decision_violation_record
+    description: "ODS model của bảng THANHTRA.PENALTY_DECISION_VIOLATION_RECORD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'penalty_decision_violation_record'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+
+  - name: ods_thanhtra_penalty_decision_subject_behavior_supplementary
+    description: "ODS model của bảng THANHTRA.PENALTY_DECISION_SUBJECT_BEHAVIOR_SUPPLEMENTARY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'penalty_decision_subject_behavior_supplementary'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_penalty_type_violation_behavior
+    description: "ODS model của bảng THANHTRA.PENALTY_TYPE_VIOLATION_BEHAVIOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'penalty_type_violation_behavior'
+      tags:
+        - layer_ods
+        - domain_thanhtra

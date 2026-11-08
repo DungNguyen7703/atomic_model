@@ -1,0 +1,266 @@
+version: 2
+
+models:
+  - name: dtm_examination_team_dim
+    description: "Datamart model của bảng Examination Team Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["examination_team_dim_id"]
+      source_system: ["THANHTRA_EXAMINATION_TEAM"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'examination_team_dim'
+      tags:
+        - layer_datamart
+
+  - name: dtm_examination_team_target_dim
+    description: "Datamart model của bảng Examination Team Target Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["examination_team_target_dim_id"]
+      source_system: ["THANHTRA_EXAMINATION_TEAM_TARGET"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'examination_team_target_dim'
+      tags:
+        - layer_datamart
+
+  - name: dtm_inspection_team_dim
+    description: "Datamart model của bảng Inspection Team Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["inspection_team_dim_id"]
+      source_system: ["THANHTRA_INSPECTION_TEAM"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'inspection_team_dim'
+      tags:
+        - layer_datamart
+
+  - name: dtm_inspection_team_target_dim
+    description: "Datamart model của bảng Inspection Team Target Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["inspection_team_target_dim_id"]
+      source_system: ["THANHTRA_INSPECTION_TEAM_TARGET"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'inspection_team_target_dim'
+      tags:
+        - layer_datamart
+
+  - name: dtm_opr_examination_case_list
+    description: "Datamart model của bảng Operational Examination Case List"
+    config:
+      materialized: scd4a
+      unique_key: ["examination_team_target_code", "violation_behavior_nm"]
+      source_system: ["THANHTRA_EXAMINATION_TEAM", "THANHTRA_EXAMINATION_TEAM_TARGET"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_examination_case_list'
+      tags:
+        - layer_datamart
+
+  - name: dtm_opr_inspection_case_list
+    description: "Datamart model của bảng Operational Inspection Case List"
+    config:
+      materialized: scd4a
+      unique_key: ["inspection_team_target_code", "violation_behavior_nm"]
+      source_system: ["THANHTRA_INSPECTION_TEAM", "THANHTRA_INSPECTION_TEAM_TARGET"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_inspection_case_list'
+      tags:
+        - layer_datamart
+
+  - name: dtm_opr_penalty_decision_list
+    description: "Datamart model của bảng Operational Penalty Decision List"
+    config:
+      materialized: scd4a
+      unique_key: ["pd_subject_code", "violation_behavior_nm"]
+      source_system: ["THANHTRA_EXAMINATION_TEAM", "THANHTRA_INSPECTION_TEAM", "THANHTRA_PENALTY_DECISION", "THANHTRA_PENALTY_DECISION_SUBJECT", "THANHTRA_VIOLATION_CASE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_penalty_decision_list'
+      tags:
+        - layer_datamart
+
+  - name: dtm_opr_petition_list
+    description: "Datamart model của bảng Operational Petition List"
+    config:
+      materialized: scd4a
+      unique_key: ["petition_id"]
+      source_system: ["THANHTRA_PETITION"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_petition_list'
+      tags:
+        - layer_datamart
+
+  - name: dtm_penalty_decision_dim
+    description: "Datamart model của bảng Penalty Decision Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["penalty_decision_dim_id"]
+      source_system: ["THANHTRA_PENALTY_DECISION"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'penalty_decision_dim'
+      tags:
+        - layer_datamart
+
+  - name: dtm_penalty_decision_subject_behavior_dim
+    description: "Datamart model của bảng Penalty Decision Subject Behavior Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["penalty_decision_subject_behavior_dim_id"]
+      source_system: ["THANHTRA_PENALTY_DECISION_SUBJECT_BEHAVIOR", "THANHTRA_VIOLATION_BEHAVIOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'penalty_decision_subject_behavior_dim'
+      tags:
+        - layer_datamart
+
+  - name: dtm_penalty_decision_subject_dim
+    description: "Datamart model của bảng Penalty Decision Subject Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["penalty_decision_subject_dim_id"]
+      source_system: ["THANHTRA_PENALTY_DECISION_SUBJECT"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'penalty_decision_subject_dim'
+      tags:
+        - layer_datamart
+
+  - name: dtm_examination_team_violation_behavior_dim
+    description: "Datamart model của bảng Examination Team Violation Behavior Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["examination_team_violation_behavior_dim_id"]
+      source_system: ["THANHTRA_VIOLATION_RECORD_BEHAVIOR", "THANHTRA_VIOLATION_BEHAVIOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'examination_team_violation_behavior_dim'
+      tags:
+        - layer_datamart
+
+  - name: dtm_inspection_team_violation_behavior_dim
+    description: "Datamart model của bảng Inspection Team Violation Behavior Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["inspection_team_violation_behavior_dim_id"]
+      source_system: ["THANHTRA_VIOLATION_RECORD_BEHAVIOR", "THANHTRA_VIOLATION_BEHAVIOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'inspection_team_violation_behavior_dim'
+      tags:
+        - layer_datamart
+
+  - name: dtm_fct_examination_team_activity
+    description: "Datamart model của bảng Fact Examination Team Activity"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_examination_team_activity'
+      tags:
+        - layer_datamart
+
+  - name: dtm_fct_examination_team_target_activity
+    description: "Datamart model của bảng Fact Examination Team Target Activity"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_examination_team_target_activity'
+      tags:
+        - layer_datamart
+
+  - name: dtm_fct_inspection_team_activity
+    description: "Datamart model của bảng Fact Inspection Team Activity"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_inspection_team_activity'
+      tags:
+        - layer_datamart
+
+  - name: dtm_fct_inspection_team_target_activity
+    description: "Datamart model của bảng Fact Inspection Team Target Activity"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_inspection_team_target_activity'
+      tags:
+        - layer_datamart
+
+  - name: dtm_fct_penalty_decision
+    description: "Datamart model của bảng Fact Penalty Decision"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_penalty_decision'
+      tags:
+        - layer_datamart
+
+  - name: dtm_fct_penalty_decision_subject
+    description: "Datamart model của bảng Fact Penalty Decision Subject"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_penalty_decision_subject'
+      tags:
+        - layer_datamart
+
+  - name: dtm_fct_penalty_decision_subject_behavior
+    description: "Datamart model của bảng Fact Penalty Decision Subject Behavior"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_penalty_decision_subject_behavior'
+      tags:
+        - layer_datamart
+
+  - name: dtm_fct_examination_team_violation_behavior
+    description: "Datamart model của bảng Fact Examination Team Violation Behavior"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_examination_team_violation_behavior'
+      tags:
+        - layer_datamart
+
+  - name: dtm_fct_inspection_team_violation_behavior
+    description: "Datamart model của bảng Fact Inspection Team Violation Behavior"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_inspection_team_violation_behavior'
+      tags:
+        - layer_datamart

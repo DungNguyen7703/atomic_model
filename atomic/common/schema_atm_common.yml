@@ -1,0 +1,373 @@
+version: 2
+
+models:
+  - name: atm_cl_application_status
+    description: "Atomic model của bảng Classification Application Status"
+    config:
+      materialized: scd2
+      unique_key: ["cl_application_status_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_application_status'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_value
+    description: "Atomic model của bảng Classification Value (SCD2, dùng chung nhiều nguồn; hiện nạp nguồn IDS.LOOKUP_VALUES)"
+    config:
+      materialized: scd2
+      unique_key: ["schema_code", "cl_code"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_value'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_value_ids_lookup_values
+    description: "Atomic model của bảng Classification Value – IDS.LOOKUP_VALUES"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_ids_business_line
+    description: "Atomic model của bảng Classification IDS Business Line"
+    config:
+      materialized: scd2
+      unique_key: ["cl_ids_business_line_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_ids_business_line'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_business_transaction
+    description: "Atomic model của bảng Classification Business Transaction"
+    config:
+      materialized: upsert
+      unique_key: ["cl_business_transaction_id"]
+      source_system: ["SCMS_CAT_BUSINESS_LINE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_business_transaction'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_document
+    description: "Atomic model của bảng Classification Document"
+    config:
+      materialized: scd2
+      unique_key: ["cl_document_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_document'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_securities_company_firm_status
+    description: "Atomic model của bảng Classification Securities Company Firm Status"
+    config:
+      materialized: upsert
+      unique_key: ["cl_sc_firm_status_id"]
+      source_system: ["SCMS_CAT_SC_FIRM_STATUS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_securities_company_firm_status'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_fms_event_type
+    description: "Atomic model của bảng Classification FMS Event Type"
+    config:
+      materialized: scd2
+      unique_key: ["cl_fms_event_tp_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_fms_event_type'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_nationality
+    description: "Atomic model của bảng Classification Nationality"
+    config:
+      materialized: upsert
+      unique_key: ["cl_nationality_id"]
+      source_system: ["SCMS_CAT_NATIONALITY"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_nationality'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_risk_indicator
+    description: "Atomic model của bảng Classification Risk Indicator"
+    config:
+      materialized: upsert
+      unique_key: ["cl_risk_ind_id"]
+      source_system: ["MRMS_RISK_INDICATOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_risk_indicator'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_risk_indicator_value
+    description: "Atomic model của bảng Classification Risk Indicator Value"
+    config:
+      materialized: upsert
+      unique_key: ["cl_risk_ind_val_id","cl_risk_ind_id"]
+      source_system: ["MRMS_RISK_INDICATOR_VALUE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_risk_indicator_value'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_securities_company_firm_service
+    description: "Atomic model của bảng Classification Securities Company Firm Service"
+    config:
+      materialized: upsert
+      unique_key: ["cl_sc_firm_service_id"]
+      source_system: ["SCMS_CAT_SERVICE_LEGAL_CAPITAL"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_securities_company_firm_service'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_specialization
+    description: "Atomic model của bảng Classification Specialization"
+    config:
+      materialized: scd2
+      unique_key: ["cl_specialization_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_specialization'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_foreign_investor_reporting_entity
+    description: "Atomic model của bảng Classification Foreign Investor Reporting Entity"
+    config:
+      materialized: scd2
+      unique_key: ["cl_foreign_investor_reporting_entity_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_foreign_investor_reporting_entity'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_fms_status
+    description: "Atomic model của bảng Classification FMS Status"
+    config:
+      materialized: scd2
+      unique_key: ["cl_fms_status_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_fms_status'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_fms_job
+    description: "Atomic model của bảng Classification FMS Job"
+    config:
+      materialized: scd2
+      unique_key: ["cl_fms_job_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_fms_job'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_fims_investor_type
+    description: "Atomic model của bảng Classification FIMS Investor Type"
+    config:
+      materialized: scd2
+      unique_key: ["cl_fims_investor_tp_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_fims_investor_type'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_fims_status
+    description: "Atomic model của bảng Classification FIMS Status"
+    config:
+      materialized: scd2
+      unique_key: ["cl_fims_status_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_fims_status'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_fms_fund_type
+    description: "Atomic model của bảng Classification FMS Fund Type"
+    config:
+      materialized: scd2
+      unique_key: ["cl_fms_fund_tp_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_fms_fund_type'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_fms_agency_type
+    description: "Atomic model của bảng Classification FMS Agency Type"
+    config:
+      materialized: scd2
+      unique_key: ["cl_fms_agency_tp_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_fms_agency_type'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_fims_company_type
+    description: "Atomic model của bảng Classification FIMS Company Type"
+    config:
+      materialized: scd2
+      unique_key: ["cl_fims_company_tp_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_fims_company_type'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_fms_business
+    description: "Atomic model của bảng Classification FMS Business"
+    config:
+      materialized: scd2
+      unique_key: ["cl_fms_business_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_fms_business'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_fms_company_type
+    description: "Atomic model của bảng Classification FMS Company Type"
+    config:
+      materialized: scd2
+      unique_key: ["cl_fms_company_tp_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_fms_company_type'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_fms_stockholder_type
+    description: "Atomic model của bảng Classification FMS Stockholder Type"
+    config:
+      materialized: scd2
+      unique_key: ["cl_fms_stockholder_tp_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_fms_stockholder_type'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_vsdc_nationality
+    description: "Atomic model của bảng Classification VSDC Nationality"
+    config:
+      materialized: scd2
+      unique_key: ["cl_vsdc_nationality_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_vsdc_nationality'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_ecat_department
+    description: "Atomic model của bảng Classification ECAT Department"
+    config:
+      materialized: scd2
+      unique_key: ["cl_ecat_department_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_ecat_department'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_securities_company_event_type
+    description: "Atomic model của bảng Classification Securities Company Event Type"
+    config:
+      materialized: upsert
+      unique_key: ["cl_sc_event_tp_id"]
+      source_system: ["SCMS_CAT_EVENT_TYPE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_securities_company_event_type'
+      tags:
+        - layer_atomic
+
+  - name: atm_cl_securities_company_position
+    description: "Atomic model của bảng Classification Securities Company Position"
+    config:
+      materialized: scd2
+      unique_key: ["cl_sc_position_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_securities_company_position'
+      tags:
+        - layer_atomic

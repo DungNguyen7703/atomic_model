@@ -1,0 +1,341 @@
+version: 2
+
+models:
+  - name: dtm_fct_market_index_snpst
+    description: "Datamart model của bảng Fact Market Index Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_market_index_snpst'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_fct_securities_company_capital_raising_event
+    description: "[SUA 2026-10-19] Datamart model của bảng Fact Securities Company Capital Raising Event - doi truc ngay sang document_dt (result_rpt_dt NULL 84/84 dong), dong bo cong thuc classify offering_form voi dtm_offering_form_dim"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["event_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_securities_company_capital_raising_event'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_fct_securities_company_license_condition_snpst
+    description: "[SUA 2026-10-19] Datamart model của bảng Fact Securities Company License Condition Snapshot - sua ten cot join sc_alert_ind_id va ind_code, bo sung cot alert_dt"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_securities_company_license_condition_snpst'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_fct_securities_company_compliance_report_snpst
+    description: "[MOI 2026-09-15, cap nhat 2026-10-19] Datamart model của bảng Fact Securities Company Compliance Report Snapshot - thay the dtm_fct_securities_company_service_registration (da xoa khoi thiet ke). Bo sung sent_dt/submission_deadline_dt/rpt_year/rpt_period_tp_code/period_nbr/period_val/created_dt theo LLD. created_dt bo ADHOC con PENDING do atm_sc_adhoc_report thieu cot src_rcrd_isrt_tms."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_securities_company_compliance_report_snpst'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_fct_securities_company_status_snpst
+    description: "[SUA 2026-10-19] Datamart model của bảng Fact Securities Company Status Snapshot - sua literal identification_tp_code 'OPERATION_LICENSE' -> 'BUSINESS_LICENSE', bo sung filter src_stm_code"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_securities_company_status_snpst'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_fct_securities_company_brokerage_market_share_snpst
+    description: "Datamart model của bảng Fact Securities Company Brokerage Market Share Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_securities_company_brokerage_market_share_snpst'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_market_index_dim
+    description: "Datamart model của bảng Market Index Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["market_index_dim_id"]
+      source_system: ["MDDS_JAD_MARKETINFOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'market_index_dim'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_offering_form_dim
+    description: "[SUA 2026-10-19] Datamart model của bảng Offering Form Dimension - doi tu LIKE text-matching sang cong thuc LLD (offering_tp_code/offering_method CASE 1/7/3/8)"
+    config:
+      materialized: scd4a
+      unique_key: ["offering_form_dim_id"]
+      source_system: ["SCMS_DISCLOSURE_SECURITIES_OFFERING"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'offering_form_dim'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_opr_individual_listed_company_role
+    description: "[SUA 2026-10-29, ket qua ra soat doi chieu Mapping] Datamart model của bảng Operational Individual Listed Company Role - viet lai toan bo theo dung LLD: UNION ALL 4 nguon (FMS_INSIDER: vai tro tai CT Quan ly Quy; IDS_COMPANY_ENTITY_ROLE: vai tro tai cong ty dai chung; SCMS_SC_FIRM_SENIOR_PERSONNEL va SCMS_SC_FIRM_SHAREHOLDER: vai tro tai CTCK). Noi dung cu chi co 1 nhanh doc tu SCMS_SC_FIRM_INSIDER_RELATION (logic cua bang opr_individual_related_party_network, sai hoan toan). Doi PK sang listed_company_role_id (hash)."
+    config:
+      materialized: scd4a
+      unique_key: ["listed_company_role_id"]
+      source_system: ["FMS_INSIDER", "IDS_COMPANY_ENTITY_ROLE", "SCMS_SC_FIRM_SENIOR_PERSONNEL", "SCMS_SC_FIRM_SHAREHOLDER"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_individual_listed_company_role'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_opr_individual_profile
+    description: "[SUA 2026-10-19] Datamart model của bảng Operational Individual Profile - bo sung cot appointment_dt, doi INNER JOIN sang LEFT JOIN cho cac field nullable, sua sp_license_certificate_document_code"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_senior_personnel_code"]
+      source_system: ["NHNCK_PROFESSIONALS", "SCMS_SC_FIRM_SENIOR_PERSONNEL"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_individual_profile'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_opr_individual_related_party_network
+    description: "[SUA 2026-10-29, ket qua ra soat doi chieu Mapping] Datamart model của bảng Operational Individual Related Party Network - bo sung nhanh UNION ALL con thieu SCMS_SC_FIRM_MAJOR_SHAREHOLDER_RELATION (nguoi lien quan cua co dong lon), doi PK sang related_party_network_id (hash, thay sc_insider_related_person_code chi dung cho 1 nguon), bo sung cot effective_from_dt/effective_to_dt con thieu o nhanh SCMS_SC_FIRM_INSIDER_RELATION"
+    config:
+      materialized: scd4a
+      unique_key: ["related_party_network_id"]
+      source_system: ["SCMS_SC_FIRM_INSIDER_RELATION", "SCMS_SC_FIRM_MAJOR_SHAREHOLDER_RELATION"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_individual_related_party_network'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_opr_individual_trading_account
+    description: "Datamart model của bảng Operational Individual Trading Account"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_shareholder_code"]
+      source_system: ["SCMS_SC_FIRM_SHAREHOLDER"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_individual_trading_account'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_opr_individual_violation_hist
+    description: "[SUA 2026-10-19 theo LLD BA STT 44] Datamart model của bảng Operational Individual Violation History - doi PK tu pd_code sang pd_subject_behavior_code (grain 1 hanh vi/1 ca nhan/1 quyet dinh), bo sung cot violation_description"
+    config:
+      materialized: scd4a
+      unique_key: ["pd_subject_behavior_code"]
+      source_system: ["THANHTRA_PENALTY_DECISION_SUBJECT"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_individual_violation_hist'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_opr_individual_work_hist
+    description: "Datamart model của bảng Operational Individual Work History"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_senior_personnel_code"]
+      source_system: ["SCMS_SC_FIRM_SENIOR_PERSONNEL"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_individual_work_hist'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_opr_securities_company_compliance_hist
+    description: "[SUA 2026-10-19 theo LLD BA STT 40] Datamart model của bảng Operational Securities Company Compliance History - 4 nhanh UNION ALL: EXAMINATION/INSPECTION (grain 1 dot/1 CTCK, bo fan-out theo hanh vi) + PENALTY_DECISION (moi, 1 dong/doi tuong) + PENALTY_DETAIL (moi, 1 dong/doi tuong x hanh vi). Bo nhanh ADMIN_PENALTY_DECISION (khong con trong LLD)."
+    config:
+      materialized: scd4a
+      unique_key: ["compliance_event_code"]
+      source_system: ["THANHTRA_EXAMINATION_TEAM_TARGET", "THANHTRA_INSPECTION_TEAM_TARGET", "THANHTRA_PENALTY_DECISION_SUBJECT", "THANHTRA_PENALTY_DECISION_SUBJECT_BEHAVIOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_securities_company_compliance_hist'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_opr_securities_company_organization_unit_profile
+    description: "Datamart model của bảng Operational Securities Company Organization Unit Profile"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_ou_code"]
+      source_system: ["SCMS_SC_FIRM_TRANSACTION_OFFICE", "SCMS_SC_FIRM_REP_OFFICE", "SCMS_SC_FIRM_BRANCH"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_securities_company_organization_unit_profile'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_opr_securities_company_organization_unit_service
+    description: "[MOI 2026-10-02] Datamart model của bảng Operational Securities Company Organization Unit Service"
+    config:
+      materialized: scd4a
+      unique_key: ["organization_unit_service_id"]
+      source_system: ["SCMS_LNK_TRANSACTION_OFFICE_SERVICE", "SCMS_SC_FIRM_BRANCH"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_securities_company_organization_unit_service'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_opr_securities_company_personnel_profile
+    description: "Datamart model của bảng Operational Securities Company Personnel Profile"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_senior_personnel_code"]
+      source_system: ["SCMS_SC_FIRM_SENIOR_PERSONNEL"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_securities_company_personnel_profile'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_securities_company_dim
+    description: "[SUA 2026-10-19] Datamart model của bảng Securities Company Dimension - bo hardcode 'CTCK', doi nguon status sang atm_cl_securities_company_firm_status (item_code chinh xac), bo sung cot company_status_nm"
+    config:
+      materialized: scd4a
+      unique_key: ["securities_company_dim_id"]
+      source_system: ["SCMS_SC_FIRM_INFO"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'securities_company_dim'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_securities_service_cl_dim
+    description: "[MOI 2026-09-17] Datamart model của bảng Securities Service Classification Dimension (LLD QLKD v4.9)"
+    config:
+      materialized: scd4a
+      unique_key: ["securities_service_cl_dim_id"]
+      source_system: ["SCMS_CAT_SERVICE_LEGAL_CAPITAL"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'securities_service_cl_dim'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_fct_securities_company_service_assignment_snpst
+    description: "[MOI 2026-09-17] Datamart model của bảng Fact Securities Company Service Assignment Snapshot (LLD QLKD v4.9)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_securities_company_service_assignment_snpst'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_report_indicator_dim
+    description: "[MOI 2026-09-19, cap nhat 2026-10-15] Datamart model của bảng Report Indicator Dimension - PK/grain doi tu chi theo cell_id sang composite (rpt_code, sheet_id, cell_id) vi cung cell_id mang nghia khac nhau giua cac bieu mau/sheet; bo 5 cot indicator_code/nm/group_nm, statement_tp_code, unit_of_measure vi khong co can cu trong Mapping & Design"
+    config:
+      materialized: scd4a
+      unique_key: ["report_indicator_dim_id"]
+      source_system: ["SCMS_REPORT_INPUT_CELL_VALUE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'report_indicator_dim'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_fct_securities_company_financial_structure_snpst
+    description: "[MOI 2026-09-19, cap nhat 2026-10-23] Datamart model của bảng Fact Securities Company Financial Structure Snapshot - da sua khoa join dung theo chain sc_report_input_value -> sc_report_input_submission -> sc_periodic_report (ref_tp_code='BAO_CAO_DINH_KY') -> securities_company, rpt_code lay qua JOIN atm_sc_report. Bo sung dieu kien ds_rcrd_st = 'ACTIVE' cho sc_report/sc_periodic_report/sc_report_input_submission theo dung LLD - PHU THUOC cot ds_rcrd_st se duoc bo sung o tang atomic (model chua compile duoc cho toi khi do). Bo sung cot PK rpt_input_val_id con thieu (mapping dong 2), sua indicator_val_amt sang decimal(25,2), doi incremental_strategy sang merge voi unique_key = rpt_input_val_id theo dung DDL chuan"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_securities_company_financial_structure_snpst'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_opr_securities_company_report_data
+    description: "[MOI 2026-09-19, cap nhat 2026-10-23] Datamart model của bảng Securities Company Report Data - da sua khoa join dung theo chain sc_report_input_value -> sc_report_input_submission -> sc_periodic_report (ref_tp_code='BAO_CAO_DINH_KY') -> securities_company (giong dtm_opr_securities_company_financial_report_hist), rpt_code lay qua JOIN atm_sc_report, sua ten cot row_no/item_val thanh row_index/cell_val cho dung atomic"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_securities_company_report_data'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_opr_securities_company_financial_report_hist
+    description: "[MOI 2026-09-19, cap nhat 2026-10-19] Datamart model của bảng Securities Company Financial Report History - da sua khoa join dung theo chain sc_report_input_value -> sc_report_input_submission -> sc_periodic_report (ref_tp_code='BAO_CAO_DINH_KY') -> securities_company, rpt_code lay qua JOIN atm_sc_report. Bo sung cot preferred_report_ind. roa_rate/roe_rate con NULL do LLD chua co cong thuc cu the"
+    config:
+      materialized: scd4a
+      unique_key: ["fin_rpt_hist_id"]
+      source_system: ["SCMS_REPORT_INPUT_CELL_VALUE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_securities_company_financial_report_hist'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+
+  - name: dtm_opr_securities_company_practitioner_profile
+    description: "[MOI 2026-09-19, cap nhat 2026-10-19] Datamart model của bảng Securities Company Practitioner Profile - da sua khoa join dung (giong financial_report_hist), them filter rpt_code IN ('BCTHHD_CTCK','BCHDPS') de phan biet voi financial_report_hist, bo sung cot rpt_code/rpt_period_tp_code/submission_status_code, sua PK hash du 5 thanh phan"
+    config:
+      materialized: scd4a
+      unique_key: ["prac_profile_id"]
+      source_system: ["SCMS_REPORT_INPUT_CELL_VALUE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_securities_company_practitioner_profile'
+      tags:
+        - layer_datamart
+        - domain_qlkd
+

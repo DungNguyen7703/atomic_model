@@ -1,0 +1,146 @@
+version: 2
+
+models:
+  - name: dtm_fct_market_trading_snpst
+    description: "Datamart model của bảng Fact Market Trading Snapshot (TKNB) — thay thế Market Trading Report BM030a (deprecated). Grain: 1 dòng/trade_dt/index_code (HOSE, HNX, UPCOM, 30, HNX30, 100) — cột tổng giao dịch toàn thị trường lặp lại trên mỗi index_code, market_index_val riêng theo index_code."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_market_trading_snpst'
+      tags:
+        - layer_datamart
+        - domain_tknb
+
+  - name: dtm_fct_foreign_proprietary_trading_index_snpst
+    description: "Datamart model của bảng Fact Foreign Proprietary Trading Index Snapshot (TKNB) — thay thế Foreign Proprietary Trading Report BM031a (deprecated). Grain: 1 dòng/trade_dt/index_code. CẢNH BÁO: index_constituent_dim_id lấy MIN(index_constituent_dim_id) theo index_code do dim vật lý grain thật là (index_code, symbol) — đã xác nhận với user, giữ nguyên literal LLD."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_foreign_proprietary_trading_index_snpst'
+      tags:
+        - layer_datamart
+        - domain_tknb
+
+
+  - name: dtm_private_corporate_bond_dim
+    description: "Datamart model của bảng Private Corporate Bond Dimension (TKNB Nhóm 9 HNX12). Grain: 1 dòng/bond_code (SCD4A current-state)."
+    config:
+      materialized: scd4a
+      unique_key: ["private_corporate_bond_dim_id"]
+      source_system: ["HNX_PRIVATE_CORP_BOND_OFFERING"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'private_corporate_bond_dim'
+      tags:
+        - layer_datamart
+        - domain_tknb
+
+  - name: dtm_fct_private_corporate_bond_international_offering_snpst
+    description: "Datamart model của bảng Fact Private Corporate Bond International Offering Snapshot (TKNB Nhóm 9 HNX12). Grain: 1 dòng/bond_code/market_type/report_month."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_private_corporate_bond_international_offering_snpst'
+      tags:
+        - layer_datamart
+        - domain_tknb
+
+  - name: dtm_fct_private_corporate_bond_issuance_snpst
+    description: "Datamart model của bảng Fact Private Corporate Bond Issuance Snapshot (TKNB Nhóm 8 HNX11). Grain: 1 dòng/bond_code/report_month."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_private_corporate_bond_issuance_snpst'
+      tags:
+        - layer_datamart
+        - domain_tknb
+
+  - name: dtm_fct_security_trading_detail_snpst
+    description: "Datamart model của bảng Fact Security Trading Detail Snapshot (TKNB Nhóm 28) — thay thế BM035. Grain: 1 dòng/symbol/trading_dt, mọi sàn."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_security_trading_detail_snpst'
+      tags:
+        - layer_datamart
+        - domain_tknb
+
+  - name: dtm_fct_derivatives_security_detail_snpst
+    description: "Datamart model của bảng Fact Derivatives Security Detail Snapshot (TKNB Nhóm 29) — thay thế BM043. Grain: 1 dòng/symbol HĐTL (floor_code = '03')/trading_dt."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_derivatives_security_detail_snpst'
+      tags:
+        - layer_datamart
+        - domain_tknb
+
+  - name: dtm_depository_member_dim
+    description: "Datamart model của bảng Depository Member Dimension (TKNB Nhóm 13 TTLK01). Grain: 1 dòng/Thành viên lưu ký (TVLK), BK = depository_member_nm (SCD4A current-state)."
+    config:
+      materialized: scd4a
+      unique_key: ["depository_member_dim_id"]
+      source_system: ["ISS_INTERNAL_STATISTICAL_REPORT"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'depository_member_dim'
+      tags:
+        - layer_datamart
+        - domain_tknb
+
+  - name: dtm_fct_custody_account_open_close_snpst
+    description: "Datamart model của bảng Fact Custody Account Open Close Snapshot (TKNB Nhóm 13 TTLK01) — thay thế dtm_ttlk01_account_open_close_rpt. Grain: 1 dòng/TVLK/tháng báo cáo (snpst_dt_dim_id = ngày cuối tháng)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_custody_account_open_close_snpst'
+      tags:
+        - layer_datamart
+        - domain_tknb
+
+  - name: dtm_fct_covered_warrant_outstanding_snpst
+    description: "Datamart model của bảng Fact Covered Warrant Outstanding Snapshot (TKNB Nhóm 14 TTLK10) — thay thế dtm_ttlk10_cw_outstanding_rpt. Grain: 1 dòng/mã chứng quyền HOSE/ngày giao dịch."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_covered_warrant_outstanding_snpst'
+      tags:
+        - layer_datamart
+        - domain_tknb
+
+  - name: dtm_government_bond_term_dim
+    description: "Datamart model của bảng Government Bond Term Dimension (TKNB, HNX BM 25). Grain: 1 dòng/kỳ hạn nguyên văn (bond_term) của đợt đấu thầu TPCP (SCD4A current-state)."
+    config:
+      materialized: scd4a
+      unique_key: ["government_bond_term_dim_id"]
+      source_system: ["HNX_GOV_BOND_OFFERING"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'government_bond_term_dim'
+      tags:
+        - layer_datamart
+        - domain_tknb

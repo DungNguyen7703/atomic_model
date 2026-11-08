@@ -1,0 +1,2261 @@
+version: 2
+
+models:
+  - name: stg_fms_agen_funds
+    description: "Staging model của bảng FMS.AGEN_FUNDS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'agen_funds'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_agen_tf_mbf
+    description: "Staging model của bảng FMS.AGEN_TF_MBF"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'agen_tf_mbf'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_agencies
+    description: "Staging model của bảng FMS.AGENCIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'agencies'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_agencies_bra
+    description: "Staging model của bảng FMS.AGENCIES_BRA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'agencies_bra'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_agency_type
+    description: "Staging model của bảng FMS.AGENCY_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'agency_type'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_announce
+    description: "Staging model của bảng FMS.ANNOUNCE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'announce'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_audit_firm
+    description: "Staging model của bảng FMS.AUDIT_FIRM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'audit_firm'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_audit_firm_reminder
+    description: "Staging model của bảng FMS.AUDIT_FIRM_REMINDER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'audit_firm_reminder'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_audit_firm_reminder_attachment
+    description: "Staging model của bảng FMS.AUDIT_FIRM_REMINDER_ATTACHMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'audit_firm_reminder_attachment'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_auditor
+    description: "Staging model của bảng FMS.AUDITOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'auditor'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_bank_employ
+    description: "Staging model của bảng FMS.BANK_EMPLOY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'bank_employ'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_bank_employ_history
+    description: "Staging model của bảng FMS.BANK_EMPLOY_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'bank_employ_history'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_bank_history
+    description: "Staging model của bảng FMS.BANK_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'bank_history'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_bank_moni
+    description: "Staging model của bảng FMS.BANK_MONI"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'bank_moni'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_bra_business
+    description: "Staging model của bảng FMS.BRA_BUSINESS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'bra_business'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_branchs
+    description: "Staging model của bảng FMS.BRANCHS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'branchs'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_brch_bup
+    description: "Staging model của bảng FMS.BRCH_BUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'brch_bup'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_business
+    description: "Staging model của bảng FMS.BUSINESS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'business'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_business_type
+    description: "Staging model của bảng FMS.BUSINESS_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'business_type'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_calendar
+    description: "Staging model của bảng FMS.CALENDAR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'calendar'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_cdt_warn
+    description: "Staging model của bảng FMS.CDT_WARN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'cdt_warn'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_cert_fcate
+    description: "Staging model của bảng FMS.CERT_FCATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'cert_fcate'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_chart_out
+    description: "Staging model của bảng FMS.CHART_OUT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'chart_out'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_company_type
+    description: "Staging model của bảng FMS.COMPANY_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'company_type'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_config
+    description: "Staging model của bảng FMS.CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'config'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_distributor_agent
+    description: "Staging model của bảng FMS.DISTRIBUTOR_AGENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'distributor_agent'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_distributor_agent_history
+    description: "Staging model của bảng FMS.DISTRIBUTOR_AGENT_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'distributor_agent_history'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_distributor_location
+    description: "Staging model của bảng FMS.DISTRIBUTOR_LOCATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'distributor_location'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_distributor_personnel
+    description: "Staging model của bảng FMS.DISTRIBUTOR_PERSONNEL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'distributor_personnel'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_document
+    description: "Staging model của bảng FMS.DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'document'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_dt_sc_agency
+    description: "Staging model của bảng FMS.DT_SC_AGENCY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'dt_sc_agency'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_dt_sc_audit_firm
+    description: "Staging model của bảng FMS.DT_SC_AUDIT_FIRM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'dt_sc_audit_firm'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_dt_sc_bmn
+    description: "Staging model của bảng FMS.DT_SC_BMN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'dt_sc_bmn'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_dt_sc_distributor_agent
+    description: "Staging model của bảng FMS.DT_SC_DISTRIBUTOR_AGENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'dt_sc_distributor_agent'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_dt_sc_fnd
+    description: "Staging model của bảng FMS.DT_SC_FND"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'dt_sc_fnd'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_dt_sc_fr
+    description: "Staging model của bảng FMS.DT_SC_FR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'dt_sc_fr'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_dt_sc_other_agent
+    description: "Staging model của bảng FMS.DT_SC_OTHER_AGENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'dt_sc_other_agent'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_dt_sc_pension_agent
+    description: "Staging model của bảng FMS.DT_SC_PENSION_AGENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'dt_sc_pension_agent'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_dt_sc_pension_fund
+    description: "Staging model của bảng FMS.DT_SC_PENSION_FUND"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'dt_sc_pension_fund'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_dt_sc_pension_provider
+    description: "Staging model của bảng FMS.DT_SC_PENSION_PROVIDER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'dt_sc_pension_provider'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_dt_sc_sec
+    description: "Staging model của bảng FMS.DT_SC_SEC"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'dt_sc_sec'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_dt_sc_transfer_agent
+    description: "Staging model của bảng FMS.DT_SC_TRANSFER_AGENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'dt_sc_transfer_agent'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_dt_scope
+    description: "Staging model của bảng FMS.DT_SCOPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'dt_scope'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_event_type
+    description: "Staging model của bảng FMS.EVENT_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'event_type'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_event_type_agency_type
+    description: "Staging model của bảng FMS.EVENT_TYPE_AGENCY_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'event_type_agency_type'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_event_type_data_period
+    description: "Staging model của bảng FMS.EVENT_TYPE_DATA_PERIOD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'event_type_data_period'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_factor
+    description: "Staging model của bảng FMS.FACTOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'factor'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_factor_snapshot
+    description: "Staging model của bảng FMS.FACTOR_SNAPSHOT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["date_created"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'factor_snapshot'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_fg_br_bup
+    description: "Staging model của bảng FMS.FG_BR_BUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'fg_br_bup'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_fg_br_history
+    description: "Staging model của bảng FMS.FG_BR_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["date_created"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'fg_br_history'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_fg_business
+    description: "Staging model của bảng FMS.FG_BUSINESS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'fg_business'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_fms_indicator_catalog
+    description: "Staging model của bảng FMS.FMS_INDICATOR_CATALOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'fms_indicator_catalog'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_fms_reference_catalog
+    description: "Staging model của bảng FMS.FMS_REFERENCE_CATALOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'fms_reference_catalog'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_fms_shedlock
+    description: "Staging model của bảng FMS.FMS_SHEDLOCK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'fms_shedlock'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_folder
+    description: "Staging model của bảng FMS.FOLDER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'folder'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_for_brch
+    description: "Staging model của bảng FMS.FOR_BRCH"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'for_brch'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_ftor_scale
+    description: "Staging model của bảng FMS.FTOR_SCALE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'ftor_scale'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_fud_ag_agt
+    description: "Staging model của bảng FMS.FUD_AG_AGT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'fud_ag_agt'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_fud_tagt
+    description: "Staging model của bảng FMS.FUD_TAGT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'fud_tagt'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_fund_bup
+    description: "Staging model của bảng FMS.FUND_BUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'fund_bup'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_fund_history
+    description: "Staging model của bảng FMS.FUND_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["date_created"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'fund_history'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_fund_report
+    description: "Staging model của bảng FMS.FUND_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'fund_report'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_fund_tl_pro
+    description: "Staging model của bảng FMS.FUND_TL_PRO"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'fund_tl_pro'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_fund_type
+    description: "Staging model của bảng FMS.FUND_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'fund_type'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_funds
+    description: "Staging model của bảng FMS.FUNDS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'funds'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_group_roles
+    description: "Staging model của bảng FMS.GROUP_ROLES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'group_roles'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_group_users
+    description: "Staging model của bảng FMS.GROUP_USERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'group_users'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_groups
+    description: "Staging model của bảng FMS.GROUPS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'groups'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_grp_factor
+    description: "Staging model của bảng FMS.GRP_FACTOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'grp_factor'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_insder_rela
+    description: "Staging model của bảng FMS.INSDER_RELA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'insder_rela'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_insder_rela_chg_log
+    description: "Staging model của bảng FMS.INSDER_RELA_CHG_LOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["date_created"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'insder_rela_chg_log'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_insder_rprst
+    description: "Staging model của bảng FMS.INSDER_RPRST"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'insder_rprst'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_insid_change
+    description: "Staging model của bảng FMS.INSID_CHANGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'insid_change'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_insider
+    description: "Staging model của bảng FMS.INSIDER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'insider'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_insider_chg_log
+    description: "Staging model của bảng FMS.INSIDER_CHG_LOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["date_created"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'insider_chg_log'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_inspection_penalty_decision
+    description: "Staging model của bảng FMS.INSPECTION_PENALTY_DECISION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'inspection_penalty_decision'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_inspection_round
+    description: "Staging model của bảng FMS.INSPECTION_ROUND"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'inspection_round'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_inspection_target
+    description: "Staging model của bảng FMS.INSPECTION_TARGET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'inspection_target'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_inves
+    description: "Staging model của bảng FMS.INVES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'inves'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_inves_acc
+    description: "Staging model của bảng FMS.INVES_ACC"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'inves_acc'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_inves_report
+    description: "Staging model của bảng FMS.INVES_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'inves_report'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_job_tl_pro
+    description: "Staging model của bảng FMS.JOB_TL_PRO"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'job_tl_pro'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_job_type
+    description: "Staging model của bảng FMS.JOB_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'job_type'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_jobs
+    description: "Staging model của bảng FMS.JOBS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'jobs'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_location
+    description: "Staging model của bảng FMS.LOCATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'location'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_mb_change
+    description: "Staging model của bảng FMS.MB_CHANGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'mb_change'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_mb_fund
+    description: "Staging model của bảng FMS.MB_FUND"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'mb_fund'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_menus
+    description: "Staging model của bảng FMS.MENUS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'menus'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_national
+    description: "Staging model của bảng FMS.NATIONAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'national'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_offering
+    description: "Staging model của bảng FMS.OFFERING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'offering'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_offering_plan
+    description: "Staging model của bảng FMS.OFFERING_PLAN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'offering_plan'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_other_agent
+    description: "Staging model của bảng FMS.OTHER_AGENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'other_agent'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_other_agent_history
+    description: "Staging model của bảng FMS.OTHER_AGENT_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'other_agent_history'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_par_value
+    description: "Staging model của bảng FMS.PAR_VALUE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'par_value'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_para_warn
+    description: "Staging model của bảng FMS.PARA_WARN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'para_warn'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_pension_agent
+    description: "Staging model của bảng FMS.PENSION_AGENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'pension_agent'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_pension_agent_history
+    description: "Staging model của bảng FMS.PENSION_AGENT_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'pension_agent_history'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_pension_fund
+    description: "Staging model của bảng FMS.PENSION_FUND"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'pension_fund'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_pension_provider
+    description: "Staging model của bảng FMS.PENSION_PROVIDER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'pension_provider'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_pension_provider_history
+    description: "Staging model của bảng FMS.PENSION_PROVIDER_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'pension_provider_history'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_province
+    description: "Staging model của bảng FMS.PROVINCE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'province'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_rank
+    description: "Staging model của bảng FMS.RANK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'rank'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_rating_pd
+    description: "Staging model của bảng FMS.RATING_PD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'rating_pd'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_rating_pd_snapshot
+    description: "Staging model của bảng FMS.RATING_PD_SNAPSHOT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'rating_pd_snapshot'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_refresh_token
+    description: "Staging model của bảng FMS.REFRESH_TOKEN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'refresh_token'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_relation
+    description: "Staging model của bảng FMS.RELATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'relation'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_report_attachment
+    description: "Staging model của bảng FMS.REPORT_ATTACHMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["datecreated"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'report_attachment'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_report_file
+    description: "Staging model của bảng FMS.REPORT_FILE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["date_created"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'report_file'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_represent
+    description: "Staging model của bảng FMS.REPRESENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'represent'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_rnk_fact_history
+    description: "Staging model của bảng FMS.RNK_FACT_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'rnk_fact_history'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_rnk_factor
+    description: "Staging model của bảng FMS.RNK_FACTOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'rnk_factor'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_rnk_gr_ftor
+    description: "Staging model của bảng FMS.RNK_GR_FTOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'rnk_gr_ftor'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_roles
+    description: "Staging model của bảng FMS.ROLES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'roles'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_roles_menus
+    description: "Staging model của bảng FMS.ROLES_MENUS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'roles_menus'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_rpt_htory
+    description: "Staging model của bảng FMS.RPT_HTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["date_created"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'rpt_htory'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_rpt_mb_hs
+    description: "Staging model của bảng FMS.RPT_MB_HS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'rpt_mb_hs'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_rpt_member
+    description: "Staging model của bảng FMS.RPT_MEMBER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'rpt_member'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_rpt_pd_sht
+    description: "Staging model của bảng FMS.RPT_PD_SHT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'rpt_pd_sht'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_rpt_period
+    description: "Staging model của bảng FMS.RPT_PERIOD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'rpt_period'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_rpt_process
+    description: "Staging model của bảng FMS.RPT_PROCESS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'rpt_process'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_rpt_temp
+    description: "Staging model của bảng FMS.RPT_TEMP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'rpt_temp'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_rpt_tp_out
+    description: "Staging model của bảng FMS.RPT_TP_OUT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'rpt_tp_out'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_rpt_values
+    description: "Staging model của bảng FMS.RPT_VALUES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'rpt_values'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_sec_bup
+    description: "Staging model của bảng FMS.SEC_BUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'sec_bup'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_sec_business
+    description: "Staging model của bảng FMS.SEC_BUSINESS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'sec_business'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_sec_fund_manager
+    description: "Staging model của bảng FMS.SEC_FUND_MANAGER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'sec_fund_manager'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_sec_history
+    description: "Staging model của bảng FMS.SEC_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["date_created"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'sec_history'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_securities
+    description: "Staging model của bảng FMS.SECURITIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'securities'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_securities_report
+    description: "Staging model của bảng FMS.SECURITIES_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'securities_report'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_self_set_pd
+    description: "Staging model của bảng FMS.SELF_SET_PD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'self_set_pd'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_sheet
+    description: "Staging model của bảng FMS.SHEET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'sheet'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_sheet_cell_config
+    description: "Staging model của bảng FMS.SHEET_CELL_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'sheet_cell_config'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_sheet_out
+    description: "Staging model của bảng FMS.SHEET_OUT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'sheet_out'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_st_trgt_out
+    description: "Staging model của bảng FMS.ST_TRGT_OUT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'st_trgt_out'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_stake
+    description: "Staging model của bảng FMS.STAKE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'stake'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_status
+    description: "Staging model của bảng FMS.STATUS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'status'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_stf_fg_brch
+    description: "Staging model của bảng FMS.STF_FG_BRCH"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'stf_fg_brch'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_stf_fg_brch_history
+    description: "Staging model của bảng FMS.STF_FG_BRCH_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'stf_fg_brch_history'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_stf_rep_office_history
+    description: "Staging model của bảng FMS.STF_REP_OFFICE_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["date_created"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'stf_rep_office_history'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_stockholder_type
+    description: "Staging model của bảng FMS.STOCKHOLDER_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'stockholder_type'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_tabs_info
+    description: "Staging model của bảng FMS.TABS_INFO"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'tabs_info'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_tl_pr_history
+    description: "Staging model của bảng FMS.TL_PR_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["date_created"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'tl_pr_history'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_tl_pro_bup
+    description: "Staging model của bảng FMS.TL_PRO_BUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'tl_pro_bup'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_tl_pro_rela
+    description: "Staging model của bảng FMS.TL_PRO_RELA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'tl_pro_rela'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_tl_profiles
+    description: "Staging model của bảng FMS.TL_PROFILES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'tl_profiles'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_tot_st_tg
+    description: "Staging model của bảng FMS.TOT_ST_TG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'tot_st_tg'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_tp_out_htory
+    description: "Staging model của bảng FMS.TP_OUT_HTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["date_created"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'tp_out_htory'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_transfer_agent
+    description: "Staging model của bảng FMS.TRANSFER_AGENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'transfer_agent'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_transfer_agent_history
+    description: "Staging model của bảng FMS.TRANSFER_AGENT_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'transfer_agent_history'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_transfer_mbf
+    description: "Staging model của bảng FMS.TRANSFER_MBF"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'transfer_mbf'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_trs_fer_inder
+    description: "Staging model của bảng FMS.TRS_FER_INDER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'trs_fer_inder'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_trs_fer_inder_chg_log
+    description: "Staging model của bảng FMS.TRS_FER_INDER_CHG_LOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["date_created"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'trs_fer_inder_chg_log'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_user_rpt_i
+    description: "Staging model của bảng FMS.USER_RPT_I"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'user_rpt_i'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_user_rpt_o
+    description: "Staging model của bảng FMS.USER_RPT_O"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'user_rpt_o'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_user_sessions
+    description: "Staging model của bảng FMS.USER_SESSIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'user_sessions'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_users
+    description: "Staging model của bảng FMS.USERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'users'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_users_menus
+    description: "Staging model của bảng FMS.USERS_MENUS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'users_menus'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_violt
+    description: "Staging model của bảng FMS.VIOLT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["date_created"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'violt'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_ward
+    description: "Staging model của bảng FMS.WARD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'ward'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_agent_id_unify_audit
+    description: "Staging model của bảng FMS.AGENT_ID_UNIFY_AUDIT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'agent_id_unify_audit'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_distributor_personnel_cert
+    description: "Staging model của bảng FMS.DISTRIBUTOR_PERSONNEL_CERT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'distributor_personnel_cert'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_distributor_personnel_history
+    description: "Staging model của bảng FMS.DISTRIBUTOR_PERSONNEL_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'distributor_personnel_history'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_inspection_standalone_penalty
+    description: "Staging model của bảng FMS.INSPECTION_STANDALONE_PENALTY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'inspection_standalone_penalty'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_job_stf_fg_brch
+    description: "Staging model của bảng FMS.JOB_STF_FG_BRCH"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'job_stf_fg_brch'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_nhn_org_warning_snapshot
+    description: "Staging model của bảng FMS.NHN_ORG_WARNING_SNAPSHOT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'nhn_org_warning_snapshot'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_nhnck_paper_cert_notice
+    description: "Staging model của bảng FMS.NHNCK_PAPER_CERT_NOTICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'nhnck_paper_cert_notice'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_nhnck_practice_confirm_req
+    description: "Staging model của bảng FMS.NHNCK_PRACTICE_CONFIRM_REQ"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'nhnck_practice_confirm_req'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_pension_fund_agent
+    description: "Staging model của bảng FMS.PENSION_FUND_AGENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'pension_fund_agent'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_pension_fund_history
+    description: "Staging model của bảng FMS.PENSION_FUND_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'pension_fund_history'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_pension_fund_provider
+    description: "Staging model của bảng FMS.PENSION_FUND_PROVIDER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'pension_fund_provider'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_rpt_out_group
+    description: "Staging model của bảng FMS.RPT_OUT_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'rpt_out_group'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_rpt_out_group_item
+    description: "Staging model của bảng FMS.RPT_OUT_GROUP_ITEM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'rpt_out_group_item'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_tl_pro_cert
+    description: "Staging model của bảng FMS.TL_PRO_CERT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'tl_pro_cert'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_tl_pro_cert_reconcile_log
+    description: "Staging model của bảng FMS.TL_PRO_CERT_RECONCILE_LOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'tl_pro_cert_reconcile_log'
+      tags:
+        - layer_staging
+        - domain_fms
+
+  - name: stg_fms_user_event_type
+    description: "Staging model của bảng FMS.USER_EVENT_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fms_schema") }}'
+      alias: 'user_event_type'
+      tags:
+        - layer_staging
+        - domain_fms

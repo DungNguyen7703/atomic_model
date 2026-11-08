@@ -1,0 +1,1625 @@
+version: 2
+
+models:
+  - name: stg_tms_case_file
+    description: "Staging model của bảng TMS.CASE_FILE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'case_file'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_case_approval_step
+    description: "Staging model của bảng TMS.CASE_APPROVAL_STEP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'case_approval_step'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_abnormal_column_semantic
+    description: "Staging model của bảng TMS.ABNORMAL_COLUMN_SEMANTIC"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'abnormal_column_semantic'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_abnormal_extracted_signal
+    description: "Staging model của bảng TMS.ABNORMAL_EXTRACTED_SIGNAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'abnormal_extracted_signal'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_abnormal_match_exclusion
+    description: "Staging model của bảng TMS.ABNORMAL_MATCH_EXCLUSION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'abnormal_match_exclusion'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_abnormal_report_config
+    description: "Staging model của bảng TMS.ABNORMAL_REPORT_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'abnormal_report_config'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_abnormal_report_data
+    description: "Staging model của bảng TMS.ABNORMAL_REPORT_DATA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'abnormal_report_data'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_abnormal_report_form
+    description: "Staging model của bảng TMS.ABNORMAL_REPORT_FORM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'abnormal_report_form'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_abnormal_report_form_template
+    description: "Staging model của bảng TMS.ABNORMAL_REPORT_FORM_TEMPLATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'abnormal_report_form_template'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_abnormal_report_master
+    description: "Staging model của bảng TMS.ABNORMAL_REPORT_MASTER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'abnormal_report_master'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_abnormal_report_template
+    description: "Staging model của bảng TMS.ABNORMAL_REPORT_TEMPLATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'abnormal_report_template'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_account_group
+    description: "Staging model của bảng TMS.ACCOUNT_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'account_group'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_account_group_history
+    description: "Staging model của bảng TMS.ACCOUNT_GROUP_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'account_group_history'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_account_group_member
+    description: "Staging model của bảng TMS.ACCOUNT_GROUP_MEMBER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'account_group_member'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_account_relationship
+    description: "Staging model của bảng TMS.ACCOUNT_RELATIONSHIP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'account_relationship'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_analysis_account_group
+    description: "Staging model của bảng TMS.ANALYSIS_ACCOUNT_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'analysis_account_group'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_analysis_account_group_member
+    description: "Staging model của bảng TMS.ANALYSIS_ACCOUNT_GROUP_MEMBER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'analysis_account_group_member'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_analysis_account_relationship
+    description: "Staging model của bảng TMS.ANALYSIS_ACCOUNT_RELATIONSHIP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'analysis_account_relationship'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_analysis_attribute_define
+    description: "Staging model của bảng TMS.ANALYSIS_ATTRIBUTE_DEFINE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'analysis_attribute_define'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_analysis_define_report_template
+    description: "Staging model của bảng TMS.ANALYSIS_DEFINE_REPORT_TEMPLATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'analysis_define_report_template'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_analysis_execution_log
+    description: "Staging model của bảng TMS.ANALYSIS_EXECUTION_LOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'analysis_execution_log'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_analysis_mm_stock_account
+    description: "Staging model của bảng TMS.ANALYSIS_MM_STOCK_ACCOUNT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'analysis_mm_stock_account'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_analysis_mm_stock_window
+    description: "Staging model của bảng TMS.ANALYSIS_MM_STOCK_WINDOW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'analysis_mm_stock_window'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_analysis_mm_stock_window_detail
+    description: "Staging model của bảng TMS.ANALYSIS_MM_STOCK_WINDOW_DETAIL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'analysis_mm_stock_window_detail'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_analysis_mm_time_window
+    description: "Staging model của bảng TMS.ANALYSIS_MM_TIME_WINDOW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'analysis_mm_time_window'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_analysis_report
+    description: "Staging model của bảng TMS.ANALYSIS_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'analysis_report'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_analysis_suspicious_account
+    description: "Staging model của bảng TMS.ANALYSIS_SUSPICIOUS_ACCOUNT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'analysis_suspicious_account'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_analysis_suspicious_account_code
+    description: "Staging model của bảng TMS.ANALYSIS_SUSPICIOUS_ACCOUNT_CODE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'analysis_suspicious_account_code'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_analysis_workflow
+    description: "Staging model của bảng TMS.ANALYSIS_WORKFLOW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'analysis_workflow'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_analysis_workflow_history_log
+    description: "Staging model của bảng TMS.ANALYSIS_WORKFLOW_HISTORY_LOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'analysis_workflow_history_log'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_analysis_workflow_template
+    description: "Staging model của bảng TMS.ANALYSIS_WORKFLOW_TEMPLATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'analysis_workflow_template'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_analysis_workflow_user
+    description: "Staging model của bảng TMS.ANALYSIS_WORKFLOW_USER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'analysis_workflow_user'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_attribute_catalog
+    description: "Staging model của bảng TMS.ATTRIBUTE_CATALOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'attribute_catalog'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_business_dashboard
+    description: "Staging model của bảng TMS.BUSINESS_DASHBOARD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'business_dashboard'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_case_analysis_attribute_value
+    description: "Staging model của bảng TMS.CASE_ANALYSIS_ATTRIBUTE_VALUE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'case_analysis_attribute_value'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_case_attach_file
+    description: "Staging model của bảng TMS.CASE_ATTACH_FILE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'case_attach_file'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_case_file_assignment
+    description: "Staging model của bảng TMS.CASE_FILE_ASSIGNMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'case_file_assignment'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_case_file_investor
+    description: "Staging model của bảng TMS.CASE_FILE_INVESTOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'case_file_investor'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_case_file_securities_code
+    description: "Staging model của bảng TMS.CASE_FILE_SECURITIES_CODE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'case_file_securities_code'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_case_file_securities_group
+    description: "Staging model của bảng TMS.CASE_FILE_SECURITIES_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'case_file_securities_group'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_case_file_workflow
+    description: "Staging model của bảng TMS.CASE_FILE_WORKFLOW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'case_file_workflow'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_case_report_parameter_value
+    description: "Staging model của bảng TMS.CASE_REPORT_PARAMETER_VALUE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'case_report_parameter_value'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_category_config
+    description: "Staging model của bảng TMS.CATEGORY_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'category_config'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_category_item
+    description: "Staging model của bảng TMS.CATEGORY_ITEM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'category_item'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_category_item_history
+    description: "Staging model của bảng TMS.CATEGORY_ITEM_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'category_item_history'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_company_event
+    description: "Staging model của bảng TMS.COMPANY_EVENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'company_event'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_company_event_history
+    description: "Staging model của bảng TMS.COMPANY_EVENT_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'company_event_history'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_compliance_output_template
+    description: "Staging model của bảng TMS.COMPLIANCE_OUTPUT_TEMPLATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'compliance_output_template'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_compliance_output_template_share
+    description: "Staging model của bảng TMS.COMPLIANCE_OUTPUT_TEMPLATE_SHARE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'compliance_output_template_share'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_compliance_report_config
+    description: "Staging model của bảng TMS.COMPLIANCE_REPORT_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'compliance_report_config'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_compliance_report_data
+    description: "Staging model của bảng TMS.COMPLIANCE_REPORT_DATA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'compliance_report_data'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_compliance_report_file
+    description: "Staging model của bảng TMS.COMPLIANCE_REPORT_FILE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'compliance_report_file'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_compliance_report_form
+    description: "Staging model của bảng TMS.COMPLIANCE_REPORT_FORM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'compliance_report_form'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_compliance_report_form_template
+    description: "Staging model của bảng TMS.COMPLIANCE_REPORT_FORM_TEMPLATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'compliance_report_form_template'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_compliance_report_master
+    description: "Staging model của bảng TMS.COMPLIANCE_REPORT_MASTER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'compliance_report_master'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_compliance_report_template
+    description: "Staging model của bảng TMS.COMPLIANCE_REPORT_TEMPLATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'compliance_report_template'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_compliance_template_share
+    description: "Staging model của bảng TMS.COMPLIANCE_TEMPLATE_SHARE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'compliance_template_share'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_computed_column
+    description: "Staging model của bảng TMS.COMPUTED_COLUMN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'computed_column'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_dashboard
+    description: "Staging model của bảng TMS.DASHBOARD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'dashboard'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_dashboard_admin_config
+    description: "Staging model của bảng TMS.DASHBOARD_ADMIN_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'dashboard_admin_config'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_dashboard_admin_config_item
+    description: "Staging model của bảng TMS.DASHBOARD_ADMIN_CONFIG_ITEM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'dashboard_admin_config_item'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_dashboard_admin_config_region
+    description: "Staging model của bảng TMS.DASHBOARD_ADMIN_CONFIG_REGION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'dashboard_admin_config_region'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_dashboard_admin_config_row
+    description: "Staging model của bảng TMS.DASHBOARD_ADMIN_CONFIG_ROW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'dashboard_admin_config_row'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_dashboard_admin_config_version
+    description: "Staging model của bảng TMS.DASHBOARD_ADMIN_CONFIG_VERSION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'dashboard_admin_config_version'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_dashboard_user_config
+    description: "Staging model của bảng TMS.DASHBOARD_USER_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'dashboard_user_config'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_dashboard_user_config_item
+    description: "Staging model của bảng TMS.DASHBOARD_USER_CONFIG_ITEM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'dashboard_user_config_item'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_dashboard_user_config_region
+    description: "Staging model của bảng TMS.DASHBOARD_USER_CONFIG_REGION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'dashboard_user_config_region'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_dashboard_user_config_row
+    description: "Staging model của bảng TMS.DASHBOARD_USER_CONFIG_ROW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'dashboard_user_config_row'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_dashboard_widget
+    description: "Staging model của bảng TMS.DASHBOARD_WIDGET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'dashboard_widget'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_dashboard_widget_chart
+    description: "Staging model của bảng TMS.DASHBOARD_WIDGET_CHART"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'dashboard_widget_chart'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_dashboard_widget_filter
+    description: "Staging model của bảng TMS.DASHBOARD_WIDGET_FILTER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'dashboard_widget_filter'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_dashboard_widget_group
+    description: "Staging model của bảng TMS.DASHBOARD_WIDGET_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'dashboard_widget_group'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_dashboard_widget_group_filter
+    description: "Staging model của bảng TMS.DASHBOARD_WIDGET_GROUP_FILTER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'dashboard_widget_group_filter'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_document_outgoing
+    description: "Staging model của bảng TMS.DOCUMENT_OUTGOING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'document_outgoing'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_document_template
+    description: "Staging model của bảng TMS.DOCUMENT_TEMPLATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'document_template'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_document_template_excel_column
+    description: "Staging model của bảng TMS.DOCUMENT_TEMPLATE_EXCEL_COLUMN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'document_template_excel_column'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_document_template_field
+    description: "Staging model của bảng TMS.DOCUMENT_TEMPLATE_FIELD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'document_template_field'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_export_file
+    description: "Staging model của bảng TMS.EXPORT_FILE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'export_file'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_investor_account
+    description: "Staging model của bảng TMS.INVESTOR_ACCOUNT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'investor_account'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_investor_account_dashboard
+    description: "Staging model của bảng TMS.INVESTOR_ACCOUNT_DASHBOARD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'investor_account_dashboard'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_investor_account_extended_info
+    description: "Staging model của bảng TMS.INVESTOR_ACCOUNT_EXTENDED_INFO"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'investor_account_extended_info'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_investor_account_history
+    description: "Staging model của bảng TMS.INVESTOR_ACCOUNT_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'investor_account_history'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_metric_catalog
+    description: "Staging model của bảng TMS.METRIC_CATALOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'metric_catalog'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_metric_catalog_relationship
+    description: "Staging model của bảng TMS.METRIC_CATALOG_RELATIONSHIP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'metric_catalog_relationship'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_metric_default_sort
+    description: "Staging model của bảng TMS.METRIC_DEFAULT_SORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'metric_default_sort'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_metric_join_condition
+    description: "Staging model của bảng TMS.METRIC_JOIN_CONDITION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'metric_join_condition'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_metric_word_sql
+    description: "Staging model của bảng TMS.METRIC_WORD_SQL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'metric_word_sql'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_assignment
+    description: "Staging model của bảng TMS.REPORT_ASSIGNMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_assignment'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_assignment_notification
+    description: "Staging model của bảng TMS.REPORT_ASSIGNMENT_NOTIFICATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_assignment_notification'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_attach_file
+    description: "Staging model của bảng TMS.REPORT_ATTACH_FILE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_attach_file'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_column
+    description: "Staging model của bảng TMS.REPORT_COLUMN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_column'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_column_group
+    description: "Staging model của bảng TMS.REPORT_COLUMN_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_column_group'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_comment
+    description: "Staging model của bảng TMS.REPORT_COMMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_comment'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_filter
+    description: "Staging model của bảng TMS.REPORT_FILTER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_filter'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_metric_join
+    description: "Staging model của bảng TMS.REPORT_METRIC_JOIN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_metric_join'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_parameter
+    description: "Staging model của bảng TMS.REPORT_PARAMETER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_parameter'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_parameter_history_log
+    description: "Staging model của bảng TMS.REPORT_PARAMETER_HISTORY_LOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_parameter_history_log'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_process_history
+    description: "Staging model của bảng TMS.REPORT_PROCESS_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_process_history'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_sort
+    description: "Staging model của bảng TMS.REPORT_SORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_sort'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_template
+    description: "Staging model của bảng TMS.REPORT_TEMPLATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_template'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_template_config
+    description: "Staging model của bảng TMS.REPORT_TEMPLATE_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_template_config'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_template_metric
+    description: "Staging model của bảng TMS.REPORT_TEMPLATE_METRIC"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_template_metric'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_template_parameter
+    description: "Staging model của bảng TMS.REPORT_TEMPLATE_PARAMETER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_template_parameter'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_template_session
+    description: "Staging model của bảng TMS.REPORT_TEMPLATE_SESSION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_template_session'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_template_workflow
+    description: "Staging model của bảng TMS.REPORT_TEMPLATE_WORKFLOW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'report_template_workflow'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_securities_group
+    description: "Staging model của bảng TMS.SECURITIES_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'securities_group'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_securities_group_history
+    description: "Staging model của bảng TMS.SECURITIES_GROUP_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'securities_group_history'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_securities_group_member
+    description: "Staging model của bảng TMS.SECURITIES_GROUP_MEMBER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'securities_group_member'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_suspicious_account
+    description: "Staging model của bảng TMS.SUSPICIOUS_ACCOUNT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'suspicious_account'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_transaction_review
+    description: "Staging model của bảng TMS.TRANSACTION_REVIEW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'transaction_review'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_transaction_review_account_code
+    description: "Staging model của bảng TMS.TRANSACTION_REVIEW_ACCOUNT_CODE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'transaction_review_account_code'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_transaction_review_account_group
+    description: "Staging model của bảng TMS.TRANSACTION_REVIEW_ACCOUNT_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'transaction_review_account_group'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_transaction_review_account_group_member
+    description: "Staging model của bảng TMS.TRANSACTION_REVIEW_ACCOUNT_GROUP_MEMBER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'transaction_review_account_group_member'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_transaction_review_analysis_attribute_value
+    description: "Staging model của bảng TMS.TRANSACTION_REVIEW_ANALYSIS_ATTRIBUTE_VALUE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'transaction_review_analysis_attribute_value'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_transaction_review_attach_file
+    description: "Staging model của bảng TMS.TRANSACTION_REVIEW_ATTACH_FILE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'transaction_review_attach_file'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_transaction_review_execution_log
+    description: "Staging model của bảng TMS.TRANSACTION_REVIEW_EXECUTION_LOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'transaction_review_execution_log'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_transaction_review_investor
+    description: "Staging model của bảng TMS.TRANSACTION_REVIEW_INVESTOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'transaction_review_investor'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_transaction_review_report_parameter_value
+    description: "Staging model của bảng TMS.TRANSACTION_REVIEW_REPORT_PARAMETER_VALUE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'transaction_review_report_parameter_value'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_transaction_review_report_template_workflow
+    description: "Staging model của bảng TMS.TRANSACTION_REVIEW_REPORT_TEMPLATE_WORKFLOW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'transaction_review_report_template_workflow'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_transaction_review_securities_code
+    description: "Staging model của bảng TMS.TRANSACTION_REVIEW_SECURITIES_CODE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'transaction_review_securities_code'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_transaction_review_securities_group
+    description: "Staging model của bảng TMS.TRANSACTION_REVIEW_SECURITIES_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'transaction_review_securities_group'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_user_manual
+    description: "Staging model của bảng TMS.USER_MANUAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'user_manual'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_user_table_config
+    description: "Staging model của bảng TMS.USER_TABLE_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'user_table_config'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report
+    description: "Staging model: Danh muc bao cao dong UBCKNN va bo chi tieu"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'tms_report'
+      tags:
+        - layer_staging
+        - domain_tms
+
+  - name: stg_tms_report_value
+    description: "Staging model: Gia tri chi tieu bao cao dong UBCKNN theo tung lan nop"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tms_schema") }}'
+      alias: 'tms_report_value'
+      tags:
+        - layer_staging
+        - domain_tms

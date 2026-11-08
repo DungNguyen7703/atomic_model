@@ -1,0 +1,29 @@
+version: 2
+
+models:
+
+  - name: stg_uploadfile_weight_config
+    description: "Staging model của bảng UBCK.WEIGHT_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_uploadfile_schema") }}'
+      alias: 'weight_config'
+      tags:
+        - layer_staging
+        - domain_uploadfile
+
+  - name: stg_uploadfile_threshold_config
+    description: "Staging model của bảng UBCK.THRESHOLD_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_uploadfile_schema") }}'
+      alias: 'threshold_config'
+      tags:
+        - layer_staging
+        - domain_uploadfile

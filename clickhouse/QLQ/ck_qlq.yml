@@ -1,0 +1,251 @@
+# ClickHouse dbt YAML — Module QLQ
+
+version: 2
+
+models:
+  - name: qlq_fct_fund_management_company_snpst_flat
+    description: "Flat table — Fact Fund Management Company Snapshot × Calendar Date"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::qlq
+
+  - name: qlq_fct_investment_fund_count_snpst_flat
+    description: "Flat table — Fact Investment Fund Count Snapshot × Calendar Date × Fund Type Dimension"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::qlq
+
+  - name: qlq_fct_fund_distribution_agent_snpst_flat
+    description: "Flat table — Fact Fund Distribution Agent Snapshot × Calendar Date"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::qlq
+
+  - name: qlq_fct_foreign_fund_management_organization_unit_snpst_flat
+    description: "Flat table — Fact Foreign Fund Management Organization Unit Snapshot × Calendar Date"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::qlq
+
+  - name: qlq_opr_fund_management_company_profile_flat
+    description: "Flat table — Operational Fund Management Company Profile"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - domain::qlq
+
+  - name: qlq_opr_fund_management_company_fund_list_flat
+    description: "Flat table — Operational Fund Management Company Fund List"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - domain::qlq
+
+  - name: qlq_opr_investment_fund_profile_flat
+    description: "Flat table — Operational Investment Fund Profile"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - domain::qlq
+
+  - name: qlq_opr_investment_fund_representative_board_member_list_flat
+    description: "Flat table — Operational Investment Fund Representative Board Member List"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - domain::qlq
+
+  - name: qlq_opr_investment_fund_manager_list_flat
+    description: "Flat table — Operational Investment Fund Manager List"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - domain::qlq
+
+  - name: qlq_opr_fund_distribution_agent_profile_flat
+    description: "Flat table — Operational Fund Distribution Agent Profile"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - domain::qlq
+
+  - name: qlq_opr_fund_distribution_agent_fund_list_flat
+    description: "Flat table — Operational Fund Distribution Agent Fund List"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - domain::qlq
+
+  - name: qlq_opr_foreign_fund_management_organization_unit_profile_flat
+    description: "Flat table — Operational Foreign Fund Management Organization Unit Profile"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - domain::qlq
+
+  - name: qlq_opr_fund_management_report_sheet_list_flat
+    description: "Flat table — Operational Fund Management Report Sheet List"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - domain::qlq
+
+  - name: qlq_opr_investment_fund_distribution_agent_list_flat
+    description: "Flat table — Operational Investment Fund Distribution Agent List"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - domain::qlq
+
+  - name: qlq_opr_fund_management_company_contract_list_flat
+    description: "Flat table — Operational Fund Management Company Contract List"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - domain::qlq
+
+  - name: qlq_fct_fund_management_rpt_cell_val_flat
+    description: "Flat table — Fact Fund Management Report Cell Value × Calendar Date × Fund Management Report Cell Dimension × Fund Type Dimension"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::qlq
+
+  - name: qlq_opr_foreign_fund_management_organization_unit_contract_list_flat
+    description: "Flat table — Operational Foreign Fund Management Organization Unit Contract List"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - domain::qlq
+
+  - name: qlq_fund_management_company_staff_trade_rpt_flat
+    description: "Flat table — Operational Fund Management Company Staff Trade Report"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - domain::qlq
+
+  - name: qlq_opr_fund_management_company_employee_investor_account_list_flat
+    description: "Flat table — Operational Fund Management Company Employee Investor Account List"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - domain::qlq

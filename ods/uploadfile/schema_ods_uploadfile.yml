@@ -1,0 +1,27 @@
+version: 2
+
+models:
+
+  - name: ods_uploadfile_weight_config
+    description: "ODS model của bảng UBCK.WEIGHT_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_uploadfile_schema") }}'
+      alias: 'weight_config'
+      tags:
+        - layer_ods
+        - domain_uploadfile
+
+  - name: ods_uploadfile_threshold_config
+    description: "ODS model của bảng UBCK.THRESHOLD_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_uploadfile_schema") }}'
+      alias: 'threshold_config'
+      tags:
+        - layer_ods
+        - domain_uploadfile

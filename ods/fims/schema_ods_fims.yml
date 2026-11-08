@@ -1,0 +1,122 @@
+version: 2
+
+models:
+  - name: ods_fims_investor
+    description: "ODS model của bảng FIMS.INVESTOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'investor'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_national
+    description: "ODS model của bảng FIMS.NATIONAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'national'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_investortype
+    description: "ODS model của bảng FIMS.INVESTORTYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'investortype'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_companytype
+    description: "ODS model của bảng FIMS.COMPANYTYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'companytype'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_status
+    description: "ODS model của bảng FIMS.STATUS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'status'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_bankmoni
+    description: "ODS model của bảng FIMS.BANKMONI"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'bankmoni'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_securitiescompany
+    description: "ODS model của bảng FIMS.SECURITIESCOMPANY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'securitiescompany'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_province_new
+    description: "ODS model của bảng FIMS.PROVINCE_NEW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'province_new'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_ward_new
+    description: "ODS model của bảng FIMS.WARD_NEW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'ward_new'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_tradingrepresentative
+    description: "ODS model của bảng FIMS.TRADINGREPRESENTATIVE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'tradingrepresentative'
+      tags:
+        - layer_ods
+        - domain_fims

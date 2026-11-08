@@ -1,0 +1,542 @@
+version: 2
+
+models:
+  - name: gstt_fct_stock_heatmap_flat
+    description: "[MOI, LLD v5] Buffer chart template [2399] heat-map - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_stock_heatmap_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_stock_heatmap_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_valuation_report_bm021_flat
+    description: "[MOI, LLD v5] Buffer chart template [2391] bm021-mss-dinh-gia - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_valuation_report_bm021_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_valuation_report_bm021_flat'
+      tags:
+        - gstt_buffer
+
+  - name: qlkd_fct_index_eod_flat
+    description: "[MOI, LLD v5] Buffer chart template [2351] chi-so-eod - bang phuc vu BI phia sau flat GSTT (mart.qlkd_fct_index_eod_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'qlkd_fct_index_eod_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_index_history_flat
+    description: "[MOI, LLD v5] Buffer chart template [2350] chi-so-history - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_index_history_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_index_history_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_index_realtime_flat
+    description: "[MOI, LLD v5] Buffer chart template [2349] chi-so-realtime - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_index_realtime_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_index_realtime_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_index_valuation_flat
+    description: "[MOI, LLD v5] Buffer chart template [2352] dinh-gia - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_index_valuation_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_index_valuation_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_stock_list_flat
+    description: "[MOI, LLD v5] Buffer chart template [2336] bang-co-phieu - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_stock_list_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_stock_list_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_derivative_list_flat
+    description: "[MOI, LLD v5] Buffer chart template [2338] bang-phai-sinh - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_derivative_list_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_derivative_list_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_foreign_trading_flat
+    description: "[MOI, LLD v5] Buffer chart template [2379] nuoc-ngoai - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_foreign_trading_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_foreign_trading_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_foreign_trading_value_flat
+    description: "[MOI, LLD v5] Buffer chart template [2380] nuoc-ngoai-gtnn - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_foreign_trading_value_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_foreign_trading_value_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_foreign_trading_value_intraday_flat
+    description: "[MOI, LLD v5] Buffer chart template [2381] nuoc-ngoai-gtnn-intraday - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_foreign_trading_value_intraday_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_foreign_trading_value_intraday_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_foreign_trading_by_index_flat
+    description: "[MOI, LLD v5] Buffer chart template [2382] nuoc-ngoai-theo-chi-so - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_foreign_trading_by_index_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_foreign_trading_by_index_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_foreign_trading_by_index_intraday_flat
+    description: "[MOI, LLD v5] Buffer chart template [2383] nuoc-ngoai-theo-chi-so-intraday - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_foreign_trading_by_index_intraday_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_foreign_trading_by_index_intraday_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_investor_category_trading_flat
+    description: "[MOI, LLD v5] Buffer chart template [2385] phan-loai-ndt - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_investor_category_trading_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_investor_category_trading_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_investor_category_heatmap_flat
+    description: "[MOI, LLD v5] Buffer chart template [2387] phan-loai-ndt-heatmap - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_investor_category_heatmap_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_investor_category_heatmap_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_investor_category_index_trading_flat
+    description: "[MOI, LLD v5] Buffer chart template [2386] phan-loai-ndt-index - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_investor_category_index_trading_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_investor_category_index_trading_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_market_overview_flat
+    description: "[MOI, LLD v5] Buffer chart template [2378] tong-quan - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_market_overview_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_market_overview_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_proprietary_trading_flat
+    description: "[MOI, LLD v5] Buffer chart template [2384] tu-doanh - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_proprietary_trading_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_proprietary_trading_flat'
+      tags:
+        - gstt_buffer
+
+  - name: ndtnn_fct_major_shareholder_flat
+    description: "[MOI, LLD v5] Buffer chart template [2397] co-dong-lon - bang phuc vu BI phia sau flat GSTT (mart.ndtnn_fct_major_shareholder_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'ndtnn_fct_major_shareholder_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_breakout_by_index_flat
+    description: "[MOI, LLD v5] Buffer chart template [2371] top-dot-pha-theo-chi-so - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_breakout_by_index_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_breakout_by_index_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_breakout_by_exchange_flat
+    description: "[MOI, LLD v5] Buffer chart template [2370] top-dot-pha-theo-san - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_breakout_by_exchange_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_breakout_by_exchange_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_breakout_market_wide_flat
+    description: "[MOI, LLD v5] Buffer chart template [2369] top-dot-pha-toan-tt - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_breakout_market_wide_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_breakout_market_wide_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_top_losers_by_index_flat
+    description: "[MOI, LLD v5] Buffer chart template [2362] top-giam-gia-theo-chi-so - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_top_losers_by_index_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_top_losers_by_index_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_top_losers_by_exchange_flat
+    description: "[MOI, LLD v5] Buffer chart template [2361] top-giam-gia-theo-san - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_top_losers_by_exchange_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_top_losers_by_exchange_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_top_losers_market_wide_flat
+    description: "[MOI, LLD v5] Buffer chart template [2360] top-giam-gia-toan-tt - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_top_losers_market_wide_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_top_losers_market_wide_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_top_value_by_index_flat
+    description: "[MOI, LLD v5] Buffer chart template [2377] top-gt-theo-chi-so - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_top_value_by_index_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_top_value_by_index_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_top_value_by_exchange_flat
+    description: "[MOI, LLD v5] Buffer chart template [2376] top-gt-theo-san - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_top_value_by_exchange_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_top_value_by_exchange_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_top_value_market_wide_flat
+    description: "[MOI, LLD v5] Buffer chart template [2375] top-gt-toan-tt - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_top_value_market_wide_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_top_value_market_wide_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_top_volume_by_index_flat
+    description: "[MOI, LLD v5] Buffer chart template [2356] top-kl-theo-chi-so - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_top_volume_by_index_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_top_volume_by_index_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_top_volume_by_exchange_flat
+    description: "[MOI, LLD v5] Buffer chart template [2355] top-kl-theo-san - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_top_volume_by_exchange_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_top_volume_by_exchange_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_top_volume_market_wide_flat
+    description: "[MOI, LLD v5] Buffer chart template [2354] top-kl-toan-tt - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_top_volume_market_wide_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_top_volume_market_wide_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_top_foreign_trading_by_index_flat
+    description: "[MOI, LLD v5] Buffer chart template [2374] top-nn-theo-chi-so - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_top_foreign_trading_by_index_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_top_foreign_trading_by_index_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_top_foreign_trading_by_exchange_flat
+    description: "[MOI, LLD v5] Buffer chart template [2373] top-nn-theo-san - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_top_foreign_trading_by_exchange_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_top_foreign_trading_by_exchange_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_top_foreign_trading_market_wide_flat
+    description: "[MOI, LLD v5] Buffer chart template [2372] top-nn-toan-tt - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_top_foreign_trading_market_wide_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_top_foreign_trading_market_wide_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_top_gainers_by_index_flat
+    description: "[MOI, LLD v5] Buffer chart template [2359] top-tang-gia-theo-chi-so - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_top_gainers_by_index_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_top_gainers_by_index_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_top_gainers_by_exchange_flat
+    description: "[MOI, LLD v5] Buffer chart template [2358] top-tang-gia-theo-san - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_top_gainers_by_exchange_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_top_gainers_by_exchange_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_top_gainers_market_wide_flat
+    description: "[MOI, LLD v5] Buffer chart template [2357] top-tang-gia-toan-tt - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_top_gainers_market_wide_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_top_gainers_market_wide_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_new_low_by_index_flat
+    description: "[MOI, LLD v5] Buffer chart template [2368] top-thung-day-theo-chi-so - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_new_low_by_index_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_new_low_by_index_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_new_low_by_exchange_flat
+    description: "[MOI, LLD v5] Buffer chart template [2367] top-thung-day-theo-san - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_new_low_by_exchange_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_new_low_by_exchange_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_new_low_market_wide_flat
+    description: "[MOI, LLD v5] Buffer chart template [2366] top-thung-day-toan-tt - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_new_low_market_wide_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_new_low_market_wide_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_new_high_by_index_flat
+    description: "[MOI, LLD v5] Buffer chart template [2365] top-vuot-dinh-theo-chi-so - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_new_high_by_index_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_new_high_by_index_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_new_high_by_exchange_flat
+    description: "[MOI, LLD v5] Buffer chart template [2364] top-vuot-dinh-theo-san - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_new_high_by_exchange_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_new_high_by_exchange_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_new_high_market_wide_flat
+    description: "[MOI, LLD v5] Buffer chart template [2363] top-vuot-dinh-toan-tt - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_new_high_market_wide_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_new_high_market_wide_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_bond_list_flat
+    description: "[MOI, LLD v5] Buffer chart template [2337] bang-trai-phieu - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_bond_list_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_bond_list_flat'
+      tags:
+        - gstt_buffer
+
+  - name: gstt_fct_price_volume_history_flat
+    description: "[MOI, LLD v5] Buffer chart template [2392] lich-su-gia-khoi-luong - bang phuc vu BI phia sau flat GSTT (mart.gstt_fct_price_volume_history_flat)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_buffer_schema') }}"
+      alias: 'gstt_fct_price_volume_history_flat'
+      tags:
+        - gstt_buffer

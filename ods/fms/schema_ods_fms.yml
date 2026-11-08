@@ -1,0 +1,446 @@
+version: 2
+
+models:
+  - name: ods_fms_agen_funds
+    description: "ODS model của bảng FMS.AGEN_FUNDS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'agen_funds'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_agencies
+    description: "ODS model của bảng FMS.AGENCIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'agencies'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_bank_moni
+    description: "ODS model của bảng FMS.BANK_MONI"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'bank_moni'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_company_type
+    description: "ODS model của bảng FMS.COMPANY_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'company_type'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_distributor_agent
+    description: "ODS model của bảng FMS.DISTRIBUTOR_AGENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'distributor_agent'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_event_type
+    description: "ODS model của bảng FMS.EVENT_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'event_type'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_for_brch
+    description: "ODS model của bảng FMS.FOR_BRCH"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'for_brch'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_fund_tl_pro
+    description: "ODS model của bảng FMS.FUND_TL_PRO"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'fund_tl_pro'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_fund_type
+    description: "ODS model của bảng FMS.FUND_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'fund_type'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_funds
+    description: "ODS model của bảng FMS.FUNDS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'funds'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_insider
+    description: "ODS model của bảng FMS.INSIDER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'insider'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_inves
+    description: "ODS model của bảng FMS.INVES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'inves'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_inves_acc
+    description: "ODS model của bảng FMS.INVES_ACC"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'inves_acc'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_job_type
+    description: "ODS model của bảng FMS.JOB_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'job_type'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_jobs
+    description: "ODS model của bảng FMS.JOBS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'jobs'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_national
+    description: "ODS model của bảng FMS.NATIONAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'national'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_province
+    description: "ODS model của bảng FMS.PROVINCE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'province'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_rank
+    description: "ODS model của bảng FMS.RANK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'rank'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_rating_pd
+    description: "ODS model của bảng FMS.RATING_PD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'rating_pd'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_represent
+    description: "ODS model của bảng FMS.REPRESENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'represent'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_rpt_temp
+    description: "ODS model của bảng FMS.RPT_TEMP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'rpt_temp'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_securities
+    description: "ODS model của bảng FMS.SECURITIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'securities'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_sheet
+    description: "ODS model của bảng FMS.SHEET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'sheet'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_status
+    description: "ODS model của bảng FMS.STATUS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'status'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_stf_fg_brch
+    description: "ODS model của bảng FMS.STF_FG_BRCH"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'stf_fg_brch'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_tl_profiles
+    description: "ODS model của bảng FMS.TL_PROFILES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'tl_profiles'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_ward
+    description: "ODS model của bảng FMS.WARD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'ward'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_rpt_values
+    description: "ODS model của bảng FMS.RPT_VALUES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'rpt_values'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_rpt_member
+    description: "ODS model của bảng FMS.RPT_MEMBER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'rpt_member'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_fud_ag_agt
+    description: "ODS model của bảng FMS.FUD_AG_AGT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'fud_ag_agt'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_agency_type
+    description: "ODS model của bảng FMS.AGENCY_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'agency_type'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_rpt_period
+    description: "ODS model của bảng FMS.RPT_PERIOD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'rpt_period'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_business
+    description: "ODS model của bảng FMS.BUSINESS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'business'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_stockholder_type
+    description: "ODS model của bảng FMS.STOCKHOLDER_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'stockholder_type'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_mb_fund
+    description: "ODS model của bảng FMS.MB_FUND"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'mb_fund'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_offering
+    description: "ODS model của bảng FMS.OFFERING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'offering'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_offering_plan
+    description: "ODS model của bảng FMS.OFFERING_PLAN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'offering_plan'
+      tags:
+        - layer_ods
+        - domain_fms

@@ -1,0 +1,2050 @@
+version: 2
+
+models:
+  - name: stg_scms_alert_financial_indicator
+    description: "Staging model của bảng SCMS.ALERT_FINANCIAL_INDICATOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'alert_financial_indicator'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_alert_indicator
+    description: "Staging model của bảng SCMS.ALERT_INDICATOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'alert_indicator'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_alert_indicator_condition
+    description: "Staging model của bảng SCMS.ALERT_INDICATOR_CONDITION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'alert_indicator_condition'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_alert_run
+    description: "Staging model của bảng SCMS.ALERT_RUN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'alert_run'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_audit_firm
+    description: "Staging model của bảng SCMS.AUDIT_FIRM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'audit_firm'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_auditor
+    description: "Staging model của bảng SCMS.AUDITOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'auditor'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_bank
+    description: "Staging model của bảng SCMS.BANK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'bank'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_bank_periodic_report
+    description: "Staging model của bảng SCMS.BANK_PERIODIC_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'bank_periodic_report'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_district
+    description: "Staging model của bảng SCMS.CAT_DISTRICT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_district'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_event_type
+    description: "Staging model của bảng SCMS.CAT_EVENT_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_event_type'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_nationality
+    description: "Staging model của bảng SCMS.CAT_NATIONALITY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_nationality'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_province
+    description: "Staging model của bảng SCMS.CAT_PROVINCE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_province'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_sc_firm_status
+    description: "Staging model của bảng SCMS.CAT_SC_FIRM_STATUS — [CAP NHAT 2026-09-25] Data change mode doi Append->Update (BRD-SRC-SCMS-CAT_SC_FIRM_STATUS, Data Modeler xac nhan 2026-09-16): bang danh muc (master), khong phai event/log, khong the loc theo created_at nua - danh muc nho, Update toan bo moi lan ETL. Doi incremental_strategy sang snapshot (khong con filter created_at), giong het pattern da dung o stg_scms_cat_event_type."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_sc_firm_status'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_service
+    description: "Staging model của bảng SCMS.CAT_SERVICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_service'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_ward
+    description: "Staging model của bảng SCMS.CAT_WARD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_ward'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_custodian_bank
+    description: "Staging model của bảng SCMS.CUSTODIAN_BANK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'custodian_bank'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_disclosure_report
+    description: "Staging model của bảng SCMS.DISCLOSURE_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'disclosure_report'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_disclosure_securities_offering
+    description: "Staging model của bảng SCMS.DISCLOSURE_SECURITIES_OFFERING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'disclosure_securities_offering'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_disclosure_shareholder
+    description: "Staging model của bảng SCMS.DISCLOSURE_SHAREHOLDER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'disclosure_shareholder'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_form_indicator_input
+    description: "Staging model của bảng SCMS.FORM_INDICATOR_INPUT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'form_indicator_input'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_form_report
+    description: "Staging model của bảng SCMS.FORM_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'form_report'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_form_report_deep_config
+    description: "Staging model của bảng SCMS.FORM_REPORT_DEEP_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'form_report_deep_config'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_lnk_sc_firm_foreign_branch_service
+    description: "Staging model của bảng SCMS.LNK_SC_FIRM_FOREIGN_BRANCH_SERVICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'lnk_sc_firm_foreign_branch_service'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_report_input_cell_value
+    description: "Staging model của bảng SCMS.REPORT_INPUT_CELL_VALUE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'report_input_cell_value'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_report_input_submission
+    description: "Staging model của bảng SCMS.REPORT_INPUT_SUBMISSION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'report_input_submission'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_report_violation
+    description: "Staging model của bảng SCMS.REPORT_VIOLATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'report_violation'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_risk_indicator
+    description: "Staging model của bảng SCMS.RISK_INDICATOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'risk_indicator'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_risk_indicator_group
+    description: "Staging model của bảng SCMS.RISK_INDICATOR_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'risk_indicator_group'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_risk_reporting_period
+    description: "Staging model của bảng SCMS.RISK_REPORTING_PERIOD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'risk_reporting_period'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_risk_scoring_sc_firm_detail
+    description: "Staging model của bảng SCMS.RISK_SCORING_SC_FIRM_DETAIL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'risk_scoring_sc_firm_detail'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_risk_scoring_scale
+    description: "Staging model của bảng SCMS.RISK_SCORING_SCALE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'risk_scoring_scale'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_risk_summary
+    description: "Staging model của bảng SCMS.RISK_SUMMARY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'risk_summary'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_adhoc_report
+    description: "Staging model của bảng SCMS.SC_FIRM_ADHOC_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_adhoc_report'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_admin_penalty_decision
+    description: "Staging model của bảng SCMS.SC_FIRM_ADMIN_PENALTY_DECISION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_admin_penalty_decision'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_admin_sanction
+    description: "Staging model của bảng SCMS.SC_FIRM_ADMIN_SANCTION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_admin_sanction'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_alert_violation
+    description: "Staging model của bảng SCMS.SC_FIRM_ALERT_VIOLATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_alert_violation'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_branch
+    description: "Staging model của bảng SCMS.SC_FIRM_BRANCH"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_branch'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_complaint_petition
+    description: "Staging model của bảng SCMS.SC_FIRM_COMPLAINT_PETITION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_complaint_petition'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_domestic_rep_office
+    description: "Staging model của bảng SCMS.SC_FIRM_DOMESTIC_REP_OFFICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_domestic_rep_office'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_foreign_branch
+    description: "Staging model của bảng SCMS.SC_FIRM_FOREIGN_BRANCH"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_foreign_branch'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_foreign_branch_periodic_report
+    description: "Staging model của bảng SCMS.SC_FIRM_FOREIGN_BRANCH_PERIODIC_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_foreign_branch_periodic_report'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_foreign_branch_personnel
+    description: "Staging model của bảng SCMS.SC_FIRM_FOREIGN_BRANCH_PERSONNEL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_foreign_branch_personnel'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_foreign_rep_office
+    description: "Staging model của bảng SCMS.SC_FIRM_FOREIGN_REP_OFFICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_foreign_rep_office'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_foreign_rep_office_periodic_report
+    description: "Staging model của bảng SCMS.SC_FIRM_FOREIGN_REP_OFFICE_PERIODIC_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_foreign_rep_office_periodic_report'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_foreign_rep_office_personnel
+    description: "Staging model của bảng SCMS.SC_FIRM_FOREIGN_REP_OFFICE_PERSONNEL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_foreign_rep_office_personnel'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_foreign_rep_office_vn
+    description: "Staging model của bảng SCMS.SC_FIRM_FOREIGN_REP_OFFICE_VN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_foreign_rep_office_vn'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_info
+    description: "Staging model của bảng SCMS.SC_FIRM_INFO"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_info'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_insider_relation
+    description: "Staging model của bảng SCMS.SC_FIRM_INSIDER_RELATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_insider_relation'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_inspection_schedule
+    description: "Staging model của bảng SCMS.SC_FIRM_INSPECTION_SCHEDULE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_inspection_schedule'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_licensed_practitioner
+    description: "Staging model của bảng SCMS.SC_FIRM_LICENSED_PRACTITIONER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_licensed_practitioner'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_major_shareholder_relation
+    description: "Staging model của bảng SCMS.SC_FIRM_MAJOR_SHAREHOLDER_RELATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_major_shareholder_relation'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_ownership_relation
+    description: "Staging model của bảng SCMS.SC_FIRM_OWNERSHIP_RELATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_ownership_relation'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_periodic_report
+    description: "Staging model của bảng SCMS.SC_FIRM_PERIODIC_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_periodic_report'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_profile_change
+    description: "Staging model của bảng SCMS.SC_FIRM_PROFILE_CHANGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_profile_change'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_related_person
+    description: "Staging model của bảng SCMS.SC_FIRM_RELATED_PERSON"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_related_person'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_rep_office
+    description: "Staging model của bảng SCMS.SC_FIRM_REP_OFFICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_rep_office'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_senior_personnel
+    description: "Staging model của bảng SCMS.SC_FIRM_SENIOR_PERSONNEL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_senior_personnel'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_service
+    description: "Staging model của bảng SCMS.SC_FIRM_SERVICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_service'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_shareholder
+    description: "Staging model của bảng SCMS.SC_FIRM_SHAREHOLDER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_shareholder'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_shareholder_ownership_change
+    description: "Staging model của bảng SCMS.SC_FIRM_SHAREHOLDER_OWNERSHIP_CHANGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_shareholder_ownership_change'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_shareholder_relation
+    description: "Staging model của bảng SCMS.SC_FIRM_SHAREHOLDER_RELATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_shareholder_relation'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_shareholder_representative
+    description: "Staging model của bảng SCMS.SC_FIRM_SHAREHOLDER_REPRESENTATIVE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_shareholder_representative'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_shareholder_transfer
+    description: "Staging model của bảng SCMS.SC_FIRM_SHAREHOLDER_TRANSFER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_shareholder_transfer'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_transaction_office
+    description: "Staging model của bảng SCMS.SC_FIRM_TRANSACTION_OFFICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_transaction_office'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_lnk_transaction_office_service
+    description: "Staging model của bảng SCMS.LNK_TRANSACTION_OFFICE_SERVICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'lnk_transaction_office_service'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_lnk_sc_firm_service
+    description: "Staging model của bảng SCMS.LNK_SC_FIRM_SERVICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'lnk_sc_firm_service'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_service_legal_capital
+    description: "Staging model của bảng SCMS.CAT_SERVICE_LEGAL_CAPITAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_service_legal_capital'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_company_type
+    description: "Staging model của bảng SCMS.CAT_COMPANY_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_company_type'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_alert_group
+    description: "Staging model của bảng SCMS.ALERT_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'alert_group'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_alert_run_missing_report_log
+    description: "Staging model của bảng SCMS.ALERT_RUN_MISSING_REPORT_LOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'alert_run_missing_report_log'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_alert_violation_snapshot
+    description: "Staging model của bảng SCMS.ALERT_VIOLATION_SNAPSHOT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'alert_violation_snapshot'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_bank_history
+    description: "Staging model của bảng SCMS.BANK_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["performed_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'bank_history'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_bank_periodic_report_history
+    description: "Staging model của bảng SCMS.BANK_PERIODIC_REPORT_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["performed_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'bank_periodic_report_history'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_alert
+    description: "Staging model của bảng SCMS.CAT_ALERT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_alert'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_audit_opinion_type
+    description: "Staging model của bảng SCMS.CAT_AUDIT_OPINION_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_audit_opinion_type'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_business_line
+    description: "Staging model của bảng SCMS.CAT_BUSINESS_LINE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_business_line'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_filter
+    description: "Staging model của bảng SCMS.CAT_FILTER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_filter'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_indicator
+    description: "Staging model của bảng SCMS.CAT_INDICATOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_indicator'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_indicator_catalog
+    description: "Staging model của bảng SCMS.CAT_INDICATOR_CATALOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_indicator_catalog'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_indicator_statistic
+    description: "Staging model của bảng SCMS.CAT_INDICATOR_STATISTIC"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_indicator_statistic'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_position
+    description: "Staging model của bảng SCMS.CAT_POSITION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_position'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_profile_status
+    description: "Staging model của bảng SCMS.CAT_PROFILE_STATUS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_profile_status'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_relationship
+    description: "Staging model của bảng SCMS.CAT_RELATIONSHIP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_relationship'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_report_group
+    description: "Staging model của bảng SCMS.CAT_REPORT_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_report_group'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_sc_firm_position
+    description: "Staging model của bảng SCMS.CAT_SC_FIRM_POSITION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_sc_firm_position'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_shareholder_transaction_type
+    description: "Staging model của bảng SCMS.CAT_SHAREHOLDER_TRANSACTION_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_shareholder_transaction_type'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_statistic
+    description: "Staging model của bảng SCMS.CAT_STATISTIC"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_statistic'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_cat_violation_type
+    description: "Staging model của bảng SCMS.CAT_VIOLATION_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'cat_violation_type'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_category
+    description: "Staging model của bảng SCMS.CATEGORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'category'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_digital_certificate
+    description: "Staging model của bảng SCMS.DIGITAL_CERTIFICATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'digital_certificate'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_disclosure_news
+    description: "Staging model của bảng SCMS.DISCLOSURE_NEWS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["datecreated"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'disclosure_news'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_disclosure_news_file
+    description: "Staging model của bảng SCMS.DISCLOSURE_NEWS_FILE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'disclosure_news_file'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_document_folder
+    description: "Staging model của bảng SCMS.DOCUMENT_FOLDER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'document_folder'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_document_storage
+    description: "Staging model của bảng SCMS.DOCUMENT_STORAGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'document_storage'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_form_indicator_data_source
+    description: "Staging model của bảng SCMS.FORM_INDICATOR_DATA_SOURCE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'form_indicator_data_source'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_form_indicator_field_meta
+    description: "Staging model của bảng SCMS.FORM_INDICATOR_FIELD_META"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'form_indicator_field_meta'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_form_indicator_reference_value
+    description: "Staging model của bảng SCMS.FORM_INDICATOR_REFERENCE_VALUE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'form_indicator_reference_value'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_form_report_history
+    description: "Staging model của bảng SCMS.FORM_REPORT_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["performed_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'form_report_history'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_form_report_input_source
+    description: "Staging model của bảng SCMS.FORM_REPORT_INPUT_SOURCE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'form_report_input_source'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_form_report_periodic
+    description: "Staging model của bảng SCMS.FORM_REPORT_PERIODIC"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["expected_insert_date"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'form_report_periodic'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_form_row_header
+    description: "Staging model của bảng SCMS.FORM_ROW_HEADER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'form_row_header'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_form_row_header_column
+    description: "Staging model của bảng SCMS.FORM_ROW_HEADER_COLUMN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'form_row_header_column'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_form_sheet
+    description: "Staging model của bảng SCMS.FORM_SHEET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'form_sheet'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_form_sheet_cell
+    description: "Staging model của bảng SCMS.FORM_SHEET_CELL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'form_sheet_cell'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_form_sheet_column
+    description: "Staging model của bảng SCMS.FORM_SHEET_COLUMN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'form_sheet_column'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_form_sheet_row
+    description: "Staging model của bảng SCMS.FORM_SHEET_ROW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'form_sheet_row'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_help_document
+    description: "Staging model của bảng SCMS.HELP_DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'help_document'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_legal_document_lookup
+    description: "Staging model của bảng SCMS.LEGAL_DOCUMENT_LOOKUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'legal_document_lookup'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_lnk_event_type_form
+    description: "Staging model của bảng SCMS.LNK_EVENT_TYPE_FORM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'lnk_event_type_form'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_lnk_function_user
+    description: "Staging model của bảng SCMS.LNK_FUNCTION_USER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'lnk_function_user'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_lnk_function_user_group
+    description: "Staging model của bảng SCMS.LNK_FUNCTION_USER_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'lnk_function_user_group'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_lnk_practitioner_business_line
+    description: "Staging model của bảng SCMS.LNK_PRACTITIONER_BUSINESS_LINE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'lnk_practitioner_business_line'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_lnk_sc_firm_business_line
+    description: "Staging model của bảng SCMS.LNK_SC_FIRM_BUSINESS_LINE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'lnk_sc_firm_business_line'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_lnk_sc_firm_report
+    description: "Staging model của bảng SCMS.LNK_SC_FIRM_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'lnk_sc_firm_report'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_lnk_sc_firm_status_report
+    description: "Staging model của bảng SCMS.LNK_SC_FIRM_STATUS_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'lnk_sc_firm_status_report'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_lnk_service_sc_firm_report
+    description: "Staging model của bảng SCMS.LNK_SERVICE_SC_FIRM_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'lnk_service_sc_firm_report'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_lnk_user_bank
+    description: "Staging model của bảng SCMS.LNK_USER_BANK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'lnk_user_bank'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_lnk_user_group
+    description: "Staging model của bảng SCMS.LNK_USER_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'lnk_user_group'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_lnk_user_group_report
+    description: "Staging model của bảng SCMS.LNK_USER_GROUP_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'lnk_user_group_report'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_lnk_user_report
+    description: "Staging model của bảng SCMS.LNK_USER_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'lnk_user_report'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_lnk_user_sc_firm
+    description: "Staging model của bảng SCMS.LNK_USER_SC_FIRM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'lnk_user_sc_firm'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_member_report
+    description: "Staging model của bảng SCMS.MEMBER_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'member_report'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_member_report_history
+    description: "Staging model của bảng SCMS.MEMBER_REPORT_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'member_report_history'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_member_report_processing
+    description: "Staging model của bảng SCMS.MEMBER_REPORT_PROCESSING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'member_report_processing'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_message
+    description: "Staging model của bảng SCMS.MESSAGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'message'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_message_recipient
+    description: "Staging model của bảng SCMS.MESSAGE_RECIPIENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'message_recipient'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_notification
+    description: "Staging model của bảng SCMS.NOTIFICATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'notification'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_output_report_chart_config
+    description: "Staging model của bảng SCMS.OUTPUT_REPORT_CHART_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'output_report_chart_config'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_output_report_extraction
+    description: "Staging model của bảng SCMS.OUTPUT_REPORT_EXTRACTION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'output_report_extraction'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_output_report_extraction_value
+    description: "Staging model của bảng SCMS.OUTPUT_REPORT_EXTRACTION_VALUE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'output_report_extraction_value'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_output_report_filter
+    description: "Staging model của bảng SCMS.OUTPUT_REPORT_FILTER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'output_report_filter'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_output_report_parent
+    description: "Staging model của bảng SCMS.OUTPUT_REPORT_PARENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'output_report_parent'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_output_report_parent_child
+    description: "Staging model của bảng SCMS.OUTPUT_REPORT_PARENT_CHILD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'output_report_parent_child'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_output_report_parent_common_filter
+    description: "Staging model của bảng SCMS.OUTPUT_REPORT_PARENT_COMMON_FILTER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'output_report_parent_common_filter'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sys_user
+    description: "Staging model của bảng SCMS.SYS_USER (bỏ cột PASSWORD, DEFAULT_PASSWORD, USER_TOKEN)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sys_user'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_permission_data
+    description: "Staging model của bảng SCMS.PERMISSION_DATA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'permission_data'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_permission_input_report
+    description: "Staging model của bảng SCMS.PERMISSION_INPUT_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'permission_input_report'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_permission_input_report_event
+    description: "Staging model của bảng SCMS.PERMISSION_INPUT_REPORT_EVENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'permission_input_report_event'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_permission_output_report
+    description: "Staging model của bảng SCMS.PERMISSION_OUTPUT_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'permission_output_report'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_permission_output_report_form
+    description: "Staging model của bảng SCMS.PERMISSION_OUTPUT_REPORT_FORM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'permission_output_report_form'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_report_cell_value
+    description: "Staging model của bảng SCMS.REPORT_CELL_VALUE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'report_cell_value'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_report_dynamic_row_value
+    description: "Staging model của bảng SCMS.REPORT_DYNAMIC_ROW_VALUE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'report_dynamic_row_value'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_report_input_submission_file
+    description: "Staging model của bảng SCMS.REPORT_INPUT_SUBMISSION_FILE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'report_input_submission_file'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_risk_reporting_period_sc_firm
+    description: "Staging model của bảng SCMS.RISK_REPORTING_PERIOD_SC_FIRM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'risk_reporting_period_sc_firm'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_risk_summary_detail
+    description: "Staging model của bảng SCMS.RISK_SUMMARY_DETAIL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'risk_summary_detail'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_adhoc_report_history
+    description: "Staging model của bảng SCMS.SC_FIRM_ADHOC_REPORT_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["performed_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_adhoc_report_history'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_deletion_history
+    description: "Staging model của bảng SCMS.SC_FIRM_DELETION_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_deletion_history'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_foreign_branch_history
+    description: "Staging model của bảng SCMS.SC_FIRM_FOREIGN_BRANCH_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["effective_date"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_foreign_branch_history'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_foreign_branch_personnel_history
+    description: "Staging model của bảng SCMS.SC_FIRM_FOREIGN_BRANCH_PERSONNEL_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["performed_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_foreign_branch_personnel_history'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_foreign_rep_office_history
+    description: "Staging model của bảng SCMS.SC_FIRM_FOREIGN_REP_OFFICE_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["performed_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_foreign_rep_office_history'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_insider_relation_history
+    description: "Staging model của bảng SCMS.SC_FIRM_INSIDER_RELATION_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["recorded_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_insider_relation_history'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_periodic_report_history
+    description: "Staging model của bảng SCMS.SC_FIRM_PERIODIC_REPORT_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["performed_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_periodic_report_history'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_practitioner_cchn
+    description: "Staging model của bảng SCMS.SC_FIRM_PRACTITIONER_CCHN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_practitioner_cchn'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_practitioner_cchn_div
+    description: "Staging model của bảng SCMS.SC_FIRM_PRACTITIONER_CCHN_DIV"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_practitioner_cchn_div'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_sc_firm_profile_history
+    description: "Staging model của bảng SCMS.SC_FIRM_PROFILE_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'sc_firm_profile_history'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_scms_ecat_working_schedule
+    description: "Staging model của bảng SCMS.SCMS_ECAT_WORKING_SCHEDULE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'scms_ecat_working_schedule'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_scms_shedlock
+    description: "Staging model của bảng SCMS.SCMS_SHEDLOCK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'scms_shedlock'
+      tags:
+        - layer_staging
+        - domain_scms
+
+  - name: stg_scms_scms_working_day
+    description: "Staging model của bảng SCMS.SCMS_WORKING_DAY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_scms_schema") }}'
+      alias: 'scms_working_day'
+      tags:
+        - layer_staging
+        - domain_scms

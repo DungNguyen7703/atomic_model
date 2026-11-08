@@ -1,0 +1,679 @@
+version: 2
+
+models:
+
+  - name: stg_knt_auditor
+    description: "Staging model của bảng KNT.AUDITOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'auditor'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_audit_firm
+    description: "Staging model của bảng KNT.AUDIT_FIRM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'audit_firm'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_catalog
+    description: "Staging model của bảng KNT.CATALOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'catalog'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_catalog_group
+    description: "Staging model của bảng KNT.CATALOG_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'catalog_group'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_cat_org_unit
+    description: "Staging model của bảng KNT.CAT_ORG_UNIT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'cat_org_unit'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_cat_position
+    description: "Staging model của bảng KNT.CAT_POSITION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'cat_position'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_cat_violation_act
+    description: "Staging model của bảng KNT.CAT_VIOLATION_ACT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'cat_violation_act'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_company_comparison
+    description: "Staging model của bảng KNT.COMPANY_COMPARISON"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'company_comparison'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_company_comparison_queue
+    description: "Staging model của bảng KNT.COMPANY_COMPARISON_QUEUE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'company_comparison_queue'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_company_info
+    description: "Staging model của bảng KNT.COMPANY_INFO"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'company_info'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_config_param
+    description: "Staging model của bảng KNT.CONFIG_PARAM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'config_param'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_data_reconciliation
+    description: "Staging model của bảng KNT.DATA_RECONCILIATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'data_reconciliation'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_data_reconciliation_outbound
+    description: "Staging model của bảng KNT.DATA_RECONCILIATION_OUTBOUND"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'data_reconciliation_outbound'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_high_risk_enterprise
+    description: "Staging model của bảng KNT.HIGH_RISK_ENTERPRISE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'high_risk_enterprise'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_indicator_mapping
+    description: "Staging model của bảng KNT.INDICATOR_MAPPING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'indicator_mapping'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_info_request_detail
+    description: "Staging model của bảng KNT.INFO_REQUEST_DETAIL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'info_request_detail'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_invoice_detail
+    description: "Staging model của bảng KNT.INVOICE_DETAIL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'invoice_detail'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_lnk_group_function
+    description: "Staging model của bảng KNT.LNK_GROUP_FUNCTION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'lnk_group_function'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_lnk_user_group
+    description: "Staging model của bảng KNT.LNK_USER_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'lnk_user_group'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_msg_packet
+    description: "Staging model của bảng KNT.MSG_PACKET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'msg_packet'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_msg_packet_code_slot
+    description: "Staging model của bảng KNT.MSG_PACKET_CODE_SLOT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'msg_packet_code_slot'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_msg_packet_config
+    description: "Staging model của bảng KNT.MSG_PACKET_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'msg_packet_config'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_msg_packet_content
+    description: "Staging model của bảng KNT.MSG_PACKET_CONTENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'msg_packet_content'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_penalty_decision
+    description: "Staging model của bảng KNT.PENALTY_DECISION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'penalty_decision'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_report_comparison
+    description: "Staging model của bảng KNT.REPORT_COMPARISON"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'report_comparison'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_report_comparison_header
+    description: "Staging model của bảng KNT.REPORT_COMPARISON_HEADER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'report_comparison_header'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_report_comparison_queue
+    description: "Staging model của bảng KNT.REPORT_COMPARISON_QUEUE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'report_comparison_queue'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_report_cycle
+    description: "Staging model của bảng KNT.REPORT_CYCLE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'report_cycle'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_report_form
+    description: "Staging model của bảng KNT.REPORT_FORM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'report_form'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_report_form_indicator
+    description: "Staging model của bảng KNT.REPORT_FORM_INDICATOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'report_form_indicator'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_report_form_template
+    description: "Staging model của bảng KNT.REPORT_FORM_TEMPLATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'report_form_template'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_report_indicator
+    description: "Staging model của bảng KNT.REPORT_INDICATOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'report_indicator'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_schedule_config
+    description: "Staging model của bảng KNT.SCHEDULE_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'schedule_config'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_ssc_penalty
+    description: "Staging model của bảng KNT.SSC_PENALTY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'ssc_penalty'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_ssc_report
+    description: "Staging model của bảng KNT.SSC_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'ssc_report'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_ssc_report_detail
+    description: "Staging model của bảng KNT.SSC_REPORT_DETAIL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'ssc_report_detail'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_subject_profile
+    description: "Staging model của bảng KNT.SUBJECT_PROFILE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'subject_profile'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_tax_enforcement_debt
+    description: "Staging model của bảng KNT.TAX_ENFORCEMENT_DEBT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'tax_enforcement_debt'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_tax_enforcement_invoice
+    description: "Staging model của bảng KNT.TAX_ENFORCEMENT_INVOICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'tax_enforcement_invoice'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_tax_enforcement_list
+    description: "Staging model của bảng KNT.TAX_ENFORCEMENT_LIST"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'tax_enforcement_list'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_tax_registration_info
+    description: "Staging model của bảng KNT.TAX_REGISTRATION_INFO"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'tax_registration_info'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_tax_registration_list
+    description: "Staging model của bảng KNT.TAX_REGISTRATION_LIST"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'tax_registration_list'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_tax_reg_address_type
+    description: "Staging model của bảng KNT.TAX_REG_ADDRESS_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'tax_reg_address_type'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_tax_reg_business_line
+    description: "Staging model của bảng KNT.TAX_REG_BUSINESS_LINE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'tax_reg_business_line'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_tax_reg_change
+    description: "Staging model của bảng KNT.TAX_REG_CHANGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'tax_reg_change'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_tax_reg_representative
+    description: "Staging model của bảng KNT.TAX_REG_REPRESENTATIVE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'tax_reg_representative'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_tax_report
+    description: "Staging model của bảng KNT.TAX_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'tax_report'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_tax_report_detail
+    description: "Staging model của bảng KNT.TAX_REPORT_DETAIL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'tax_report_detail'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_tax_report_list
+    description: "Staging model của bảng KNT.TAX_REPORT_LIST"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'tax_report_list'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_tax_violation_handling
+    description: "Staging model của bảng KNT.TAX_VIOLATION_HANDLING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'tax_violation_handling'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_ttcs_request_tax_code_cache
+    description: "Staging model của bảng KNT.TTCS_REQUEST_TAX_CODE_CACHE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'ttcs_request_tax_code_cache'
+      tags:
+        - layer_staging
+        - domain_knt
+
+  - name: stg_knt_violation_act
+    description: "Staging model của bảng KNT.VIOLATION_ACT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_knt_schema") }}'
+      alias: 'violation_act'
+      tags:
+        - layer_staging
+        - domain_knt

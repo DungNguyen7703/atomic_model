@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: atm_geographic_area
+    description: "Atomic model của bảng Geographic Area – Multi Source"
+    config:
+      materialized: scd4a
+      unique_key: ["geographic_area_id"]
+      source_system: ["ECAT_COUNTRY", "ECAT_PROVINCE", "ECAT_REGION", "ECAT_WARD"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'geographic_area'
+      tags:
+        - layer_atomic
+
+  - name: atm_geographic_area_ecat_country
+    description: "Atomic model của bảng Geographic Area – ECAT.COUNTRY"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_geographic_area_ecat_province
+    description: "Atomic model của bảng Geographic Area – ECAT.PROVINCE"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_geographic_area_ecat_region
+    description: "Atomic model của bảng Geographic Area – ECAT.REGION"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_geographic_area_ecat_ward
+    description: "Atomic model của bảng Geographic Area – ECAT.WARD"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic

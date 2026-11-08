@@ -1,0 +1,705 @@
+version: 2
+models:
+  - name: atm_et_declaration_report
+    description: Atomic model của bảng External Tax Declaration Report
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by:
+      - created_tms
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: et_declaration_report
+      tags:
+      - layer_atomic
+  - name: atm_et_declaration_report_detail
+    description: Atomic model của bảng External Tax Declaration Report Detail
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: et_declaration_report_detail
+      tags:
+      - layer_atomic
+  - name: atm_et_enforcement_debt_decision
+    description: Atomic model của bảng External Tax Enforcement Debt Decision
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: et_enforcement_debt_decision
+      tags:
+      - layer_atomic
+  - name: atm_et_enforcement_invoice_decision
+    description: Atomic model của bảng External Tax Enforcement Invoice Decision
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: et_enforcement_invoice_decision
+      tags:
+      - layer_atomic
+  - name: atm_et_invoice_detail
+    description: Atomic model của bảng External Tax Invoice Detail
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: et_invoice_detail
+      tags:
+      - layer_atomic
+  - name: atm_et_violation_handling
+    description: Atomic model của bảng External Tax Violation Handling
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: et_violation_handling
+      tags:
+      - layer_atomic
+  - name: atm_examination_result_notice
+    description: Atomic model của bảng Examination Result Notice
+    config:
+      materialized: scd4a
+      unique_key:
+      - examination_result_notice_id
+      source_system:
+      - THANHTRA_EXAMINATION_RESULT_NOTICE
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: examination_result_notice
+      tags:
+      - layer_atomic
+  - name: atm_examination_result_notice_remedial
+    description: Atomic model của bảng Examination Result Notice Remedial
+    config:
+      materialized: scd4a
+      unique_key:
+      - examination_result_notice_remedial_id
+      source_system:
+      - THANHTRA_EXAMINATION_RESULT_NOTICE_REMEDIAL
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: examination_result_notice_remedial
+      tags:
+      - layer_atomic
+  - name: atm_financial_report
+    description: Atomic model của bảng Financial Report
+    config:
+      materialized: scd2
+      unique_key:
+      - fr_id
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: financial_report
+      tags:
+      - layer_atomic
+  - name: atm_fr_column
+    description: Atomic model của bảng Financial Report Column
+    config:
+      materialized: scd2
+      unique_key:
+      - fr_column_id
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: fr_column
+      tags:
+      - layer_atomic
+  - name: atm_fr_row
+    description: Atomic model của bảng Financial Report Row
+    config:
+      materialized: scd2
+      unique_key:
+      - fr_row_id
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: fr_row
+      tags:
+      - layer_atomic
+  - name: atm_fr_value
+    description: Atomic model của bảng Financial Report Value
+    config:
+      materialized: upsert
+      unique_key:
+      - fr_val_id
+      source_system:
+      - IDS_DATA
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: fr_value
+      tags:
+      - layer_atomic
+  - name: atm_pc_report_submission
+    description: Atomic model của bảng Public Company Report Submission
+    config:
+      materialized: scd2
+      unique_key:
+      - pc_rpt_submission_id
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: pc_report_submission
+      tags:
+      - layer_atomic
+  - name: atm_private_corp_bond_trading_summary
+    description: Atomic model của bảng Private Corp Bond Trading Summary (HNX.PRIVATE_CORP_BOND_TRADING)
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by:
+      - ds_snpst_dt
+      - src_stm_code
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: private_corp_bond_trading_summary
+      source_system:
+      - HNX_PRIVATE_CORP_BOND_TRADING
+      tags:
+      - layer_atomic
+  - name: atm_sc_administrative_penalty_decision
+    description: Atomic model của bảng Securities Company Administrative Penalty Decision
+    config:
+      materialized: scd4a
+      unique_key:
+      - sc_administrative_pd_id
+      source_system:
+      - SCMS_SC_FIRM_ADMIN_PENALTY_DECISION
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: sc_administrative_penalty_decision
+      tags:
+      - layer_atomic
+  - name: atm_sp_license_application
+    description: Atomic model của bảng Securities Practitioner License Application
+    config:
+      materialized: scd4a
+      unique_key:
+      - sp_license_application_id
+      - cl_application_status_code
+      source_system:
+      - NHNCK_APPLICATIONS
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: sp_license_application
+      tags:
+      - layer_atomic
+  - name: atm_sp_license_application_education_certificate_document
+    description: Atomic model của bảng Securities Practitioner License Application Education
+      Certificate Document
+    config:
+      materialized: scd4a
+      unique_key:
+      - sp_license_application_education_certificate_document_id
+      source_system:
+      - NHNCK_APPLICATION_SPECIALIZATIONS
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: sp_license_application_education_certificate_document
+      tags:
+      - layer_atomic
+  - name: atm_sp_license_application_re_exam_request
+    description: Atomic model của bảng Securities Practitioner License Application Re-Exam
+      Request
+    config:
+      materialized: scd4a
+      unique_key:
+      - sp_license_application_re_exam_request_id
+      source_system:
+      - NHNCK_APPLICATION_RE_EXAMS
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: sp_license_application_re_exam_request
+      tags:
+      - layer_atomic
+  - name: atm_sp_license_certificate_document
+    description: "Atomic model của bảng Securities Practitioner License Certificate Document"
+    config:
+      materialized: scd4a
+      unique_key: ["sp_license_certificate_document_id"]
+      source_system: ["NHNCK_CERTIFICATE_RECORDS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sp_license_certificate_document'
+      tags:
+        - layer_atomic
+  - name: atm_sp_license_certificate_status_change_history
+    description: Atomic model của bảng Securities Practitioner License Certificate Status
+      Change History
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by:
+      - data_dt
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: sp_license_certificate_status_change_history
+      tags:
+      - layer_atomic
+  - name: atm_sp_license_certificate_type
+    description: Atomic model của bảng Securities Practitioner License Certificate Type
+    config:
+      materialized: scd4a
+      unique_key:
+      - sp_license_certificate_tp_id
+      source_system:
+      - NHNCK_CERTIFICATES
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: sp_license_certificate_type
+      tags:
+      - layer_atomic
+  - name: atm_sp_license_decision_document
+    description: Atomic model của bảng Securities Practitioner License Decision Document
+    config:
+      materialized: scd4a
+      unique_key:
+      - sp_license_decision_document_id
+      source_system:
+      - NHNCK_DECISIONS
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: sp_license_decision_document
+      tags:
+      - layer_atomic
+  - name: atm_sp_organization_employment_report
+    description: Atomic model của bảng Securities Practitioner Organization Employment
+      Report
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: sp_organization_employment_report
+      tags:
+      - layer_atomic
+  - name: atm_ufr_column
+    description: Atomic model của bảng Unstructured Financial Report Column
+    config:
+      materialized: scd2
+      unique_key:
+      - ufr_column_id
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: ufr_column
+      tags:
+      - layer_atomic
+  - name: atm_ufr_row
+    description: Atomic model của bảng Unstructured Financial Report Row
+    config:
+      materialized: scd2
+      unique_key:
+      - ufr_row_id
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: ufr_row
+      tags:
+      - layer_atomic
+  - name: atm_ufr_value
+    description: Atomic model của bảng Unstructured Financial Report Value
+    config:
+      materialized: upsert
+      unique_key:
+      - ufr_val_id
+      source_system:
+      - IDS_REP_DATA
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: ufr_value
+      tags:
+      - layer_atomic
+  - name: atm_unstructured_financial_report
+    description: Atomic model của bảng Unstructured Financial Report
+    config:
+      materialized: scd2
+      unique_key:
+      - ufr_id
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: unstructured_financial_report
+      tags:
+      - layer_atomic
+  - name: atm_violation_case_output_document
+    description: Atomic model của bảng Violation Case Output Document
+    config:
+      materialized: scd4a
+      unique_key:
+      - violation_case_output_document_id
+      source_system:
+      - THANHTRA_VIOLATION_CASE_OUTPUT_DOCUMENT
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: violation_case_output_document
+      tags:
+      - layer_atomic
+  - name: atm_violation_case_received_document
+    description: Atomic model của bảng Violation Case Received Document
+    config:
+      materialized: scd4a
+      unique_key:
+      - violation_case_received_document_id
+      source_system:
+      - THANHTRA_VIOLATION_CASE_RECEIVED_DOCUMENT
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: violation_case_received_document
+      tags:
+      - layer_atomic
+  - name: atm_sc_report_input_submission
+    description: "Atomic model của bảng Securities Company Report Input Submission"
+    config:
+      materialized: scd2
+      unique_key: ["sc_rpt_input_submission_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_report_input_submission'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_report_input_value
+    description: "Atomic model của bảng Securities Company Report Input Value"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: merge
+      unique_key: ["sc_rpt_input_val_id"]
+      source_system: ["SCMS_REPORT_INPUT_CELL_VALUE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_report_input_value'
+      tags:
+        - layer_atomic
+
+  - name: atm_sp_license_certificate_type_x_cl_specialization_relationship
+    description: "Atomic model của bảng Securities Practitioner License Certificate Type X Classification Specialization Relationship"
+    config:
+      materialized: scd4a
+      unique_key: ["sp_license_certificate_tp_id", "specialization_code"]
+      source_system: ["NHNCK_CERTIFICATE_SPECIALIZATIONS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sp_license_certificate_type_x_cl_specialization_relationship'
+      tags:
+        - layer_atomic
+
+  - name: atm_sp_license_decision_document_attachment
+    description: "Atomic model của bảng Securities Practitioner License Decision Document Attachment"
+    config:
+      materialized: scd4a
+      unique_key: ["sp_license_decision_document_attachment_id"]
+      source_system: ["NHNCK_DECISION_DOCUMENTS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sp_license_decision_document_attachment'
+      tags:
+        - layer_atomic
+
+  - name: atm_sp_organization_annual_report
+    description: "Atomic model của bảng Securities Practitioner Organization Annual Report"
+    config:
+      materialized: scd4a
+      unique_key: ["sp_organization_annual_rpt_id"]
+      source_system: ["NHNCK_ORGANIZATION_REPORT_YEARLYS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sp_organization_annual_report'
+      tags:
+        - layer_atomic
+
+  - name: atm_fir_structure
+    description: "Atomic model của bảng Foreign Investor Report Structure"
+    config:
+      materialized: scd2
+      unique_key: ["fir_structure_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'fir_structure'
+      tags:
+        - layer_atomic
+
+  - name: atm_fir_value
+    description: "Atomic model của bảng Foreign Investor Report Value"
+    config:
+      materialized: upsert
+      unique_key: ["fir_val_id"]
+      source_system: ["FIMS_FIR_VALUE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'fir_value'
+      tags:
+        - layer_atomic
+
+  - name: atm_foreign_investor_report
+    description: "Atomic model của bảng Foreign Investor Report"
+    config:
+      materialized: scd2
+      unique_key: ["fir_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'foreign_investor_report'
+      tags:
+        - layer_atomic
+
+  - name: atm_fund_management_report
+    description: "Atomic model của bảng Fund Management Report"
+    config:
+      materialized: scd4a
+      unique_key: ["fmr_id"]
+      source_system: ["FMS_RPT_TEMP"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'fund_management_report'
+      tags:
+        - layer_atomic
+
+  - name: atm_fmr_sheet
+    description: "Atomic model của bảng Fund Management Report Sheet"
+    config:
+      materialized: scd4a
+      unique_key: ["fmr_sheet_id"]
+      source_system: ["FMS_SHEET"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'fmr_sheet'
+      tags:
+        - layer_atomic
+
+  - name: atm_fmr_value
+    description: "Atomic model của bảng Fund Management Report Value"
+    config:
+      materialized: upsert
+      unique_key: ["fmr_val_id"]
+      source_system: ["FMS_RPT_VALUES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'fmr_value'
+      tags:
+        - layer_atomic
+
+  - name: atm_fmr_submission
+    description: "Atomic model của bảng Fund Management Report Submission"
+    config:
+      materialized: scd2
+      unique_key: ["fmr_submission_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'fmr_submission'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_report
+    description: "Atomic model của bảng Securities Company Report"
+    config:
+      materialized: scd2
+      unique_key: ["sc_rpt_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_report'
+      tags:
+        - layer_atomic
+
+  - name: atm_fmr_period
+    description: "Atomic model của bảng Fund Management Report Period"
+    config:
+      materialized: scd2
+      unique_key: ["fmr_period_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'fmr_period'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_report_deep_config
+    description: "Atomic model của bảng Securities Company Report Deep Config"
+    config:
+      materialized: scd2
+      unique_key: ["sc_rpt_deep_config_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_report_deep_config'
+      tags:
+        - layer_atomic
+
+  - name: atm_inspection_conclusion
+    description: "Atomic model cua bang Inspection Conclusion"
+    config:
+      materialized: scd4a
+      unique_key: ["inspection_conclusion_id"]
+      source_system: ["THANHTRA_INSPECTION_CONCLUSION"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'inspection_conclusion'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_report_sheet
+    description: "Atomic model của bảng Securities Company Report Sheet"
+    config:
+      materialized: scd2
+      unique_key: ["sc_rpt_sheet_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_report_sheet'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_report_sheet_row
+    description: "Atomic model của bảng Securities Company Report Sheet Row"
+    config:
+      materialized: scd2
+      unique_key: ["sc_rpt_sheet_row_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_report_sheet_row'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_report_sheet_column
+    description: "Atomic model của bảng Securities Company Report Sheet Column"
+    config:
+      materialized: scd2
+      unique_key: ["sc_rpt_sheet_column_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_report_sheet_column'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_report_sheet_cell
+    description: "Atomic model của bảng Securities Company Report Sheet Cell"
+    config:
+      materialized: scd2
+      unique_key: ["sc_rpt_sheet_cell_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_report_sheet_cell'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_report_indicator
+    description: "Atomic model của bảng Securities Company Report Indicator"
+    config:
+      materialized: scd2
+      unique_key: ["sc_rpt_ind_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_report_indicator'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_report_x_cl_sc_event_type_relationship
+    description: "Atomic model của bảng Securities Company Report X Classification Securities Company Event Type Relationship"
+    config:
+      materialized: scd2
+      unique_key: ["sc_rpt_id", "cl_sc_event_tp_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_report_x_cl_sc_event_type_relationship'
+      tags:
+        - layer_atomic
+  - name: atm_internal_statistical_report
+    description: "Atomic ISS Internal Statistical Report — báo cáo định kỳ do tổ chức nộp vào hệ thống ISS (grain: 1 ô × 1 lần nộp × 1 kỳ)"
+    config:
+      materialized: upsert
+      unique_key: ["internal_statistical_rpt_id"]
+      source_system: ["ISS_INTERNAL_STATISTICAL_REPORT"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'internal_statistical_report'
+      tags:
+        - layer_atomic
+
+  - name: atm_brokerage_market_share
+    description: "Atomic model của bảng Brokerage Market Share (HNX + HOSE, UNION ALL)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt", "src_stm_code"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'brokerage_market_share'
+      source_system: ["HNX_BROKERAGE_MARKET_SHARE", "HOSE_BROKERAGE_MARKET_SHARE"]
+      tags:
+        - layer_atomic
+
+  - name: atm_brokerage_market_share_hnx
+    description: "Atomic model của bảng HNX.BROKERAGE_MARKET_SHARE - feed vào atm_brokerage_market_share"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_brokerage_market_share_hose
+    description: "Atomic model của bảng HOSE.BROKERAGE_MARKET_SHARE - feed vào atm_brokerage_market_share"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic

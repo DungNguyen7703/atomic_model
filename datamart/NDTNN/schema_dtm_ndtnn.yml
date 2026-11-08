@@ -1,0 +1,184 @@
+version: 2
+
+models:
+  - name: dtm_fct_securities_foreign_trading_snpst
+    description: "Datamart model của bảng Fact Securities Foreign Trading Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_securities_foreign_trading_snpst'
+      tags:
+        - layer_datamart
+        - domain_ndtnn
+
+  - name: dtm_foreign_investor_dim
+    description: "Datamart model của bảng Foreign Investor Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["investor_dim_id"]
+      source_system: ["FIMS_INVESTOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'foreign_investor_dim'
+      tags:
+        - layer_datamart
+        - domain_ndtnn
+
+  - name: dtm_foreign_investor_trading_detail_rpt
+    description: "Datamart model của bảng Foreign Investor Trading Detail Report"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["report_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'foreign_investor_trading_detail_rpt'
+      tags:
+        - layer_datamart
+        - domain_ndtnn
+
+  - name: dtm_foreign_investor_trading_statistics_rpt
+    description: "Datamart model của bảng Foreign Investor Trading Statistics Report"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["report_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'foreign_investor_trading_statistics_rpt'
+      tags:
+        - layer_datamart
+        - domain_ndtnn
+
+  - name: dtm_opr_foreign_investor_360_profile
+    description: "Datamart model của bảng Operational Foreign Investor 360 Profile"
+    config:
+      materialized: scd4a
+      unique_key: ["investor_code"]
+      source_system: ["FIMS_INVESTOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_foreign_investor_360_profile'
+      tags:
+        - layer_datamart
+        - domain_ndtnn
+
+  - name: dtm_opr_investor_compliance_hist
+    description: "Datamart model của bảng Operational Investor Compliance History"
+    config:
+      materialized: scd4a
+      unique_key: ["investor_compliance_hist_code"]
+      source_system: ["THANHTRA_PENALTY_DECISION_SUBJECT"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_investor_compliance_hist'
+      tags:
+        - layer_datamart
+        - domain_ndtnn
+
+  - name: dtm_securities_dim
+    description: "Datamart model của bảng Securities Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["securities_dim_id"]
+      source_system: ["MDDS_JAD_STOCKINFOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'securities_dim'
+      tags:
+        - layer_datamart
+        - domain_ndtnn
+
+  - name: dtm_fct_public_company_foreign_ownership_snpst
+    description: "Datamart model của bảng Fact Public Company Foreign Ownership Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_public_company_foreign_ownership_snpst'
+      tags:
+        - layer_datamart
+        - domain_ndtnn
+
+  - name: dtm_fct_foreign_net_flow_market_index_snpst
+    description: "Datamart model của bảng Fact Foreign Net Flow Market Index Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_foreign_net_flow_market_index_snpst'
+      tags:
+        - layer_datamart
+        - domain_ndtnn
+
+  - name: dtm_foreign_investor_reporting_entity_dim
+    description: "Datamart model của bảng Foreign Investor Reporting Entity Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["foreign_investor_reporting_entity_dim_id"]
+      source_system: ["FIMS_CL_FOREIGN_INVESTOR_REPORTING_ENTITY"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'foreign_investor_reporting_entity_dim'
+      tags:
+        - layer_datamart
+        - domain_ndtnn
+
+  - name: dtm_foreign_investor_report_structure_dim
+    description: "Datamart model của bảng Foreign Investor Report Structure Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["foreign_investor_report_structure_dim_id"]
+      source_system: ["FIMS_FIR_STRUCTURE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'foreign_investor_report_structure_dim'
+      tags:
+        - layer_datamart
+        - domain_ndtnn
+
+  - name: dtm_fct_foreign_investor_report_value
+    description: "Datamart model của bảng Fact Foreign Investor Report Value"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["submission_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_foreign_investor_report_value'
+      tags:
+        - layer_datamart
+        - domain_ndtnn
+
+  - name: dtm_fct_foreign_investor_capital_flow_snpst
+    description: "Datamart model của bảng Fact Foreign Investor Capital Flow Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_foreign_investor_capital_flow_snpst'
+      tags:
+        - layer_datamart
+        - domain_ndtnn
+
+  - name: dtm_fct_foreign_investor_portfolio_report_snpst
+    description: "Datamart model của bảng Fact Foreign Investor Portfolio Report Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_foreign_investor_portfolio_report_snpst'
+      tags:
+        - layer_datamart
+        - domain_ndtnn

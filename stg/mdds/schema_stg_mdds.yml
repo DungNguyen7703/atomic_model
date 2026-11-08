@@ -1,0 +1,93 @@
+version: 2
+
+models:
+  - name: stg_mdds_jad_corpbondinfor
+    description: "Staging model của bảng MDDS.JAD_CORPBONDINFOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["tradingdate"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mdds_schema") }}'
+      alias: 'jad_corpbondinfor'
+      tags:
+        - layer_staging
+        - domain_mdds
+
+  - name: stg_mdds_jad_csidxinfor
+    description: "Staging model của bảng MDDS.JAD_CSIDXINFOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["tradingdate"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mdds_schema") }}'
+      alias: 'jad_csidxinfor'
+      tags:
+        - layer_staging
+        - domain_mdds
+
+  - name: stg_mdds_jad_marketinfor
+    description: "Staging model của bảng MDDS.JAD_MARKETINFOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["tradingdate"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mdds_schema") }}'
+      alias: 'jad_marketinfor'
+      tags:
+        - layer_staging
+        - domain_mdds
+
+  - name: stg_mdds_jad_stockinfor
+    description: "Staging model của bảng MDDS.JAD_STOCKINFOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["tradingdate"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mdds_schema") }}'
+      alias: 'jad_stockinfor'
+      tags:
+        - layer_staging
+        - domain_mdds
+
+  - name: stg_mdds_jad_translog
+    description: "Staging model của bảng MDDS.JAD_TRANSLOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["tradingdate"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mdds_schema") }}'
+      alias: 'jad_translog'
+      tags:
+        - layer_staging
+        - domain_mdds
+
+  - name: stg_mdds_jad_tvhistory1m
+    description: "Staging model của bảng MDDS.JAD_TVHISTORY1M (nến 1-phút, phục vụ atm_market_price_snapshot)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["tradingdate"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mdds_schema") }}'
+      alias: 'jad_tvhistory1m'
+      tags:
+        - layer_staging
+        - domain_mdds
+
+  - name: stg_mdds_jad_tradingviewhistory1day
+    description: "Staging model của bảng MDDS.JAD_TRADINGVIEWHISTORY1DAY (nến ngày, phục vụ atm_market_price_snapshot)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["tradingdate"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mdds_schema") }}'
+      alias: 'jad_tradingviewhistory1day'
+      tags:
+        - layer_staging
+        - domain_mdds
