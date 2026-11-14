@@ -8,11 +8,13 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo KNT_UAT_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo KNT_ddl_prod.sql, brd_KNT.yaml va khao sat du lieu nguon prod: kieu int sang bigint (2 cot); them cot data_dt; yml snapshot/ds_snpst_dt -> append/data_dt theo BRD.
+* 2026-11-08		tuan.nguyenvanb		Theo design: bang Append khong partition (macro INSERT OVERWRITE = truncate insert): yml append, bo partition_by data_dt; giu cot data_dt.
 *--------------------------------------------------------------------*
 */
 
 SELECT
-    CAST(id AS int)                            AS id
+    CAST(id AS bigint)                         AS id
     , CAST(handling_decision_number AS string)   AS handling_decision_number
     , CAST(subject_name AS string)               AS subject_name
     , CAST(tax_code AS string)                   AS tax_code
@@ -20,7 +22,7 @@ SELECT
     , CAST(violation_fine AS string)             AS violation_fine
     , CAST(admin_violation_fine AS string)       AS admin_violation_fine
     , CAST(tax_recovery_amount AS string)        AS tax_recovery_amount
-    , CAST(msg_packet_id AS int)                 AS msg_packet_id
+    , CAST(msg_packet_id AS bigint)              AS msg_packet_id
     , CAST(issuing_org AS string)                AS issuing_org
     , CAST(issuing_tax_authority_name AS string) AS issuing_tax_authority_name
     , CAST(decision_type AS string)              AS decision_type
@@ -29,4 +31,5 @@ SELECT
     , CAST(other_fine_amount AS string)          AS other_fine_amount
     , CAST(nam_bat_dau AS int)                   AS nam_bat_dau
     , CAST(nam_ket_thuc AS int)                  AS nam_ket_thuc
+    , to_date('{{ var("etl_date") }}', 'yyyy-MM-dd') AS data_dt
 FROM {{ source('source_knt', 'raw_tax_violation_handling') }}

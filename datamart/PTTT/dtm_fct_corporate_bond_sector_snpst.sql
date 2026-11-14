@@ -85,6 +85,11 @@
 *									co phieu (ma 3 ky tu) lan trai phieu; noi 3 ky tu khop nham dong CO PHIEU cung TCPH (so CP x 100.000) -> bond_outstanding_val/_total gap ~221 lan
 *									(flat 28.638 nghin ty vs dung ~129,4 nghin ty ngay 2026-10-06). Phep noi sang atm_public_company van SUBSTR(symbol,1,3) = equity_ticker_symbol. Khong doi cot/kieu.
 *									[2026-10-29] enriched: LEFT JOIN dtm_corp_bond_industry_dim them loc src_stm_code = 'IDS_CATEGORIES' (tranh nhan dong do ban ghi dim ACTIVE tu nguon cu). Khong doi cot/kieu -> build lai mart + flat.
+* 2026-11-09		tuan.nguyenvanb		[DOI TEN COT ATOMIC public_company theo design 2026-11-08] doc cl_ids_business_line_level_1_id/code, exchange_code, pc_form_tp_code (ten cu business_line_level_1_id/code,
+*                                       equity_listing_exchange_code, pc_form_code) va giu alias ten cu o CTE nen phan con lai khong doi. Khong doi cot/kieu mart.
+* 2026-11-11		tuan.nguyenvanb		[BA/DEV CHOT PHUONG AN 2] Them dong 'chua phan nganh' (corp_bond_industry_dim_id NULL) cho TP khong ghep duoc nganh -> tong
+*									bond_outstanding_ratio cac nganh = 100%. LEFT JOIN pu_co (truoc la INNER JOIN), dedupe pu_co 1 dong/ticker theo CAST(pc_code AS bigint),
+*									KHONG sua dtm_corp_bond_industry_dim (dim dung chung nhieu phan he). Khong doi cot output -> khong can ALTER.
 */
 
 WITH bond_raw AS (
@@ -140,25 +145,40 @@ bond_vol AS (
         AND lsi_hnx.ds_snpst_dt = bond_snpst.trading_dt
 ),
 
-pu_co AS (
+pu_co_all AS (
     SELECT
         cl_ids_business_line_level_1_code AS business_line_level_1_code
         , equity_ticker_symbol
+        -- 1 dong / ticker (nguon IDS co ticker gan >1 pc_id cung ACTIVE) - order theo id nguon that (pc_code), KHONG theo pc_id hash
+        , ROW_NUMBER() OVER (PARTITION BY equity_ticker_symbol ORDER BY CAST(pc_code AS bigint) ASC) AS rn
     FROM {{ ref('atm_public_company') }}_hstr
     WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
         AND ds_rcrd_st = 'ACTIVE'
         AND src_stm_code = 'IDS_COMPANY_PROFILES'
         AND equity_ticker_symbol IS NOT NULL
+        AND pc_code IS NOT NULL
 ),
 
+pu_co AS (
+    SELECT business_line_level_1_code, equity_ticker_symbol
+    FROM pu_co_all
+    WHERE rn = 1
+),
+
+-- [2026-11-11] LEFT JOIN: TP khong ghep duoc cong ty dai chung / cong ty khong co ma nganh / ma nganh khong co trong dim
+-- duoc gom vao 1 dong 'chua phan nganh' (industry_code NULL -> corp_bond_industry_dim_id NULL) -> tong ty trong cac dong = 100%.
 joined AS (
     SELECT
         bond_vol.trading_dt
-        , pu_co.business_line_level_1_code
+        , cbi.industry_code AS business_line_level_1_code   -- NULL neu khong ghep duoc nganh trong dim
         , bond_vol.listed_share_quantity
     FROM bond_vol
-    INNER JOIN pu_co
+    LEFT JOIN pu_co
         ON pu_co.equity_ticker_symbol = SUBSTR(bond_vol.symbol, 1, 3)
+    LEFT JOIN {{ ref('dtm_corp_bond_industry_dim') }} cbi
+        ON cbi.industry_code = pu_co.business_line_level_1_code
+        AND cbi.ds_rcrd_st = 'ACTIVE'
+        AND cbi.src_stm_code = 'IDS_CATEGORIES'
 ),
 
 agg AS (

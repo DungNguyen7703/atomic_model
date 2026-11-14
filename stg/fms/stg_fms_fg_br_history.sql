@@ -7,21 +7,21 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo brd_FMS.yaml va khao sat du lieu nguon prod: kieu date sang timestamp (2 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
     HEX(id)                              AS id
     , HEX(fg_br_id)                      AS fg_br_id
-    , CAST(date_change AS date)          AS date_change
+    , CAST(date_change AS timestamp)     AS date_change
     , CAST(action AS string)             AS action
     , CAST(adjustment_license AS string) AS adjustment_license
     , CAST(license_date AS date)         AS license_date
     , CAST(value_change AS string)       AS value_change
     , CAST(reason AS string)             AS reason
     , CAST(file_data AS string)          AS file_data
-    , CAST(date_created AS date)         AS date_created
+    , CAST(date_created AS timestamp)    AS date_created
     , CAST(created_by AS string)         AS created_by
     , CAST(prev_value AS string)         AS prev_value
     , HEX(event_type_id)                 AS event_type_id

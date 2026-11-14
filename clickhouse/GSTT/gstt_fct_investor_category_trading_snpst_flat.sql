@@ -8,6 +8,7 @@
 -- 2026-09-30 tuan.nguyenvanb: [REVIEW LLD] Them f.buy_vol/f.sell_vol (sau buy_val/sell_val, dung vi tri nguon).
 -- ────────────────────────────────────────────────────────────
 
+-- 2026-11-09 tuan.nguyenvanb: [LLD O_GSTT_80] Them 8 cot round_lot_* / odd_lot_* cua mart sau negotiated_sell_val (dat truoc cdr_dt). ALTER ... ADD COLUMN ... AFTER negotiated_sell_val.
 SELECT /*+ BROADCAST(cal) */
     -- FACT Investor Category Trading Snapshot
     f.security_trading_snpst_dim_id,
@@ -21,6 +22,14 @@ SELECT /*+ BROADCAST(cal) */
     f.matched_sell_val,
     f.negotiated_buy_val,
     f.negotiated_sell_val,
+    f.round_lot_buy_vol,
+    f.round_lot_sell_vol,
+    f.round_lot_buy_val,
+    f.round_lot_sell_val,
+    f.odd_lot_buy_vol,
+    f.odd_lot_sell_vol,
+    f.odd_lot_buy_val,
+    f.odd_lot_sell_val,
     -- CALENDAR DATE
     to_date(f.snpst_dt_dim_id, 'yyyyMMdd') AS cdr_dt,
     cal.is_trading_date                    AS is_trading_date,

@@ -454,6 +454,9 @@
 *                                       nay doc lai market_cap / free_float_market_cap da luu o dong T-1. (b) net_profit_after_tax_ttm va WAOS TTM: ky gan nhat la NAM (rpt_quarter 5) -> lay ky nam,
 *                                       la QUY -> 4 quy gan nhat (phai du 4 quy); cac chi tieu khac (owner_equity, WAOS quy...) chi xet ky quy nhu cu. Can atomic moi vol_weighted_average_price.
 *                                       Chay daily ngay T thi von hoa UPCOM NULL cho den khi co phien ke tiep - phai chay lai ngay T. Bang vat ly can ALTER ADD COLUMN theo vi tri (xem script).
+* 2026-11-09		tuan.nguyenvanb		[LLD O_GSTT_80] Von hoa (market_cap, free_float_market_cap) theo SQL moi cua BA: (1) so CP VSDC khop DUNG ngay giao dich T (transaction_dt = T, khong lookback; thieu ban ghi -> von hoa NULL;
+*                                       cac cot outstanding_share_quantity/free_float_share_quantity van lookback) qua CTE cap_shares; (2) phien ke tiep T+1 (gia UPCOM) = ngay nho nhat > T va <= T+1 thang trong HOP NHAT ngay giao dich
+*                                       so lenh HNX (atm_securities_trade, ORDERTRADE_TRADE_BOOK_HNX) va atm_market_index_snapshot. Khong doi cot/kieu -> khong ALTER.
 */
 
 /*
@@ -530,9 +533,20 @@ se_tr_sn AS (
 -- Phien ke tiep = ngay nho nhat lon hon ngay giao dich co tren atm_market_index_snapshot; ban tin cuoi ngay cua phien do.
 -- Chay daily tai ngay T chua co phien T+1 nen von hoa UPCOM la NULL, phai chay lai ngay T sau khi co du lieu phien ke tiep.
 se_tr_nxt_dt AS (
-    SELECT MIN(trading_dt) AS nxt_dt
-    FROM {{ ref('atm_market_index_snapshot') }}
-    WHERE trading_dt > to_date('{{ var("etl_date") }}','yyyy-MM-dd')
+    -- [SUA 2026-11-09, LLD O_GSTT_80] T+1 = ngay nho nhat > T va <= T + 1 thang trong HOP NHAT ngay giao dich so lenh HNX va market_index_snapshot
+    SELECT MIN(nd.dt) AS nxt_dt
+    FROM (
+        SELECT hnx.trade_dt AS dt
+        FROM {{ ref('atm_securities_trade') }} hnx
+        WHERE hnx.src_stm_code = 'ORDERTRADE_TRADE_BOOK_HNX'
+            AND hnx.trade_dt > to_date('{{ var("etl_date") }}','yyyy-MM-dd')
+            AND hnx.trade_dt <= ADD_MONTHS(to_date('{{ var("etl_date") }}','yyyy-MM-dd'), 1)
+        UNION
+        SELECT m2.trading_dt AS dt
+        FROM {{ ref('atm_market_index_snapshot') }} m2
+        WHERE m2.trading_dt > to_date('{{ var("etl_date") }}','yyyy-MM-dd')
+            AND m2.trading_dt <= ADD_MONTHS(to_date('{{ var("etl_date") }}','yyyy-MM-dd'), 1)
+    ) nd
 ),
 
 se_tr_nxt AS (
@@ -1037,6 +1051,24 @@ free_float_val_all AS (
 free_float_val AS (
     SELECT symbol, free_float_share_quantity
     FROM free_float_val_all
+    WHERE rn = 1
+),
+
+-- [MOI 2026-11-09, LLD O_GSTT_80] So CP VSDC dung TINH VON HOA: khop DUNG ngay giao dich T (transaction_dt = T), khong lookback; ngay T khong co ban ghi -> NULL (von hoa NULL).
+-- outstanding_share_quantity / free_float_share_quantity (cot rieng) van dung oss_val / free_float_val (lookback).
+cap_shares AS (
+    SELECT symbol, outstanding_share_quantity, free_float_share_quantity
+    FROM (
+        SELECT
+            lsis.ticker_symbol AS symbol,
+            lsis.outstanding_share_quantity,
+            lsis.free_float_share_quantity,
+            row_number() over (partition by lsis.ticker_symbol order by lsis.ds_snpst_dt desc) AS rn
+        FROM {{ ref('atm_listed_share_information') }} lsis
+        WHERE lsis.src_stm_code = 'VSDC_OUTSTANDING_SHARES'
+            AND lsis.transaction_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
+            AND lsis.ds_snpst_dt <= to_date('{{ var("etl_date") }}','yyyy-MM-dd')
+    ) x
     WHERE rn = 1
 ),
 
@@ -1723,8 +1755,8 @@ SELECT
     CAST(se_tr_sn.ceiling_price AS decimal(23,2))                 AS ceiling_price,
     CAST(se_tr_sn.floor_price AS decimal(23,2))                   AS floor_price,
     CAST(se_tr_sn.open_price AS decimal(23,2))                    AS open_price,
-    CAST((CASE WHEN se_tr_sn.floor_code = '04' THEN CASE WHEN se_tr_nxt.vol_weighted_average_price IS NULL THEN NULL ELSE COALESCE(NULLIF(se_tr_nxt.vol_weighted_average_price, 0), se_tr_sn.reference_price) END ELSE se_tr_sn.close_price END) * free_float_val.free_float_share_quantity AS decimal(23,2)) AS free_float_market_cap,
-    CAST((CASE WHEN se_tr_sn.floor_code = '04' THEN CASE WHEN se_tr_nxt.vol_weighted_average_price IS NULL THEN NULL ELSE COALESCE(NULLIF(se_tr_nxt.vol_weighted_average_price, 0), se_tr_sn.reference_price) END ELSE se_tr_sn.close_price END) * oss_val.outstanding_share_quantity AS decimal(23,2)) AS market_cap
+    CAST((CASE WHEN se_tr_sn.floor_code = '04' THEN CASE WHEN se_tr_nxt.vol_weighted_average_price IS NULL THEN NULL ELSE COALESCE(NULLIF(se_tr_nxt.vol_weighted_average_price, 0), se_tr_sn.reference_price) END ELSE se_tr_sn.close_price END) * cap_shares.free_float_share_quantity AS decimal(23,2)) AS free_float_market_cap,
+    CAST((CASE WHEN se_tr_sn.floor_code = '04' THEN CASE WHEN se_tr_nxt.vol_weighted_average_price IS NULL THEN NULL ELSE COALESCE(NULLIF(se_tr_nxt.vol_weighted_average_price, 0), se_tr_sn.reference_price) END ELSE se_tr_sn.close_price END) * cap_shares.outstanding_share_quantity AS decimal(23,2)) AS market_cap
 FROM se_tr_sn
 LEFT JOIN se_tr_sn_di
     ON  se_tr_sn_di.symbol = se_tr_sn.symbol
@@ -1799,6 +1831,8 @@ LEFT JOIN se_tr_lot
     AND se_tr_lot.trade_dt = se_tr_sn.trading_dt
 LEFT JOIN se_tr_nxt
     ON  se_tr_nxt.symbol = se_tr_sn.symbol
+LEFT JOIN cap_shares   -- [MOI 2026-11-09, O_GSTT_80]
+    ON  cap_shares.symbol = se_tr_sn.symbol
 LEFT JOIN oi_val
     ON  oi_val.symbol = se_tr_sn.symbol
     AND oi_val.rpt_dt = se_tr_sn.trading_dt

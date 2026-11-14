@@ -122,7 +122,7 @@ models:
     description: "[SUA 2026-10-19] Datamart model của bảng Operational Individual Profile - bo sung cot appointment_dt, doi INNER JOIN sang LEFT JOIN cho cac field nullable, sua sp_license_certificate_document_code"
     config:
       materialized: scd4a
-      unique_key: ["sc_senior_personnel_code"]
+      unique_key: ["sc_senior_personnel_code", "sc_code", "license_certificate_nbr"]
       source_system: ["NHNCK_PROFESSIONALS", "SCMS_SC_FIRM_SENIOR_PERSONNEL"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("dtm_schema") }}'
@@ -339,3 +339,15 @@ models:
         - layer_datamart
         - domain_qlkd
 
+  - name: dtm_securities_company_alert_indicator_dim
+    description: "[MOI 2026-11-10, O_QLKD_75] Datamart model của bảng Securities Company Alert Indicator Dimension - chieu tham so canh bao cho KPI Nhom 5/6/7/36 (Fact License Condition Snapshot loc qua sc_alert_ind_code = ALERT_INDICATOR.ID). Nguon atm_sc_alert_indicator (SCMS_ALERT_INDICATOR), PK lay thang sc_alert_ind_id cua Atomic."
+    config:
+      materialized: scd4a
+      unique_key: ["securities_company_alert_indicator_dim_id"]
+      source_system: ["SCMS_ALERT_INDICATOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'securities_company_alert_indicator_dim'
+      tags:
+        - layer_datamart
+        - domain_qlkd

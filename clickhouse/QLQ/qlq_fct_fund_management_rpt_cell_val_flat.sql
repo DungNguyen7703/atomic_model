@@ -1,11 +1,8 @@
 -- ────────────────────────────────────────────────────────────
 -- Model : qlq_fct_fund_management_rpt_cell_val_flat
 -- Type  : FACT
--- 2026-10-14 claude: khởi tạo từ flat-table/QLQ/02_populate_qlq_flat_tables.sql #17 (commit d18cdaa0).
---                    ck_snapshot: job lọc submitted_dt = etl_date nên ds_snpst_dt (= etl_date) = submitted_dt;
---                    DROP PARTITION ds_snpst_dt tương đương DELETE theo submitted_dt của thiết kế.
---                    Flat giữ toàn bộ kỳ/bản nộp (O_QLQ_32), không lọc
---                    theo ngày cuối kỳ. rpt_period_end_cdr_dt suy từ dim_id như các job qlq_fct_* khác.
+-- 2026-11-11 claude (sync): thêm row_indicator_val_code (sau src_stm_code) theo LLD commit 56eb71c6 (O_QLQ_87)
+--                    (schema-changing, cần ALTER ADD COLUMN bảng ClickHouse)
 -- ────────────────────────────────────────────────────────────
 
 WITH fact AS (
@@ -29,7 +26,8 @@ WITH fact AS (
         submitted_dt,
         cell_val,
         cell_numeric_val,
-        src_stm_code
+        src_stm_code,
+        row_indicator_val_code
     FROM {{ ref('dtm_fct_fund_management_rpt_cell_val') }}
     -- WHERE submitted_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
 ),
@@ -101,6 +99,7 @@ SELECT
     f.cell_val,
     f.cell_numeric_val,
     f.src_stm_code,
+    f.row_indicator_val_code,
     TO_DATE(f.rpt_period_end_dt_dim_id, 'yyyyMMdd')      AS rpt_period_end_cdr_dt,
     c.fmr_sheet_code,
     c.cell_id,

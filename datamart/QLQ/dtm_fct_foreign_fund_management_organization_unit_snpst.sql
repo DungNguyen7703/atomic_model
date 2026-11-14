@@ -11,6 +11,9 @@
 -                                   đến tháng của etl_date (CTE snpst_month); mốc so sánh :etl_date -> ngày cuối tháng snapshot
 - 2026-10-27    optimized           Tối ưu hóa: gom MIN GP, gộp CTE, lọc sớm branch_tp_code = '1', thêm hint BROADCAST
 - 2026-10-27    claude              Ghi chú rủi ro thiết kế (xem mục bên dưới), chưa đổi logic
+- 2026-11-09    claude (sync)       Đồng bộ LLD commit 48c65dde (O_QLQ_82/83, schema-changing): thêm 4 cột VPĐD (representative_office_count,
+-                                   active_/pending_closure_/closed_representative_office_count); branch_count tính theo ngày cấp giấy phép
+-                                   (bỏ COALESCE(effective_start_dt, ...) — BA bỏ START_DATE); bỏ lọc sớm branch_tp_code = '1' để đếm cả VPĐD (ou_tp_code = '0')
 *--------------------------------------------------------------------*
 - CƠ CHẾ GHI (incremental_strategy: append, partition_by: snpst_dt_dim_id)
 -   Mỗi lần chạy sinh mọi tháng 2000-01 -> tháng của etl_date, snpst_dt_dim_id = ngày cuối tháng (KHÔNG phải etl_date).
@@ -62,26 +65,54 @@ establishment_license AS (
     GROUP BY 1
 ),
 
-foreign_fm_ou AS (
-    -- Gộp Dim và License, lọc sớm chi nhánh (branch_tp_code = '1')
+cl_fms_status AS (
     SELECT
-        dim.foreign_fund_management_organization_unit_id              AS foreign_fm_ou_id,
-        COALESCE(dim.effective_start_dt, lic.identification_issue_dt) AS effective_start_dt,
-        dim.effective_end_dt
+        cl_fms_status_code,
+        cl_fms_status_nm
+    FROM {{ ref('atm_cl_fms_status') }}
+    WHERE ds_rcrd_st = 'ACTIVE'
+        AND src_stm_code = 'FMS_STATUS'
+),
+
+foreign_fm_ou AS (
+    -- Gộp Dim, License và tên trạng thái; giữ cả Chi nhánh ('1') và VPĐD ('0')
+    SELECT
+        dim.foreign_fund_management_organization_unit_id AS foreign_fm_ou_id,
+        dim.branch_tp_code                               AS ou_tp_code,
+        lic.identification_issue_dt                      AS license_dt,
+        dim.effective_end_dt,
+        lower(st.cl_fms_status_nm)                       AS status_nm_lower
     FROM {{ ref('dtm_foreign_fund_management_organization_unit_dim') }}_hstr dim
     LEFT JOIN establishment_license lic
         ON lic.ip_id = dim.foreign_fund_management_organization_unit_id
+    LEFT JOIN cl_fms_status st
+        ON st.cl_fms_status_code = dim.operation_status_code
     WHERE dim.ds_snpst_dt = to_date('{{ var("etl_date") }}')
       AND dim.ds_rcrd_st = 'ACTIVE'
       AND dim.src_stm_code = 'FMS_FOR_BRCH'
-      AND dim.branch_tp_code = '1'
+      AND dim.branch_tp_code IN ('0', '1')
 )
 
 SELECT 
     date_format(m.snpst_dt, 'yyyyMMdd') AS snpst_dt_dim_id,
-    CAST(COUNT(f.foreign_fm_ou_id) AS int) AS branch_count
+    CAST(COUNT(CASE WHEN f.ou_tp_code = '1'
+                     AND (f.effective_end_dt IS NULL OR f.effective_end_dt > m.snpst_dt)
+                    THEN f.foreign_fm_ou_id END) AS int) AS branch_count,
+    CAST(COUNT(CASE WHEN f.ou_tp_code = '0'
+                    THEN f.foreign_fm_ou_id END) AS int) AS representative_office_count,
+    CAST(COUNT(CASE WHEN f.ou_tp_code = '0'
+                     AND f.status_nm_lower = 'hoạt động'
+                    THEN f.foreign_fm_ou_id END) AS int) AS active_representative_office_count,
+    CAST(COUNT(CASE WHEN f.ou_tp_code = '0'
+                     AND f.status_nm_lower LIKE '%chờ đóng cửa%'
+                    THEN f.foreign_fm_ou_id END) AS int) AS pending_closure_representative_office_count,
+    CAST(COUNT(CASE WHEN f.ou_tp_code = '0'
+                     AND f.status_nm_lower NOT LIKE '%chờ%'
+                     AND (f.status_nm_lower LIKE '%đóng cửa%'
+                          OR f.status_nm_lower LIKE '%chấm dứt%'
+                          OR f.status_nm_lower LIKE '%giải thể%')
+                    THEN f.foreign_fm_ou_id END) AS int) AS closed_representative_office_count
 FROM snpst_month m
 LEFT JOIN foreign_fm_ou f
-    ON f.effective_start_dt <= m.snpst_dt
-    AND (f.effective_end_dt IS NULL OR f.effective_end_dt > m.snpst_dt)
+    ON f.license_dt <= m.snpst_dt
 GROUP BY m.snpst_dt

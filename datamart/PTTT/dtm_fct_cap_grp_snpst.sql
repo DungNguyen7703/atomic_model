@@ -86,6 +86,18 @@
 *									Cac ghi chu cu o tren ve ex_rate/threshold/lookback khong con hieu luc. Khong doi cot/kieu nen khong can ALTER.
 * 2026-10-22			tuan.nguyenvanb		Doi tham chieu atomic: snapshot.symbol->ticker_symbol, security_full_nm->full_nm, fr_value.data_val->cell_val. Khong doi cot/kieu.
 * 2026-10-22			tuan.nguyenvanb		Doi tham chieu atomic: listed_share_information.transaction_date->transaction_dt. Khong doi cot/kieu.
+* 2026-11-08			tuan.nguyenvanb		Doi nguong nhom von hoa theo yeu cau moi: Smallcap < 1.000 ty (BO can duoi 100 ty, ma von hoa < 100 ty nay vao Smallcap
+*									thay vi bi loai), Midcap [1.000 ty, 10.000 ty), Largecap >= 10.000 ty (bien 10.000 ty chuyen tu Midcap sang Largecap).
+*									Khong doi cot/kieu nen khong can ALTER.
+* 2026-11-10			nghia.le			Theo code nguon BA (Phan bo thanh khoan theo nhom von hoa): (1) liquidity_share_ratio = GTGD nhom / TONG GTGD CUA CHINH CAC NHOM (SUM OVER theo ngay)
+*									-> tong 3 nhom = 100% (truoc: mau so la GTGD toan bo ma san 02/04/10, ke ca ma khong xep duoc nhom -> < 100%); (2) GTGD theo ma lay tu SO LENH KHOP
+*									(atm_securities_trade: STK/STX/UPX, board G1,G2,G3,G4,G7,G8; HNX noi ma qua isin_code) thay cho security_trading_snapshot.total_trading_val.
+*									Khong doi cot/kieu nen khong can ALTER; can build lai mart + flat (va first-time) de ap dung.
+* 2026-11-10			nghia.le			DOI TEN + DOI CONG THUC cot liquidity_share_ratio -> market_cap_share_ratio: nay la TY TRONG VON HOA nhom = SUM(von hoa = close_price x KL luu hanh
+*									cua cac ma trong nhom) / tong von hoa 3 nhom cung ngay x 100 (tuong ung ty_trong_von_hoa_pct cua code nguon BA), thay cho ty trong GTGD (chart
+*									"Phan bo ... theo Nhom von hoa" hien ty trong von hoa; khong cho nao khac dung ty trong GTGD). total_trading_val giu nguyen.
+*									Khop code nguon BA moi (gdc lay ban ghi cuoi ngay, nhom LEFT JOIN gtgd_theo_ma): von hoa nhom gom CA ma khong co giao dich trong ngay (GTGD = 0).
+*									CAN ALTER mart + flat ClickHouse: RENAME COLUMN liquidity_share_ratio TO market_cap_share_ratio truoc khi build.
 */
 
 WITH se_tr_snpst_raw AS (
@@ -93,8 +105,8 @@ WITH se_tr_snpst_raw AS (
     SELECT
         ds_snpst_dt AS trading_dt
         , ticker_symbol AS symbol
+        , isin_code
         , close_price
-        , total_trading_val
         , ROW_NUMBER() OVER (
             PARTITION BY ticker_symbol, ds_snpst_dt
             ORDER BY trading_time DESC, sequence DESC
@@ -108,7 +120,7 @@ WITH se_tr_snpst_raw AS (
 -- ban ghi trading_time moi nhat moi ma/ngay (LLD 2026-10-09)
 se_tr_snpst AS (
 
-    SELECT trading_dt, symbol, close_price, total_trading_val
+    SELECT trading_dt, symbol, isin_code, close_price
     FROM se_tr_snpst_raw
     WHERE rn = 1
 
@@ -139,26 +151,83 @@ listed_share_latest AS (
 
 ),
 
+-- [2026-11-10, BA] GTGD theo ma CK lay tu SO LENH KHOP (trade book), KHONG con dung security_trading_snapshot.total_trading_val (khong loc board):
+--   HOSE: market_id_code = 'STK' (ma giao dich = security_symbol_code); HNX/UPCOM: 'STX','UPX' (security_symbol_code cua so lenh HNX la ISIN -> doi sang ma
+--   qua isin_code cua snapshot). Chi lay board G1,G2,G3,G4,G7,G8. execution_val da la gia tri khop (HNX: gia x KL).
+trade_matched AS (
+
+    SELECT
+        trade_dt
+        , security_symbol_code
+        , market_id_code
+        , execution_val
+    FROM {{ ref('atm_securities_trade') }}
+    WHERE trade_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
+        AND market_id_code IN ('STK','STX','UPX')
+        AND board_tp_code IN ('G1','G2','G3','G4','G7','G8')
+
+),
+
+ma_isin AS (
+
+    SELECT DISTINCT
+        isin_code
+        , symbol
+    FROM se_tr_snpst
+    WHERE isin_code IS NOT NULL
+
+),
+
+trade_by_symbol AS (
+
+    SELECT
+        trade_matched.trade_dt AS trading_dt
+        , CASE WHEN trade_matched.market_id_code = 'STK' THEN trade_matched.security_symbol_code ELSE ma_isin.symbol END AS symbol
+        , trade_matched.execution_val
+    FROM trade_matched
+    LEFT JOIN ma_isin
+        ON trade_matched.market_id_code IN ('STX','UPX')
+        AND ma_isin.isin_code = trade_matched.security_symbol_code
+    WHERE trade_matched.market_id_code = 'STK' OR ma_isin.symbol IS NOT NULL
+
+),
+
+gtgd_theo_ma AS (
+
+    SELECT
+        trading_dt
+        , symbol
+        , SUM(execution_val) AS total_trading_val
+    FROM trade_by_symbol
+    GROUP BY
+        trading_dt
+        , symbol
+
+),
+
 -- INNER JOIN listed_share_information (LLD): ma khong co KL luu hanh VSDC dung ngay bi loai.
--- cap_group_code (VND, KHONG quy doi USD, nguong cung theo SQL BA): Smallcap [100 ty, 1.000 ty), Midcap [1.000 ty, 10.000 ty],
--- Largecap > 10.000 ty; von hoa < 100 ty -> NULL va bi LOAI khoi Fact (BA: WHERE nhom_von_hoa IS NOT NULL).
+-- cap_group_code (VND, KHONG quy doi USD): Smallcap < 1.000 ty, Midcap [1.000 ty, 10.000 ty), Largecap >= 10.000 ty
+-- (2026-11-08). NULL chi khi thieu gia dong cua hoac KL luu hanh -> bi LOAI khoi Fact (WHERE cap_group_code IS NOT NULL).
 cap_classified AS (
 
     SELECT
         se_tr_snpst.trading_dt
         , se_tr_snpst.symbol
-        , se_tr_snpst.total_trading_val
+        , COALESCE(gtgd_theo_ma.total_trading_val, 0) AS total_trading_val
+        , (se_tr_snpst.close_price * listed_share_latest.outstanding_share_quantity) AS market_cap
         , CASE
-            WHEN (se_tr_snpst.close_price * listed_share_latest.outstanding_share_quantity) >= 100000000000
-             AND (se_tr_snpst.close_price * listed_share_latest.outstanding_share_quantity) <  1000000000000  THEN 'Smallcap'
+            WHEN (se_tr_snpst.close_price * listed_share_latest.outstanding_share_quantity) <  1000000000000  THEN 'Smallcap'
             WHEN (se_tr_snpst.close_price * listed_share_latest.outstanding_share_quantity) >= 1000000000000
-             AND (se_tr_snpst.close_price * listed_share_latest.outstanding_share_quantity) <= 10000000000000 THEN 'Midcap'
-            WHEN (se_tr_snpst.close_price * listed_share_latest.outstanding_share_quantity) >  10000000000000 THEN 'Largecap'
+             AND (se_tr_snpst.close_price * listed_share_latest.outstanding_share_quantity) <  10000000000000 THEN 'Midcap'
+            WHEN (se_tr_snpst.close_price * listed_share_latest.outstanding_share_quantity) >= 10000000000000 THEN 'Largecap'
             ELSE NULL
           END AS cap_group_code
     FROM se_tr_snpst
     INNER JOIN listed_share_latest
         ON listed_share_latest.ticker_symbol = se_tr_snpst.symbol
+    LEFT JOIN gtgd_theo_ma   -- [2026-11-10] LEFT (nhu BA): ma co von hoa nhung khong co GTGD van tinh von hoa vao nhom (GTGD = 0)
+        ON gtgd_theo_ma.symbol = se_tr_snpst.symbol
+        AND gtgd_theo_ma.trading_dt = se_tr_snpst.trading_dt
 
 ),
 
@@ -168,23 +237,12 @@ cap_group_agg AS (
         cap_classified.trading_dt
         , cap_classified.cap_group_code
         , SUM(cap_classified.total_trading_val) AS total_trading_val
+        , SUM(cap_classified.market_cap) AS total_market_cap
     FROM cap_classified
     WHERE cap_classified.cap_group_code IS NOT NULL
     GROUP BY
         cap_classified.trading_dt
         , cap_classified.cap_group_code
-
-),
-
--- mau so liquidity_share_ratio (LLD): SUM(total_trading_val) toan bo ma san 02/04/10
--- trong ngay, KHONG qua INNER JOIN listed_share_information
-market_total AS (
-
-    SELECT
-        se_tr_snpst.trading_dt
-        , SUM(se_tr_snpst.total_trading_val) AS market_total_trading_val
-    FROM se_tr_snpst
-    GROUP BY se_tr_snpst.trading_dt
 
 )
 
@@ -193,9 +251,7 @@ SELECT
     CAST(cap_group_agg.cap_group_code AS string)                      AS cap_group_code,
     CAST(cap_group_agg.total_trading_val AS decimal(23,2))            AS total_trading_val,
     CAST(
-        cap_group_agg.total_trading_val
-        / NULLIF(market_total.market_total_trading_val, 0) * 100
-    AS decimal(5,2))                                                  AS liquidity_share_ratio
+        cap_group_agg.total_market_cap
+        / NULLIF(SUM(cap_group_agg.total_market_cap) OVER (PARTITION BY cap_group_agg.trading_dt), 0) * 100
+    AS decimal(5,2))                                                  AS market_cap_share_ratio
 FROM cap_group_agg
-LEFT JOIN market_total
-    ON market_total.trading_dt = cap_group_agg.trading_dt

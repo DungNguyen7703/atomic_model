@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo TTHC_UAT_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo staging_tthc.sql, brd_TTHC.yaml va khao sat du lieu nguon prod: kieu string sang timestamp (1 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -20,5 +21,5 @@ SELECT
     , CAST(correlationid AS string)      AS correlationid
     , CAST(userid AS string)             AS userid
     , CAST(normalizedusername AS string) AS normalizedusername
-    , CAST(createdutc AS string)         AS createdutc
+    , CAST(createdutc AS timestamp)      AS createdutc
 FROM {{ source('source_tthc', 'raw_audit_audittraileventindex') }}

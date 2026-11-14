@@ -8,11 +8,12 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo GMS_AUDIT_UAT_schema.
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo AUDIT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: kieu int sang bigint (1 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
-    CAST(id AS int)             AS id
+    CAST(id AS bigint)          AS id
     , CAST(data_type AS string)   AS data_type
     , CAST(ref_type_vi AS string) AS ref_type_vi
     , CAST(ref_type_en AS string) AS ref_type_en

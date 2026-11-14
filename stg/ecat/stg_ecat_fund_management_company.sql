@@ -7,15 +7,15 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo ECAT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: them cot company_name, company_english_name, chief_executive_officer, securities_business_license_number, securities_business_license_date, adjustment_license_numbers, enterprise_type_name, official_operation_date, operation_status_name, operation_status, business_registration_number, note, file_data, id_sync; bo cot name_vi, name_en, ceo_position, business_license_number, business_license_date.
 *--------------------------------------------------------------------*
 */
 
 SELECT
     CAST(id AS string)                               AS id
     , CAST(code AS string)                           AS code
-    , CAST(name_vi AS string)                        AS name_vi
-    , CAST(name_en AS string)                        AS name_en
+    , CAST(company_name AS string)                        AS company_name
+    , CAST(company_english_name AS string)                AS company_english_name
     , CAST(short_name AS string)                     AS short_name
     , CAST(short_name_en AS string)                  AS short_name_en
     , CAST(business_skill AS string)                 AS business_skill
@@ -32,10 +32,11 @@ SELECT
     , CAST(ward_new_id AS string)                    AS ward_new_id
     , CAST(district_old_id AS string)                AS district_old_id
     , CAST(legal_representative AS string)           AS legal_representative
-    , CAST(ceo_position AS string)                   AS ceo_position
-    , CAST(business_license_number AS string)        AS business_license_number
-    , CAST(business_license_date AS timestamp)       AS business_license_date
+    , CAST(chief_executive_officer AS string)             AS chief_executive_officer
+    , CAST(securities_business_license_number AS string)  AS securities_business_license_number
+    , CAST(securities_business_license_date AS timestamp) AS securities_business_license_date
     , CAST(business_license_place AS string)         AS business_license_place
+    , CAST(adjustment_license_numbers AS string)          AS adjustment_license_numbers
     , CAST(issue_document AS string)                 AS issue_document
     , CAST(issue_date AS timestamp)                  AS issue_date
     , CAST(financial_id AS string)                   AS financial_id
@@ -61,4 +62,12 @@ SELECT
     , CAST(total_shares AS bigint)                   AS total_shares
     , CAST(charter_capital AS bigint)                AS charter_capital
     , CAST(par_value AS bigint)                      AS par_value
+    , CAST(enterprise_type_name AS string)                AS enterprise_type_name
+    , CAST(official_operation_date AS timestamp)          AS official_operation_date
+    , CAST(operation_status_name AS string)               AS operation_status_name
+    , CAST(operation_status AS string)                    AS operation_status
+    , CAST(business_registration_number AS string)        AS business_registration_number
+    , CAST(note AS string)                                AS note
+    , CAST(file_data AS string)                           AS file_data
+    , CAST(id_sync AS string)                             AS id_sync
 FROM {{ source('source_ecat', 'raw_fund_management_company') }}

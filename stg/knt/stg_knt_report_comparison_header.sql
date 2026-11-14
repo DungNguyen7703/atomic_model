@@ -8,18 +8,19 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo KNT_UAT_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo KNT_ddl_prod.sql, brd_KNT.yaml va khao sat du lieu nguon prod: kieu int sang bigint (5 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
-    CAST(id AS int)                     AS id
+    CAST(id AS bigint)                  AS id
     , CAST(tax_code AS string)            AS tax_code
     , CAST(declaration_period AS string)  AS declaration_period
     , CAST(declaration_code AS string)    AS declaration_code
-    , CAST(tax_report_id AS int)          AS tax_report_id
-    , CAST(ssc_report_id AS int)          AS ssc_report_id
-    , CAST(tax_msg_packet_id AS int)      AS tax_msg_packet_id
-    , CAST(ssc_msg_packet_id AS int)      AS ssc_msg_packet_id
+    , CAST(tax_report_id AS bigint)       AS tax_report_id
+    , CAST(ssc_report_id AS bigint)       AS ssc_report_id
+    , CAST(tax_msg_packet_id AS bigint)   AS tax_msg_packet_id
+    , CAST(ssc_msg_packet_id AS bigint)   AS ssc_msg_packet_id
     , CAST(tax_packet_code AS string)     AS tax_packet_code
     , CAST(ssc_packet_code AS string)     AS ssc_packet_code
     , CAST(representative_name AS string) AS representative_name

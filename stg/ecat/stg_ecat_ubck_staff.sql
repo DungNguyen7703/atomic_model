@@ -7,7 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo ECAT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: them cot id_sync, username.
 *--------------------------------------------------------------------*
 */
 
@@ -39,4 +39,6 @@ SELECT
     , CAST(updated_by_id AS string)                AS updated_by_id
     , CAST(updated_by_name AS string)              AS updated_by_name
     , CAST(stable_id AS string)                    AS stable_id
+    , CAST(id_sync AS string)                      AS id_sync
+    , CAST(username AS string)                     AS username
 FROM {{ source('source_ecat', 'raw_ubck_staff') }}

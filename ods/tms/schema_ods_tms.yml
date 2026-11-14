@@ -1,0 +1,27 @@
+version: 2
+
+models:
+
+  - name: ods_tms_report
+    description: "ODS model: Danh muc bao cao dong UBCKNN va bo chi tieu (giai phang tu TMS.COMPLIANCE_REPORT_FORM_TEMPLATE)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_gsgd_schema") }}'
+      alias: 'tms_report'
+      tags:
+        - layer_ods
+        - domain_tms
+
+  - name: ods_tms_report_value
+    description: "ODS model: Gia tri chi tieu bao cao dong UBCKNN theo tung lan nop (giai phang ROW_DATA tu TMS.COMPLIANCE_REPORT_DATA)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_gsgd_schema") }}'
+      alias: 'tms_report_value'
+      tags:
+        - layer_ods
+        - domain_tms

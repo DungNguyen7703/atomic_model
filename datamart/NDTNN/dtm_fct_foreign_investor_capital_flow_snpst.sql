@@ -7,6 +7,9 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
+* 2026-11-08		nghia.le			[THEM transaction_cd] Ma so giao dich (MSGD, 6 ky tu cuoi in hoa) cua NDT trong bao cao: cot 'Ma so giao dich chung khoan' (IBOU9 sheet I) hoac 'Ma so giao dich' (bao cao bat thuong
+*									sheet 'Input 2 - Von') - cung cach transaction_cd cua dtm_fct_foreign_investor_portfolio_report_snpst. Dung de JOIN ho so 360 theo MSGD (K_NDTNN_29..32) thay cho ten NDT.
+*									Cot dat NGAY SAU investor_nm (insert theo vi tri, sau do macro noi ds_*) -> ALTER TABLE ... ADD COLUMNS (transaction_cd string AFTER investor_nm) tren bang mart va nap lai first-time.
 * 2026-10-17		nghia.le			Bo Foreign Investor Reporting Entity Dimension khoi fact (theo DTM moi + bang mart thuc te khong con cot
 *									foreign_investor_reporting_entity_dim_id): bo cot FK, CTE fi_re_en_di va LEFT JOIN tuong ung.
 * 2026-10-13		nghia.le			[RULE BAO CAO DINH KY / BAT THUONG] nap them bao cao bat thuong EPW5C/V2YZM/22ZBE; them 2 cot CUOI bang rpt_code, rpt_dt_dim_id (ngay chot so lieu)
@@ -74,7 +77,6 @@ cd_dt_di AS (
     FROM {{ ref('dtm_cdr_dt_dim') }}
 ),
 
-
 ca_fl AS (
     SELECT
         fi_va.rpt_log_id,
@@ -84,6 +86,7 @@ ca_fl AS (
         MAX(fi_va.period_val)                                      AS period_val,
         MAX(CASE WHEN fi_st.column_path = 'Quốc tịch' THEN fi_va.val_raw END) AS nationality_nm,
         MAX(CASE WHEN fi_st.column_path = 'Tên nhà đầu tư' THEN fi_va.val_raw END) AS investor_nm,
+        NULLIF(SUBSTR(UPPER(TRIM(MAX(CASE WHEN fi_st.column_path IN ('Mã số giao dịch chứng khoán', 'Mã số giao dịch') THEN fi_va.val_raw END))), -6), '') AS transaction_cd,
         MAX(CASE WHEN fi_st.column_path IN ('Giá trị dòng vốn vào trong kỳ báo cáo (+/-) (đơn vị USD)', 'Kỳ báo cáo > Giá trị dòng vốn vào trong kỳ báo cáo (+/-) (đơn vị USD)') THEN TRY_CAST(REGEXP_REPLACE(fi_va.val_raw, '^''', '') AS DECIMAL(38,10)) END) AS capital_flow_net_val,
         MAX(fi_va.src_stm_code)                                    AS src_stm_code,
         MAX(fo_in_re.rpt_code)                                     AS rpt_code,
@@ -115,10 +118,9 @@ SELECT
     CAST(ca_fl.rpt_code AS string)                                            AS rpt_code,
     CAST(ca_fl.nationality_nm AS string)                                      AS nationality_nm,
     CAST(ca_fl.investor_nm AS string)                                         AS investor_nm,
+    CAST(ca_fl.transaction_cd AS string)                                      AS transaction_cd,
     CAST(ca_fl.capital_flow_net_val AS decimal(23,2))                         AS capital_flow_net_val,
     CAST(ca_fl.src_stm_code AS string)                                        AS src_stm_code
-
-
 FROM ca_fl
 LEFT JOIN cd_dt_di
     ON  cd_dt_di.cdr_dt = ca_fl.submission_dt

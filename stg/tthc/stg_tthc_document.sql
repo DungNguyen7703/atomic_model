@@ -8,11 +8,12 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo TTHC_UAT_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo staging_tthc.sql, brd_TTHC.yaml va khao sat du lieu nguon prod: kieu int sang bigint (1 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
-    CAST(id AS int)                   AS id
+    CAST(id AS bigint)                AS id
     , CAST(type AS string)              AS type
     , CAST(content AS string)           AS content
     , CAST(version AS int)              AS version

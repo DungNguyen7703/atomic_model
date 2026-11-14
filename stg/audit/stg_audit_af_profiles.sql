@@ -8,11 +8,12 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo GMS_AUDIT_UAT_schema.
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo AUDIT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: kieu int sang bigint (2 cot); kieu date sang timestamp (3 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
-    CAST(id AS int)                         AS id
+    CAST(id AS bigint)                       AS id
     , CAST(audit_firm_cd AS string)           AS audit_firm_cd
     , CAST(full_name_vi AS string)            AS full_name_vi
     , CAST(full_name_en AS string)            AS full_name_en
@@ -25,14 +26,14 @@ SELECT
     , CAST(website AS string)                 AS website
     , CAST(paid_in_capital AS bigint)         AS paid_in_capital
     , CAST(foreign_audit_member_flg AS int)   AS foreign_audit_member_flg
-    , CAST(membership_start_date AS date)     AS membership_start_date
+    , CAST(membership_start_date AS timestamp) AS membership_start_date
     , CAST(membership_end_date AS date)       AS membership_end_date
     , CAST(status_cd AS string)               AS status_cd
-    , CAST(external_id AS int)                AS external_id
+    , CAST(external_id AS bigint)              AS external_id
     , CAST(created_by AS string)              AS created_by
-    , CAST(created_date AS date)              AS created_date
+    , CAST(created_date AS timestamp)          AS created_date
     , CAST(updated_by AS string)              AS updated_by
-    , CAST(updated_date AS date)              AS updated_date
+    , CAST(updated_date AS timestamp)          AS updated_date
     , CAST(foreign_audit_firm_name AS string) AS foreign_audit_firm_name
     , CAST(approval_status_cd AS string)      AS approval_status_cd
     , CAST(approver_comment AS string)        AS approver_comment

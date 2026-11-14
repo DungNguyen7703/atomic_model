@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Bo sung STG theo FMS_UAT_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo brd_FMS.yaml va khao sat du lieu nguon prod: WHERE loc theo BRD filter_logic; yml snapshot/ds_snpst_dt -> append/date_created theo BRD.
 *--------------------------------------------------------------------*
 */
 
@@ -25,3 +26,4 @@ SELECT
     , CAST(date_created AS date)         AS date_created
     , CAST(created_by AS string)         AS created_by
 FROM {{ source('source_fms', 'raw_pension_fund_history') }}
+WHERE date_format(date_created, 'yyyy-MM-dd') >= to_date('{{ var("etl_date") }}', 'yyyy-MM-dd') AND date_format(date_created, 'yyyy-MM-dd') < to_date('{{ var("etl_date") }}', 'yyyy-MM-dd') + 1

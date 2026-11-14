@@ -7,7 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo ECAT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: kieu int sang decimal(38,10) (1 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -52,7 +52,7 @@ SELECT
     , CAST(effective_end_date AS timestamp)          AS effective_end_date
     , CAST(deleted AS int)                           AS deleted
     , CAST(deleted_reason AS string)                 AS deleted_reason
-    , CAST(version AS int)                           AS version
+    , CAST(version AS decimal(38,10))                AS version
     , CAST(old_id AS string)                         AS old_id
     , CAST(stable_id AS string)                      AS stable_id
     , CAST(security_company_version_id AS string)    AS security_company_version_id

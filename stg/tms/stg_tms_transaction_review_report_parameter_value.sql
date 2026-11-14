@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Bo sung STG theo UAT_TMS_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo TMS_ddl_prod.sql, brd_TMS.yaml va khao sat du lieu nguon prod: kieu date sang timestamp (1 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -20,7 +21,7 @@ SELECT
     , CAST(workflow_id AS string)           AS workflow_id
     , CAST(value_number AS decimal(19,6))   AS value_number
     , CAST(value_string AS string)          AS value_string
-    , CAST(value_date AS date)              AS value_date
+    , CAST(value_date AS timestamp)         AS value_date
     , CAST(value_boolean AS int)            AS value_boolean
     , CAST(created_at AS timestamp)         AS created_at
     , CAST(updated_at AS timestamp)         AS updated_at

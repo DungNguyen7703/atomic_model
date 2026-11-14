@@ -1,0 +1,2613 @@
+version: 2
+
+sources:
+  - name: source_tms
+    description: "Hệ thống TMS - Nguồn dữ liệu phân hệ TMS (hồ sơ vụ việc)"
+    schema: '{{ var("src_tms_schema") }}'
+    tables:
+      - name: raw_case_file
+        identifier: CASE_FILE
+      - name: raw_case_approval_step
+        identifier: CASE_APPROVAL_STEP
+      - name: raw_abnormal_column_semantic
+        identifier: ABNORMAL_COLUMN_SEMANTIC
+      - name: raw_abnormal_extracted_signal
+        identifier: ABNORMAL_EXTRACTED_SIGNAL
+      - name: raw_abnormal_match_exclusion
+        identifier: ABNORMAL_MATCH_EXCLUSION
+      - name: raw_abnormal_report_config
+        identifier: ABNORMAL_REPORT_CONFIG
+      - name: raw_abnormal_report_data
+        identifier: ABNORMAL_REPORT_DATA
+      - name: raw_abnormal_report_form
+        identifier: ABNORMAL_REPORT_FORM
+      - name: raw_abnormal_report_form_template
+        identifier: ABNORMAL_REPORT_FORM_TEMPLATE
+      - name: raw_abnormal_report_master
+        identifier: ABNORMAL_REPORT_MASTER
+      - name: raw_abnormal_report_template
+        identifier: ABNORMAL_REPORT_TEMPLATE
+      - name: raw_account_group
+        identifier: ACCOUNT_GROUP
+      - name: raw_account_group_history
+        identifier: ACCOUNT_GROUP_HISTORY
+      - name: raw_account_group_member
+        identifier: ACCOUNT_GROUP_MEMBER
+      - name: raw_account_relationship
+        identifier: ACCOUNT_RELATIONSHIP
+      - name: raw_analysis_account_group
+        identifier: ANALYSIS_ACCOUNT_GROUP
+      - name: raw_analysis_account_group_member
+        identifier: ANALYSIS_ACCOUNT_GROUP_MEMBER
+      - name: raw_analysis_account_relationship
+        identifier: ANALYSIS_ACCOUNT_RELATIONSHIP
+      - name: raw_analysis_attribute_define
+        identifier: ANALYSIS_ATTRIBUTE_DEFINE
+      - name: raw_analysis_define_report_template
+        identifier: ANALYSIS_DEFINE_REPORT_TEMPLATE
+      - name: raw_analysis_execution_log
+        identifier: ANALYSIS_EXECUTION_LOG
+      - name: raw_analysis_mm_stock_account
+        identifier: ANALYSIS_MM_STOCK_ACCOUNT
+      - name: raw_analysis_mm_stock_window
+        identifier: ANALYSIS_MM_STOCK_WINDOW
+      - name: raw_analysis_mm_stock_window_detail
+        identifier: ANALYSIS_MM_STOCK_WINDOW_DETAIL
+      - name: raw_analysis_mm_time_window
+        identifier: ANALYSIS_MM_TIME_WINDOW
+      - name: raw_analysis_report
+        identifier: ANALYSIS_REPORT
+      - name: raw_analysis_suspicious_account
+        identifier: ANALYSIS_SUSPICIOUS_ACCOUNT
+      - name: raw_analysis_suspicious_account_code
+        identifier: ANALYSIS_SUSPICIOUS_ACCOUNT_CODE
+      - name: raw_analysis_workflow
+        identifier: ANALYSIS_WORKFLOW
+      - name: raw_analysis_workflow_history_log
+        identifier: ANALYSIS_WORKFLOW_HISTORY_LOG
+      - name: raw_analysis_workflow_template
+        identifier: ANALYSIS_WORKFLOW_TEMPLATE
+      - name: raw_analysis_workflow_user
+        identifier: ANALYSIS_WORKFLOW_USER
+      - name: raw_attribute_catalog
+        identifier: ATTRIBUTE_CATALOG
+      - name: raw_business_dashboard
+        identifier: BUSINESS_DASHBOARD
+      - name: raw_case_analysis_attribute_value
+        identifier: CASE_ANALYSIS_ATTRIBUTE_VALUE
+      - name: raw_case_attach_file
+        identifier: CASE_ATTACH_FILE
+      - name: raw_case_file_assignment
+        identifier: CASE_FILE_ASSIGNMENT
+      - name: raw_case_file_investor
+        identifier: CASE_FILE_INVESTOR
+      - name: raw_case_file_securities_code
+        identifier: CASE_FILE_SECURITIES_CODE
+      - name: raw_case_file_securities_group
+        identifier: CASE_FILE_SECURITIES_GROUP
+      - name: raw_case_file_workflow
+        identifier: CASE_FILE_WORKFLOW
+      - name: raw_case_report_parameter_value
+        identifier: CASE_REPORT_PARAMETER_VALUE
+      - name: raw_category_config
+        identifier: CATEGORY_CONFIG
+      - name: raw_category_item
+        identifier: CATEGORY_ITEM
+      - name: raw_category_item_history
+        identifier: CATEGORY_ITEM_HISTORY
+      - name: raw_company_event
+        identifier: COMPANY_EVENT
+      - name: raw_company_event_history
+        identifier: COMPANY_EVENT_HISTORY
+      - name: raw_compliance_output_template
+        identifier: COMPLIANCE_OUTPUT_TEMPLATE
+      - name: raw_compliance_output_template_share
+        identifier: COMPLIANCE_OUTPUT_TEMPLATE_SHARE
+      - name: raw_compliance_report_config
+        identifier: COMPLIANCE_REPORT_CONFIG
+      - name: raw_compliance_report_data
+        identifier: COMPLIANCE_REPORT_DATA
+      - name: raw_compliance_report_file
+        identifier: COMPLIANCE_REPORT_FILE
+      - name: raw_compliance_report_form
+        identifier: COMPLIANCE_REPORT_FORM
+      - name: raw_compliance_report_form_template
+        identifier: COMPLIANCE_REPORT_FORM_TEMPLATE
+      - name: raw_compliance_report_master
+        identifier: COMPLIANCE_REPORT_MASTER
+      - name: raw_compliance_report_template
+        identifier: COMPLIANCE_REPORT_TEMPLATE
+      - name: raw_compliance_template_share
+        identifier: COMPLIANCE_TEMPLATE_SHARE
+      - name: raw_computed_column
+        identifier: COMPUTED_COLUMN
+      - name: raw_dashboard
+        identifier: DASHBOARD
+      - name: raw_dashboard_admin_config
+        identifier: DASHBOARD_ADMIN_CONFIG
+      - name: raw_dashboard_admin_config_item
+        identifier: DASHBOARD_ADMIN_CONFIG_ITEM
+      - name: raw_dashboard_admin_config_region
+        identifier: DASHBOARD_ADMIN_CONFIG_REGION
+      - name: raw_dashboard_admin_config_row
+        identifier: DASHBOARD_ADMIN_CONFIG_ROW
+      - name: raw_dashboard_admin_config_version
+        identifier: DASHBOARD_ADMIN_CONFIG_VERSION
+      - name: raw_dashboard_user_config
+        identifier: DASHBOARD_USER_CONFIG
+      - name: raw_dashboard_user_config_item
+        identifier: DASHBOARD_USER_CONFIG_ITEM
+      - name: raw_dashboard_user_config_region
+        identifier: DASHBOARD_USER_CONFIG_REGION
+      - name: raw_dashboard_user_config_row
+        identifier: DASHBOARD_USER_CONFIG_ROW
+      - name: raw_dashboard_widget
+        identifier: DASHBOARD_WIDGET
+      - name: raw_dashboard_widget_chart
+        identifier: DASHBOARD_WIDGET_CHART
+      - name: raw_dashboard_widget_filter
+        identifier: DASHBOARD_WIDGET_FILTER
+      - name: raw_dashboard_widget_group
+        identifier: DASHBOARD_WIDGET_GROUP
+      - name: raw_dashboard_widget_group_filter
+        identifier: DASHBOARD_WIDGET_GROUP_FILTER
+      - name: raw_document_outgoing
+        identifier: DOCUMENT_OUTGOING
+      - name: raw_document_template
+        identifier: DOCUMENT_TEMPLATE
+      - name: raw_document_template_excel_column
+        identifier: DOCUMENT_TEMPLATE_EXCEL_COLUMN
+      - name: raw_document_template_field
+        identifier: DOCUMENT_TEMPLATE_FIELD
+      - name: raw_export_file
+        identifier: EXPORT_FILE
+      - name: raw_investor_account
+        identifier: INVESTOR_ACCOUNT
+      - name: raw_investor_account_dashboard
+        identifier: INVESTOR_ACCOUNT_DASHBOARD
+      - name: raw_investor_account_extended_info
+        identifier: INVESTOR_ACCOUNT_EXTENDED_INFO
+      - name: raw_investor_account_history
+        identifier: INVESTOR_ACCOUNT_HISTORY
+      - name: raw_metric_catalog
+        identifier: METRIC_CATALOG
+      - name: raw_metric_catalog_relationship
+        identifier: METRIC_CATALOG_RELATIONSHIP
+      - name: raw_metric_default_sort
+        identifier: METRIC_DEFAULT_SORT
+      - name: raw_metric_join_condition
+        identifier: METRIC_JOIN_CONDITION
+      - name: raw_metric_word_sql
+        identifier: METRIC_WORD_SQL
+      - name: raw_report_assignment
+        identifier: REPORT_ASSIGNMENT
+      - name: raw_report_assignment_notification
+        identifier: REPORT_ASSIGNMENT_NOTIFICATION
+      - name: raw_report_attach_file
+        identifier: REPORT_ATTACH_FILE
+      - name: raw_report_column
+        identifier: REPORT_COLUMN
+      - name: raw_report_column_group
+        identifier: REPORT_COLUMN_GROUP
+      - name: raw_report_comment
+        identifier: REPORT_COMMENT
+      - name: raw_report_filter
+        identifier: REPORT_FILTER
+      - name: raw_report_metric_join
+        identifier: REPORT_METRIC_JOIN
+      - name: raw_report_parameter
+        identifier: REPORT_PARAMETER
+      - name: raw_report_parameter_history_log
+        identifier: REPORT_PARAMETER_HISTORY_LOG
+      - name: raw_report_process_history
+        identifier: REPORT_PROCESS_HISTORY
+      - name: raw_report_sort
+        identifier: REPORT_SORT
+      - name: raw_report_template
+        identifier: REPORT_TEMPLATE
+      - name: raw_report_template_config
+        identifier: REPORT_TEMPLATE_CONFIG
+      - name: raw_report_template_metric
+        identifier: REPORT_TEMPLATE_METRIC
+      - name: raw_report_template_parameter
+        identifier: REPORT_TEMPLATE_PARAMETER
+      - name: raw_report_template_session
+        identifier: REPORT_TEMPLATE_SESSION
+      - name: raw_report_template_workflow
+        identifier: REPORT_TEMPLATE_WORKFLOW
+      - name: raw_securities_group
+        identifier: SECURITIES_GROUP
+      - name: raw_securities_group_history
+        identifier: SECURITIES_GROUP_HISTORY
+      - name: raw_securities_group_member
+        identifier: SECURITIES_GROUP_MEMBER
+      - name: raw_suspicious_account
+        identifier: SUSPICIOUS_ACCOUNT
+      - name: raw_transaction_review
+        identifier: TRANSACTION_REVIEW
+      - name: raw_transaction_review_account_code
+        identifier: TRANSACTION_REVIEW_ACCOUNT_CODE
+      - name: raw_transaction_review_account_group
+        identifier: TRANSACTION_REVIEW_ACCOUNT_GROUP
+      - name: raw_transaction_review_account_group_member
+        identifier: TRANSACTION_REVIEW_ACCOUNT_GROUP_MEMBER
+      - name: raw_transaction_review_analysis_attribute_value
+        identifier: TRANSACTION_REVIEW_ANALYSIS_ATTRIBUTE_VALUE
+      - name: raw_transaction_review_attach_file
+        identifier: TRANSACTION_REVIEW_ATTACH_FILE
+      - name: raw_transaction_review_execution_log
+        identifier: TRANSACTION_REVIEW_EXECUTION_LOG
+      - name: raw_transaction_review_investor
+        identifier: TRANSACTION_REVIEW_INVESTOR
+      - name: raw_transaction_review_report_parameter_value
+        identifier: TRANSACTION_REVIEW_REPORT_PARAMETER_VALUE
+      - name: raw_transaction_review_report_template_workflow
+        identifier: TRANSACTION_REVIEW_REPORT_TEMPLATE_WORKFLOW
+      - name: raw_transaction_review_securities_code
+        identifier: TRANSACTION_REVIEW_SECURITIES_CODE
+      - name: raw_transaction_review_securities_group
+        identifier: TRANSACTION_REVIEW_SECURITIES_GROUP
+      - name: raw_user_manual
+        identifier: USER_MANUAL
+      - name: raw_user_table_config
+        identifier: USER_TABLE_CONFIG
+
+  - name: source_ecat
+    description: "Hệ thống cơ sở dữ liệu hệ thống tổng thể - Nguồn dữ liệu phân hệ quản lý danh mục điện tử dùng chung"
+    schema: '{{ var("src_ecat_schema") }}'
+    tables:
+      - name: raw_country
+        identifier: COUNTRY
+      - name: raw_region
+        identifier: REGION
+      - name: raw_province_new
+        identifier: PROVINCE_NEW
+      - name: raw_province_old
+        identifier: PROVINCE_OLD
+      - name: raw_district_old
+        identifier: DISTRICT_OLD
+      - name: raw_ward_new
+        identifier: WARD_NEW
+      - name: raw_ward_old
+        identifier: WARD_OLD
+      - name: raw_department
+        identifier: DEPARTMENT
+      - name: raw_enterprise_position_type
+        identifier: ENTERPRISE_POSITION_TYPE
+      - name: raw_enterprise_position
+        identifier: ENTERPRISE_POSITION
+      - name: raw_position_type
+        identifier: POSITION_TYPE
+      - name: raw_position
+        identifier: POSITION
+      - name: raw_organization_type
+        identifier: ORGANIZATION_TYPE
+      - name: raw_organization_type_user_type
+        identifier: ORGANIZATION_TYPE_USER_TYPE
+      - name: raw_ubck_staff
+        identifier: UBCK_STAFF
+      - name: raw_currency
+        identifier: CURRENCY
+      - name: raw_security_type
+        identifier: SECURITY_TYPE
+      - name: raw_market
+        identifier: MARKET
+      - name: raw_security
+        identifier: SECURITY
+      - name: raw_par_value
+        identifier: PAR_VALUE
+      - name: raw_security_company
+        identifier: SECURITY_COMPANY
+      - name: raw_public_company
+        identifier: PUBLIC_COMPANY
+      - name: raw_enterprise_type
+        identifier: ENTERPRISE_TYPE
+      - name: raw_financial_indicator
+        identifier: FINANCIAL_INDICATOR
+      - name: raw_financial_report_type
+        identifier: FINANCIAL_REPORT_TYPE
+      - name: raw_applied_subject
+        identifier: APPLIED_SUBJECT
+      - name: raw_business_activity
+        identifier: BUSINESS_ACTIVITY
+      - name: raw_business_service
+        identifier: BUSINESS_SERVICE
+      - name: raw_business_event
+        identifier: BUSINESS_EVENT
+      - name: raw_business_event_enterprise_type
+        identifier: BUSINESS_EVENT_ENTERPRISE_TYPE
+      - name: raw_investor_category
+        identifier: INVESTOR_CATEGORY
+      - name: raw_investor_type
+        identifier: INVESTOR_TYPE
+      - name: raw_fund_type
+        identifier: FUND_TYPE
+      - name: raw_agent_type
+        identifier: AGENT_TYPE
+      - name: raw_fund_management_company
+        identifier: FUND_MANAGEMENT_COMPANY
+      - name: raw_shareholder_transaction_type
+        identifier: SHAREHOLDER_TRANSACTION_TYPE
+      - name: raw_foreign_branch
+        identifier: FOREIGN_BRANCH
+      - name: raw_foreign_investor_type
+        identifier: FOREIGN_INVESTOR_TYPE
+      - name: raw_custodian_bank
+        identifier: CUSTODIAN_BANK
+      - name: raw_payment_custodian_bank
+        identifier: PAYMENT_CUSTODIAN_BANK
+      - name: raw_fund_distributor
+        identifier: FUND_DISTRIBUTOR
+      - name: raw_foreign_fund_branch
+        identifier: FOREIGN_FUND_BRANCH
+      - name: raw_investment_fund
+        identifier: INVESTMENT_FUND
+      - name: raw_relationship_category
+        identifier: RELATIONSHIP_CATEGORY
+      - name: raw_qualification_category
+        identifier: QUALIFICATION_CATEGORY
+      - name: raw_practice_certificate_type
+        identifier: PRACTICE_CERTIFICATE_TYPE
+      - name: raw_practice_certificate
+        identifier: PRACTICE_CERTIFICATE
+      - name: raw_approved_audit_firm
+        identifier: APPROVED_AUDIT_FIRM
+      - name: raw_approved_auditors
+        identifier: APPROVED_AUDITORS
+      - name: raw_professional_certificate_types
+        identifier: PROFESSIONAL_CERTIFICATE_TYPES
+      - name: raw_frequency_report
+        identifier: FREQUENCY_REPORT
+      - name: raw_working_schedule
+        identifier: WORKING_SCHEDULE
+      - name: raw_administrative_procedure_component
+        identifier: ADMINISTRATIVE_PROCEDURE_COMPONENT
+      - name: raw_administrative_procedure
+        identifier: ADMINISTRATIVE_PROCEDURE
+      - name: raw_administrative_procedure_component_mapping
+        identifier: ADMINISTRATIVE_PROCEDURE_COMPONENT_MAPPING
+      - name: raw_business_line_level_1
+        identifier: BUSINESS_LINE_LEVEL_1
+      - name: raw_business_line_level_2
+        identifier: BUSINESS_LINE_LEVEL_2
+      - name: raw_operational_status_type
+        identifier: OPERATIONAL_STATUS_TYPE
+      - name: raw_operational_status_type_enterprise_type
+        identifier: OPERATIONAL_STATUS_TYPE_ENTERPRISE_TYPE
+      - name: raw_activity_status
+        identifier: ACTIVITY_STATUS
+      - name: raw_active_status
+        identifier: ACTIVE_STATUS
+      - name: raw_gender
+        identifier: GENDER
+      - name: raw_nation
+        identifier: NATION
+      - name: raw_penalty_form
+        identifier: PENALTY_FORM
+      - name: raw_violation_type
+        identifier: VIOLATION_TYPE
+      - name: raw_penalty_form_violation_type
+        identifier: PENALTY_FORM_VIOLATION_TYPE
+      - name: raw_violation_behavior
+        identifier: VIOLATION_BEHAVIOR
+      - name: raw_violation_behavior_penalty_form
+        identifier: VIOLATION_BEHAVIOR_PENALTY_FORM
+      - name: raw_inspection_target
+        identifier: INSPECTION_TARGET
+      - name: raw_inspection_basis
+        identifier: INSPECTION_BASIS
+      - name: raw_inspection_content
+        identifier: INSPECTION_CONTENT
+      - name: raw_inspection_target_inspection_content
+        identifier: INSPECTION_TARGET_INSPECTION_CONTENT
+      - name: raw_legal_document
+        identifier: LEGAL_DOCUMENT
+      - name: raw_disclosure_report
+        identifier: DISCLOSURE_REPORT
+      - name: raw_btc_share_config
+        identifier: BTC_SHARE_CONFIG
+      - name: raw_btc_sync_config
+        identifier: BTC_SYNC_CONFIG
+      - name: raw_dvcqg_sync_config
+        identifier: DVCQG_SYNC_CONFIG
+      - name: raw_soap_incoming_log
+        identifier: SOAP_INCOMING_LOG
+      - name: raw_soap_reconcile_data_mapping
+        identifier: SOAP_RECONCILE_DATA_MAPPING
+      - name: raw_soap_sync_log
+        identifier: SOAP_SYNC_LOG
+      - name: raw_log_data_changes
+        identifier: LOG_DATA_CHANGES
+      - name: raw_files
+        identifier: FILES
+      - name: raw_module
+        identifier: MODULE
+      - name: raw_module_integration_config
+        identifier: MODULE_INTEGRATION_CONFIG
+      - name: raw_module_integration_permission
+        identifier: MODULE_INTEGRATION_PERMISSION
+      - name: raw_module_integration_resource
+        identifier: MODULE_INTEGRATION_RESOURCE
+      - name: raw_databasechangelog
+        identifier: DATABASECHANGELOG
+      - name: raw_databasechangeloglock
+        identifier: DATABASECHANGELOGLOCK
+      - name: raw_qrtz_blob_triggers
+        identifier: QRTZ_BLOB_TRIGGERS
+      - name: raw_qrtz_calendars
+        identifier: QRTZ_CALENDARS
+      - name: raw_qrtz_cron_triggers
+        identifier: QRTZ_CRON_TRIGGERS
+      - name: raw_qrtz_fired_triggers
+        identifier: QRTZ_FIRED_TRIGGERS
+      - name: raw_qrtz_job_details
+        identifier: QRTZ_JOB_DETAILS
+      - name: raw_qrtz_locks
+        identifier: QRTZ_LOCKS
+      - name: raw_qrtz_paused_trigger_grps
+        identifier: QRTZ_PAUSED_TRIGGER_GRPS
+      - name: raw_qrtz_scheduler_state
+        identifier: QRTZ_SCHEDULER_STATE
+      - name: raw_qrtz_simple_triggers
+        identifier: QRTZ_SIMPLE_TRIGGERS
+      - name: raw_qrtz_simprop_triggers
+        identifier: QRTZ_SIMPROP_TRIGGERS
+      - name: raw_qrtz_triggers
+        identifier: QRTZ_TRIGGERS
+      - name: raw_accounting_practitioners
+        identifier: ACCOUNTING_PRACTITIONERS
+      - name: raw_administrative_procedure_component_new
+        identifier: ADMINISTRATIVE_PROCEDURE_COMPONENT_NEW
+      - name: raw_administrative_procedure_field
+        identifier: ADMINISTRATIVE_PROCEDURE_FIELD
+      - name: raw_administrative_procedure_new
+        identifier: ADMINISTRATIVE_PROCEDURE_NEW
+      - name: raw_administrative_procedure_version_map
+        identifier: ADMINISTRATIVE_PROCEDURE_VERSION_MAP
+      - name: raw_af_file
+        identifier: AF_FILE
+      - name: raw_approved_audit_firm_approval
+        identifier: APPROVED_AUDIT_FIRM_APPROVAL
+      - name: raw_approved_audit_firm_representative
+        identifier: APPROVED_AUDIT_FIRM_REPRESENTATIVE
+      - name: raw_approved_audit_firm_status_history
+        identifier: APPROVED_AUDIT_FIRM_STATUS_HISTORY
+      - name: raw_approved_auditor_approval
+        identifier: APPROVED_AUDITOR_APPROVAL
+      - name: raw_approved_auditor_attachment
+        identifier: APPROVED_AUDITOR_ATTACHMENT
+      - name: raw_approved_auditor_reminder
+        identifier: APPROVED_AUDITOR_REMINDER
+      - name: raw_approved_auditor_status_change
+        identifier: APPROVED_AUDITOR_STATUS_CHANGE
+      - name: raw_approved_auditor_suspension
+        identifier: APPROVED_AUDITOR_SUSPENSION
+      - name: raw_approved_auditors_new
+        identifier: APPROVED_AUDITORS_NEW
+      - name: raw_business_activity_organization_type
+        identifier: BUSINESS_ACTIVITY_ORGANIZATION_TYPE
+      - name: raw_business_event_organization_type
+        identifier: BUSINESS_EVENT_ORGANIZATION_TYPE
+      - name: raw_business_line
+        identifier: BUSINESS_LINE
+      - name: raw_business_service_organization_type
+        identifier: BUSINESS_SERVICE_ORGANIZATION_TYPE
+      - name: raw_disclosure_report_operating_status
+        identifier: DISCLOSURE_REPORT_OPERATING_STATUS
+      - name: raw_enterprise_department
+        identifier: ENTERPRISE_DEPARTMENT
+      - name: raw_enterprise_type_organization_type
+        identifier: ENTERPRISE_TYPE_ORGANIZATION_TYPE
+      - name: raw_fmsqlq_status
+        identifier: FMSQLQ_STATUS
+      - name: raw_foreign_fund_branch_new
+        identifier: FOREIGN_FUND_BRANCH_NEW
+      - name: raw_foreign_fund_manager_branch
+        identifier: FOREIGN_FUND_MANAGER_BRANCH
+      - name: raw_foreign_securities_branches
+        identifier: FOREIGN_SECURITIES_BRANCHES
+      - name: raw_gms_ids_company_relationship
+        identifier: GMS_IDS_COMPANY_RELATIONSHIP
+      - name: raw_gms_ids_foreign_owner_limit
+        identifier: GMS_IDS_FOREIGN_OWNER_LIMIT
+      - name: raw_gms_ids_legal_representative
+        identifier: GMS_IDS_LEGAL_REPRESENTATIVE
+      - name: raw_gms_ids_lookup_values
+        identifier: GMS_IDS_LOOKUP_VALUES
+      - name: raw_gms_ids_state_capital
+        identifier: GMS_IDS_STATE_CAPITAL
+      - name: raw_holiday_templates
+        identifier: HOLIDAY_TEMPLATES
+      - name: raw_independent_audit_firm
+        identifier: INDEPENDENT_AUDIT_FIRM
+      - name: raw_legal_representatives
+        identifier: LEGAL_REPRESENTATIVES
+      - name: raw_lookup_values
+        identifier: LOOKUP_VALUES
+      - name: raw_operational_status_type_organization_type
+        identifier: OPERATIONAL_STATUS_TYPE_ORGANIZATION_TYPE
+      - name: raw_payment_custodian_bank_new
+        identifier: PAYMENT_CUSTODIAN_BANK_NEW
+      - name: raw_position_department
+        identifier: POSITION_DEPARTMENT
+      - name: raw_position_organization_type
+        identifier: POSITION_ORGANIZATION_TYPE
+      - name: raw_position_position_type
+        identifier: POSITION_POSITION_TYPE
+      - name: raw_position_type_department
+        identifier: POSITION_TYPE_DEPARTMENT
+      - name: raw_practice_certificate_type_organization_type
+        identifier: PRACTICE_CERTIFICATE_TYPE_ORGANIZATION_TYPE
+      - name: raw_public_company_new
+        identifier: PUBLIC_COMPANY_NEW
+      - name: raw_public_company_version_map
+        identifier: PUBLIC_COMPANY_VERSION_MAP
+      - name: raw_scms_status
+        identifier: SCMS_STATUS
+      - name: raw_securities
+        identifier: SECURITIES
+      - name: raw_tax_id_status
+        identifier: TAX_ID_STATUS
+      - name: raw_ubck_staff_organization_type
+        identifier: UBCK_STAFF_ORGANIZATION_TYPE
+      - name: raw_ubck_staff_user_group
+        identifier: UBCK_STAFF_USER_GROUP
+      - name: raw_working_schedule_generated_year
+        identifier: WORKING_SCHEDULE_GENERATED_YEAR
+      - name: raw_working_schedule_new
+        identifier: WORKING_SCHEDULE_NEW
+
+  - name: source_fms
+    description: "Hệ thống cơ sở dữ liệu hệ thống tổng thể - Nguồn dữ liệu phân hệ quản lý giám sát công ty quản lý quỹ và quỹ đầu tư chứng khoán"
+    schema: '{{ var("src_fms_schema") }}'
+    tables:
+      - name: raw_province
+        identifier: PROVINCE
+      - name: raw_ward 
+        identifier: WARD
+      - name: raw_event_type
+        identifier: EVENT_TYPE
+      - name: raw_event_type_agency_type
+        identifier: EVENT_TYPE_AGENCY_TYPE
+      - name: raw_event_type_data_period
+        identifier: EVENT_TYPE_DATA_PERIOD
+      - name: raw_fms_shedlock
+        identifier: FMS_SHEDLOCK
+      - name: raw_groups
+        identifier: GROUPS
+      - name: raw_group_roles
+        identifier: GROUP_ROLES
+      - name: raw_group_users
+        identifier: GROUP_USERS
+      - name: raw_jobs
+        identifier: JOBS
+      - name: raw_menus
+        identifier: MENUS
+      - name: raw_refresh_token
+        identifier: REFRESH_TOKEN
+      - name: raw_roles
+        identifier: ROLES
+      - name: raw_roles_menus
+        identifier: ROLES_MENUS
+      - name: raw_users
+        identifier: USERS
+      - name: raw_users_menus
+        identifier: USERS_MENUS
+      - name: raw_user_rpt_i
+        identifier: USER_RPT_I
+      - name: raw_user_rpt_o
+        identifier: USER_RPT_O
+      - name: raw_user_sessions
+        identifier: USER_SESSIONS
+      - name: raw_business
+        identifier: BUSINESS
+      - name: raw_business_type
+        identifier: BUSINESS_TYPE
+      - name: raw_calendar
+        identifier: CALENDAR
+      - name: raw_cert_fcate
+        identifier: CERT_FCATE
+      - name: raw_company_type
+        identifier: COMPANY_TYPE
+      - name: raw_job_type
+        identifier: JOB_TYPE
+      - name: raw_location
+        identifier: LOCATION
+      - name: raw_national
+        identifier: NATIONAL
+      - name: raw_par_value
+        identifier: PAR_VALUE
+      - name: raw_relation
+        identifier: RELATION
+      - name: raw_status
+        identifier: STATUS
+      - name: raw_stockholder_type
+        identifier: STOCKHOLDER_TYPE
+      - name: raw_branchs
+        identifier: BRANCHS
+      - name: raw_bra_business
+        identifier: BRA_BUSINESS
+      - name: raw_brch_bup
+        identifier: BRCH_BUP
+      - name: raw_dt_scope
+        identifier: DT_SCOPE
+      - name: raw_dt_sc_bmn
+        identifier: DT_SC_BMN
+      - name: raw_dt_sc_fnd
+        identifier: DT_SC_FND
+      - name: raw_dt_sc_fr
+        identifier: DT_SC_FR
+      - name: raw_dt_sc_sec
+        identifier: DT_SC_SEC
+      - name: raw_fg_br_bup
+        identifier: FG_BR_BUP
+      - name: raw_fg_br_history
+        identifier: FG_BR_HISTORY
+      - name: raw_fg_business
+        identifier: FG_BUSINESS
+      - name: raw_for_brch
+        identifier: FOR_BRCH
+      - name: raw_insder_rela
+        identifier: INSDER_RELA
+      - name: raw_insder_rela_chg_log
+        identifier: INSDER_RELA_CHG_LOG
+      - name: raw_insder_rprst
+        identifier: INSDER_RPRST
+      - name: raw_insider
+        identifier: INSIDER
+      - name: raw_insider_chg_log
+        identifier: INSIDER_CHG_LOG
+      - name: raw_insid_change
+        identifier: INSID_CHANGE
+      - name: raw_job_tl_pro
+        identifier: JOB_TL_PRO
+      - name: raw_securities
+        identifier: SECURITIES
+      - name: raw_sec_bup
+        identifier: SEC_BUP
+      - name: raw_sec_business
+        identifier: SEC_BUSINESS
+      - name: raw_sec_fund_manager
+        identifier: SEC_FUND_MANAGER
+      - name: raw_sec_history
+        identifier: SEC_HISTORY
+      - name: raw_stake
+        identifier: STAKE
+      - name: raw_stf_fg_brch
+        identifier: STF_FG_BRCH
+      - name: raw_stf_fg_brch_history
+        identifier: STF_FG_BRCH_HISTORY
+      - name: raw_stf_rep_office_history
+        identifier: STF_REP_OFFICE_HISTORY
+      - name: raw_tl_profiles
+        identifier: TL_PROFILES
+      - name: raw_tl_pro_bup
+        identifier: TL_PRO_BUP
+      - name: raw_tl_pro_rela
+        identifier: TL_PRO_RELA
+      - name: raw_tl_pr_history
+        identifier: TL_PR_HISTORY
+      - name: raw_trs_fer_inder
+        identifier: TRS_FER_INDER
+      - name: raw_trs_fer_inder_chg_log
+        identifier: TRS_FER_INDER_CHG_LOG
+      - name: raw_agencies
+        identifier: AGENCIES
+      - name: raw_agencies_bra
+        identifier: AGENCIES_BRA
+      - name: raw_agency_type
+        identifier: AGENCY_TYPE
+      - name: raw_agen_funds
+        identifier: AGEN_FUNDS
+      - name: raw_agen_tf_mbf
+        identifier: AGEN_TF_MBF
+      - name: raw_bank_employ
+        identifier: BANK_EMPLOY
+      - name: raw_bank_employ_history
+        identifier: BANK_EMPLOY_HISTORY
+      - name: raw_bank_history
+        identifier: BANK_HISTORY
+      - name: raw_bank_moni
+        identifier: BANK_MONI
+      - name: raw_dt_sc_agency
+        identifier: DT_SC_AGENCY
+      - name: raw_fud_ag_agt
+        identifier: FUD_AG_AGT
+      - name: raw_fud_tagt
+        identifier: FUD_TAGT
+      - name: raw_funds
+        identifier: FUNDS
+      - name: raw_fund_bup
+        identifier: FUND_BUP
+      - name: raw_fund_history
+        identifier: FUND_HISTORY
+      - name: raw_fund_report
+        identifier: FUND_REPORT
+      - name: raw_fund_tl_pro
+        identifier: FUND_TL_PRO
+      - name: raw_fund_type
+        identifier: FUND_TYPE
+      - name: raw_inves
+        identifier: INVES
+      - name: raw_inves_acc
+        identifier: INVES_ACC
+      - name: raw_inves_report
+        identifier: INVES_REPORT
+      - name: raw_mb_change
+        identifier: MB_CHANGE
+      - name: raw_mb_fund
+        identifier: MB_FUND
+      - name: raw_offering
+        identifier: OFFERING
+      - name: raw_offering_plan
+        identifier: OFFERING_PLAN
+      - name: raw_represent
+        identifier: REPRESENT
+      - name: raw_transfer_mbf
+        identifier: TRANSFER_MBF
+      - name: raw_document
+        identifier: DOCUMENT
+      - name: raw_folder
+        identifier: FOLDER
+      - name: raw_report_attachment
+        identifier: REPORT_ATTACHMENT
+      - name: raw_report_file
+        identifier: REPORT_FILE
+      - name: raw_rpt_htory
+        identifier: RPT_HTORY
+      - name: raw_rpt_mb_hs
+        identifier: RPT_MB_HS
+      - name: raw_rpt_member
+        identifier: RPT_MEMBER
+      - name: raw_rpt_pd_sht
+        identifier: RPT_PD_SHT
+      - name: raw_rpt_period
+        identifier: RPT_PERIOD
+      - name: raw_rpt_process
+        identifier: RPT_PROCESS
+      - name: raw_rpt_temp
+        identifier: RPT_TEMP
+      - name: raw_rpt_tp_out
+        identifier: RPT_TP_OUT
+      - name: raw_rpt_values
+        identifier: RPT_VALUES
+      - name: raw_securities_report
+        identifier: SECURITIES_REPORT
+      - name: raw_self_set_pd
+        identifier: SELF_SET_PD
+      - name: raw_sheet
+        identifier: SHEET
+      - name: raw_sheet_cell_config
+        identifier: SHEET_CELL_CONFIG
+      - name: raw_sheet_out
+        identifier: SHEET_OUT
+      - name: raw_st_trgt_out
+        identifier: ST_TRGT_OUT
+      - name: raw_tot_st_tg
+        identifier: TOT_ST_TG
+      - name: raw_tp_out_htory
+        identifier: TP_OUT_HTORY
+      - name: raw_cdt_warn
+        identifier: CDT_WARN
+      - name: raw_chart_out
+        identifier: CHART_OUT
+      - name: raw_factor
+        identifier: FACTOR
+      - name: raw_factor_snapshot
+        identifier: FACTOR_SNAPSHOT
+      - name: raw_ftor_scale
+        identifier: FTOR_SCALE
+      - name: raw_grp_factor
+        identifier: GRP_FACTOR
+      - name: raw_para_warn
+        identifier: PARA_WARN
+      - name: raw_rank
+        identifier: RANK
+      - name: raw_rating_pd
+        identifier: RATING_PD
+      - name: raw_rating_pd_snapshot
+        identifier: RATING_PD_SNAPSHOT
+      - name: raw_rnk_factor
+        identifier: RNK_FACTOR
+      - name: raw_rnk_fact_history
+        identifier: RNK_FACT_HISTORY
+      - name: raw_rnk_gr_ftor
+        identifier: RNK_GR_FTOR
+      - name: raw_announce
+        identifier: ANNOUNCE
+      - name: raw_config
+        identifier: CONFIG
+      - name: raw_fms_indicator_catalog
+        identifier: FMS_INDICATOR_CATALOG
+      - name: raw_fms_reference_catalog
+        identifier: FMS_REFERENCE_CATALOG
+      - name: raw_tabs_info
+        identifier: TABS_INFO
+      - name: raw_violt
+        identifier: VIOLT
+      - name: raw_auditor
+        identifier: AUDITOR
+      - name: raw_audit_firm
+        identifier: AUDIT_FIRM
+      - name: raw_audit_firm_reminder
+        identifier: AUDIT_FIRM_REMINDER
+      - name: raw_audit_firm_reminder_attachment
+        identifier: AUDIT_FIRM_REMINDER_ATTACHMENT
+      - name: raw_dt_sc_audit_firm
+        identifier: DT_SC_AUDIT_FIRM
+      - name: raw_inspection_penalty_decision
+        identifier: INSPECTION_PENALTY_DECISION
+      - name: raw_inspection_round
+        identifier: INSPECTION_ROUND
+      - name: raw_inspection_target
+        identifier: INSPECTION_TARGET
+      - name: raw_distributor_agent
+        identifier: DISTRIBUTOR_AGENT
+      - name: raw_distributor_agent_history
+        identifier: DISTRIBUTOR_AGENT_HISTORY
+      - name: raw_distributor_location
+        identifier: DISTRIBUTOR_LOCATION
+      - name: raw_distributor_personnel
+        identifier: DISTRIBUTOR_PERSONNEL
+      - name: raw_dt_sc_distributor_agent
+        identifier: DT_SC_DISTRIBUTOR_AGENT
+      - name: raw_dt_sc_other_agent
+        identifier: DT_SC_OTHER_AGENT
+      - name: raw_dt_sc_pension_agent
+        identifier: DT_SC_PENSION_AGENT
+      - name: raw_dt_sc_pension_fund
+        identifier: DT_SC_PENSION_FUND
+      - name: raw_dt_sc_pension_provider
+        identifier: DT_SC_PENSION_PROVIDER
+      - name: raw_dt_sc_transfer_agent
+        identifier: DT_SC_TRANSFER_AGENT
+      - name: raw_other_agent
+        identifier: OTHER_AGENT
+      - name: raw_other_agent_history
+        identifier: OTHER_AGENT_HISTORY
+      - name: raw_pension_agent
+        identifier: PENSION_AGENT
+      - name: raw_pension_agent_history
+        identifier: PENSION_AGENT_HISTORY
+      - name: raw_pension_fund
+        identifier: PENSION_FUND
+      - name: raw_pension_provider
+        identifier: PENSION_PROVIDER
+      - name: raw_pension_provider_history
+        identifier: PENSION_PROVIDER_HISTORY
+      - name: raw_transfer_agent
+        identifier: TRANSFER_AGENT
+      - name: raw_transfer_agent_history
+        identifier: TRANSFER_AGENT_HISTORY
+      - name: raw_agent_id_unify_audit
+        identifier: AGENT_ID_UNIFY_AUDIT
+      - name: raw_distributor_personnel_cert
+        identifier: DISTRIBUTOR_PERSONNEL_CERT
+      - name: raw_distributor_personnel_history
+        identifier: DISTRIBUTOR_PERSONNEL_HISTORY
+      - name: raw_inspection_standalone_penalty
+        identifier: INSPECTION_STANDALONE_PENALTY
+      - name: raw_job_stf_fg_brch
+        identifier: JOB_STF_FG_BRCH
+      - name: raw_nhn_org_warning_snapshot
+        identifier: NHN_ORG_WARNING_SNAPSHOT
+      - name: raw_nhnck_paper_cert_notice
+        identifier: NHNCK_PAPER_CERT_NOTICE
+      - name: raw_nhnck_practice_confirm_req
+        identifier: NHNCK_PRACTICE_CONFIRM_REQ
+      - name: raw_pension_fund_agent
+        identifier: PENSION_FUND_AGENT
+      - name: raw_pension_fund_history
+        identifier: PENSION_FUND_HISTORY
+      - name: raw_pension_fund_provider
+        identifier: PENSION_FUND_PROVIDER
+      - name: raw_rpt_out_group
+        identifier: RPT_OUT_GROUP
+      - name: raw_rpt_out_group_item
+        identifier: RPT_OUT_GROUP_ITEM
+      - name: raw_tl_pro_cert
+        identifier: TL_PRO_CERT
+      - name: raw_tl_pro_cert_reconcile_log
+        identifier: TL_PRO_CERT_RECONCILE_LOG
+      - name: raw_user_event_type
+        identifier: USER_EVENT_TYPE
+
+  - name: source_fims
+    description: "Hệ thống cơ sở dữ liệu hệ thống tổng thể - Nguồn dữ liệu phân hệ quản lý giám sát nhà đầu tư nước ngoài"
+    schema: '{{ var("src_fims_schema") }}'
+    tables:
+      - name: raw_users
+        identifier: USERS
+      - name: raw_usersmenus
+        identifier: USERSMENUS
+      - name: raw_userrpto
+        identifier: USERRPTO
+      - name: raw_groups
+        identifier: GROUPS
+      - name: raw_groupusers
+        identifier: GROUPUSERS
+      - name: raw_grouproles
+        identifier: GROUPROLES
+      - name: raw_roles
+        identifier: ROLES
+      - name: raw_menus
+        identifier: MENUS
+      - name: raw_certfcate
+        identifier: CERTFCATE
+      - name: raw_usersessions
+        identifier: USERSESSIONS
+      - name: raw_rpttemp
+        identifier: RPTTEMP
+      - name: raw_sheet
+        identifier: SHEET
+      - name: raw_rptperiod
+        identifier: RPTPERIOD
+      - name: raw_rptpdsht
+        identifier: RPTPDSHT
+      - name: raw_rpthtory
+        identifier: RPTHTORY
+      - name: raw_rpttpout
+        identifier: RPTTPOUT
+      - name: raw_sheetout
+        identifier: SHEETOUT
+      - name: raw_selfsetpd
+        identifier: SELFSETPD
+      - name: raw_calendar
+        identifier: CALENDAR
+      - name: raw_calendarmanagerment
+        identifier: CALENDARMANAGERMENT
+      - name: raw_status
+        identifier: STATUS
+      - name: raw_investortype
+        identifier: INVESTORTYPE
+      - name: raw_reporttype
+        identifier: REPORTTYPE
+      - name: raw_securitiestype
+        identifier: SECURITIESTYPE
+      - name: raw_securities
+        identifier: SECURITIES
+      - name: raw_companytype
+        identifier: COMPANYTYPE
+      - name: raw_business
+        identifier: BUSINESS
+      - name: raw_stockholdertype
+        identifier: STOCKHOLDERTYPE
+      - name: raw_jobtype
+        identifier: JOBTYPE
+      - name: raw_degree
+        identifier: DEGREE
+      - name: raw_announcetype
+        identifier: ANNOUNCETYPE
+      - name: raw_relatedproperties
+        identifier: RELATEDPROPERTIES
+      - name: raw_relationship
+        identifier: RELATIONSHIP
+      - name: raw_national
+        identifier: NATIONAL
+      - name: raw_location
+        identifier: LOCATION
+      - name: raw_currency
+        identifier: CURRENCY
+      - name: raw_violationtype
+        identifier: VIOLATIONTYPE
+      - name: raw_unit
+        identifier: UNIT
+      - name: raw_department
+        identifier: DEPARTMENT
+      - name: raw_stockexchange
+        identifier: STOCKEXCHANGE
+      - name: raw_depositorycenter
+        identifier: DEPOSITORYCENTER
+      - name: raw_fundcompany
+        identifier: FUNDCOMPANY
+      - name: raw_fundcombusines
+        identifier: FUNDCOMBUSINES
+      - name: raw_fundcomtype
+        identifier: FUNDCOMTYPE
+      - name: raw_securitiescompany
+        identifier: SECURITIESCOMPANY
+      - name: raw_seccombusines
+        identifier: SECCOMBUSINES
+      - name: raw_seccomtype
+        identifier: SECCOMTYPE
+      - name: raw_bankmoni
+        identifier: BANKMONI
+      - name: raw_branchs
+        identifier: BRANCHS
+      - name: raw_branchsbusines
+        identifier: BRANCHSBUSINES
+      - name: raw_infodiscrepres
+        identifier: INFODISCREPRES
+      - name: raw_indirebusiness
+        identifier: INDIREBUSINESS
+      - name: raw_tlprofiles
+        identifier: TLPROFILES
+      - name: raw_investor
+        identifier: INVESTOR
+      - name: raw_investorhis
+        identifier: INVESTORHIS
+      - name: raw_securitiesaccount
+        identifier: SECURITIESACCOUNT
+      - name: raw_securitiesaccounthis
+        identifier: SECURITIESACCOUNTHIS
+      - name: raw_categoriesstock
+        identifier: CATEGORIESSTOCK
+      - name: raw_categoriesstockhis
+        identifier: CATEGORIESSTOCKHIS
+      - name: raw_rptmember
+        identifier: RPTMEMBER
+      - name: raw_rptvalues
+        identifier: RPTVALUES
+      - name: raw_rptvaluesmanagerment
+        identifier: RPTVALUESMANAGERMENT
+      - name: raw_rptprocess
+        identifier: RPTPROCESS
+      - name: raw_rptoutmanagement
+        identifier: RPTOUTMANAGEMENT
+      - name: raw_rptoutfilesave
+        identifier: RPTOUTFILESAVE
+      - name: raw_authoannounce
+        identifier: AUTHOANNOUNCE
+      - name: raw_authoannouncehis
+        identifier: AUTHOANNOUNCEHIS
+      - name: raw_announceinves
+        identifier: ANNOUNCEINVES
+      - name: raw_announceinveshis
+        identifier: ANNOUNCEINVESHIS
+      - name: raw_announce
+        identifier: ANNOUNCE
+      - name: raw_parawarn
+        identifier: PARAWARN
+      - name: raw_cdtwarn
+        identifier: CDTWARN
+      - name: raw_violt
+        identifier: VIOLT
+      - name: raw_document
+        identifier: DOCUMENT
+      - name: raw_userrpti
+        identifier: USERRPTI
+      - name: raw_rolesmenus
+        identifier: ROLESMENUS
+      - name: raw_modules
+        identifier: MODULES
+      - name: raw_permissions
+        identifier: PERMISSIONS
+      - name: raw_user_data_permission
+        identifier: USER_DATA_PERMISSION
+      - name: raw_shedlock
+        identifier: SHEDLOCK
+      - name: raw_report_templates
+        identifier: REPORT_TEMPLATES
+      - name: raw_rpt_field_catalog
+        identifier: RPT_FIELD_CATALOG
+      - name: raw_rpt_field_catalog_usage
+        identifier: RPT_FIELD_CATALOG_USAGE
+      - name: raw_rpt_value_catalog
+        identifier: RPT_VALUE_CATALOG
+      - name: raw_closing_price_securities
+        identifier: CLOSING_PRICE_SECURITIES
+      - name: raw_tradingrepresentative
+        identifier: TRADINGREPRESENTATIVE
+      - name: raw_rpt_event_type
+        identifier: RPT_EVENT_TYPE
+      - name: raw_rpt_event_type_legal_basis
+        identifier: RPT_EVENT_TYPE_LEGAL_BASIS
+      - name: raw_rpt_event_type_schedule
+        identifier: RPT_EVENT_TYPE_SCHEDULE
+      - name: raw_rpt_event_type_status_link
+        identifier: RPT_EVENT_TYPE_STATUS_LINK
+      - name: raw_tradingauthorization
+        identifier: TRADINGAUTHORIZATION
+      - name: raw_tradingauthorizationhis
+        identifier: TRADINGAUTHORIZATIONHIS
+      - name: raw_tradingauthorizationinves
+        identifier: TRADINGAUTHORIZATIONINVES
+      - name: raw_tradingauthorizationinveshis
+        identifier: TRADINGAUTHORIZATIONINVESHIS
+      - name: raw_province_new
+        identifier: PROVINCE_NEW
+      - name: raw_ward_new
+        identifier: WARD_NEW
+      - name: raw_rpt_member_tester_purge
+        identifier: RPT_MEMBER_TESTER_PURGE
+      - name: raw_user_event_type
+        identifier: USER_EVENT_TYPE
+
+  - name: source_nhnck
+    description: "Hệ thống cơ sở dữ liệu hệ thống tổng thể - Nguồn dữ liệu phân hệ quản lý giám sát người hành nghề chứng khoán"
+    schema: '{{ var("src_nhnck_schema") }}'
+    tables:
+      - name: raw_action_logs
+        identifier: ACTION_LOGS
+      - name: raw_digital_certificates
+        identifier: DIGITAL_CERTIFICATES
+      - name: raw_digital_certificate_users
+        identifier: DIGITAL_CERTIFICATE_USERS
+      - name: raw_permission_roles
+        identifier: PERMISSION_ROLES
+      - name: raw_department_access
+        identifier: DEPARTMENT_ACCESS
+      - name: raw_users
+        identifier: USERS
+      - name: raw_units
+        identifier: UNITS
+      - name: raw_departments
+        identifier: DEPARTMENTS
+      - name: raw_positions
+        identifier: POSITIONS
+      - name: raw_certificates
+        identifier: CERTIFICATES
+      - name: raw_certificate_documents
+        identifier: CERTIFICATE_DOCUMENTS
+      - name: raw_certificate_specializations
+        identifier: CERTIFICATE_SPECIALIZATIONS
+      - name: raw_certificate_departments
+        identifier: CERTIFICATE_DEPARTMENTS
+      - name: raw_certificate_number_templates
+        identifier: CERTIFICATE_NUMBER_TEMPLATES
+      - name: raw_specializations
+        identifier: SPECIALIZATIONS
+      - name: raw_documents
+        identifier: DOCUMENTS
+      - name: raw_education_levels
+        identifier: EDUCATION_LEVELS
+      - name: raw_organizations
+        identifier: ORGANIZATIONS
+      - name: raw_decisions
+        identifier: DECISIONS
+      - name: raw_application_sources
+        identifier: APPLICATION_SOURCES
+      - name: raw_application_statuses
+        identifier: APPLICATION_STATUSES
+      - name: raw_applications
+        identifier: APPLICATIONS
+      - name: raw_application_documents
+        identifier: APPLICATION_DOCUMENTS
+      - name: raw_application_fees
+        identifier: APPLICATION_FEES
+      - name: raw_application_specializations
+        identifier: APPLICATION_SPECIALIZATIONS
+      - name: raw_verify_application_statuses
+        identifier: VERIFY_APPLICATION_STATUSES
+      - name: raw_identity_info_c06s
+        identifier: IDENTITY_INFO_C06S
+      - name: raw_exam_sessions
+        identifier: EXAM_SESSIONS
+      - name: raw_exam_details
+        identifier: EXAM_DETAILS
+      - name: raw_exam_session_fees
+        identifier: EXAM_SESSION_FEES
+      - name: raw_specialization_courses
+        identifier: SPECIALIZATION_COURSES
+      - name: raw_specialization_course_details
+        identifier: SPECIALIZATION_COURSE_DETAILS
+      - name: raw_certificate_record_groups
+        identifier: CERTIFICATE_RECORD_GROUPS
+      - name: raw_certificate_record_group_members
+        identifier: CERTIFICATE_RECORD_GROUP_MEMBERS
+      - name: raw_certificate_records
+        identifier: CERTIFICATE_RECORDS
+      - name: raw_certificate_record_status_histories
+        identifier: CERTIFICATE_RECORD_STATUS_HISTORIES
+      - name: raw_certificate_record_logs
+        identifier: CERTIFICATE_RECORD_LOGS
+      - name: raw_professionals
+        identifier: PROFESSIONALS
+      - name: raw_professional_histories
+        identifier: PROFESSIONAL_HISTORIES
+      - name: raw_professional_relationships
+        identifier: PROFESSIONAL_RELATIONSHIPS
+      - name: raw_professional_work_histories
+        identifier: PROFESSIONAL_WORK_HISTORIES
+      - name: raw_violations
+        identifier: VIOLATIONS
+      - name: raw_organization_reports
+        identifier: ORGANIZATION_REPORTS
+      - name: raw_permissions
+        identifier: PERMISSIONS
+      - name: raw_roles
+        identifier: ROLES
+      - name: raw_user_roles
+        identifier: USER_ROLES
+      - name: raw_auto_increment_codes
+        identifier: AUTO_INCREMENT_CODES
+      - name: raw_email_logs
+        identifier: EMAIL_LOGS
+      - name: raw_sms_logs
+        identifier: SMS_LOGS
+      - name: raw_send_and_recieve_logs
+        identifier: SEND_AND_RECIEVE_LOGS
+      - name: raw_document_sign_logs
+        identifier: DOCUMENT_SIGN_LOGS
+      - name: raw_signature_logs
+        identifier: SIGNATURE_LOGS
+      - name: raw_notifications
+        identifier: NOTIFICATIONS
+      - name: raw_notification_configurations
+        identifier: NOTIFICATION_CONFIGURATIONS
+      - name: raw_countries
+        identifier: COUNTRIES
+      - name: raw_provinces
+        identifier: PROVINCES
+      - name: raw_districts
+        identifier: DISTRICTS
+      - name: raw_banks
+        identifier: BANKS
+      - name: raw_forms
+        identifier: FORMS
+      - name: raw_legal_documents
+        identifier: LEGAL_DOCUMENTS
+      - name: raw_procedures
+        identifier: PROCEDURES
+      - name: raw_procedure_documents
+        identifier: PROCEDURE_DOCUMENTS
+      - name: raw_procedure_forms
+        identifier: PROCEDURE_FORMS
+      - name: raw_decision_documents
+        identifier: DECISION_DOCUMENTS
+      - name: raw_application_archives
+        identifier: APPLICATION_ARCHIVES
+      - name: raw_application_decisions
+        identifier: APPLICATION_DECISIONS
+      - name: raw_application_document_histories
+        identifier: APPLICATION_DOCUMENT_HISTORIES
+      - name: raw_application_experiences
+        identifier: APPLICATION_EXPERIENCES
+      - name: raw_application_groups
+        identifier: APPLICATION_GROUPS
+      - name: raw_application_group_members
+        identifier: APPLICATION_GROUP_MEMBERS
+      - name: raw_application_histories
+        identifier: APPLICATION_HISTORIES
+      - name: raw_application_logs
+        identifier: APPLICATION_LOGS
+      - name: raw_application_professionals
+        identifier: APPLICATION_PROFESSIONALS
+      - name: raw_application_re_exams
+        identifier: APPLICATION_RE_EXAMS
+      - name: raw_application_supplements
+        identifier: APPLICATION_SUPPLEMENTS
+      - name: raw_certificate_archives
+        identifier: CERTIFICATE_ARCHIVES
+      - name: raw_certificate_conversion_requests
+        identifier: CERTIFICATE_CONVERSION_REQUESTS
+      - name: raw_professional_trainings
+        identifier: PROFESSIONAL_TRAININGS
+      - name: raw_organization_report_yearlys
+        identifier: ORGANIZATION_REPORT_YEARLYS
+      - name: raw_post_cert_training_courses
+        identifier: POST_CERT_TRAINING_COURSES
+      - name: raw_certificate_conversion_request_logs
+        identifier: CERTIFICATE_CONVERSION_REQUEST_LOGS
+      - name: raw_conversion_practice_history_confirms
+        identifier: CONVERSION_PRACTICE_HISTORY_CONFIRMS
+      - name: raw_mcdt_result_outbox
+        identifier: MCDT_RESULT_OUTBOX
+      - name: raw_report_templates
+        identifier: REPORT_TEMPLATES
+      - name: raw_signing_audit
+        identifier: SIGNING_AUDIT
+      - name: raw_signing_certificate
+        identifier: SIGNING_CERTIFICATE
+      - name: raw_signing_note
+        identifier: SIGNING_NOTE
+      - name: raw_signing_profile
+        identifier: SIGNING_PROFILE
+      - name: raw_signing_session
+        identifier: SIGNING_SESSION
+      - name: raw_signing_signature_image
+        identifier: SIGNING_SIGNATURE_IMAGE
+      - name: raw_verify_certificate_conversion_statuses
+        identifier: VERIFY_CERTIFICATE_CONVERSION_STATUSES
+      - name: raw_post_cert_training_results
+        identifier: POST_CERT_TRAINING_RESULTS
+
+  - name: source_scms
+    description: "Hệ thống cơ sở dữ liệu hệ thống tổng thể - Nguồn dữ liệu phân hệ quản lý giám sát công ty chứng khoán"
+    schema: '{{ var("src_scms_schema") }}'
+    tables:
+      - name: raw_alert_financial_indicator
+        identifier: ALERT_FINANCIAL_INDICATOR
+      - name: raw_alert_indicator
+        identifier: ALERT_INDICATOR
+      - name: raw_alert_indicator_condition
+        identifier: ALERT_INDICATOR_CONDITION
+      - name: raw_alert_run
+        identifier: ALERT_RUN
+      - name: raw_auditor
+        identifier: AUDITOR
+      - name: raw_audit_firm
+        identifier: AUDIT_FIRM
+      - name: raw_bank
+        identifier: BANK
+      - name: raw_bank_history
+        identifier: BANK_HISTORY
+      - name: raw_bank_periodic_report
+        identifier: BANK_PERIODIC_REPORT
+      - name: raw_bank_periodic_report_history
+        identifier: BANK_PERIODIC_REPORT_HISTORY
+      - name: raw_category
+        identifier: CATEGORY
+      - name: raw_cat_alert
+        identifier: CAT_ALERT
+      - name: raw_cat_business_line
+        identifier: CAT_BUSINESS_LINE
+      - name: raw_cat_company_type
+        identifier: CAT_COMPANY_TYPE
+      - name: raw_cat_district
+        identifier: CAT_DISTRICT
+      - name: raw_cat_event_type
+        identifier: CAT_EVENT_TYPE
+      - name: raw_cat_indicator
+        identifier: CAT_INDICATOR
+      - name: raw_cat_indicator_catalog
+        identifier: CAT_INDICATOR_CATALOG
+      - name: raw_cat_indicator_statistic
+        identifier: CAT_INDICATOR_STATISTIC
+      - name: raw_cat_nationality
+        identifier: CAT_NATIONALITY
+      - name: raw_cat_position
+        identifier: CAT_POSITION
+      - name: raw_cat_profile_status
+        identifier: CAT_PROFILE_STATUS
+      - name: raw_cat_province
+        identifier: CAT_PROVINCE
+      - name: raw_cat_relationship
+        identifier: CAT_RELATIONSHIP
+      - name: raw_cat_sc_firm_position
+        identifier: CAT_SC_FIRM_POSITION
+      - name: raw_cat_sc_firm_status
+        identifier: CAT_SC_FIRM_STATUS
+      - name: raw_cat_service
+        identifier: CAT_SERVICE
+      - name: raw_cat_service_legal_capital
+        identifier: CAT_SERVICE_LEGAL_CAPITAL
+      - name: raw_cat_shareholder_transaction_type
+        identifier: CAT_SHAREHOLDER_TRANSACTION_TYPE
+      - name: raw_cat_statistic
+        identifier: CAT_STATISTIC
+      - name: raw_cat_violation_type
+        identifier: CAT_VIOLATION_TYPE
+      - name: raw_cat_ward
+        identifier: CAT_WARD
+      - name: raw_custodian_bank
+        identifier: CUSTODIAN_BANK
+      - name: raw_digital_certificate
+        identifier: DIGITAL_CERTIFICATE
+      - name: raw_disclosure_news
+        identifier: DISCLOSURE_NEWS
+      - name: raw_disclosure_news_file
+        identifier: DISCLOSURE_NEWS_FILE
+      - name: raw_disclosure_report
+        identifier: DISCLOSURE_REPORT
+      - name: raw_disclosure_securities_offering
+        identifier: DISCLOSURE_SECURITIES_OFFERING
+      - name: raw_disclosure_shareholder
+        identifier: DISCLOSURE_SHAREHOLDER
+      - name: raw_document_folder
+        identifier: DOCUMENT_FOLDER
+      - name: raw_document_storage
+        identifier: DOCUMENT_STORAGE
+      - name: raw_form_indicator_data_source
+        identifier: FORM_INDICATOR_DATA_SOURCE
+      - name: raw_form_indicator_field_meta
+        identifier: FORM_INDICATOR_FIELD_META
+      - name: raw_form_indicator_input
+        identifier: FORM_INDICATOR_INPUT
+      - name: raw_form_indicator_reference_value
+        identifier: FORM_INDICATOR_REFERENCE_VALUE
+      - name: raw_form_report
+        identifier: FORM_REPORT
+      - name: raw_form_report_deep_config
+        identifier: FORM_REPORT_DEEP_CONFIG
+      - name: raw_form_report_history
+        identifier: FORM_REPORT_HISTORY
+      - name: raw_form_report_periodic
+        identifier: FORM_REPORT_PERIODIC
+      - name: raw_form_row_header
+        identifier: FORM_ROW_HEADER
+      - name: raw_form_row_header_column
+        identifier: FORM_ROW_HEADER_COLUMN
+      - name: raw_form_sheet
+        identifier: FORM_SHEET
+      - name: raw_form_sheet_cell
+        identifier: FORM_SHEET_CELL
+      - name: raw_form_sheet_column
+        identifier: FORM_SHEET_COLUMN
+      - name: raw_form_sheet_row
+        identifier: FORM_SHEET_ROW
+      - name: raw_help_document
+        identifier: HELP_DOCUMENT
+      - name: raw_legal_document_lookup
+        identifier: LEGAL_DOCUMENT_LOOKUP
+      - name: raw_lnk_event_type_form
+        identifier: LNK_EVENT_TYPE_FORM
+      - name: raw_lnk_function_user
+        identifier: LNK_FUNCTION_USER
+      - name: raw_lnk_function_user_group
+        identifier: LNK_FUNCTION_USER_GROUP
+      - name: raw_lnk_practitioner_business_line
+        identifier: LNK_PRACTITIONER_BUSINESS_LINE
+      - name: raw_lnk_sc_firm_business_line
+        identifier: LNK_SC_FIRM_BUSINESS_LINE
+      - name: raw_lnk_sc_firm_foreign_branch_service
+        identifier: LNK_SC_FIRM_FOREIGN_BRANCH_SERVICE
+      - name: raw_lnk_sc_firm_report
+        identifier: LNK_SC_FIRM_REPORT
+      - name: raw_lnk_sc_firm_service
+        identifier: LNK_SC_FIRM_SERVICE
+      - name: raw_lnk_sc_firm_status_report
+        identifier: LNK_SC_FIRM_STATUS_REPORT
+      - name: raw_lnk_service_sc_firm_report
+        identifier: LNK_SERVICE_SC_FIRM_REPORT
+      - name: raw_lnk_transaction_office_service
+        identifier: LNK_TRANSACTION_OFFICE_SERVICE
+      - name: raw_lnk_user_bank
+        identifier: LNK_USER_BANK
+      - name: raw_lnk_user_group
+        identifier: LNK_USER_GROUP
+      - name: raw_lnk_user_group_report
+        identifier: LNK_USER_GROUP_REPORT
+      - name: raw_lnk_user_report
+        identifier: LNK_USER_REPORT
+      - name: raw_lnk_user_sc_firm
+        identifier: LNK_USER_SC_FIRM
+      - name: raw_member_report
+        identifier: MEMBER_REPORT
+      - name: raw_member_report_history
+        identifier: MEMBER_REPORT_HISTORY
+      - name: raw_member_report_processing
+        identifier: MEMBER_REPORT_PROCESSING
+      - name: raw_message
+        identifier: MESSAGE
+      - name: raw_message_recipient
+        identifier: MESSAGE_RECIPIENT
+      - name: raw_notification
+        identifier: NOTIFICATION
+      - name: raw_output_report_extraction
+        identifier: OUTPUT_REPORT_EXTRACTION
+      - name: raw_output_report_extraction_value
+        identifier: OUTPUT_REPORT_EXTRACTION_VALUE
+      - name: raw_permission_data
+        identifier: PERMISSION_DATA
+      - name: raw_sys_user
+        identifier: SYS_USER
+      - name: raw_permission_input_report
+        identifier: PERMISSION_INPUT_REPORT
+      - name: raw_permission_input_report_event
+        identifier: PERMISSION_INPUT_REPORT_EVENT
+      - name: raw_permission_output_report
+        identifier: PERMISSION_OUTPUT_REPORT
+      - name: raw_permission_output_report_form
+        identifier: PERMISSION_OUTPUT_REPORT_FORM
+      - name: raw_report_cell_value
+        identifier: REPORT_CELL_VALUE
+      - name: raw_report_dynamic_row_value
+        identifier: REPORT_DYNAMIC_ROW_VALUE
+      - name: raw_report_input_cell_value
+        identifier: REPORT_INPUT_CELL_VALUE
+      - name: raw_report_input_submission
+        identifier: REPORT_INPUT_SUBMISSION
+      - name: raw_report_input_submission_file
+        identifier: REPORT_INPUT_SUBMISSION_FILE
+      - name: raw_report_violation
+        identifier: REPORT_VIOLATION
+      - name: raw_risk_indicator
+        identifier: RISK_INDICATOR
+      - name: raw_risk_indicator_group
+        identifier: RISK_INDICATOR_GROUP
+      - name: raw_risk_reporting_period
+        identifier: RISK_REPORTING_PERIOD
+      - name: raw_risk_reporting_period_sc_firm
+        identifier: RISK_REPORTING_PERIOD_SC_FIRM
+      - name: raw_risk_scoring_scale
+        identifier: RISK_SCORING_SCALE
+      - name: raw_risk_scoring_sc_firm_detail
+        identifier: RISK_SCORING_SC_FIRM_DETAIL
+      - name: raw_risk_summary
+        identifier: RISK_SUMMARY
+      - name: raw_risk_summary_detail
+        identifier: RISK_SUMMARY_DETAIL
+      - name: raw_scms_shedlock
+        identifier: SCMS_SHEDLOCK
+      - name: raw_scms_working_day
+        identifier: SCMS_WORKING_DAY
+      - name: raw_sc_firm_adhoc_report
+        identifier: SC_FIRM_ADHOC_REPORT
+      - name: raw_sc_firm_adhoc_report_history
+        identifier: SC_FIRM_ADHOC_REPORT_HISTORY
+      - name: raw_sc_firm_admin_penalty_decision
+        identifier: SC_FIRM_ADMIN_PENALTY_DECISION
+      - name: raw_sc_firm_admin_sanction
+        identifier: SC_FIRM_ADMIN_SANCTION
+      - name: raw_sc_firm_alert_violation
+        identifier: SC_FIRM_ALERT_VIOLATION
+      - name: raw_sc_firm_branch
+        identifier: SC_FIRM_BRANCH
+      - name: raw_sc_firm_complaint_petition
+        identifier: SC_FIRM_COMPLAINT_PETITION
+      - name: raw_sc_firm_deletion_history
+        identifier: SC_FIRM_DELETION_HISTORY
+      - name: raw_sc_firm_domestic_rep_office
+        identifier: SC_FIRM_DOMESTIC_REP_OFFICE
+      - name: raw_sc_firm_foreign_branch
+        identifier: SC_FIRM_FOREIGN_BRANCH
+      - name: raw_sc_firm_foreign_branch_history
+        identifier: SC_FIRM_FOREIGN_BRANCH_HISTORY
+      - name: raw_sc_firm_foreign_branch_periodic_report
+        identifier: SC_FIRM_FOREIGN_BRANCH_PERIODIC_REPORT
+      - name: raw_sc_firm_foreign_branch_personnel
+        identifier: SC_FIRM_FOREIGN_BRANCH_PERSONNEL
+      - name: raw_sc_firm_foreign_branch_personnel_history
+        identifier: SC_FIRM_FOREIGN_BRANCH_PERSONNEL_HISTORY
+      - name: raw_sc_firm_foreign_rep_office
+        identifier: SC_FIRM_FOREIGN_REP_OFFICE
+      - name: raw_sc_firm_foreign_rep_office_history
+        identifier: SC_FIRM_FOREIGN_REP_OFFICE_HISTORY
+      - name: raw_sc_firm_foreign_rep_office_periodic_report
+        identifier: SC_FIRM_FOREIGN_REP_OFFICE_PERIODIC_REPORT
+      - name: raw_sc_firm_foreign_rep_office_personnel
+        identifier: SC_FIRM_FOREIGN_REP_OFFICE_PERSONNEL
+      - name: raw_sc_firm_foreign_rep_office_vn
+        identifier: SC_FIRM_FOREIGN_REP_OFFICE_VN
+      - name: raw_sc_firm_info
+        identifier: SC_FIRM_INFO
+      - name: raw_sc_firm_insider_relation
+        identifier: SC_FIRM_INSIDER_RELATION
+      - name: raw_sc_firm_insider_relation_history
+        identifier: SC_FIRM_INSIDER_RELATION_HISTORY
+      - name: raw_sc_firm_inspection_schedule
+        identifier: SC_FIRM_INSPECTION_SCHEDULE
+      - name: raw_sc_firm_licensed_practitioner
+        identifier: SC_FIRM_LICENSED_PRACTITIONER
+      - name: raw_sc_firm_major_shareholder_relation
+        identifier: SC_FIRM_MAJOR_SHAREHOLDER_RELATION
+      - name: raw_sc_firm_ownership_relation
+        identifier: SC_FIRM_OWNERSHIP_RELATION
+      - name: raw_sc_firm_periodic_report
+        identifier: SC_FIRM_PERIODIC_REPORT
+      - name: raw_sc_firm_periodic_report_history
+        identifier: SC_FIRM_PERIODIC_REPORT_HISTORY
+      - name: raw_sc_firm_profile_change
+        identifier: SC_FIRM_PROFILE_CHANGE
+      - name: raw_sc_firm_profile_history
+        identifier: SC_FIRM_PROFILE_HISTORY
+      - name: raw_sc_firm_related_person
+        identifier: SC_FIRM_RELATED_PERSON
+      - name: raw_sc_firm_rep_office
+        identifier: SC_FIRM_REP_OFFICE
+      - name: raw_sc_firm_senior_personnel
+        identifier: SC_FIRM_SENIOR_PERSONNEL
+      - name: raw_sc_firm_service
+        identifier: SC_FIRM_SERVICE
+      - name: raw_sc_firm_shareholder
+        identifier: SC_FIRM_SHAREHOLDER
+      - name: raw_sc_firm_shareholder_ownership_change
+        identifier: SC_FIRM_SHAREHOLDER_OWNERSHIP_CHANGE
+      - name: raw_sc_firm_shareholder_relation
+        identifier: SC_FIRM_SHAREHOLDER_RELATION
+      - name: raw_sc_firm_shareholder_representative
+        identifier: SC_FIRM_SHAREHOLDER_REPRESENTATIVE
+      - name: raw_sc_firm_shareholder_transfer
+        identifier: SC_FIRM_SHAREHOLDER_TRANSFER
+      - name: raw_sc_firm_transaction_office
+        identifier: SC_FIRM_TRANSACTION_OFFICE
+      - name: raw_alert_group
+        identifier: ALERT_GROUP
+      - name: raw_alert_run_missing_report_log
+        identifier: ALERT_RUN_MISSING_REPORT_LOG
+      - name: raw_alert_violation_snapshot
+        identifier: ALERT_VIOLATION_SNAPSHOT
+      - name: raw_cat_audit_opinion_type
+        identifier: CAT_AUDIT_OPINION_TYPE
+      - name: raw_cat_filter
+        identifier: CAT_FILTER
+      - name: raw_cat_report_group
+        identifier: CAT_REPORT_GROUP
+      - name: raw_form_report_input_source
+        identifier: FORM_REPORT_INPUT_SOURCE
+      - name: raw_output_report_chart_config
+        identifier: OUTPUT_REPORT_CHART_CONFIG
+      - name: raw_output_report_filter
+        identifier: OUTPUT_REPORT_FILTER
+      - name: raw_output_report_parent
+        identifier: OUTPUT_REPORT_PARENT
+      - name: raw_output_report_parent_child
+        identifier: OUTPUT_REPORT_PARENT_CHILD
+      - name: raw_output_report_parent_common_filter
+        identifier: OUTPUT_REPORT_PARENT_COMMON_FILTER
+      - name: raw_sc_firm_practitioner_cchn
+        identifier: SC_FIRM_PRACTITIONER_CCHN
+      - name: raw_sc_firm_practitioner_cchn_div
+        identifier: SC_FIRM_PRACTITIONER_CCHN_DIV
+      - name: raw_scms_ecat_working_schedule
+        identifier: SCMS_ECAT_WORKING_SCHEDULE
+
+  - name: source_mdds
+    description: "Hệ thống phân phối dữ liệu thị trường — Bảng giá, sổ khớp, chỉ số thị trường realtime"
+    schema: '{{ var("src_mdds_schema") }}'
+    tables:
+      - name: raw_jad_marketinfor
+        identifier: JAD_MARKETINFOR
+      - name: raw_jad_csidxinfor
+        identifier: JAD_CSIDXINFOR
+      - name: raw_jad_stockinfor
+        identifier: JAD_STOCKINFOR
+      - name: raw_jad_translog
+        identifier: JAD_TRANSLOG
+      - name: raw_jad_tvhistory1m
+        identifier: JAD_TVHISTORY1M
+      - name: raw_jad_tradingviewhistory1day
+        identifier: JAD_TVHISTORY1D
+      - name: raw_jad_corpbondinfor
+        identifier: JAD_CORPBONDINFOR
+
+  - name: source_ordertrade
+    description: "Sổ lệnh và Sổ khớp HOSE & HNX — dữ liệu giao dịch chứng khoán từ hệ thống KRX"
+    schema: '{{ var("src_ordertrade_schema") }}'
+    tables:
+      - name: raw_order_book_hnx
+        identifier: order_book_hnx
+      - name: raw_order_book_hose
+        identifier: order_book_hose
+      - name: raw_trade_book_hnx
+        identifier: trade_book_hnx
+      - name: raw_trade_book_hose
+        identifier: trade_book_hose
+
+  - name: source_iss
+    description: "Hệ thống báo cáo đầu vào - Nguồn dữ liệu phân hệ ISS"
+    schema: '{{ var("src_iss_schema") }}'
+    tables:
+      - name: raw_input_report_template
+        identifier: INPUT_REPORT_TEMPLATE
+      - name: raw_input_report_template_sheet
+        identifier: INPUT_REPORT_TEMPLATE_SHEET
+      - name: raw_input_report_metric
+        identifier: INPUT_REPORT_METRIC
+      - name: raw_input_report
+        identifier: INPUT_REPORT
+      - name: raw_input_report_submission
+        identifier: INPUT_REPORT_SUBMISSION
+      - name: raw_fact_report_data
+        identifier: FACT_REPORT_DATA
+      - name: raw_file_info
+        identifier: FILE_INFO
+      - name: raw_input_report_deadline
+        identifier: INPUT_REPORT_DEADLINE
+      - name: raw_output_report
+        identifier: OUTPUT_REPORT
+      - name: raw_output_report_deadline
+        identifier: OUTPUT_REPORT_DEADLINE
+      - name: raw_output_report_generate_job
+        identifier: OUTPUT_REPORT_GENERATE_JOB
+      - name: raw_output_report_generate_job_item
+        identifier: OUTPUT_REPORT_GENERATE_JOB_ITEM
+      - name: raw_output_report_metric
+        identifier: OUTPUT_REPORT_METRIC
+      - name: raw_output_report_source
+        identifier: OUTPUT_REPORT_SOURCE
+      - name: raw_output_report_template
+        identifier: OUTPUT_REPORT_TEMPLATE
+      - name: raw_output_report_template_combo_used
+        identifier: OUTPUT_REPORT_TEMPLATE_COMBO_USED
+      - name: raw_report_permission_group
+        identifier: REPORT_PERMISSION_GROUP
+      - name: raw_report_send_log
+        identifier: REPORT_SEND_LOG
+      - name: raw_user_permission_group
+        identifier: USER_PERMISSION_GROUP
+
+  - name: source_gsgd
+    description: "Hệ thống giám sát - Nguồn dữ liệu phân hệ TMS (Tuân thủ báo cáo)"
+    schema: '{{ var("src_gsgd_schema") }}'
+    tables:
+      - name: raw_compliance_report_template
+        identifier: COMPLIANCE_REPORT_TEMPLATE
+      - name: raw_compliance_report_form_template
+        identifier: COMPLIANCE_REPORT_FORM_TEMPLATE
+      - name: raw_compliance_report_config
+        identifier: COMPLIANCE_REPORT_CONFIG
+      - name: raw_compliance_report_master
+        identifier: COMPLIANCE_REPORT_MASTER
+      - name: raw_compliance_report_form
+        identifier: COMPLIANCE_REPORT_FORM
+      - name: raw_compliance_report_data
+        identifier: COMPLIANCE_REPORT_DATA
+
+  - name: source_vsdc
+    description: "Trung tâm Lưu ký Chứng khoán Việt Nam (VSDC) - Dữ liệu khối lượng lưu hành và tỷ lệ sở hữu nước ngoài"
+    schema: '{{ var("src_vsdc_schema") }}'
+    tables:
+      - name: raw_outstanding_shares
+        identifier: outstanding_shares
+      - name: raw_foreign_investor_info
+        identifier: foreign_investor_info
+      - name: raw_foreign_investor_info_test
+        identifier: foreign_investor_info_test
+      - name: raw_major_shareholder
+        identifier: major_shareholder
+      - name: raw_end_of_day_open_interest
+        identifier: end_of_day_open_interest
+      - name: raw_account_opening_closing_status
+        identifier: account_opening_closing_status
+      - name: raw_foreign_investor_bond_portfolio
+        identifier: foreign_investor_bond_portfolio
+      - name: raw_open_investors
+        identifier: open_investors
+      - name: raw_updated_investors
+        identifier: updated_investors
+      - name: raw_closed_investors
+        identifier: closed_investors
+      - name: raw_nationality
+        identifier: nationality
+
+  - name: source_ids
+    description: "Hệ thống cơ sở dữ liệu hệ thống tổng thể - Nguồn dữ liệu phân hệ quản lý công ty đại chúng và phân hệ quản lý thông tin hồ sơ công ty kiểm toán"
+    schema: '{{ var("src_ids_schema") }}'
+    tables:
+      - name: raw_company_profiles
+        identifier: COMPANY_PROFILES
+      - name: raw_categories
+        identifier: CATEGORIES
+      - name: raw_foreign_owner_limit
+        identifier: FOREIGN_OWNER_LIMIT
+      - name: raw_legal_representative
+        identifier: LEGAL_REPRESENTATIVE
+      - name: raw_state_capital
+        identifier: STATE_CAPITAL
+      - name: raw_company_relationship
+        identifier: COMPANY_RELATIONSHIP
+      - name: raw_capital_mobilization
+        identifier: CAPITAL_MOBILIZATION
+      - name: raw_company_add_capital
+        identifier: COMPANY_ADD_CAPITAL
+      - name: raw_company_tender_offer
+        identifier: COMPANY_TENDER_OFFER
+      - name: raw_company_treasury_stocks
+        identifier: COMPANY_TREASURY_STOCKS
+      - name: raw_company_inspection
+        identifier: COMPANY_INSPECTION
+      - name: raw_company_penalties
+        identifier: COMPANY_PENALTIES
+      - name: raw_company_change_role_his
+        identifier: COMPANY_CHANGE_ROLE_HIS
+      - name: raw_logins
+        identifier: LOGINS
+      - name: raw_countries
+        identifier: COUNTRIES
+      - name: raw_provinces
+        identifier: PROVINCES
+      - name: raw_lookup_values
+        identifier: LOOKUP_VALUES
+      - name: raw_report_catalog
+        identifier: REPORT_CATALOG
+      - name: raw_rrow
+        identifier: RROW
+      - name: raw_rep_forms
+        identifier: REP_FORMS
+      - name: raw_rep_row
+        identifier: REP_ROW
+      - name: raw_rep_column
+        identifier: REP_COLUMN
+      - name: raw_rep_data
+        identifier: REP_DATA
+      - name: raw_forms
+        identifier: FORMS
+      - name: raw_fields
+        identifier: FIELDS
+      - name: raw_form_fields
+        identifier: FORM_FIELDS
+      - name: raw_form_field_history
+        identifier: FORM_FIELD_HISTORY
+      - name: raw_departments
+        identifier: DEPARTMENTS
+      - name: raw_data_types
+        identifier: DATA_TYPES
+      - name: raw_account_numbers
+        identifier: ACCOUNT_NUMBERS
+      - name: raw_positions
+        identifier: POSITIONS
+      - name: raw_identity
+        identifier: IDENTITY
+      - name: raw_stock_controls
+        identifier: STOCK_CONTROLS
+      - name: raw_holder_relationship
+        identifier: HOLDER_RELATIONSHIP
+      - name: raw_report_extensions
+        identifier: REPORT_EXTENSIONS
+      - name: raw_company_data
+        identifier: COMPANY_DATA
+      - name: raw_data
+        identifier: DATA
+      - name: raw_data_values
+        identifier: DATA_VALUES
+      - name: raw_bond_listing_history
+        identifier: BOND_LISTING_HISTORY
+      - name: raw_company_digital_certificates
+        identifier: COMPANY_DIGITAL_CERTIFICATES
+      - name: raw_company_entity_role
+        identifier: COMPANY_ENTITY_ROLE
+      - name: raw_company_shareholding
+        identifier: COMPANY_SHAREHOLDING
+      - name: raw_company_share_statistics
+        identifier: COMPANY_SHARE_STATISTICS
+      - name: raw_evaluations
+        identifier: EVALUATIONS
+      - name: raw_evaluation_cbonds
+        identifier: EVALUATION_CBONDS
+      - name: raw_evaluation_criteria
+        identifier: EVALUATION_CRITERIA
+      - name: raw_evaluation_details
+        identifier: EVALUATION_DETAILS
+      - name: raw_evaluation_groups
+        identifier: EVALUATION_GROUPS
+      - name: raw_evaluation_periods
+        identifier: EVALUATION_PERIODS
+      - name: raw_files
+        identifier: FILES
+      - name: raw_holiday_calendar
+        identifier: HOLIDAY_CALENDAR
+      - name: raw_legal_entities
+        identifier: LEGAL_ENTITIES
+      - name: raw_manual_document
+        identifier: MANUAL_DOCUMENT
+      - name: raw_pub_company_cancellation
+        identifier: PUB_COMPANY_CANCELLATION
+      - name: raw_pub_company_registration
+        identifier: PUB_COMPANY_REGISTRATION
+      - name: raw_securities_offering
+        identifier: SECURITIES_OFFERING
+      - name: raw_securities_offering_plan
+        identifier: SECURITIES_OFFERING_PLAN
+      - name: raw_securities_offering_result
+        identifier: SECURITIES_OFFERING_RESULT
+      - name: raw_stock_listing_history
+        identifier: STOCK_LISTING_HISTORY
+      - name: raw_violation_penalty_config
+        identifier: VIOLATION_PENALTY_CONFIG
+      - name: raw_violation_report
+        identifier: VIOLATION_REPORT
+      - name: raw_violation_templates
+        identifier: VIOLATION_TEMPLATES
+      - name: raw_wards
+        identifier: WARDS
+      - name: raw_rcol
+        identifier: RCOL
+      - name: raw_login_permission_by_code
+        identifier: LOGIN_PERMISSION_BY_CODE
+      - name: raw_alert_template_audit_dtl
+        identifier: ALERT_TEMPLATE_AUDIT_DTL
+      - name: raw_alert_template_audit_hdr
+        identifier: ALERT_TEMPLATE_AUDIT_HDR
+      - name: raw_appraisal_criteria
+        identifier: APPRAISAL_CRITERIA
+      - name: raw_bond_collateral
+        identifier: BOND_COLLATERAL
+      - name: raw_bond_listing
+        identifier: BOND_LISTING
+      - name: raw_bond_listing_history_tmp
+        identifier: BOND_LISTING_HISTORY_TMP
+      - name: raw_bond_payment_status
+        identifier: BOND_PAYMENT_STATUS
+      - name: raw_capital_increase_detail
+        identifier: CAPITAL_INCREASE_DETAIL
+      - name: raw_capital_increase_plan
+        identifier: CAPITAL_INCREASE_PLAN
+      - name: raw_company_tender_offer_result
+        identifier: COMPANY_TENDER_OFFER_RESULT
+      - name: raw_company_treasury_shares
+        identifier: COMPANY_TREASURY_SHARES
+      - name: raw_dossier_appraisal_result
+        identifier: DOSSIER_APPRAISAL_RESULT
+      - name: raw_dynamic_report_template_fields
+        identifier: DYNAMIC_REPORT_TEMPLATE_FIELDS
+      - name: raw_dynamic_report_templates
+        identifier: DYNAMIC_REPORT_TEMPLATES
+      - name: raw_evaluation_level_score
+        identifier: EVALUATION_LEVEL_SCORE
+      - name: raw_financial_indicator_mapping
+        identifier: FINANCIAL_INDICATOR_MAPPING
+      - name: raw_financial_ratios_detail
+        identifier: FINANCIAL_RATIOS_DETAIL
+      - name: raw_lookup_key_financials
+        identifier: LOOKUP_KEY_FINANCIALS
+      - name: raw_tender_offer
+        identifier: TENDER_OFFER
+      - name: raw_tender_offer_result
+        identifier: TENDER_OFFER_RESULT
+      - name: raw_treasury_share_trans_result
+        identifier: TREASURY_SHARE_TRANS_RESULT
+      - name: raw_users
+        identifier: USERS
+
+  - name: source_thanhtra
+    description: "Hệ thống cơ sở dữ liệu hệ thống tổng thể - Nguồn dữ liệu phân hệ phục vụ công tác thanh tra chứng khoán"
+    schema: '{{ var("src_thanhtra_schema") }}'
+    tables:
+      - name: raw_anti_money_laundering_dossier
+        identifier: ANTI_MONEY_LAUNDERING_DOSSIER
+      - name: raw_citizen_reception_participant
+        identifier: CITIZEN_RECEPTION_PARTICIPANT
+      - name: raw_citizen_reception_petition_link
+        identifier: CITIZEN_RECEPTION_PETITION_LINK
+      - name: raw_citizen_reception_subject
+        identifier: CITIZEN_RECEPTION_SUBJECT
+      - name: raw_penalty_decision_subject_behavior_supplementary
+        identifier: PENALTY_DECISION_SUBJECT_BEHAVIOR_SUPPLEMENTARY
+      - name: raw_petition_internal_transfer_unit
+        identifier: PETITION_INTERNAL_TRANSFER_UNIT
+      - name: raw_petition_target
+        identifier: PETITION_TARGET
+      - name: raw_adhoc_inspection_report
+        identifier: ADHOC_INSPECTION_REPORT
+      - name: raw_examination_annual_plan
+        identifier: EXAMINATION_ANNUAL_PLAN
+      - name: raw_examination_annual_plan_target
+        identifier: EXAMINATION_ANNUAL_PLAN_TARGET
+      - name: raw_examination_result_notice
+        identifier: EXAMINATION_RESULT_NOTICE
+      - name: raw_examination_result_notice_remedial
+        identifier: EXAMINATION_RESULT_NOTICE_REMEDIAL
+      - name: raw_examination_team
+        identifier: EXAMINATION_TEAM
+      - name: raw_examination_team_member
+        identifier: EXAMINATION_TEAM_MEMBER
+      - name: raw_examination_team_target
+        identifier: EXAMINATION_TEAM_TARGET
+      - name: raw_inspection_annual_plan
+        identifier: INSPECTION_ANNUAL_PLAN
+      - name: raw_inspection_annual_plan_target
+        identifier: INSPECTION_ANNUAL_PLAN_TARGET
+      - name: raw_inspection_conclusion
+        identifier: INSPECTION_CONCLUSION
+      - name: raw_inspection_conclusion_remedial
+        identifier: INSPECTION_CONCLUSION_REMEDIAL
+      - name: raw_inspection_report_outline
+        identifier: INSPECTION_REPORT_OUTLINE
+      - name: raw_inspection_team
+        identifier: INSPECTION_TEAM
+      - name: raw_inspection_team_member
+        identifier: INSPECTION_TEAM_MEMBER
+      - name: raw_inspection_team_target
+        identifier: INSPECTION_TEAM_TARGET
+      - name: raw_post_inspection_processing
+        identifier: POST_INSPECTION_PROCESSING
+      - name: raw_proactive_notice
+        identifier: PROACTIVE_NOTICE
+      - name: raw_proactive_notice_recipient
+        identifier: PROACTIVE_NOTICE_RECIPIENT
+      - name: raw_supervision_activity_report
+        identifier: SUPERVISION_ACTIVITY_REPORT
+      - name: raw_adhoc_admin_violation_report
+        identifier: ADHOC_ADMIN_VIOLATION_REPORT
+      - name: raw_admin_violation_report_outline
+        identifier: ADMIN_VIOLATION_REPORT_OUTLINE
+      - name: raw_penalty_decision
+        identifier: PENALTY_DECISION
+      - name: raw_penalty_decision_approval_history
+        identifier: PENALTY_DECISION_APPROVAL_HISTORY
+      - name: raw_penalty_decision_circumstance
+        identifier: PENALTY_DECISION_CIRCUMSTANCE
+      - name: raw_penalty_decision_subject
+        identifier: PENALTY_DECISION_SUBJECT
+      - name: raw_penalty_decision_subject_behavior
+        identifier: PENALTY_DECISION_SUBJECT_BEHAVIOR
+      - name: raw_penalty_decision_violation_record
+        identifier: PENALTY_DECISION_VIOLATION_RECORD
+      - name: raw_penalty_type
+        identifier: PENALTY_TYPE
+      - name: raw_penalty_type_violation_behavior
+        identifier: PENALTY_TYPE_VIOLATION_BEHAVIOR
+      - name: raw_security_measure_decision
+        identifier: SECURITY_MEASURE_DECISION
+      - name: raw_security_measure_decision_recipient
+        identifier: SECURITY_MEASURE_DECISION_RECIPIENT
+      - name: raw_security_measure_decision_subject
+        identifier: SECURITY_MEASURE_DECISION_SUBJECT
+      - name: raw_security_measure_execution
+        identifier: SECURITY_MEASURE_EXECUTION
+      - name: raw_violation_behavior
+        identifier: VIOLATION_BEHAVIOR
+      - name: raw_violation_behavior_legal_document
+        identifier: VIOLATION_BEHAVIOR_LEGAL_DOCUMENT
+      - name: raw_violation_case
+        identifier: VIOLATION_CASE
+      - name: raw_violation_case_output_document
+        identifier: VIOLATION_CASE_OUTPUT_DOCUMENT
+      - name: raw_violation_case_received_document
+        identifier: VIOLATION_CASE_RECEIVED_DOCUMENT
+      - name: raw_violation_case_status_history
+        identifier: VIOLATION_CASE_STATUS_HISTORY
+      - name: raw_violation_record
+        identifier: VIOLATION_RECORD
+      - name: raw_violation_record_behavior
+        identifier: VIOLATION_RECORD_BEHAVIOR
+      - name: raw_vphc_process_official_letter
+        identifier: VPHC_PROCESS_OFFICIAL_LETTER
+      - name: raw_citizen_complaint_report_outline
+        identifier: CITIZEN_COMPLAINT_REPORT_OUTLINE
+      - name: raw_citizen_reception
+        identifier: CITIZEN_RECEPTION
+      - name: raw_petition
+        identifier: PETITION
+      - name: raw_petition_document
+        identifier: PETITION_DOCUMENT
+      - name: raw_adhoc_anti_corruption_report
+        identifier: ADHOC_ANTI_CORRUPTION_REPORT
+      - name: raw_anti_corruption_document
+        identifier: ANTI_CORRUPTION_DOCUMENT
+      - name: raw_anti_corruption_periodic_report
+        identifier: ANTI_CORRUPTION_PERIODIC_REPORT
+      - name: raw_anti_corruption_report_outline
+        identifier: ANTI_CORRUPTION_REPORT_OUTLINE
+      - name: raw_anti_money_laundering_document
+        identifier: ANTI_MONEY_LAUNDERING_DOCUMENT
+      - name: raw_anti_money_laundering_report
+        identifier: ANTI_MONEY_LAUNDERING_REPORT
+      - name: raw_legal_document
+        identifier: LEGAL_DOCUMENT
+      - name: raw_official_letter_type
+        identifier: OFFICIAL_LETTER_TYPE
+      - name: raw_private_catalog_item
+        identifier: PRIVATE_CATALOG_ITEM
+      - name: raw_code_sequence_counter
+        identifier: CODE_SEQUENCE_COUNTER
+      - name: raw_document_attachment
+        identifier: DOCUMENT_ATTACHMENT
+      - name: raw_document_template
+        identifier: DOCUMENT_TEMPLATE
+      - name: raw_document_template_key_assign
+        identifier: DOCUMENT_TEMPLATE_KEY_ASSIGN
+      - name: raw_document_template_key_definition
+        identifier: DOCUMENT_TEMPLATE_KEY_DEFINITION
+      - name: raw_document_template_version
+        identifier: DOCUMENT_TEMPLATE_VERSION
+      - name: raw_form_template
+        identifier: FORM_TEMPLATE
+      - name: raw_form_template_placeholder
+        identifier: FORM_TEMPLATE_PLACEHOLDER
+      - name: raw_form_template_version
+        identifier: FORM_TEMPLATE_VERSION
+      - name: raw_digital_certificates
+        identifier: DIGITAL_CERTIFICATES
+      - name: raw_digital_certificate_users
+        identifier: DIGITAL_CERTIFICATE_USERS
+      - name: raw_document_attachment_content
+        identifier: DOCUMENT_ATTACHMENT_CONTENT
+
+  - name: source_tthc
+    description: "Hệ thống cơ sở dữ liệu thủ tục hành chính (TTHC) - nguồn dữ liệu phân hệ TTHC"
+    schema: '{{ var("src_tthc_schema") }}'
+    tables:
+      - name: raw_aliaspartindex
+        identifier: ALIASPARTINDEX
+      - name: raw_audit_audittraileventindex
+        identifier: AUDIT_AUDITTRAILEVENTINDEX
+      - name: raw_audit_document
+        identifier: AUDIT_DOCUMENT
+      - name: raw_autoroutepartindex
+        identifier: AUTOROUTEPARTINDEX
+      - name: raw_booleanfieldindex
+        identifier: BOOLEANFIELDINDEX
+      - name: raw_containedpartindex
+        identifier: CONTAINEDPARTINDEX
+      - name: raw_contentitemindex
+        identifier: CONTENTITEMINDEX
+      - name: raw_contentpickerfieldindex
+        identifier: CONTENTPICKERFIELDINDEX
+      - name: raw_content_triggers
+        identifier: CONTENT_TRIGGERS
+      - name: raw_datefieldindex
+        identifier: DATEFIELDINDEX
+      - name: raw_datetimefieldindex
+        identifier: DATETIMEFIELDINDEX
+      - name: raw_deploymentplanindex
+        identifier: DEPLOYMENTPLANINDEX
+      - name: raw_document
+        identifier: DOCUMENT
+      - name: raw_htmlfieldindex
+        identifier: HTMLFIELDINDEX
+      - name: raw_indexingtask
+        identifier: INDEXINGTASK
+      - name: raw_layermetadataindex
+        identifier: LAYERMETADATAINDEX
+      - name: raw_linkfieldindex
+        identifier: LINKFIELDINDEX
+      - name: raw_multitextfieldindex
+        identifier: MULTITEXTFIELDINDEX
+      - name: raw_notification_notificationindex
+        identifier: NOTIFICATION_NOTIFICATIONINDEX
+      - name: raw_numericfieldindex
+        identifier: NUMERICFIELDINDEX
+      - name: raw_taxonomyindex
+        identifier: TAXONOMYINDEX
+      - name: raw_textfieldindex
+        identifier: TEXTFIELDINDEX
+      - name: raw_timefieldindex
+        identifier: TIMEFIELDINDEX
+      - name: raw_tmp_cii_id_remap
+        identifier: TMP_CII_ID_REMAP
+      - name: raw_userbyclaimindex
+        identifier: USERBYCLAIMINDEX
+      - name: raw_userbylogininfoindex
+        identifier: USERBYLOGININFOINDEX
+      - name: raw_userbyrolenameindex
+        identifier: USERBYROLENAMEINDEX
+      - name: raw_userbyrolenameindex_document
+        identifier: USERBYROLENAMEINDEX_DOCUMENT
+      - name: raw_userindex
+        identifier: USERINDEX
+      - name: raw_userpickerfieldindex
+        identifier: USERPICKERFIELDINDEX
+      - name: raw_workflowblockingactivitiesindex
+        identifier: WORKFLOWBLOCKINGACTIVITIESINDEX
+      - name: raw_workflowindex
+        identifier: WORKFLOWINDEX
+      - name: raw_workflowtypeindex
+        identifier: WORKFLOWTYPEINDEX
+      - name: raw_workflowtypestartactivitiesindex
+        identifier: WORKFLOWTYPESTARTACTIVITIESINDEX
+
+  - name: source_audit
+    description: "Hệ thống cơ sở dữ liệu kiểm toán (GMS AUDIT) - nguồn dữ liệu phân hệ AUDIT"
+    schema: '{{ var("src_audit_schema") }}'
+    tables:
+      - name: raw_af_approval
+        identifier: AF_APPROVAL
+      - name: raw_af_auditor_practice_history
+        identifier: AF_AUDITOR_PRACTICE_HISTORY
+      - name: raw_af_auditor_profiles
+        identifier: AF_AUDITOR_PROFILES
+      - name: raw_af_auditor_status_history
+        identifier: AF_AUDITOR_STATUS_HISTORY
+      - name: raw_af_inspection
+        identifier: AF_INSPECTION
+      - name: raw_af_legal_representative
+        identifier: AF_LEGAL_REPRESENTATIVE
+      - name: raw_af_profiles
+        identifier: AF_PROFILES
+      - name: raw_af_sanctions
+        identifier: AF_SANCTIONS
+      - name: raw_af_status_history
+        identifier: AF_STATUS_HISTORY
+      - name: raw_af_suspension
+        identifier: AF_SUSPENSION
+      - name: raw_af_technical_audit
+        identifier: AF_TECHNICAL_AUDIT
+      - name: raw_af_warning
+        identifier: AF_WARNING
+      - name: raw_alert_template_audit_dtl
+        identifier: ALERT_TEMPLATE_AUDIT_DTL
+      - name: raw_alert_template_audit_hdr
+        identifier: ALERT_TEMPLATE_AUDIT_HDR
+      - name: raw_company_change_role_his
+        identifier: COMPANY_CHANGE_ROLE_HIS
+      - name: raw_company_data
+        identifier: COMPANY_DATA
+      - name: raw_company_digital_certificates
+        identifier: COMPANY_DIGITAL_CERTIFICATES
+      - name: raw_countries
+        identifier: COUNTRIES
+      - name: raw_data
+        identifier: DATA
+      - name: raw_databasechangelog
+        identifier: DATABASECHANGELOG
+      - name: raw_databasechangeloglock
+        identifier: DATABASECHANGELOGLOCK
+      - name: raw_data_types
+        identifier: DATA_TYPES
+      - name: raw_data_values
+        identifier: DATA_VALUES
+      - name: raw_departments
+        identifier: DEPARTMENTS
+      - name: raw_fields
+        identifier: FIELDS
+      - name: raw_files
+        identifier: FILES
+      - name: raw_forms
+        identifier: FORMS
+      - name: raw_form_fields
+        identifier: FORM_FIELDS
+      - name: raw_form_field_history
+        identifier: FORM_FIELD_HISTORY
+      - name: raw_history_change_log
+        identifier: HISTORY_CHANGE_LOG
+      - name: raw_holiday_calendar
+        identifier: HOLIDAY_CALENDAR
+      - name: raw_hte_notifications_dtl
+        identifier: HTE_NOTIFICATIONS_DTL
+      - name: raw_hte_notifications_result
+        identifier: HTE_NOTIFICATIONS_RESULT
+      - name: raw_hte_violation_report
+        identifier: HTE_VIOLATION_REPORT
+      - name: raw_logins
+        identifier: LOGINS
+      - name: raw_login_permission_by_code
+        identifier: LOGIN_PERMISSION_BY_CODE
+      - name: raw_lookup_values
+        identifier: LOOKUP_VALUES
+      - name: raw_notifications
+        identifier: NOTIFICATIONS
+      - name: raw_notifications_dtl
+        identifier: NOTIFICATIONS_DTL
+      - name: raw_notifications_result
+        identifier: NOTIFICATIONS_RESULT
+      - name: raw_rcol
+        identifier: RCOL
+      - name: raw_report_catalog
+        identifier: REPORT_CATALOG
+      - name: raw_rep_column
+        identifier: REP_COLUMN
+      - name: raw_rep_data
+        identifier: REP_DATA
+      - name: raw_rep_forms
+        identifier: REP_FORMS
+      - name: raw_rep_row
+        identifier: REP_ROW
+      - name: raw_rrow
+        identifier: RROW
+      - name: raw_sms_log
+        identifier: SMS_LOG
+      - name: raw_violation_report
+        identifier: VIOLATION_REPORT
+      - name: raw_violation_templates
+        identifier: VIOLATION_TEMPLATES
+
+  - name: source_knt
+    description: "Hệ thống cơ sở dữ liệu KNT - nguồn dữ liệu phân hệ KNT"
+    schema: '{{ var("src_knt_schema") }}'
+    tables:
+      - name: raw_auditor
+        identifier: AUDITOR
+      - name: raw_audit_firm
+        identifier: AUDIT_FIRM
+      - name: raw_catalog
+        identifier: CATALOG
+      - name: raw_catalog_group
+        identifier: CATALOG_GROUP
+      - name: raw_cat_org_unit
+        identifier: CAT_ORG_UNIT
+      - name: raw_cat_position
+        identifier: CAT_POSITION
+      - name: raw_cat_violation_act
+        identifier: CAT_VIOLATION_ACT
+      - name: raw_company_comparison
+        identifier: COMPANY_COMPARISON
+      - name: raw_company_comparison_queue
+        identifier: COMPANY_COMPARISON_QUEUE
+      - name: raw_company_info
+        identifier: COMPANY_INFO
+      - name: raw_config_param
+        identifier: CONFIG_PARAM
+      - name: raw_data_reconciliation
+        identifier: DATA_RECONCILIATION
+      - name: raw_data_reconciliation_outbound
+        identifier: DATA_RECONCILIATION_OUTBOUND
+      - name: raw_high_risk_enterprise
+        identifier: HIGH_RISK_ENTERPRISE
+      - name: raw_indicator_mapping
+        identifier: INDICATOR_MAPPING
+      - name: raw_info_request_detail
+        identifier: INFO_REQUEST_DETAIL
+      - name: raw_invoice_detail
+        identifier: INVOICE_DETAIL
+      - name: raw_lnk_group_function
+        identifier: LNK_GROUP_FUNCTION
+      - name: raw_lnk_user_group
+        identifier: LNK_USER_GROUP
+      - name: raw_msg_packet
+        identifier: MSG_PACKET
+      - name: raw_msg_packet_code_slot
+        identifier: MSG_PACKET_CODE_SLOT
+      - name: raw_msg_packet_config
+        identifier: MSG_PACKET_CONFIG
+      - name: raw_msg_packet_content
+        identifier: MSG_PACKET_CONTENT
+      - name: raw_penalty_decision
+        identifier: PENALTY_DECISION
+      - name: raw_report_comparison
+        identifier: REPORT_COMPARISON
+      - name: raw_report_comparison_header
+        identifier: REPORT_COMPARISON_HEADER
+      - name: raw_report_comparison_queue
+        identifier: REPORT_COMPARISON_QUEUE
+      - name: raw_report_cycle
+        identifier: REPORT_CYCLE
+      - name: raw_report_form
+        identifier: REPORT_FORM
+      - name: raw_report_form_indicator
+        identifier: REPORT_FORM_INDICATOR
+      - name: raw_report_form_template
+        identifier: REPORT_FORM_TEMPLATE
+      - name: raw_report_indicator
+        identifier: REPORT_INDICATOR
+      - name: raw_schedule_config
+        identifier: SCHEDULE_CONFIG
+      - name: raw_ssc_penalty
+        identifier: SSC_PENALTY
+      - name: raw_ssc_report
+        identifier: SSC_REPORT
+      - name: raw_ssc_report_detail
+        identifier: SSC_REPORT_DETAIL
+      - name: raw_subject_profile
+        identifier: SUBJECT_PROFILE
+      - name: raw_tax_enforcement_debt
+        identifier: TAX_ENFORCEMENT_DEBT
+      - name: raw_tax_enforcement_invoice
+        identifier: TAX_ENFORCEMENT_INVOICE
+      - name: raw_tax_enforcement_list
+        identifier: TAX_ENFORCEMENT_LIST
+      - name: raw_tax_registration_info
+        identifier: TAX_REGISTRATION_INFO
+      - name: raw_tax_registration_list
+        identifier: TAX_REGISTRATION_LIST
+      - name: raw_tax_reg_address_type
+        identifier: TAX_REG_ADDRESS_TYPE
+      - name: raw_tax_reg_business_line
+        identifier: TAX_REG_BUSINESS_LINE
+      - name: raw_tax_reg_change
+        identifier: TAX_REG_CHANGE
+      - name: raw_tax_reg_representative
+        identifier: TAX_REG_REPRESENTATIVE
+      - name: raw_tax_report
+        identifier: TAX_REPORT
+      - name: raw_tax_report_detail
+        identifier: TAX_REPORT_DETAIL
+      - name: raw_tax_report_list
+        identifier: TAX_REPORT_LIST
+      - name: raw_tax_violation_handling
+        identifier: TAX_VIOLATION_HANDLING
+      - name: raw_ttcs_request_tax_code_cache
+        identifier: TTCS_REQUEST_TAX_CODE_CACHE
+      - name: raw_violation_act
+        identifier: VIOLATION_ACT
+
+  - name: source_iam
+    description: "Hệ thống quản lý danh tính và phân quyền (IAM) - nguồn dữ liệu phân hệ IAM"
+    schema: '{{ var("src_iam_schema") }}'
+    tables:
+      - name: raw_groups
+        identifier: GROUPS
+      - name: raw_group_role
+        identifier: GROUP_ROLE
+      - name: raw_module
+        identifier: MODULE
+      - name: raw_permission
+        identifier: PERMISSION
+      - name: raw_permission_dependency
+        identifier: PERMISSION_DEPENDENCY
+      - name: raw_representative_positions
+        identifier: REPRESENTATIVE_POSITIONS
+      - name: raw_resources
+        identifier: RESOURCES
+      - name: raw_role
+        identifier: ROLE
+      - name: raw_role_permission
+        identifier: ROLE_PERMISSION
+      - name: raw_users
+        identifier: USERS
+      - name: raw_user_ext_individual_categories
+        identifier: USER_EXT_INDIVIDUAL_CATEGORIES
+      - name: raw_user_group
+        identifier: USER_GROUP
+      - name: raw_user_object_type
+        identifier: USER_OBJECT_TYPE
+      - name: raw_user_object_type_assignments
+        identifier: USER_OBJECT_TYPE_ASSIGNMENTS
+      - name: raw_user_organization
+        identifier: USER_ORGANIZATION
+      - name: raw_user_positions
+        identifier: USER_POSITIONS
+      - name: raw_user_role
+        identifier: USER_ROLE
+      - name: raw_user_sub_types
+        identifier: USER_SUB_TYPES
+      - name: raw_user_verification_code
+        identifier: USER_VERIFICATION_CODE
+      - name: raw_verification_config
+        identifier: VERIFICATION_CONFIG
+
+  - name: source_hose
+    description: "Hệ thống KRX - Dữ liệu sổ lệnh và sổ khớp HOSE & HNX"
+    schema: '{{ var("src_hose_schema") }}'
+    tables:
+      - name: raw_order_book_hose
+        identifier: order_book
+      - name: raw_trade_book_hose
+        identifier: trade_book
+      - name: raw_listed_securities_list_hose
+        identifier: listed_securities_list
+      - name: raw_share_auction_hose
+        identifier: share_auction
+      - name: raw_listing_status_change_hose
+        identifier: listing_status_change
+      - name: raw_brokerage_market_share_hose
+        identifier: brokerage_market_share
+      - name: raw_mdds_order_book_hose
+        identifier: mdds_order_book
+
+  - name: source_hnx
+    description: "Hệ thống KRX - Dữ liệu sổ lệnh và sổ khớp HOSE & HNX"
+    schema: '{{ var("src_hnx_schema") }}'
+    tables:
+      - name: raw_order_book_hnx
+        identifier: order_book
+      - name: raw_trade_book_hnx
+        identifier: trade_book
+      - name: raw_listed_securities_list_hnx
+        identifier: listed_securities_list
+      - name: raw_private_corp_bond_trading
+        identifier: private_corp_bond_trading
+      - name: raw_share_auction_hnx
+        identifier: share_auction
+      - name: raw_gov_bond_offering
+        identifier: gov_bond_offering
+      - name: raw_gov_bond_listed_list
+        identifier: gov_bond_listed_list
+      - name: raw_gov_bond_additional_listing
+        identifier: gov_bond_additional_listing
+      - name: raw_private_corp_bond_offering
+        identifier: private_corp_bond_offering
+      - name: raw_private_corp_bond_registration
+        identifier: private_corp_bond_registration
+      - name: raw_registration_status_change
+        identifier: registration_status_change
+      - name: raw_listing_status_change_hnx
+        identifier: listing_status_change
+      - name: raw_brokerage_market_share_hnx
+        identifier: brokerage_market_share
+      - name: raw_outright_order_book
+        identifier: outright_order_book
+      - name: raw_repo_order_book
+        identifier: repo_order_book
+      - name: raw_repo2_order_book
+        identifier: repo2_order_book
+      - name: raw_mdds_order_book_hnx
+        identifier: mdds_order_book
+
+  - name: source_uploadfile
+    description: "Hệ thống upload file cấu hình trọng số/ngưỡng cảnh báo (catalog oracle_viettel_2, schema UBCK)"
+    schema: '{{ var("src_uploadfile_schema") }}'
+    tables:
+      - name: raw_weight_config
+        identifier: WEIGHT_CONFIG
+      - name: raw_threshold_config
+        identifier: THRESHOLD_CONFIG
+
+  - name: source_mrms
+    description: "Quản lý rủi ro về thị trường chứng khoán (schema Oracle thật: UAT_MRMS)"
+    schema: '{{ var("src_mrms_schema") }}'
+    tables:
+      - name: raw_risk_indicator_category
+        identifier: RISK_INDICATOR_CATEGORY
+      - name: raw_risk_indicator
+        identifier: RISK_INDICATOR
+      - name: raw_risk_indicator_custom
+        identifier: RISK_INDICATOR_CUSTOM
+      - name: raw_risk_indicator_value
+        identifier: RISK_INDICATOR_VALUE
+      - name: raw_risk_indicator_value_history
+        identifier: RISK_INDICATOR_VALUE_HISTORY
+      - name: raw_risk_indicator_schedule
+        identifier: RISK_INDICATOR_SCHEDULE
+      - name: raw_risk_report_type
+        identifier: RISK_REPORT_TYPE
+      - name: raw_risk_report_upload_batch
+        identifier: RISK_REPORT_UPLOAD_BATCH
+      - name: raw_risk_report_file
+        identifier: RISK_REPORT_FILE
+      - name: raw_risk_alert_config
+        identifier: RISK_ALERT_CONFIG
+      - name: raw_risk_alert
+        identifier: RISK_ALERT
+      - name: raw_risk_alert_resolution
+        identifier: RISK_ALERT_RESOLUTION
+      - name: raw_risk_alert_resolution_file
+        identifier: RISK_ALERT_RESOLUTION_FILE
+      - name: raw_risk_alert_history
+        identifier: RISK_ALERT_HISTORY
+      - name: raw_risk_notification
+        identifier: RISK_NOTIFICATION
+      - name: raw_permission_group
+        identifier: PERMISSION_GROUP
+      - name: raw_permission_group_user
+        identifier: PERMISSION_GROUP_USER
+      - name: raw_permission_group_indicator
+        identifier: PERMISSION_GROUP_INDICATOR
+      - name: raw_risk_indicator_data_permission
+        identifier: RISK_INDICATOR_DATA_PERMISSION
+      - name: raw_risk_market_report
+        identifier: RISK_MARKET_REPORT
+      - name: raw_risk_market_report_file
+        identifier: RISK_MARKET_REPORT_FILE
+      - name: raw_risk_market_report_type
+        identifier: RISK_MARKET_REPORT_TYPE
+      - name: raw_user_table_config
+        identifier: USER_TABLE_CONFIG
+      - name: raw_batch_job_execution
+        identifier: BATCH_JOB_EXECUTION
+      - name: raw_batch_job_execution_context
+        identifier: BATCH_JOB_EXECUTION_CONTEXT
+      - name: raw_batch_job_execution_params
+        identifier: BATCH_JOB_EXECUTION_PARAMS
+      - name: raw_batch_job_instance
+        identifier: BATCH_JOB_INSTANCE
+      - name: raw_batch_step_execution
+        identifier: BATCH_STEP_EXECUTION
+      - name: raw_batch_step_execution_context
+        identifier: BATCH_STEP_EXECUTION_CONTEXT
+      - name: raw_databasechangelog
+        identifier: DATABASECHANGELOG
+      - name: raw_databasechangeloglock
+        identifier: DATABASECHANGELOGLOCK
+      - name: raw_export_file
+        identifier: EXPORT_FILE
+      - name: raw_qrtz_blob_triggers
+        identifier: QRTZ_BLOB_TRIGGERS
+      - name: raw_qrtz_calendars
+        identifier: QRTZ_CALENDARS
+      - name: raw_qrtz_cron_triggers
+        identifier: QRTZ_CRON_TRIGGERS
+      - name: raw_qrtz_fired_triggers
+        identifier: QRTZ_FIRED_TRIGGERS
+      - name: raw_qrtz_job_details
+        identifier: QRTZ_JOB_DETAILS
+      - name: raw_qrtz_locks
+        identifier: QRTZ_LOCKS
+      - name: raw_qrtz_paused_trigger_grps
+        identifier: QRTZ_PAUSED_TRIGGER_GRPS
+      - name: raw_qrtz_scheduler_state
+        identifier: QRTZ_SCHEDULER_STATE
+      - name: raw_qrtz_simple_triggers
+        identifier: QRTZ_SIMPLE_TRIGGERS
+      - name: raw_qrtz_simprop_triggers
+        identifier: QRTZ_SIMPROP_TRIGGERS
+      - name: raw_qrtz_triggers
+        identifier: QRTZ_TRIGGERS
+      - name: raw_risk_indicator_value_intraday
+        identifier: RISK_INDICATOR_VALUE_INTRADAY
+      - name: raw_risk_indicator_watchlist
+        identifier: RISK_INDICATOR_WATCHLIST
+
+  - name: source_fims_bcd
+    description: "Hệ thống cơ sở dữ liệu hệ thống tổng thể - Nguồn dữ liệu phân hệ quản lý giám sát nhà đầu tư nước ngoài - BCD"
+    schema: '{{ var("ods_fims_schema") }}'
+    tables:
+      - name: raw_cl_foreign_investor_reporting_entity
+        identifier: cl_foreign_investor_reporting_entity
+      - name: raw_fir_structure
+        identifier: fir_structure
+      - name: raw_fir_value
+        identifier: fir_value
+      - name: raw_foreign_investor_report
+        identifier: foreign_investor_report
+
+  - name: source_fms_bcd
+    description: "Hệ thống quản lý giám sát công ty quản lý quỹ (FMS) - bảng ODS báo cáo động do Python DAG fms_staging_to_ods ghi (không qua dbt)"
+    schema: '{{ var("ods_fms_schema") }}'
+    tables:
+      - name: raw_item_list
+        identifier: item_list
+      - name: raw_report_history
+        identifier: report_history
+      - name: raw_item_value
+        identifier: item_value
+
+  - name: source_scms_bcd
+    description: "Hệ thống quản lý giám sát công ty chứng khoán (SCMS) - bảng ODS báo cáo động"
+    schema: '{{ var("ods_scms_schema") }}'
+    tables:
+      - name: raw_item_list
+        identifier: item_list
+      - name: raw_report_history
+        identifier: report_history
+      - name: raw_item_value
+        identifier: item_value
+
+  - name: source_atm
+    description: "Hệ thống bảng danh mục khởi tạo trực tiếp tầng Atomic"
+    schema: '{{ var("atm_schema") }}'
+    tables:
+      - name: raw_classification_value
+        identifier: cl_value

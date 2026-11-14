@@ -7,17 +7,11 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-* 2026-10-24		claude (sync)		Đồng bộ LLD commit 576f001c: record_tp lấy từ fmr_submission (RPT_MEMBER) thay cho fmr_value;
-*                                       CTE fmr_submission thêm lọc record_status_code IN ('2','3','5','10') (logic-only, schema không đổi)
-* 2026-10-24		claude (sync)		Đồng bộ LLD commit 7164d9ca (LLD nay lấy kỳ từ fmr_submission, khớp sửa 2026-10-17):
-*                                       rpt_period_end_dt nhận period_val dạng chữ ('T03/2024','Q1/2024') lẫn dạng số ('3','1')
-*                                       qua COALESCE(NULLIF(regexp_extract(...), ''), period_val); thêm kỳ '5' (bán niên) = 30/06.
-*                                       Giữ fallback COALESCE(RPT_MEMBER, RPT_PERIOD).period_tp_code (sửa tay theo BA, LLD chưa ghi)
-* 2026-10-26		claude (sync)		Đồng bộ LLD commit 7c01421d (schema-changing): thêm fund_establishment_license_dt = MIN(identification_issue_dt)
-*                                       ESTABLISHMENT_OPERATION_LICENSE của quỹ (atm_ip_alternative_identification_hstr, src FMS_FUNDS);
-*                                       subquery tương quan LLD -> CTE GROUP BY ip_id + LEFT JOIN theo investment_fund_id
 * 2026-11-02		claude (sync)		Đồng bộ LLD commit ed71223d (O_QLQ_64, schema-changing): thêm fmc_id = fmr_value.fmc_id
 *                                       (hash SEC_ID = SECURITIES.ID) — khóa nối opr_fund_management_company_profile.fmc_id
+* 2026-11-11		claude (sync)		Đồng bộ LLD commit 56eb71c6 (O_QLQ_87, SCHEMA-CHANGING): thêm row_indicator_val_code (string) = giá trị ô cột mã
+*                                       (column_index = 2) cùng dòng biểu mẫu/hàng động/bản nộp; subquery tương quan LLD -> CTE row_indicator
+*                                       GROUP BY + LEFT JOIN. row_index/column_index lấy từ dtm_fund_management_rpt_cell_dim (cùng giá trị atm_fmr_sheet)
 *--------------------------------------------------------------------*
 */
 
@@ -25,6 +19,7 @@ WITH fmr_value AS (
     SELECT
         fmr_val_code,
         fmr_submission_id,
+        fmr_submission_code,
         fmr_sheet_code,
         cell_id,
         investment_fund_id,
@@ -32,6 +27,7 @@ WITH fmr_value AS (
         fmc_id,
         fmc_code,
         foreign_fm_ou_code,
+        dynamic_val_ind,
         dynamic_row_nbr,
         cell_val,
         src_stm_code
@@ -70,7 +66,9 @@ fund_management_rpt_cell AS (
     SELECT
         fund_management_rpt_cell_id,
         fmr_sheet_code,
-        cell_id
+        cell_id,
+        row_index,
+        column_index
     FROM {{ ref('dtm_fund_management_rpt_cell_dim') }}_hstr
     WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
         AND ds_rcrd_st = 'ACTIVE'
@@ -107,6 +105,23 @@ fund_type AS (
     WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
         AND ds_rcrd_st = 'ACTIVE'
         AND src_stm_code = 'FMS_FUND_TYPE'
+),
+
+row_indicator AS (
+    -- Mã chỉ tiêu ghi trong ô cột mã (column_index = 2) của cùng dòng biểu mẫu / hàng động / bản nộp (O_QLQ_87)
+    SELECT
+        fmr_value.fmr_submission_code,
+        fmr_value.fmr_sheet_code,
+        fund_management_rpt_cell.row_index,
+        COALESCE(fmr_value.dynamic_val_ind, 0)                                          AS dynamic_val_ind_key,
+        COALESCE(fmr_value.dynamic_row_nbr, -1)                                         AS dynamic_row_nbr_key,
+        MAX(fmr_value.cell_val)                                                         AS row_indicator_val_code
+    FROM fmr_value
+    INNER JOIN fund_management_rpt_cell
+        ON fund_management_rpt_cell.fmr_sheet_code = fmr_value.fmr_sheet_code
+        AND fund_management_rpt_cell.cell_id = fmr_value.cell_id
+    WHERE fund_management_rpt_cell.column_index = 2
+    GROUP BY 1, 2, 3, 4, 5
 ),
 
 fmr_submission_period AS (
@@ -152,9 +167,13 @@ SELECT
     CAST(fund_management_rpt_cell.fund_management_rpt_cell_id AS string)                           AS fund_management_rpt_cell_id,
     CAST(fund_type.fund_type_id AS string)                                                         AS fund_type_id,
     CAST(investment_fund.open_fund_tp_code AS string)                                              AS open_fund_tp_code,
+<<<<<<< Updated upstream
     CAST(establishment_license.identification_issue_dt AS date)                                    AS fund_establishment_license_dt,
     CAST(fmr_value_period.fmr_val_code AS string)                                                  AS fmr_val_code,
     CAST(fmr_value_period.fmc_id AS string)                                                        AS fmc_id,
+=======
+    CAST(fmr_value_period.fmr_val_code AS string)                                                  AS fmr_val_code,
+>>>>>>> Stashed changes
     CAST(fmr_value_period.fmc_code AS string)                                                      AS fmc_code,
     CAST(fmr_value_period.investment_fund_code AS string)                                          AS investment_fund_code,
     CAST(fmr_value_period.securities_distribution_agent_code AS string)                            AS securities_distribution_agent_code,
@@ -167,11 +186,22 @@ SELECT
     CAST(fmr_value_period.submitted_dt AS date)                                                    AS submitted_dt,
     CAST(fmr_value_period.cell_val AS string)                                                      AS cell_val,
     try_cast(regexp_replace(CAST(fmr_value_period.cell_val AS string), '%', '') AS decimal(38,10)) AS cell_numeric_val,
+<<<<<<< Updated upstream
+    CAST(fmr_value_period.src_stm_code AS string)                                                  AS src_stm_code,
+    CAST(row_indicator.row_indicator_val_code AS string)                                           AS row_indicator_val_code
+=======
     CAST(fmr_value_period.src_stm_code AS string)                                                  AS src_stm_code
+>>>>>>> Stashed changes
 FROM fmr_value_period
 LEFT JOIN fund_management_rpt_cell
     ON fund_management_rpt_cell.fmr_sheet_code = fmr_value_period.fmr_sheet_code
     AND fund_management_rpt_cell.cell_id = fmr_value_period.cell_id
+LEFT JOIN row_indicator
+    ON row_indicator.fmr_submission_code = fmr_value_period.fmr_submission_code
+    AND row_indicator.fmr_sheet_code = fmr_value_period.fmr_sheet_code
+    AND row_indicator.row_index = fund_management_rpt_cell.row_index
+    AND row_indicator.dynamic_val_ind_key = COALESCE(fmr_value_period.dynamic_val_ind, 0)
+    AND row_indicator.dynamic_row_nbr_key = COALESCE(fmr_value_period.dynamic_row_nbr, -1)
 LEFT JOIN investment_fund
     ON investment_fund.investment_fund_id = fmr_value_period.investment_fund_id
 LEFT JOIN establishment_license

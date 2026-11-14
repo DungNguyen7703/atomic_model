@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Bo sung STG theo UAT_TMS_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo TMS_ddl_prod.sql, brd_TMS.yaml va khao sat du lieu nguon prod: kieu int sang bigint (2 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -16,8 +17,8 @@ SELECT
     , CAST(template_id AS string)     AS template_id
     , CAST(attribute_id AS string)    AS attribute_id
     , CAST(sort_direction AS string)  AS sort_direction
-    , CAST(sort_priority AS int)      AS sort_priority
-    , CAST(result_limit AS int)       AS result_limit
+    , CAST(sort_priority AS bigint)   AS sort_priority
+    , CAST(result_limit AS bigint)    AS result_limit
     , CAST(note AS string)            AS note
     , CAST(created_at AS timestamp)   AS created_at
     , CAST(updated_at AS timestamp)   AS updated_at

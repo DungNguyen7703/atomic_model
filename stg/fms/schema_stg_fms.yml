@@ -148,8 +148,8 @@ models:
     description: "Staging model của bảng FMS.BANK_EMPLOY_HISTORY"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["date_created"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'bank_employ_history'
@@ -161,8 +161,8 @@ models:
     description: "Staging model của bảng FMS.BANK_HISTORY"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["date_created"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'bank_history'
@@ -343,8 +343,8 @@ models:
     description: "Staging model của bảng FMS.DISTRIBUTOR_AGENT_HISTORY"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["date_created"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'distributor_agent_history'
@@ -395,7 +395,8 @@ models:
     description: "Staging model của bảng FMS.DT_SC_AGENCY"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'dt_sc_agency'
@@ -407,7 +408,8 @@ models:
     description: "Staging model của bảng FMS.DT_SC_AUDIT_FIRM"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'dt_sc_audit_firm'
@@ -419,7 +421,8 @@ models:
     description: "Staging model của bảng FMS.DT_SC_BMN"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'dt_sc_bmn'
@@ -431,7 +434,8 @@ models:
     description: "Staging model của bảng FMS.DT_SC_DISTRIBUTOR_AGENT"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'dt_sc_distributor_agent'
@@ -443,7 +447,8 @@ models:
     description: "Staging model của bảng FMS.DT_SC_FND"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'dt_sc_fnd'
@@ -455,7 +460,8 @@ models:
     description: "Staging model của bảng FMS.DT_SC_FR"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'dt_sc_fr'
@@ -467,7 +473,8 @@ models:
     description: "Staging model của bảng FMS.DT_SC_OTHER_AGENT"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'dt_sc_other_agent'
@@ -479,7 +486,8 @@ models:
     description: "Staging model của bảng FMS.DT_SC_PENSION_AGENT"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'dt_sc_pension_agent'
@@ -491,7 +499,8 @@ models:
     description: "Staging model của bảng FMS.DT_SC_PENSION_FUND"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'dt_sc_pension_fund'
@@ -503,7 +512,8 @@ models:
     description: "Staging model của bảng FMS.DT_SC_PENSION_PROVIDER"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'dt_sc_pension_provider'
@@ -515,7 +525,8 @@ models:
     description: "Staging model của bảng FMS.DT_SC_SEC"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'dt_sc_sec'
@@ -527,7 +538,8 @@ models:
     description: "Staging model của bảng FMS.DT_SC_TRANSFER_AGENT"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'dt_sc_transfer_agent'
@@ -539,7 +551,8 @@ models:
     description: "Staging model của bảng FMS.DT_SCOPE"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'dt_scope'
@@ -1188,8 +1201,8 @@ models:
     description: "Staging model của bảng FMS.OTHER_AGENT_HISTORY"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["date_created"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'other_agent_history'
@@ -1240,8 +1253,8 @@ models:
     description: "Staging model của bảng FMS.PENSION_AGENT_HISTORY"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["date_created"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'pension_agent_history'
@@ -1279,8 +1292,8 @@ models:
     description: "Staging model của bảng FMS.PENSION_PROVIDER_HISTORY"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["date_created"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'pension_provider_history'
@@ -1409,8 +1422,8 @@ models:
     description: "Staging model của bảng FMS.RNK_FACT_HISTORY"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["date_created"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'rnk_fact_history'
@@ -1773,8 +1786,8 @@ models:
     description: "Staging model của bảng FMS.STF_FG_BRCH_HISTORY"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["date_created"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'stf_fg_brch_history'
@@ -1916,8 +1929,8 @@ models:
     description: "Staging model của bảng FMS.TRANSFER_AGENT_HISTORY"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["date_created"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'transfer_agent_history'
@@ -1968,7 +1981,8 @@ models:
     description: "Staging model của bảng FMS.USER_RPT_I"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'user_rpt_i'
@@ -1980,7 +1994,8 @@ models:
     description: "Staging model của bảng FMS.USER_RPT_O"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'user_rpt_o'
@@ -2005,7 +2020,8 @@ models:
     description: "Staging model của bảng FMS.USERS"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'users'
@@ -2056,8 +2072,8 @@ models:
     description: "Staging model của bảng FMS.AGENT_ID_UNIFY_AUDIT"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["date_created"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'agent_id_unify_audit'
@@ -2082,8 +2098,8 @@ models:
     description: "Staging model của bảng FMS.DISTRIBUTOR_PERSONNEL_HISTORY"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["date_created"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'distributor_personnel_history'
@@ -2173,8 +2189,8 @@ models:
     description: "Staging model của bảng FMS.PENSION_FUND_HISTORY"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["date_created"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_fms_schema") }}'
       alias: 'pension_fund_history'

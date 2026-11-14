@@ -7,7 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo ECAT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: kieu string sang int (1 cot); kieu int sang decimal(22,0) (1 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -24,7 +24,7 @@ SELECT
     , CAST(active_reason AS string)           AS active_reason
     , CAST(deleted AS int)                    AS deleted
     , CAST(deleted_reason AS string)          AS deleted_reason
-    , CAST(version AS string)                 AS version
+    , CAST(version AS int)                    AS version
     , CAST(effective_start_date AS timestamp) AS effective_start_date
     , CAST(effective_end_date AS timestamp)   AS effective_end_date
     , CAST(old_id AS string)                  AS old_id
@@ -36,5 +36,5 @@ SELECT
     , CAST(updated_by_name AS string)         AS updated_by_name
     , CAST(stable_id AS string)               AS stable_id
     , CAST(province_new_version_id AS string) AS province_new_version_id
-    , CAST(id_sync AS int)                    AS id_sync
+    , CAST(id_sync AS decimal(22,0))          AS id_sync
 FROM {{ source('source_ecat', 'raw_ward_new') }}

@@ -7,22 +7,22 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo brd_FMS.yaml va khao sat du lieu nguon prod: kieu date sang timestamp (4 cot); kieu decimal(38,0) sang int (2 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
     HEX(id)                              AS id
-    , CAST(date_created AS date)         AS date_created
+    , CAST(date_created AS timestamp)    AS date_created
     , CAST(created_by AS string)         AS created_by
-    , CAST(date_modified AS date)        AS date_modified
+    , CAST(date_modified AS timestamp)   AS date_modified
     , CAST(modify_by AS string)          AS modify_by
     , HEX(prd_id)                        AS prd_id
     , CAST(rpt_name AS string)           AS rpt_name
     , CAST(report_type AS decimal(18,2)) AS report_type
     , CAST(record_status AS bigint)      AS record_status
     , CAST(imported AS int)              AS imported
-    , CAST(date_submitted AS date)       AS date_submitted
+    , CAST(date_submitted AS timestamp)  AS date_submitted
     , CAST(file_data AS string)          AS file_data          -- NCLOB: du lieu file dinh kem, khong dung cho BI, de NULL tranh nang
     , CAST(content_summary AS string)    AS content_summary
     , CAST(note AS string)               AS note
@@ -30,15 +30,15 @@ SELECT
     , HEX(fnd_id)                        AS fnd_id
     , HEX(fr_br_id)                      AS fr_br_id
     , HEX(sec_id)                        AS sec_id
-    , CAST(record_type AS decimal(38,0)) AS record_type
+    , CAST(record_type AS int)           AS record_type
     , CAST(file_import AS string)        AS file_import        -- NCLOB: du lieu file import bao cao, khong dung cho BI, de NULL tranh nang
-    , CAST(day_report AS date)           AS day_report
+    , CAST(day_report AS timestamp)      AS day_report
     , CAST(period_value AS string)       AS period_value
     , CAST(year_value AS decimal(18,2))  AS year_value
     , HEX(rpt_id)                        AS rpt_id
     , CAST(deleted AS int)               AS deleted
     , CAST(id_db_old AS string)          AS id_db_old
-    , CAST(period_type AS decimal(38,0)) AS period_type
+    , CAST(period_type AS int)           AS period_type
     , HEX(distributor_id)                AS distributor_id
     , HEX(transfer_agent_id)             AS transfer_agent_id
     , HEX(pension_agent_id)              AS pension_agent_id

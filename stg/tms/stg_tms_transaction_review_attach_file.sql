@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Bo sung STG theo UAT_TMS_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo TMS_ddl_prod.sql, brd_TMS.yaml va khao sat du lieu nguon prod: kieu int sang bigint (1 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -18,7 +19,7 @@ SELECT
     , CAST(file_path AS string)             AS file_path
     , CAST(file_size AS decimal(19,0))      AS file_size
     , CAST(file_type AS string)             AS file_type
-    , CAST(file_group AS int)               AS file_group
+    , CAST(file_group AS bigint)            AS file_group
     , CAST(created_at AS timestamp)         AS created_at
     , CAST(updated_at AS timestamp)         AS updated_at
     , CAST(created_by_id AS string)         AS created_by_id

@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo GMS_AUDIT_UAT_schema.
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo AUDIT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: kieu int sang decimal(38,10) (1 cot); kieu date sang timestamp (2 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -25,10 +26,10 @@ SELECT
     , CAST(violation_trigger_point_cd AS string)    AS violation_trigger_point_cd
     , CAST(offset_days AS int)                      AS offset_days
     , CAST(violation_trigger_point_cd_ex AS string) AS violation_trigger_point_cd_ex
-    , CAST(offset_days_ex AS int)                   AS offset_days_ex
+    , CAST(offset_days_ex AS decimal(38,10))        AS offset_days_ex
     , CAST(day_type_cd AS string)                   AS day_type_cd
-    , CAST(effective_start_date AS date)            AS effective_start_date
-    , CAST(effective_end_date AS date)              AS effective_end_date
+    , CAST(effective_start_date AS timestamp)       AS effective_start_date
+    , CAST(effective_end_date AS timestamp)         AS effective_end_date
     , CAST(active_flg AS int)                       AS active_flg
     , CAST(delete_flg AS int)                       AS delete_flg
     , CAST(offset_days_condition AS int)            AS offset_days_condition

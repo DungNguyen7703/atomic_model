@@ -9,7 +9,6 @@
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		Cap nhat cot theo SCMS_UAT_schema.
 * 2026-11-02		tuan.nguyenvanb		Dong bo theo DDL production SCMS_ddl_prod.sql: kieu int sang bigint (7 cot).
-* 2026-11-03		tuan.nguyenvanb		Chinh kieu theo ket qua profiling du lieu nguon SCMS_NEW: int sang decimal(38,10): default_value.
 *--------------------------------------------------------------------*
 */
 
@@ -21,7 +20,7 @@ SELECT
     , CAST(legal_reference AS string)               AS legal_reference
     , CAST(severity_level AS int)                   AS severity_level
     , CAST(note AS string)                          AS note
-    , CAST(default_value AS decimal(38,10))                    AS default_value
+    , CAST(default_value AS int)                    AS default_value
     , CAST(created_by AS bigint)                    AS created_by
     , CAST(created_at AS timestamp)                 AS created_at
     , CAST(last_modified_by AS bigint)              AS last_modified_by

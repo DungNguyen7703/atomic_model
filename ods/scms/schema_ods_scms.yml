@@ -607,3 +607,15 @@ models:
       tags:
         - layer_ods
         - domain_scms
+
+  - name: ods_scms_disclosure_securities_offering_item
+    description: "ODS model của bảng SCMS.DISCLOSURE_SECURITIES_OFFERING - các item parse từ result_json"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'disclosure_securities_offering_item'
+      tags:
+        - layer_ods
+        - domain_scms

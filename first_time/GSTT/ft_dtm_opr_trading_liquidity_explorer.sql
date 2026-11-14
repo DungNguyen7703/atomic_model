@@ -40,26 +40,42 @@
 *                                       co phieu UPX,STX,STK,STO; board G1,G2,G3,G6,G7,G8 / T1,T2,T3,T6,R1 / G4 / T4) va 8 cot cap ro idx_round_lot_*, idx_odd_lot_* (SUM cac ma thanh vien ro).
 *                                       idx_market_cap, idx_free_float_market_cap, idx_pe, idx_pb, prior_market_cap, net_profit_after_tax_ttm nay theo gia tinh von hoa moi va quy tac ky LNST nam/quy
 *                                       (da nam trong Fact Stock Portfolio va Fact Index Constituent). Bang vat ly can ALTER ADD COLUMN (scd4a: khong can dung vi tri).
+* 2026-11-09		tuan.nguyenvanb		[TOI UU, chi ban first_time, khong doi logic/cot] (1) st_all, mi_all: row_number + rn = 1 -> max_by + GROUP BY (khong sort ca bang snapshot/chi so theo phut);
+*                                       (2) se_tr/cat: gom truoc theo (ma, ngay, so tai khoan mua/ban) roi moi join inv_acc (chi TK loai 3 va 5), cac cot tong/khop/thoa thuan/lo chan-le tinh thang -
+*                                       cat giu nguyen ten cot, ket qua tuong duong (doi chieu tren du lieu mau, ke ca TK/ma/KL NULL).
 */
 
 WITH st_all AS (
+    -- [TOI UU 2026-11-09, chi ban first_time] Thay row_number() over (partition by ticker_symbol, ds_snpst_dt order by trading_time desc, sequence desc) + rn = 1
+    -- bang max_by(struct(...), struct(trading_time, sequence)) + GROUP BY: van lay dong co (trading_time, sequence) lon nhat moi (ma, ngay) nhung la hash aggregate
+    -- (gop truoc khi shuffle) thay vi sort toan bo bang snapshot theo phut ca nam. Cot rn = 1 giu lai de CTE st khong phai doi.
     SELECT
-        ticker_symbol AS symbol,
-        ds_snpst_dt AS trade_dt,
-        floor_code,
-        isin_code,
-        reference_price,
-        close_price,
-        open_price,
-        high_price,
-        low_price,
-        price_change,
-        first_trading_dt,
-        listed_share_count,
-        src_stm_code,
-        row_number() over (partition by ticker_symbol, ds_snpst_dt order by trading_time desc, sequence desc) AS rn
-    FROM {{ ft_ref('ft_atm_security_trading_snapshot') }}
-    WHERE src_stm_code = 'MDDS_JAD_STOCKINFOR'
+        t.ticker_symbol AS symbol,
+        t.ds_snpst_dt AS trade_dt,
+        t.latest.floor_code AS floor_code,
+        t.latest.isin_code AS isin_code,
+        t.latest.reference_price AS reference_price,
+        t.latest.close_price AS close_price,
+        t.latest.open_price AS open_price,
+        t.latest.high_price AS high_price,
+        t.latest.low_price AS low_price,
+        t.latest.price_change AS price_change,
+        t.latest.first_trading_dt AS first_trading_dt,
+        t.latest.listed_share_count AS listed_share_count,
+        t.latest.src_stm_code AS src_stm_code,
+        1 AS rn
+    FROM (
+        SELECT
+            ticker_symbol,
+            ds_snpst_dt,
+            max_by(
+                struct(floor_code, isin_code, reference_price, close_price, open_price, high_price, low_price, price_change, first_trading_dt, listed_share_count, src_stm_code),
+                struct(trading_time, sequence)
+            ) AS latest
+        FROM {{ ft_ref('ft_atm_security_trading_snapshot') }}
+        WHERE src_stm_code = 'MDDS_JAD_STOCKINFOR'
+        GROUP BY ticker_symbol, ds_snpst_dt
+    ) t
 ),
 
 st AS (
@@ -130,60 +146,25 @@ inv_acc AS (
 -- [SUA 2026-10-22, O_GSTT_77] Tong hop so lenh theo ma (security_symbol_code) trong ngay, TINH TRUC TIEP tu securities_trade (khong tai su dung Fact
 -- vi Fact chi gom Market ID UPX,STX,STK,STO): them DVX (phai sinh) va HCX (TPDN rieng le). Phan loai NDT loai tru nhau theo thu tu uu tien
 -- Nuoc ngoai (F,E) -> Tu doanh (P) -> Ca nhan (tp=3) -> To chuc (tp=5); Ca nhan/To chuc chi khi ky tu thu 4 NOT IN (F,E,P) (O_GSTT_75).
-se_tr AS (
-    SELECT
-        st.security_symbol_code,
-        st.market_id_code,
-        st.board_tp_code,
-        st.trade_dt,
-        st.execution_vol,
-        st.execution_val,
-        CASE WHEN st.board_tp_code NOT IN ('T1','T2','T3','T4','T6','R1') THEN 1 ELSE 0 END AS is_matched,
-        CASE WHEN st.board_tp_code IN ('T1','T2','T3','T4','T6','R1') THEN 1 ELSE 0 END AS is_negotiated,
-        CASE WHEN SUBSTR(st.buy_account_nbr, 4, 1) IN ('F','E') THEN 1 ELSE 0 END AS buy_is_nn,
-        CASE WHEN SUBSTR(st.buy_account_nbr, 4, 1) IN ('P','E') THEN 1 ELSE 0 END AS buy_is_td,
-        CASE WHEN ia_buy.investor_tp_code = 3 THEN 1 ELSE 0 END AS buy_is_cn,
-        CASE WHEN ia_buy.investor_tp_code = 5 THEN 1 ELSE 0 END AS buy_is_tc,
-        CASE WHEN SUBSTR(st.sell_account_nbr, 4, 1) IN ('F','E') THEN 1 ELSE 0 END AS sell_is_nn,
-        CASE WHEN SUBSTR(st.sell_account_nbr, 4, 1) IN ('P','E') THEN 1 ELSE 0 END AS sell_is_td,
-        CASE WHEN ia_sell.investor_tp_code = 3 THEN 1 ELSE 0 END AS sell_is_cn,
-        CASE WHEN ia_sell.investor_tp_code = 5 THEN 1 ELSE 0 END AS sell_is_tc
-    FROM {{ ft_ref('ft_atm_securities_trade') }} st
-    LEFT JOIN inv_acc ia_buy
-        ON ia_buy.investor_account_nbr = st.buy_account_nbr
-    LEFT JOIN inv_acc ia_sell
-        ON ia_sell.investor_account_nbr = st.sell_account_nbr
-    WHERE st.market_id_code IN ('UPX','STX','STK','STO','DVX','HCX')
-        AND st.src_stm_code IN ('ORDERTRADE_TRADE_BOOK_HOSE','ORDERTRADE_TRADE_BOOK_HNX')
+-- [TOI UU 2026-11-09, chi ban first_time] Truoc day moi dong khop lenh (ca nam) LEFT JOIN inv_acc 2 lan (mua, ban) roi moi gom theo (ma, ngay) -> shuffle rat lon.
+-- Doi sang: (1) gom truoc theo (ma, ngay, so tai khoan mua) / (ma, ngay, so tai khoan ban) roi moi join inv_acc (chi 2 loai investor_tp_code 3 va 5 duoc dung) - cong don khong doi
+-- (SUM(co * vol) = co * SUM(vol), co chi phu thuoc so tai khoan); (2) cac cot tong/khop/thoa thuan/lo chan-le tinh thang tu bang giao dich, khong can join. cat giu NGUYEN ten cot.
+inv_acc_tp AS (
+    SELECT investor_account_nbr, investor_tp_code
+    FROM inv_acc
+    WHERE investor_tp_code IN (3, 5)
 ),
 
-cat AS (
+se_tr_tot AS (
     SELECT
         security_symbol_code,
         trade_dt,
         SUM(execution_vol) AS total_vol,
         SUM(execution_val) AS total_val,
-        SUM(is_matched * execution_vol) AS total_matched_vol,
-        SUM(is_matched * execution_val) AS total_matched_val,
-        SUM(is_negotiated * execution_vol) AS total_negotiated_vol,
-        SUM(is_negotiated * execution_val) AS total_negotiated_val,
-        SUM(buy_is_nn * execution_vol) AS foreign_buy_vol,
-        SUM(buy_is_nn * execution_val) AS foreign_buy_val,
-        SUM(sell_is_nn * execution_vol) AS foreign_sell_vol,
-        SUM(sell_is_nn * execution_val) AS foreign_sell_val,
-        SUM(buy_is_td * execution_vol) AS proprietary_buy_vol,
-        SUM(buy_is_td * execution_val) AS proprietary_buy_val,
-        SUM(sell_is_td * execution_vol) AS proprietary_sell_vol,
-        SUM(sell_is_td * execution_val) AS proprietary_sell_val,
-        SUM(buy_is_cn * execution_val) AS domestic_individual_buy_val,
-        SUM(buy_is_cn * execution_vol) AS domestic_individual_buy_vol,
-        SUM(sell_is_cn * execution_val) AS domestic_individual_sell_val,
-        SUM(sell_is_cn * execution_vol) AS domestic_individual_sell_vol,
-        SUM(buy_is_tc * execution_val) AS domestic_institution_buy_val,
-        SUM(buy_is_tc * execution_vol) AS domestic_institution_buy_vol,
-        SUM(sell_is_tc * execution_val) AS domestic_institution_sell_val,
-        SUM(sell_is_tc * execution_vol) AS domestic_institution_sell_vol,
-        -- [MOI 2026-11-02, LLD v4.58, O_GSTT_78] Lo chan / lo le cap ma (co phieu/CCQ), NULL neu khong co giao dich thuoc nhom do
+        SUM((CASE WHEN board_tp_code NOT IN ('T1','T2','T3','T4','T6','R1') THEN 1 ELSE 0 END) * execution_vol) AS total_matched_vol,
+        SUM((CASE WHEN board_tp_code NOT IN ('T1','T2','T3','T4','T6','R1') THEN 1 ELSE 0 END) * execution_val) AS total_matched_val,
+        SUM((CASE WHEN board_tp_code IN ('T1','T2','T3','T4','T6','R1') THEN 1 ELSE 0 END) * execution_vol) AS total_negotiated_vol,
+        SUM((CASE WHEN board_tp_code IN ('T1','T2','T3','T4','T6','R1') THEN 1 ELSE 0 END) * execution_val) AS total_negotiated_val,
         SUM(CASE WHEN market_id_code IN ('UPX','STX','STK','STO') AND board_tp_code IN ('G1','G2','G3','G6','G7','G8') THEN execution_vol END) AS round_lot_matched_vol,
         SUM(CASE WHEN market_id_code IN ('UPX','STX','STK','STO') AND board_tp_code IN ('G1','G2','G3','G6','G7','G8') THEN execution_val END) AS round_lot_matched_val,
         SUM(CASE WHEN market_id_code IN ('UPX','STX','STK','STO') AND board_tp_code IN ('T1','T2','T3','T6','R1') THEN execution_vol END) AS round_lot_negotiated_vol,
@@ -192,8 +173,131 @@ cat AS (
         SUM(CASE WHEN market_id_code IN ('UPX','STX','STK','STO') AND board_tp_code IN ('G4') THEN execution_val END) AS odd_lot_matched_val,
         SUM(CASE WHEN market_id_code IN ('UPX','STX','STK','STO') AND board_tp_code IN ('T4') THEN execution_vol END) AS odd_lot_negotiated_vol,
         SUM(CASE WHEN market_id_code IN ('UPX','STX','STK','STO') AND board_tp_code IN ('T4') THEN execution_val END) AS odd_lot_negotiated_val
-    FROM se_tr
+    FROM {{ ft_ref('ft_atm_securities_trade') }}
+    WHERE market_id_code IN ('UPX','STX','STK','STO','DVX','HCX')
+        AND src_stm_code IN ('ORDERTRADE_TRADE_BOOK_HOSE','ORDERTRADE_TRADE_BOOK_HNX')
     GROUP BY security_symbol_code, trade_dt
+),
+
+se_tr_buy_grp AS (
+    SELECT security_symbol_code, trade_dt, buy_account_nbr AS acc, SUM(execution_vol) AS vol, SUM(execution_val) AS val
+    FROM {{ ft_ref('ft_atm_securities_trade') }}
+    WHERE market_id_code IN ('UPX','STX','STK','STO','DVX','HCX')
+        AND src_stm_code IN ('ORDERTRADE_TRADE_BOOK_HOSE','ORDERTRADE_TRADE_BOOK_HNX')
+    GROUP BY security_symbol_code, trade_dt, buy_account_nbr
+),
+
+se_tr_buy_cls AS (
+    SELECT
+        g.security_symbol_code,
+        g.trade_dt,
+        g.vol,
+        g.val,
+        CASE WHEN SUBSTR(g.acc, 4, 1) IN ('F','E') THEN 1 ELSE 0 END AS is_nn,
+        CASE WHEN SUBSTR(g.acc, 4, 1) IN ('P','E') THEN 1 ELSE 0 END AS is_td,
+        CASE WHEN tp.investor_tp_code = 3 THEN 1 ELSE 0 END AS is_cn,
+        CASE WHEN tp.investor_tp_code = 5 THEN 1 ELSE 0 END AS is_tc
+    FROM se_tr_buy_grp g
+    LEFT JOIN inv_acc_tp tp
+        ON  tp.investor_account_nbr = g.acc
+),
+
+se_tr_buy_cat AS (
+    SELECT
+        security_symbol_code,
+        trade_dt,
+        SUM(is_nn * vol) AS foreign_buy_vol,
+        SUM(is_nn * val) AS foreign_buy_val,
+        SUM(is_td * vol) AS proprietary_buy_vol,
+        SUM(is_td * val) AS proprietary_buy_val,
+        SUM(is_cn * val) AS domestic_individual_buy_val,
+        SUM(is_cn * vol) AS domestic_individual_buy_vol,
+        SUM(is_tc * val) AS domestic_institution_buy_val,
+        SUM(is_tc * vol) AS domestic_institution_buy_vol
+    FROM se_tr_buy_cls
+    GROUP BY security_symbol_code, trade_dt
+),
+
+se_tr_sell_grp AS (
+    SELECT security_symbol_code, trade_dt, sell_account_nbr AS acc, SUM(execution_vol) AS vol, SUM(execution_val) AS val
+    FROM {{ ft_ref('ft_atm_securities_trade') }}
+    WHERE market_id_code IN ('UPX','STX','STK','STO','DVX','HCX')
+        AND src_stm_code IN ('ORDERTRADE_TRADE_BOOK_HOSE','ORDERTRADE_TRADE_BOOK_HNX')
+    GROUP BY security_symbol_code, trade_dt, sell_account_nbr
+),
+
+se_tr_sell_cls AS (
+    SELECT
+        g.security_symbol_code,
+        g.trade_dt,
+        g.vol,
+        g.val,
+        CASE WHEN SUBSTR(g.acc, 4, 1) IN ('F','E') THEN 1 ELSE 0 END AS is_nn,
+        CASE WHEN SUBSTR(g.acc, 4, 1) IN ('P','E') THEN 1 ELSE 0 END AS is_td,
+        CASE WHEN tp.investor_tp_code = 3 THEN 1 ELSE 0 END AS is_cn,
+        CASE WHEN tp.investor_tp_code = 5 THEN 1 ELSE 0 END AS is_tc
+    FROM se_tr_sell_grp g
+    LEFT JOIN inv_acc_tp tp
+        ON  tp.investor_account_nbr = g.acc
+),
+
+se_tr_sell_cat AS (
+    SELECT
+        security_symbol_code,
+        trade_dt,
+        SUM(is_nn * vol) AS foreign_sell_vol,
+        SUM(is_nn * val) AS foreign_sell_val,
+        SUM(is_td * vol) AS proprietary_sell_vol,
+        SUM(is_td * val) AS proprietary_sell_val,
+        SUM(is_cn * val) AS domestic_individual_sell_val,
+        SUM(is_cn * vol) AS domestic_individual_sell_vol,
+        SUM(is_tc * val) AS domestic_institution_sell_val,
+        SUM(is_tc * vol) AS domestic_institution_sell_vol
+    FROM se_tr_sell_cls
+    GROUP BY security_symbol_code, trade_dt
+),
+
+cat AS (
+    SELECT
+        tot.security_symbol_code,
+        tot.trade_dt,
+        tot.total_vol,
+        tot.total_val,
+        tot.total_matched_vol,
+        tot.total_matched_val,
+        tot.total_negotiated_vol,
+        tot.total_negotiated_val,
+        b.foreign_buy_vol,
+        b.foreign_buy_val,
+        sl.foreign_sell_vol,
+        sl.foreign_sell_val,
+        b.proprietary_buy_vol,
+        b.proprietary_buy_val,
+        sl.proprietary_sell_vol,
+        sl.proprietary_sell_val,
+        b.domestic_individual_buy_val,
+        b.domestic_individual_buy_vol,
+        sl.domestic_individual_sell_val,
+        sl.domestic_individual_sell_vol,
+        b.domestic_institution_buy_val,
+        b.domestic_institution_buy_vol,
+        sl.domestic_institution_sell_val,
+        sl.domestic_institution_sell_vol,
+        tot.round_lot_matched_vol,
+        tot.round_lot_matched_val,
+        tot.round_lot_negotiated_vol,
+        tot.round_lot_negotiated_val,
+        tot.odd_lot_matched_vol,
+        tot.odd_lot_matched_val,
+        tot.odd_lot_negotiated_vol,
+        tot.odd_lot_negotiated_val
+    FROM se_tr_tot tot
+    LEFT JOIN se_tr_buy_cat b
+        ON  b.security_symbol_code = tot.security_symbol_code
+        AND b.trade_dt = tot.trade_dt
+    LEFT JOIN se_tr_sell_cat sl
+        ON  sl.security_symbol_code = tot.security_symbol_code
+        AND sl.trade_dt = tot.trade_dt
 ),
 
 -- 1 dong / (ro, ma, ngay) - csidxinfor co the co nhieu ban tin cho cung 1 thanh vien
@@ -265,22 +369,34 @@ idx_cat AS (
 
 -- Diem chi so ban tin cuoi ngay (cap chi so x ngay)
 mi_all AS (
+    -- [TOI UU 2026-11-09, chi ban first_time] row_number() over (partition by market_code, trading_dt order by index_time desc, sequence desc) + rn = 1
+    -- thay bang max_by(struct(...), struct(index_time, sequence)) + GROUP BY (hash aggregate, khong sort ca bang chi so theo phut). Ket qua tuong duong.
     SELECT
-        market_code,
-        trading_dt AS dt,
-        market_index_val,
-        index_change,
-        index_percent_change,
-        prior_index,
-        advances_count,
-        declines_count,
-        no_change_count,
-        ceiling_count,
-        floor_count,
-        index_nm,
-        row_number() over (partition by market_code, trading_dt order by index_time desc, sequence desc) AS rn
-    FROM {{ ft_ref('ft_atm_market_index_snapshot') }}
-    WHERE src_stm_code = 'MDDS_JAD_MARKETINFOR'
+        t.market_code,
+        t.trading_dt AS dt,
+        t.latest.market_index_val AS market_index_val,
+        t.latest.index_change AS index_change,
+        t.latest.index_percent_change AS index_percent_change,
+        t.latest.prior_index AS prior_index,
+        t.latest.advances_count AS advances_count,
+        t.latest.declines_count AS declines_count,
+        t.latest.no_change_count AS no_change_count,
+        t.latest.ceiling_count AS ceiling_count,
+        t.latest.floor_count AS floor_count,
+        t.latest.index_nm AS index_nm,
+        1 AS rn
+    FROM (
+        SELECT
+            market_code,
+            trading_dt,
+            max_by(
+                struct(market_index_val, index_change, index_percent_change, prior_index, advances_count, declines_count, no_change_count, ceiling_count, floor_count, index_nm),
+                struct(index_time, sequence)
+            ) AS latest
+        FROM {{ ft_ref('ft_atm_market_index_snapshot') }}
+        WHERE src_stm_code = 'MDDS_JAD_MARKETINFOR'
+        GROUP BY market_code, trading_dt
+    ) t
 ),
 
 mi AS (

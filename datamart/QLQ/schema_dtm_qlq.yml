@@ -40,6 +40,19 @@ models:
         - layer_datamart
         - domain_qlq
 
+  - name: dtm_fct_fund_management_company_rating_snpst
+    description: "Datamart model của bảng Fact Fund Management Company Rating Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_fund_management_company_rating_snpst'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
   - name: dtm_fct_investment_fund_count_snpst
     description: "Datamart model của bảng Fact Investment Fund Count Snapshot"
     config:
@@ -75,6 +88,19 @@ models:
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("dtm_schema") }}'
       alias: 'opr_fund_distribution_agent_fund_list'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_opr_foreign_fund_management_representative_office_profile
+    description: "Datamart model của bảng Foreign Fund Management Representative Office Profile"
+    config:
+      materialized: scd4a
+      unique_key: ["foreign_fund_management_organization_unit_code"]
+      source_system: ["FMS_FOR_BRCH"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_foreign_fund_management_representative_office_profile'
       tags:
         - layer_datamart
         - domain_qlq
@@ -326,11 +352,24 @@ models:
         - layer_datamart
         - domain_qlq
 
+  - name: dtm_opr_fund_management_company_contract_asset_list
+    description: "Datamart model của bảng Opr Fund Management Company Contract Asset List"
+    config:
+      materialized: scd4a
+      unique_key: ["fmr_submission_code", "table_idx", "asset_indicator_code"]
+      source_system: ["FMS_RPT_VALUES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_fund_management_company_contract_asset_list'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
   - name: dtm_opr_foreign_fund_management_organization_unit_contract_list
     description: "Datamart model của bảng Opr Foreign Fund Management Organization Unit Contract List"
     config:
       materialized: scd4a
-      unique_key: ["fmr_submission_code", "dynamic_row_nbr"]
+      unique_key: ["fmr_submission_code", "table_idx"]
       source_system: ["FMS_RPT_VALUES"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("dtm_schema") }}'
@@ -361,6 +400,58 @@ models:
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("dtm_schema") }}'
       alias: 'opr_fund_management_company_employee_investor_account_list'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_dynamic_report_structure_dim
+    description: "Datamart model của bảng Dynamic Report Structure Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["dr_structure_id"]
+      source_system: ["FMS_ITEM_LIST"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'dynamic_report_structure_dim'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_dynamic_report_submission_history_dim
+    description: "Datamart model của bảng Dynamic Report Submission History Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["dr_submission_history_id"]
+      source_system: ["FMS_REPORT_HISTORY"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'dynamic_report_submission_history_dim'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  # Nạp toàn bộ (TRUNCATE + INSERT, O_QLQ_80): append không partition_by = INSERT OVERWRITE cả bảng.
+  # Chưa có PK (chờ Data Modeler chốt). 0 dòng nguồn -> job lỗi có chủ ý (macro cần partition_by cho nhánh DELETE).
+  - name: dtm_opr_dynamic_report_explorer_val
+    description: "Datamart model của bảng Opr Dynamic Report Explorer Value (Data Explorer QLQ)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_dynamic_report_explorer_val'
+      tags:
+        - layer_datamart
+        - domain_qlq
+
+  - name: dtm_opr_dynamic_report_explorer_indicator
+    description: "Datamart model của bảng Opr Dynamic Report Explorer Indicator (Data Explorer QLQ) — chạy sau dtm_opr_dynamic_report_explorer_val"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_dynamic_report_explorer_indicator'
       tags:
         - layer_datamart
         - domain_qlq

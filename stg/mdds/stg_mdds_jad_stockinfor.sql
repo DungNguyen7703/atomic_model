@@ -7,13 +7,6 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
-* 2026-10-08		tuan.nguyenvanb		Bo sung cot VWAP tu nguon JAD_STOCKINFOR (BA: bo cac cot duoi M1: OPEN_M1/HIGH_M1/LOW_M1)
-* 2026-10-12		duc.luxuan			Bo cast/bien doi theo nguyen tac staging: VARCHAR2 lay nguyen, NUMBER(19,0) -> bigint,
-*									FLOAT -> decimal(38,8) (truoc la double, mat chinh xac sau 15-17 chu so).
-*									Giu trinh tu cot theo bang Iceberg hien tai (macro INSERT theo vi tri).
-*									Khong lay OPEN_M1/HIGH_M1/LOW_M1 (nguon Oracle se bo).
-*									Ngoai le: TRADINGDATE (varchar2 dd/MM/yyyy) to_date sang date - partition key.
 *--------------------------------------------------------------------*
 */
 {% set etl_date = modules.datetime.datetime.strptime(var("etl_date"), "%Y-%m-%d").strftime("%d/%m/%Y") %}

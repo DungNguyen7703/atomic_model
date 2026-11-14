@@ -7,7 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-08		tuan.nguyenvanb		Theo design: update sang append: yml snapshot/ds_snpst_dt -> append/date_created; WHERE loc date_created = etl_date (giong cac bang *_history Append khac).
 *--------------------------------------------------------------------*
 */
 
@@ -31,3 +31,4 @@ SELECT
     , CAST(staff_id_code AS string)    AS staff_id_code
     , CAST(file_data AS string)        AS file_data
 FROM {{ source('source_fms', 'raw_stf_fg_brch_history') }}
+WHERE date_format(date_created, 'yyyy-MM-dd') = to_date('{{ var("etl_date") }}', 'yyyy-MM-dd')

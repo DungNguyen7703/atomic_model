@@ -7,7 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo ECAT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: them cot id_sync.
 *--------------------------------------------------------------------*
 */
 
@@ -32,4 +32,5 @@ SELECT
     , CAST(updated_by_id AS string)           AS updated_by_id
     , CAST(updated_by_name AS string)         AS updated_by_name
     , CAST(active_reason AS string)           AS active_reason
+    , CAST(id_sync AS string)                 AS id_sync
 FROM {{ source('source_ecat', 'raw_foreign_investor_type') }}

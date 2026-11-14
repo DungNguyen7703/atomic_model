@@ -7,6 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
+* 2026-11-12		duc.luxuan			[SUA] CTE company: chi lay cong ty dai chung (public_company_status_code = 'APPROVED_PUBLIC').
 *
 *--------------------------------------------------------------------*
 */
@@ -19,6 +20,8 @@ WITH company AS (
     WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
         AND ds_rcrd_st = 'ACTIVE'
         AND src_stm_code = 'IDS_COMPANY_PROFILES'
+        -- Chi lay cong ty dai chung (da duoc duyet)
+        AND public_company_status_code = 'APPROVED_PUBLIC'
 ),
 
 evaluation AS (

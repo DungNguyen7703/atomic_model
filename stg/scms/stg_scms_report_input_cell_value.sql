@@ -14,6 +14,7 @@
 * 2026-10-07		tuan.nguyenvanb		Bang nguon khoang 64 trieu dong: them hint REPARTITION(64)
 *									de ghi STG ra nhieu file deu (ODS doc song song). Hint chi
 *									tac dung sau buoc doc Oracle, khong tang toc do doc JDBC.
+* 2026-11-11		ngoc.pham			Doi WHERE ngay sang range TO_TIMESTAMP + INTERVAL 1 DAY
 *--------------------------------------------------------------------*
 */
 
@@ -37,7 +38,7 @@ WHERE
 	FROM
 		{{ source('source_scms', 'raw_report_input_submission') }} 
 	WHERE
-		(date_format(CREATED_AT, 'yyyy-MM-dd') >= to_date('{{ var("etl_date") }}','yyyy-MM-dd')
-			AND date_format(CREATED_AT, 'yyyy-MM-dd') < to_date('{{ var("etl_date") }}','yyyy-MM-dd') + 1)
-			OR (date_format(LAST_MODIFIED_AT,'yyyy-MM-dd')  >= to_date('{{ var("etl_date") }}','yyyy-MM-dd')
-				AND (date_format(LAST_MODIFIED_AT,'yyyy-MM-dd') < to_date('{{ var("etl_date") }}','yyyy-MM-dd') + 1)))
+		(created_at >= TO_TIMESTAMP('{{ var("etl_date") }}')
+			AND created_at <  TO_TIMESTAMP('{{ var("etl_date") }}') + INTERVAL 1 DAY)
+		OR (last_modified_at >= TO_TIMESTAMP('{{ var("etl_date") }}')
+			AND last_modified_at <  TO_TIMESTAMP('{{ var("etl_date") }}') + INTERVAL 1 DAY))

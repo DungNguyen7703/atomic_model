@@ -21,8 +21,9 @@ WITH re_in_ce_va AS (
         , row_no
         , item_value
         , ref_type
+        , data_dt
     FROM {{ ref('ods_scms_report_input_cell_value') }}
-    WHERE data_dt = to_date('{{ var("etl_date") }}', 'yyyy-MM-dd')
+    where data_dt = to_date('{{ var("etl_date") }}', 'yyyy-MM-dd')
 )
 
 /* B1: bỏ khoảng trắng (kể cả NBSP) */
@@ -93,6 +94,6 @@ SELECT
                  , '[.]$', '')
         ELSE CAST(re_in_ce_va_num.item_value AS string)
       END                                                                                                               AS cell_val
-    , re_in_ce_va_num.num_val                                                                                           AS cell_num_val
     , CAST(re_in_ce_va_num.ref_type AS string)                                                                          AS ref_tp_code
+    , data_dt
 FROM re_in_ce_va_num

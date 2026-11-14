@@ -5,11 +5,17 @@
 
 SELECT
     -- FACT Fact Securities Company License Condition Snapshot
+    f.sc_alert_violation_id,
     f.snpst_dt_dim_id,
     f.securities_company_dim_id,
     f.indicator_code,
-    f.severity_level,
+    f.alert_entity_tp_code,
+    f.alert_year,
+    f.rpt_period_code,
+    f.alert_period_val,
+    f.severity_level_alt_code,
     f.alert_dt,
+    f.securities_company_alert_indicator_dim_id,
     -- CALENDAR DATE DIMENSION
     cal.cdr_dt                      AS cdr_dt,
     -- SECURITIES COMPANY DIMENSION
@@ -23,11 +29,19 @@ SELECT
     sc_dim.company_status_nm           AS company_status_nm,
     sc_dim.is_listed_indicator         AS is_listed_indicator,
     sc_dim.stock_exchange_nm           AS stock_exchange_nm,
-    sc_dim.src_stm_code                AS securities_company_src_stm_code
+    sc_dim.provisional_ind             AS provisional_ind,
+    sc_dim.src_stm_code                AS securities_company_src_stm_code,
+    -- SECURITIES COMPANY ALERT INDICATOR DIMENSION
+    ai_dim.sc_alert_ind_code           AS sc_alert_ind_code,
+    ai_dim.alert_ind_code              AS alert_ind_code,
+    ai_dim.alert_ind_nm                AS alert_ind_nm,
+    ai_dim.alert_ind_tp_code           AS alert_ind_tp_code,
+    ai_dim.severity_level              AS severity_level
 
 FROM {{ ref('dtm_fct_securities_company_license_condition_snpst') }} f
-JOIN {{ ref('dtm_cdr_dt_dim') }} cal
+LEFT JOIN {{ ref('dtm_cdr_dt_dim') }} cal
     ON cal.cdr_dt_dim_id = f.snpst_dt_dim_id
 LEFT JOIN {{ ref('dtm_securities_company_dim') }} sc_dim
     ON sc_dim.securities_company_dim_id = f.securities_company_dim_id
-WHERE cal.cdr_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
+LEFT JOIN {{ ref('dtm_securities_company_alert_indicator_dim') }} ai_dim
+    ON ai_dim.securities_company_alert_indicator_dim_id = f.securities_company_alert_indicator_dim_id

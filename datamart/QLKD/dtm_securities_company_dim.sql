@@ -15,6 +15,11 @@
 *                                       company_tp_code -> cl_nm. Co the NULL
 *                                       neu Atomic chua nap values cho scheme
 *                                       nay (dung nhu LLD tu ghi chu).
+* 2026-11-09		tuan.nguyenvanb		[SUA theo LLD, O_QLKD_73] Bo sung cot
+*                                       provisional_ind (co ban nhap CTCK,
+*                                       Atomic da co san) - dieu kien loc bat
+*                                       buoc cho KPI Nhom 5/6/7 (fct_securities_
+*                                       company_license_condition_snpst).
 *--------------------------------------------------------------------*
 */
 
@@ -28,7 +33,8 @@ WITH se_co AS (
         cl_sc_firm_status_id,
         listed_ind,
         exchange_code,
-        src_stm_code
+        src_stm_code,
+        provisional_ind
     FROM {{ ref('atm_securities_company') }}_hstr
     WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
         AND ds_rcrd_st = 'ACTIVE'
@@ -86,7 +92,8 @@ SELECT
         END AS string)                                                       AS company_status_nm,
     CAST(se_co.listed_ind AS boolean)                                        AS is_listed_indicator,
     CAST(se_co.exchange_code AS string)                                      AS stock_exchange_nm,
-    CAST(se_co.src_stm_code AS string)                                       AS src_stm_code
+    CAST(se_co.src_stm_code AS string)                                       AS src_stm_code,
+    CAST(se_co.provisional_ind AS int)                                       AS provisional_ind
 FROM se_co
 LEFT JOIN cl_sc_fi_st
     ON  cl_sc_fi_st.cl_sc_firm_status_id = se_co.cl_sc_firm_status_id

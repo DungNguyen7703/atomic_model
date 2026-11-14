@@ -259,6 +259,8 @@
 *									se_tr_matched_sector / se_tr_trade_sector doi INNER JOIN pu_co -> LEFT JOIN + COALESCE(..., 'UNCLASSIFIED'). Khong doi cot/kieu.
 *									[BA chot 2026-10-28] LNST (K_PTTT_275/244): moi cong ty lay ky bao cao GAN NHAT CO LNST (lui ve ky truoc neu ky moi nhat khong co LNST) thay vi ky nop gan nhat; sector_pe: tu so va mau so cung 1 tap ma (co LNST, gia dong cua > 0, KLLH > 0). net_profit_after_tax_amt_sector giu tong LNST cac ma co LNST. Khong doi cot/kieu.
 *									[BA chot 2026-10-28] pu_co dedupe 1 ho so / ma (ROW_NUMBER PARTITION BY equity_ticker_symbol ORDER BY CAST(pc_code AS bigint) = id ho so IDS nho nhat, giong cau test BA): ma co 2 ho so ACTIVE (vd SST) khong con bi nhan doi o cac chi tieu theo nganh. Khong doi cot/kieu.
+* 2026-11-09		tuan.nguyenvanb		[DOI TEN COT ATOMIC public_company theo design 2026-11-08] doc cl_ids_business_line_level_1_id/code, exchange_code, pc_form_tp_code (ten cu business_line_level_1_id/code,
+*                                       equity_listing_exchange_code, pc_form_code) va giu alias ten cu o CTE nen phan con lai khong doi. Khong doi cot/kieu mart.
 */
 
 WITH se_tr_snpst_raw AS (

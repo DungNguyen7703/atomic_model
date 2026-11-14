@@ -7,11 +7,9 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-* 2026-11-02		claude (sync)		Đồng bộ LLD commit 4c3d0a67 (O_QLQ_68, schema-changing): thêm fmc_id = COALESCE(fmr_value.fmc_id,
-*                                       investment_fund.fmc_id) — khóa lọc hợp đồng theo CTQLQ ở Nhóm 5 (= fmc_id của profile Nhóm 3);
-*                                       fmc_code giữ nguyên logic (chỉ đổi mô tả LLD: không dùng làm khóa lọc). Cần DROP/CREATE lại bảng scd4a + _hstr
-* 2026-11-03		claude (sync)		Đồng bộ LLD commit f2628ecf (record_tp = '2'): O_QLQ_72: bỏ lọc submitted_dt (không chặn theo ngày chạy ETL để không sót báo cáo nộp muộn); giữ record_status_code IN ('2','3','5','10') (logic-only, schema không đổi)
-* 2026-11-06		claude (sync)		Đồng bộ LLD commit 1d8683aa (O_QLQ_75, schema-changing): PK dynamic_row_nbr → table_idx = CASE dynamic_val_ind 0 → dynamic_row_nbr, 1 → floor(dynamic_row_nbr/1000); ghép ô hợp đồng (customer_nm/custody_account_nbr/contract_market_val_amt) theo table_idx. Cần DROP/CREATE lại bảng scd4a + _hstr
+* 2026-11-12		claude (sync)		Fix O_QLQ_86: 7 cột mới NULL toàn bộ (etl_date 2026-10-15) vì nhãn "Ngân hàng lưu ký" + mã chỉ tiêu 180298/180299/201205/180311/180313/180316
+*                                       là nhãn TĨNH của mẫu (atm_fmr_sheet.label_nm), không có trong cell_val. Thêm custody_bank_label_ind + indicator_code vào template_row_label,
+*                                       contract_pivot dùng OR/COALESCE với row_label (nhãn mẫu ưu tiên); custody_bank_nm bỏ ':' đầu chuỗi như customer_nm. Schema không đổi.
 *--------------------------------------------------------------------*
 */
 
@@ -100,7 +98,10 @@ template_row_label AS (
         row_index,
         MAX(CASE WHEN column_index = 1 AND lower(label_nm) LIKE '%tên khách hàng%' THEN 1 ELSE 0 END) AS customer_label_ind,
         MAX(CASE WHEN column_index = 1 AND lower(label_nm) LIKE '%tk lưu ký%' THEN 1 ELSE 0 END)      AS custody_account_label_ind,
-        MAX(CASE WHEN column_index = 2 AND trim(label_nm) = '180317' THEN 1 ELSE 0 END)               AS market_val_label_ind
+        MAX(CASE WHEN column_index = 2 AND trim(label_nm) = '180317' THEN 1 ELSE 0 END)               AS market_val_label_ind,
+        -- O_QLQ_86: nhãn "Ngân hàng lưu ký" (cột 1) và mã chỉ tiêu (cột 2) là nhãn TĨNH của mẫu, không có trong RPT_VALUES
+        MAX(CASE WHEN column_index = 1 AND lower(label_nm) LIKE '%ngân hàng lưu ký%' THEN 1 ELSE 0 END) AS custody_bank_label_ind,
+        MAX(CASE WHEN column_index = 2 THEN trim(label_nm) END)                                       AS indicator_code
     FROM fmr_sheet
     WHERE fmr_sheet_nm = '@QLDMDT'
     GROUP BY fmr_sheet_code, row_index
@@ -175,7 +176,10 @@ row_label AS (
         row_index,
         MAX(CASE WHEN column_index = 1 AND lower(cell_val) LIKE '%tên khách hàng%' THEN 1 ELSE 0 END) AS customer_label_ind,
         MAX(CASE WHEN column_index = 1 AND lower(cell_val) LIKE '%tk lưu ký%' THEN 1 ELSE 0 END)      AS custody_account_label_ind,
-        MAX(CASE WHEN column_index = 2 AND cell_val = '180317' THEN 1 ELSE 0 END)                    AS market_val_label_ind
+        MAX(CASE WHEN column_index = 2 AND cell_val = '180317' THEN 1 ELSE 0 END)                    AS market_val_label_ind,
+        -- O_QLQ_86: dòng "Ngân hàng lưu ký" (cột 1) và mã chỉ tiêu của dòng (cột 2)
+        MAX(CASE WHEN column_index = 1 AND lower(cell_val) LIKE '%ngân hàng lưu ký%' THEN 1 ELSE 0 END) AS custody_bank_label_ind,
+        MAX(CASE WHEN column_index = 2 THEN cell_val END)                                            AS indicator_code
     FROM rpt_cell
     GROUP BY fmr_submission_code, table_idx, fmr_sheet_code, row_index
 ),
@@ -193,7 +197,23 @@ contract_pivot AS (
                  THEN nullif(trim(regexp_replace(rpt_cell.cell_val, '^[\\s:：]+', '')), '') END)  AS custody_account_nbr,
         MAX(CASE WHEN rpt_cell.column_index = 5
                       AND (row_label.market_val_label_ind = 1 OR template_row_label.market_val_label_ind = 1)
-                 THEN try_cast(regexp_replace(CAST(rpt_cell.cell_val AS string), '%', '') AS decimal(38,8)) END) AS contract_market_val_amt
+                 THEN try_cast(regexp_replace(CAST(rpt_cell.cell_val AS string), '%', '') AS decimal(38,8)) END) AS contract_market_val_amt,
+        -- O_QLQ_86: ngân hàng lưu ký + 6 chỉ tiêu giá trị của hợp đồng (ô cột 5 trên dòng có mã chỉ tiêu cột 2 tương ứng)
+        MAX(CASE WHEN rpt_cell.column_index = 2
+                      AND (row_label.custody_bank_label_ind = 1 OR template_row_label.custody_bank_label_ind = 1)
+                 THEN nullif(trim(regexp_replace(rpt_cell.cell_val, '^[\\s:：]+', '')), '') END)  AS custody_bank_nm,
+        MAX(CASE WHEN rpt_cell.column_index = 5 AND COALESCE(template_row_label.indicator_code, row_label.indicator_code) = '180298'
+                 THEN try_cast(regexp_replace(CAST(rpt_cell.cell_val AS string), '%', '') AS decimal(38,8)) END) AS contract_val_amt,
+        MAX(CASE WHEN rpt_cell.column_index = 5 AND COALESCE(template_row_label.indicator_code, row_label.indicator_code) = '180299'
+                 THEN try_cast(regexp_replace(CAST(rpt_cell.cell_val AS string), '%', '') AS decimal(38,8)) END) AS disbursed_val_amt,
+        MAX(CASE WHEN rpt_cell.column_index = 5 AND COALESCE(template_row_label.indicator_code, row_label.indicator_code) = '201205'
+                 THEN try_cast(regexp_replace(CAST(rpt_cell.cell_val AS string), '%', '') AS decimal(38,8)) END) AS listed_securities_val_amt,
+        MAX(CASE WHEN rpt_cell.column_index = 5 AND COALESCE(template_row_label.indicator_code, row_label.indicator_code) = '180311'
+                 THEN try_cast(regexp_replace(CAST(rpt_cell.cell_val AS string), '%', '') AS decimal(38,8)) END) AS unlisted_securities_val_amt,
+        MAX(CASE WHEN rpt_cell.column_index = 5 AND COALESCE(template_row_label.indicator_code, row_label.indicator_code) = '180313'
+                 THEN try_cast(regexp_replace(CAST(rpt_cell.cell_val AS string), '%', '') AS decimal(38,8)) END) AS other_assets_val_amt,
+        MAX(CASE WHEN rpt_cell.column_index = 5 AND COALESCE(template_row_label.indicator_code, row_label.indicator_code) = '180316'
+                 THEN try_cast(regexp_replace(CAST(rpt_cell.cell_val AS string), '%', '') AS decimal(38,8)) END) AS cash_val_amt
     FROM rpt_cell
     INNER JOIN row_label
         ON row_label.fmr_submission_code = rpt_cell.fmr_submission_code
@@ -220,6 +240,13 @@ SELECT DISTINCT
     CAST(contract_pivot.customer_nm AS string)                                            AS customer_nm,
     CAST(contract_pivot.custody_account_nbr AS string)                                    AS custody_account_nbr,
     CAST(contract_pivot.contract_market_val_amt AS decimal(38,8))                         AS contract_market_val_amt,
+    CAST(contract_pivot.custody_bank_nm AS string)                                        AS custody_bank_nm,
+    CAST(contract_pivot.contract_val_amt AS decimal(38,8))                                AS contract_val_amt,
+    CAST(contract_pivot.disbursed_val_amt AS decimal(38,8))                               AS disbursed_val_amt,
+    CAST(contract_pivot.listed_securities_val_amt AS decimal(38,8))                       AS listed_securities_val_amt,
+    CAST(contract_pivot.unlisted_securities_val_amt AS decimal(38,8))                     AS unlisted_securities_val_amt,
+    CAST(contract_pivot.other_assets_val_amt AS decimal(38,8))                            AS other_assets_val_amt,
+    CAST(contract_pivot.cash_val_amt AS decimal(38,8))                                    AS cash_val_amt,
     CAST(contract_value.src_stm_code AS string)                                           AS src_stm_code
 FROM contract_value
 LEFT JOIN investment_fund

@@ -8,13 +8,14 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo KNT_UAT_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo KNT_ddl_prod.sql, brd_KNT.yaml va khao sat du lieu nguon prod: kieu int sang bigint (3 cot); kieu int sang decimal(38,10) (2 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
-    CAST(id AS int)                               AS id
-    , CAST(company_info_id AS int)                  AS company_info_id
-    , CAST(tax_registration_id AS int)              AS tax_registration_id
+    CAST(id AS bigint)                            AS id
+    , CAST(company_info_id AS bigint)               AS company_info_id
+    , CAST(tax_registration_id AS bigint)           AS tax_registration_id
     , CAST(tax_code AS string)                      AS tax_code
     , CAST(ssc_name AS string)                      AS ssc_name
     , CAST(ssc_address AS string)                   AS ssc_address
@@ -23,7 +24,7 @@ SELECT
     , CAST(ssc_website AS string)                   AS ssc_website
     , CAST(ssc_business_line AS string)             AS ssc_business_line
     , CAST(ssc_legal_representative_name AS string) AS ssc_legal_representative_name
-    , CAST(ssc_charter_capital AS int)              AS ssc_charter_capital
+    , CAST(ssc_charter_capital AS decimal(38,10))   AS ssc_charter_capital
     , CAST(ssc_decision_number AS string)           AS ssc_decision_number
     , CAST(ssc_business_license AS string)          AS ssc_business_license
     , CAST(tax_name AS string)                      AS tax_name
@@ -33,7 +34,7 @@ SELECT
     , CAST(tax_website AS string)                   AS tax_website
     , CAST(tax_business_line AS string)             AS tax_business_line
     , CAST(tax_legal_representative_name AS string) AS tax_legal_representative_name
-    , CAST(tax_charter_capital AS int)              AS tax_charter_capital
+    , CAST(tax_charter_capital AS decimal(38,10))   AS tax_charter_capital
     , CAST(tax_decision_number AS string)           AS tax_decision_number
     , CAST(tax_business_license AS string)          AS tax_business_license
     , CAST(diff_flag AS int)                        AS diff_flag

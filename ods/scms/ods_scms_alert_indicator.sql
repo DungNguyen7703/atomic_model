@@ -7,7 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-* 2026-10-18		tuan.nguyenvanb		Dong bo day du cot theo stg moi.
+*
 *--------------------------------------------------------------------*
 */
 

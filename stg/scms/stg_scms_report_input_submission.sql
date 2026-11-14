@@ -7,7 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-11		ngoc.pham			Doi WHERE ngay sang range TO_TIMESTAMP + INTERVAL 1 DAY
 *--------------------------------------------------------------------*
 */
 
@@ -20,5 +20,7 @@ SELECT
     , CAST(period_year AS int)               AS period_year
     , to_date('{{ var("etl_date") }}', 'yyyy-MM-dd') as data_dt
 FROM {{ source('source_scms', 'raw_report_input_submission') }}
-where date_format(created_at, 'yyyy-MM-dd') = to_date('{{ var("etl_date") }}', 'yyyy-MM-dd')
-or date_format(last_modified_at, 'yyyy-MM-dd') = to_date('{{ var("etl_date") }}', 'yyyy-MM-dd')
+WHERE (created_at >= TO_TIMESTAMP('{{ var("etl_date") }}')
+       AND created_at <  TO_TIMESTAMP('{{ var("etl_date") }}') + INTERVAL 1 DAY)
+   OR (last_modified_at >= TO_TIMESTAMP('{{ var("etl_date") }}')
+       AND last_modified_at <  TO_TIMESTAMP('{{ var("etl_date") }}') + INTERVAL 1 DAY)

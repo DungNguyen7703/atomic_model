@@ -1,6 +1,7 @@
 -- ────────────────────────────────────────────────────────────
 -- Model : qlq_fct_investment_fund_count_snpst_flat
 -- Type  : FACT
+-- 2026-11-11 claude: O_QLQ_85 — thêm active_fund_count, inactive_fund_count (schema-changing: cần ALTER ADD COLUMN trên bảng CK)
 -- ────────────────────────────────────────────────────────────
 
 WITH fact AS (
@@ -9,6 +10,8 @@ WITH fact AS (
         fund_type_id,
         fund_count,
         charter_capital_amt,
+        active_fund_count,
+        inactive_fund_count,
         src_stm_code
     FROM {{ ref('dtm_fct_investment_fund_count_snpst') }}
 ),
@@ -31,6 +34,8 @@ SELECT
     f.fund_type_id,
     f.fund_count,
     f.charter_capital_amt,
+    f.active_fund_count,
+    f.inactive_fund_count,
     f.src_stm_code,
     TO_DATE(f.snpst_dt_dim_id, 'yyyyMMdd')      AS snpst_cdr_dt,
     -- FUND TYPE DIMENSION

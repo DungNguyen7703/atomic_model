@@ -3,6 +3,7 @@
 -- Type  : OPERATIONAL
 -- 2026-10-14 claude: khởi tạo từ flat-table/QLQ/02_populate_qlq_flat_tables.sql #16 (commit d18cdaa0)
 -- 2026-11-06 claude: O_QLQ_75 — đổi dynamic_row_nbr → table_idx cho khớp mart dtm_opr_fund_management_company_contract_list (schema-changing: cần ALTER RENAME COLUMN trên bảng CK)
+-- 2026-11-11 claude: O_QLQ_86 — thêm custody_bank_nm + 6 cột giá trị hợp đồng khớp mart (schema-changing: cần ALTER ADD COLUMN trên bảng CK)
 -- ────────────────────────────────────────────────────────────
 
 SELECT
@@ -20,6 +21,13 @@ SELECT
     customer_nm,
     custody_account_nbr,
     contract_market_val_amt,
+    custody_bank_nm,
+    contract_val_amt,
+    disbursed_val_amt,
+    listed_securities_val_amt,
+    unlisted_securities_val_amt,
+    other_assets_val_amt,
+    cash_val_amt,
     src_stm_code
 
 FROM {{ ref('dtm_opr_fund_management_company_contract_list') }}_hstr

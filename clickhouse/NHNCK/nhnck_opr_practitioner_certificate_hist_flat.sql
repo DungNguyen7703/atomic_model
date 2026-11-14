@@ -16,6 +16,8 @@ WITH src AS (
         revocation_decision_nbr,
         certificate_status_code,
         certificate_status_nm,
+        cancellation_dt,
+        cancellation_decision_nbr,
         src_stm_code
     FROM {{ ref('dtm_opr_practitioner_certificate_hist') }}_hstr
     WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
@@ -34,6 +36,8 @@ SELECT
     revocation_decision_nbr,
     certificate_status_code,
     certificate_status_nm,
+    cancellation_dt,
+    cancellation_decision_nbr,
     src_stm_code
 
 FROM src

@@ -8,11 +8,13 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo KNT_UAT_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo KNT_ddl_prod.sql, brd_KNT.yaml va khao sat du lieu nguon prod: kieu int sang bigint (2 cot); them cot data_dt; yml snapshot/ds_snpst_dt -> append/data_dt theo BRD.
+* 2026-11-08		tuan.nguyenvanb		Theo design: bang Append khong partition (macro INSERT OVERWRITE = truncate insert): yml append, bo partition_by data_dt; giu cot data_dt.
 *--------------------------------------------------------------------*
 */
 
 SELECT
-    CAST(id AS int)                               AS id
+    CAST(id AS bigint)                            AS id
     , CAST(taxpayer_tax_code AS string)             AS taxpayer_tax_code
     , CAST(taxpayer_name AS string)                 AS taxpayer_name
     , CAST(direct_tax_authority_code AS string)     AS direct_tax_authority_code
@@ -34,6 +36,7 @@ SELECT
     , CAST(notice_debt_amount AS string)            AS notice_debt_amount
     , CAST(notice_debt_date AS date)                AS notice_debt_date
     , CAST(validity_flag AS string)                 AS validity_flag
-    , CAST(msg_packet_id AS int)                    AS msg_packet_id
+    , CAST(msg_packet_id AS bigint)                 AS msg_packet_id
     , CAST(guid AS string)                          AS guid
+    , to_date('{{ var("etl_date") }}', 'yyyy-MM-dd') AS data_dt
 FROM {{ source('source_knt', 'raw_tax_enforcement_invoice') }}

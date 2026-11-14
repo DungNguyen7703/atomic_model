@@ -7,15 +7,15 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo brd_FMS.yaml va khao sat du lieu nguon prod: kieu date sang timestamp (2 cot); kieu decimal(38,0) sang int (1 cot); yml append/None -> snapshot/ds_snpst_dt theo BRD.
 *--------------------------------------------------------------------*
 */
 
 SELECT
     HEX(id)                                AS id
-    , CAST(date_created AS date)           AS date_created
+    , CAST(date_created AS timestamp)      AS date_created
     , CAST(created_by AS string)           AS created_by
-    , CAST(date_modified AS date)          AS date_modified
+    , CAST(date_modified AS timestamp)     AS date_modified
     , CAST(modify_by AS string)            AS modify_by
     , CAST(user_name AS string)            AS user_name
     , CAST(display_name AS string)         AS display_name
@@ -24,7 +24,7 @@ SELECT
     , CAST(date_logined AS date)           AS date_logined
     , HEX(sec_id)                          AS sec_id
     , CAST(lev AS decimal(38,0))           AS lev
-    , CAST(record_type AS decimal(38,0))   AS record_type
+    , CAST(record_type AS int)             AS record_type
     , HEX(job_id)                          AS job_id
     , CAST(job_name AS string)             AS job_name
     , CAST(org_password AS string)         AS org_password

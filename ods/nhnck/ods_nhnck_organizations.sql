@@ -42,5 +42,6 @@ SELECT
     , updated_by
     , website
     , charter_capital
+    , tax_code
 FROM {{ ref('stg_nhnck_organizations') }}
 WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}', 'yyyy-MM-dd')

@@ -8,18 +8,19 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo KNT_UAT_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo KNT_ddl_prod.sql, brd_KNT.yaml va khao sat du lieu nguon prod: kieu int sang bigint (2 cot); kieu int sang decimal(38,10) (2 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
-    CAST(id AS int)                              AS id
-    , CAST(msg_packet_id AS int)                   AS msg_packet_id
+    CAST(id AS bigint)                             AS id
+    , CAST(msg_packet_id AS bigint)                  AS msg_packet_id
     , CAST(taxpayer_name AS string)                AS taxpayer_name
     , CAST(tax_code AS string)                     AS tax_code
     , CAST(hq_address AS string)                   AS hq_address
     , CAST(phone AS string)                        AS phone
     , CAST(fax AS string)                          AS fax
-    , CAST(charter_capital AS int)                 AS charter_capital
+    , CAST(charter_capital AS decimal(38,10))        AS charter_capital
     , CAST(business_line AS string)                AS business_line
     , CAST(license_number AS string)               AS license_number
     , CAST(issue_date AS date)                     AS issue_date
@@ -40,7 +41,7 @@ SELECT
     , CAST(direct_supervising_authority AS string) AS direct_supervising_authority
     , CAST(tax_authority_code AS string)           AS tax_authority_code
     , CAST(domestic_capital_currency AS string)    AS domestic_capital_currency
-    , CAST(foreign_capital_amount AS int)          AS foreign_capital_amount
+    , CAST(foreign_capital_amount AS decimal(38,10)) AS foreign_capital_amount
     , CAST(foreign_capital_currency AS string)     AS foreign_capital_currency
     , CAST(supervising_unit_address AS string)     AS supervising_unit_address
     , CAST(business_address_desc AS string)        AS business_address_desc

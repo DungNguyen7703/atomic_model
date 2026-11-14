@@ -7,7 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo brd_FMS.yaml va khao sat du lieu nguon prod: kieu date sang timestamp (1 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -20,6 +20,6 @@ SELECT
     , CAST(report_year AS decimal(18,2)) AS report_year
     , CAST(file_name AS string)          AS file_name
     , CAST(description AS string)        AS description
-    , CAST(date_created AS date)         AS date_created
+    , CAST(date_created AS timestamp)    AS date_created
 FROM {{ source('source_fms', 'raw_report_file') }}
 WHERE date_format(date_created, 'yyyy-MM-dd') = to_date('{{ var("etl_date") }}', 'yyyy-MM-dd')

@@ -19,7 +19,9 @@ WITH re_in_su AS (
         , ref_id
         , form_version_id
         , period_year
+        , data_dt
     FROM {{ ref('ods_scms_report_input_submission') }}
+    where data_dt = to_date('{{ var("etl_date") }}', 'yyyy-MM-dd')
 )
 
 SELECT
@@ -33,4 +35,5 @@ SELECT
     , {{ generate_surrogate_key_bigint('SCMS_FORM_REPORT', "re_in_su.form_version_id") }} AS sc_rpt_version_id
     , CAST(re_in_su.form_version_id AS string)                                            AS sc_rpt_version_code
     , CAST(re_in_su.period_year AS int)                                                   AS period_year
+    , data_dt
 FROM re_in_su

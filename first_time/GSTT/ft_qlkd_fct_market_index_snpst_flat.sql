@@ -24,6 +24,8 @@ SELECT
     f.floor_count,
     -- CALENDAR DATE DIMENSION
     cal.cdr_dt                      AS cdr_dt,
+    cal.year                        AS year,
+    cal.month                       AS month,
     -- MARKET INDEX DIMENSION
     idx_dim.market_id               AS market_id,
     idx_dim.market_code             AS market_code,

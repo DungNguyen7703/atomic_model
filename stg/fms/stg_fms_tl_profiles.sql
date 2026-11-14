@@ -7,15 +7,15 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo brd_FMS.yaml va khao sat du lieu nguon prod: kieu date sang timestamp (4 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
     HEX(id)                                 AS id
-    , CAST(date_created AS date)            AS date_created
+    , CAST(date_created AS timestamp)       AS date_created
     , CAST(created_by AS string)            AS created_by
-    , CAST(date_modified AS date)           AS date_modified
+    , CAST(date_modified AS timestamp)      AS date_modified
     , CAST(modify_by AS string)             AS modify_by
     , HEX(sec_id)                           AS sec_id
     , HEX(branch_id)                        AS branch_id
@@ -46,7 +46,7 @@ SELECT
     , CAST(qualyfication AS string)         AS qualyfication
     , CAST(job_type AS int)                 AS job_type
     , CAST(politics AS int)                 AS politics
-    , CAST(birth AS date)                   AS birth
+    , CAST(birth AS timestamp)              AS birth
     , CAST(place_of_birth AS string)        AS place_of_birth
     , CAST(cert_type AS string)             AS cert_type
     , CAST(isd AS string)                   AS isd
@@ -63,7 +63,7 @@ SELECT
     , CAST(profession AS string)            AS profession
     , CAST(cdy_acc AS string)               AS cdy_acc
     , CAST(pl_email AS string)              AS pl_email
-    , CAST(swork_dte AS date)               AS swork_dte
+    , CAST(swork_dte AS timestamp)          AS swork_dte
     , CAST(fwork_dte AS date)               AS fwork_dte
     , CAST(fn_type AS string)               AS fn_type
     , CAST(department AS string)            AS department

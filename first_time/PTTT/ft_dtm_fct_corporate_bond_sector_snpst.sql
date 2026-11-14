@@ -16,6 +16,9 @@
 *									- GIOI HAN: atm_public_company (scd4a) doc bang MAIN ds_rcrd_st='ACTIVE' (khong doc _hstr theo ngay) -> nganh cua TCPH la gia tri HIEN TAI
 *									  cho moi ngay lich su (thuoc tinh danh muc, khong co lich su theo ngay).
 *--------------------------------------------------------------------*
+* 2026-11-09		tuan.nguyenvanb		[DOI TEN COT ATOMIC public_company theo design 2026-11-08] doc cl_ids_business_line_level_1_id/code, exchange_code, pc_form_tp_code (ten cu business_line_level_1_id/code,
+*                                       equity_listing_exchange_code, pc_form_code) va giu alias ten cu o CTE nen phan con lai khong doi. Khong doi cot/kieu mart.
+* 2026-11-11		tuan.nguyenvanb		[BA/DEV CHOT PHUONG AN 2] Dong bo daily: them dong 'chua phan nganh' (corp_bond_industry_dim_id NULL) cho TP khong ghep duoc nganh; LEFT JOIN pu_co, dedupe pu_co 1 dong/ticker. Khong doi cot.
 */
 
 {{ config(incremental_strategy='append') }}   -- [BACKFILL-UAT-NEW] first-time: ghi theo ds_snpst_dt cua tung dong (thay strategy snapshot cua yml)
@@ -73,25 +76,40 @@ bond_vol AS (
         AND lsi_hnx.ds_snpst_dt = bond_snpst.trading_dt
 ),
 
-pu_co AS (
+pu_co_all AS (
     SELECT
         cl_ids_business_line_level_1_code AS business_line_level_1_code
         , equity_ticker_symbol
+        -- 1 dong / ticker (nguon IDS co ticker gan >1 pc_id cung ACTIVE) - order theo id nguon that (pc_code), KHONG theo pc_id hash
+        , ROW_NUMBER() OVER (PARTITION BY equity_ticker_symbol ORDER BY CAST(pc_code AS bigint) ASC) AS rn
     FROM {{ ref('atm_public_company') }}   -- [BACKFILL-UAT-NEW] bang MAIN (thay _hstr theo ngay)
     -- [BACKFILL-UAT-ORIG] FROM {{ ref('atm_public_company') }}_hstr ... WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
     WHERE ds_rcrd_st = 'ACTIVE'
         AND src_stm_code = 'IDS_COMPANY_PROFILES'
         AND equity_ticker_symbol IS NOT NULL
+        AND pc_code IS NOT NULL
 ),
 
+pu_co AS (
+    SELECT business_line_level_1_code, equity_ticker_symbol
+    FROM pu_co_all
+    WHERE rn = 1
+),
+
+-- [2026-11-11] LEFT JOIN: TP khong ghep duoc cong ty dai chung / cong ty khong co ma nganh / ma nganh khong co trong dim
+-- duoc gom vao 1 dong 'chua phan nganh' (industry_code NULL -> corp_bond_industry_dim_id NULL) -> tong ty trong cac dong = 100%.
 joined AS (
     SELECT
         bond_vol.trading_dt
-        , pu_co.business_line_level_1_code
+        , cbi.industry_code AS business_line_level_1_code   -- NULL neu khong ghep duoc nganh trong dim
         , bond_vol.listed_share_quantity
     FROM bond_vol
-    INNER JOIN pu_co
+    LEFT JOIN pu_co
         ON pu_co.equity_ticker_symbol = SUBSTR(bond_vol.symbol, 1, 3)
+    LEFT JOIN {{ ref('dtm_corp_bond_industry_dim') }} cbi
+        ON cbi.industry_code = pu_co.business_line_level_1_code
+        AND cbi.ds_rcrd_st = 'ACTIVE'
+        AND cbi.src_stm_code = 'IDS_CATEGORIES'
 ),
 
 agg AS (

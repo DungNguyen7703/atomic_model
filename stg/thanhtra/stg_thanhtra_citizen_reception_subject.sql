@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-08		tuan.nguyenvanb		[MOI] Bo sung STG theo THANHTRA_UAT_schema.
+* 2026-11-02		tuan.nguyenvanb		Dong bo theo DDL production THANHTRA_ddl_prod.sql: kieu date sang timestamp (2 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -21,8 +22,8 @@ SELECT
     , CAST(organization_name AS string)            AS organization_name
     , CAST(business_registration_number AS string) AS business_registration_number
     , CAST(sort_order AS int)                      AS sort_order
-    , CAST(created_at AS date)                     AS created_at
-    , CAST(last_modified_at AS date)               AS last_modified_at
+    , CAST(created_at AS timestamp)                AS created_at
+    , CAST(last_modified_at AS timestamp)          AS last_modified_at
     , CAST(created_by AS string)                   AS created_by
     , CAST(last_modified_by AS string)             AS last_modified_by
     , CAST(version AS bigint)                      AS version

@@ -7,7 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo brd_FMS.yaml va khao sat du lieu nguon prod: kieu decimal(38,0) sang int (2 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -19,7 +19,7 @@ SELECT
     , CAST(modify_by AS string)          AS modify_by
     , HEX(sec_id)                        AS sec_id
     , HEX(rt_pd_id)                      AS rt_pd_id
-    , CAST(total_score AS decimal(38,0)) AS total_score
-    , CAST(rank_index AS decimal(38,0))  AS rank_index
+    , CAST(total_score AS int)           AS total_score
+    , CAST(rank_index AS int)            AS rank_index
     , CAST(rank_type AS bigint)          AS rank_type
 FROM {{ source('source_fms', 'raw_rank') }}

@@ -7,7 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo brd_FMS.yaml va khao sat du lieu nguon prod: kieu date sang timestamp (2 cot); kieu decimal(38,0) sang int (1 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -20,7 +20,7 @@ SELECT
     , CAST(item_name AS string)                   AS item_name
     , CAST(sex AS int)                            AS sex
     , CAST(address AS string)                     AS address
-    , CAST(record_status AS decimal(38,0))        AS record_status
+    , CAST(record_status AS int)                  AS record_status
     , CAST(id_code AS string)                     AS id_code
     , CAST(date_code AS date)                     AS date_code
     , CAST(issued_code AS string)                 AS issued_code
@@ -32,8 +32,8 @@ SELECT
     , CAST(note AS string)                        AS note
     , CAST(deleted AS int)                        AS deleted
     , CAST(created_by AS string)                  AS created_by
-    , CAST(date_created AS date)                  AS date_created
-    , CAST(date_modified AS date)                 AS date_modified
+    , CAST(date_created AS timestamp)             AS date_created
+    , CAST(date_modified AS timestamp)            AS date_modified
     , CAST(modify_by AS string)                   AS modify_by
     , CAST(isp AS int)                            AS isp
     , CAST(pl_email AS string)                    AS pl_email

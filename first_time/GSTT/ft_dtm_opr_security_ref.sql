@@ -36,6 +36,8 @@
 * 2026-10-23		tuan.nguyenvanb		Doi nguon nganh: atm_cl_business_line (ECAT_BUSINESS_LINE_LEVEL_1) -> atm_cl_ids_business_line (IDS_CATEGORIES).
 *                                       Bo dieu kien active_ind (entity moi khong co cot nay). Dong bo voi dtm_opr_security_ref.
 *--------------------------------------------------------------------*
+* 2026-11-09		tuan.nguyenvanb		[DOI TEN COT ATOMIC public_company theo design 2026-11-08] doc cl_ids_business_line_level_1_id/code, exchange_code, pc_form_tp_code (ten cu business_line_level_1_id/code,
+*                                       equity_listing_exchange_code, pc_form_code) va giu alias ten cu o CTE nen phan con lai khong doi. Khong doi cot/kieu mart.
 */
 
 WITH se_tr_sn_all AS (
@@ -89,9 +91,10 @@ se_tr_sn AS (
 pu_co_all AS (
     SELECT
         equity_ticker_symbol,
-        business_line_level_1_id,
-        business_line_level_1_code,
+        cl_ids_business_line_level_1_id AS business_line_level_1_id,
+        cl_ids_business_line_level_1_code AS business_line_level_1_code,
         row_number() over (partition by equity_ticker_symbol order by CAST(pc_code AS bigint) ASC) AS rn
+    -- [BACKFILL-UAT-ORIG]  order by CAST(pc_code AS bigint) ASC) AS rn
     -- [BACKFILL-UAT-ORIG] FROM {{ ref('atm_public_company') }}_hstr
     FROM {{ ref('atm_public_company') }}   -- [BACKFILL-UAT-NEW]
     WHERE equity_ticker_symbol IS NOT NULL AND pc_code IS NOT NULL

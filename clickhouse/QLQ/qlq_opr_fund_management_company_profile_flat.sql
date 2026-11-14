@@ -9,6 +9,8 @@
 --                    certified_practitioner_staff_count, assets_under_management_amt, capital_adequacy_ratio,
 --                    net_profit_after_tax_amt, owner_equity_amt, portfolio_management_contract_count
 --                    (schema-changing, cần ALTER DROP COLUMN bảng ClickHouse trước khi chạy)
+-- 2026-11-11 claude (sync): bỏ rating_class_code, total_score_amt theo LLD commit 56eb71c6 (O_QLQ_88) — chuyển sang
+--                    qlq_fct_fund_management_company_rating_snpst_flat (schema-changing, cần ALTER DROP COLUMN bảng ClickHouse)
 -- ────────────────────────────────────────────────────────────
 
 SELECT
@@ -20,8 +22,6 @@ SELECT
     operation_status_nm,
     legal_representative_nm,
     fund_count,
-    rating_class_code,
-    total_score_amt,
     src_stm_code
 
 FROM {{ ref('dtm_opr_fund_management_company_profile') }}_hstr 

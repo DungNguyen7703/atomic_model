@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Bo sung STG theo FMS_UAT_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo brd_FMS.yaml va khao sat du lieu nguon prod: WHERE loc theo BRD filter_logic; yml snapshot/ds_snpst_dt -> append/date_created theo BRD.
 *--------------------------------------------------------------------*
 */
 
@@ -21,3 +22,4 @@ SELECT
     , CAST(note AS string)                AS note
     , CAST(date_created AS timestamp)     AS date_created
 FROM {{ source('source_fms', 'raw_agent_id_unify_audit') }}
+WHERE date_format(date_created, 'yyyy-MM-dd') >= to_date('{{ var("etl_date") }}', 'yyyy-MM-dd') AND date_format(date_created, 'yyyy-MM-dd') < to_date('{{ var("etl_date") }}', 'yyyy-MM-dd') + 1

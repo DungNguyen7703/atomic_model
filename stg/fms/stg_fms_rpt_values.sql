@@ -7,15 +7,15 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo brd_FMS.yaml va khao sat du lieu nguon prod: kieu date sang timestamp (2 cot); kieu decimal(38,0) sang int (1 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
     HEX(id)                              AS id
-    , CAST(date_created AS date)         AS date_created
+    , CAST(date_created AS timestamp)    AS date_created
     , CAST(created_by AS string)         AS created_by
-    , CAST(date_modified AS date)        AS date_modified
+    , CAST(date_modified AS timestamp)   AS date_modified
     , CAST(modify_by AS string)          AS modify_by
     , HEX(tgt_id)                        AS tgt_id
     , HEX(meb_id)                        AS meb_id
@@ -32,7 +32,7 @@ SELECT
     , HEX(fnd_id)                        AS fnd_id
     , HEX(fr_br_id)                      AS fr_br_id
     , HEX(sec_id)                        AS sec_id
-    , CAST(record_type AS decimal(38,0)) AS record_type
+    , CAST(record_type AS int)           AS record_type
     , CAST(period_value AS string)       AS period_value
     , CAST(year_value AS decimal(18,2))  AS year_value
     , CAST(row_dynamic AS bigint)        AS row_dynamic

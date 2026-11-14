@@ -10,7 +10,6 @@
 *
 *--------------------------------------------------------------------*
 */
-{% set etl_date = modules.datetime.datetime.strptime(var("etl_date"), "%Y-%m-%d").strftime("%d/%m/%Y") %}
 
 SELECT
     CAST(symbol AS string)                  AS symbol
@@ -66,4 +65,4 @@ SELECT
     , CAST(parvalue AS string)              AS parvalue
     , CAST(tradingtime AS string)           AS tradingtime
 FROM {{ source('source_mdds', 'raw_jad_corpbondinfor') }}
-WHERE tradingdate = '{{ etl_date }}'
+WHERE date_format(to_date(TRADINGDATE,'dd/MM/yyyy'), 'yyyy-MM-dd') = to_date('{{ var("etl_date") }}', 'yyyy-MM-dd')

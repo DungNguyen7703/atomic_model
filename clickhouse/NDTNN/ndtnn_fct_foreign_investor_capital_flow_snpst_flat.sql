@@ -11,6 +11,7 @@ SELECT
     f.period_val,
     f.nationality_nm,
     f.investor_nm,
+    f.transaction_cd,             -- [MỚI 2026-11-08] MSGD 6 ký tự cuối in hoa — ngay sau investor_nm (ALTER TABLE ADD COLUMN ... AFTER investor_nm); join hồ sơ 360 theo MSGD (K_29..32)
     f.capital_flow_net_val,
     f.src_stm_code,
     submission_cal.cdr_dt AS snpst_cdr_dt,

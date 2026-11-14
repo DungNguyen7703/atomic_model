@@ -19,8 +19,8 @@ models:
     description: "Staging model của bảng KNT.AUDIT_FIRM"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["decision_date"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_knt_schema") }}'
       alias: 'audit_firm'
@@ -110,8 +110,8 @@ models:
     description: "Staging model của bảng KNT.COMPANY_COMPARISON_QUEUE"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["created_at"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_knt_schema") }}'
       alias: 'company_comparison_queue'
@@ -136,8 +136,8 @@ models:
     description: "Staging model của bảng KNT.CONFIG_PARAM"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["created_at"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_knt_schema") }}'
       alias: 'config_param'
@@ -175,8 +175,8 @@ models:
     description: "Staging model của bảng KNT.HIGH_RISK_ENTERPRISE"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["data_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_knt_schema") }}'
       alias: 'high_risk_enterprise'
@@ -201,8 +201,7 @@ models:
     description: "Staging model của bảng KNT.INFO_REQUEST_DETAIL"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_knt_schema") }}'
       alias: 'info_request_detail'
@@ -214,8 +213,8 @@ models:
     description: "Staging model của bảng KNT.INVOICE_DETAIL"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["data_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_knt_schema") }}'
       alias: 'invoice_detail'
@@ -305,8 +304,8 @@ models:
     description: "Staging model của bảng KNT.PENALTY_DECISION"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["created_at"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_knt_schema") }}'
       alias: 'penalty_decision'
@@ -344,8 +343,8 @@ models:
     description: "Staging model của bảng KNT.REPORT_COMPARISON_QUEUE"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["created_at"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_knt_schema") }}'
       alias: 'report_comparison_queue'
@@ -448,8 +447,8 @@ models:
     description: "Staging model của bảng KNT.SSC_REPORT"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["created_at"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_knt_schema") }}'
       alias: 'ssc_report'
@@ -474,8 +473,8 @@ models:
     description: "Staging model của bảng KNT.SUBJECT_PROFILE"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["created_at"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_knt_schema") }}'
       alias: 'subject_profile'
@@ -487,8 +486,7 @@ models:
     description: "Staging model của bảng KNT.TAX_ENFORCEMENT_DEBT"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_knt_schema") }}'
       alias: 'tax_enforcement_debt'
@@ -500,8 +498,7 @@ models:
     description: "Staging model của bảng KNT.TAX_ENFORCEMENT_INVOICE"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_knt_schema") }}'
       alias: 'tax_enforcement_invoice'
@@ -604,8 +601,7 @@ models:
     description: "Staging model của bảng KNT.TAX_REPORT"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_knt_schema") }}'
       alias: 'tax_report'
@@ -617,8 +613,8 @@ models:
     description: "Staging model của bảng KNT.TAX_REPORT_DETAIL"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["data_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_knt_schema") }}'
       alias: 'tax_report_detail'
@@ -643,8 +639,7 @@ models:
     description: "Staging model của bảng KNT.TAX_VIOLATION_HANDLING"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_knt_schema") }}'
       alias: 'tax_violation_handling'
@@ -669,8 +664,8 @@ models:
     description: "Staging model của bảng KNT.VIOLATION_ACT"
     config:
       materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
+      incremental_strategy: append
+      partition_by: ["created_at"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_knt_schema") }}'
       alias: 'violation_act'

@@ -118,32 +118,6 @@ models:
         - layer_staging
         - domain_ecat
 
-  - name: stg_ecat_btc_share_config
-    description: "Staging model của bảng ECAT.BTC_SHARE_CONFIG"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'btc_share_config'
-      tags:
-        - layer_staging
-        - domain_ecat
-
-  - name: stg_ecat_btc_sync_config
-    description: "Staging model của bảng ECAT.BTC_SYNC_CONFIG"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'btc_sync_config'
-      tags:
-        - layer_staging
-        - domain_ecat
-
   - name: stg_ecat_business_activity
     description: "Staging model của bảng ECAT.BUSINESS_ACTIVITY"
     config:
@@ -261,32 +235,6 @@ models:
         - layer_staging
         - domain_ecat
 
-  - name: stg_ecat_databasechangelog
-    description: "Staging model của bảng ECAT.DATABASECHANGELOG"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'databasechangelog'
-      tags:
-        - layer_staging
-        - domain_ecat
-
-  - name: stg_ecat_databasechangeloglock
-    description: "Staging model của bảng ECAT.DATABASECHANGELOGLOCK"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'databasechangeloglock'
-      tags:
-        - layer_staging
-        - domain_ecat
-
   - name: stg_ecat_department
     description: "Staging model của bảng ECAT.DEPARTMENT"
     config:
@@ -322,19 +270,6 @@ models:
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_ecat_schema") }}'
       alias: 'district_old'
-      tags:
-        - layer_staging
-        - domain_ecat
-
-  - name: stg_ecat_dvcqg_sync_config
-    description: "Staging model của bảng ECAT.DVCQG_SYNC_CONFIG"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'dvcqg_sync_config'
       tags:
         - layer_staging
         - domain_ecat
@@ -625,19 +560,6 @@ models:
         - layer_staging
         - domain_ecat
 
-  - name: stg_ecat_log_data_changes
-    description: "Staging model của bảng ECAT.LOG_DATA_CHANGES"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'log_data_changes'
-      tags:
-        - layer_staging
-        - domain_ecat
-
   - name: stg_ecat_market
     description: "Staging model của bảng ECAT.MARKET"
     config:
@@ -924,149 +846,6 @@ models:
         - layer_staging
         - domain_ecat
 
-  - name: stg_ecat_qrtz_blob_triggers
-    description: "Staging model của bảng ECAT.QRTZ_BLOB_TRIGGERS"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'qrtz_blob_triggers'
-      tags:
-        - layer_staging
-        - domain_ecat
-
-  - name: stg_ecat_qrtz_calendars
-    description: "Staging model của bảng ECAT.QRTZ_CALENDARS"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'qrtz_calendars'
-      tags:
-        - layer_staging
-        - domain_ecat
-
-  - name: stg_ecat_qrtz_cron_triggers
-    description: "Staging model của bảng ECAT.QRTZ_CRON_TRIGGERS"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'qrtz_cron_triggers'
-      tags:
-        - layer_staging
-        - domain_ecat
-
-  - name: stg_ecat_qrtz_fired_triggers
-    description: "Staging model của bảng ECAT.QRTZ_FIRED_TRIGGERS"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'qrtz_fired_triggers'
-      tags:
-        - layer_staging
-        - domain_ecat
-
-  - name: stg_ecat_qrtz_job_details
-    description: "Staging model của bảng ECAT.QRTZ_JOB_DETAILS"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'qrtz_job_details'
-      tags:
-        - layer_staging
-        - domain_ecat
-
-  - name: stg_ecat_qrtz_locks
-    description: "Staging model của bảng ECAT.QRTZ_LOCKS"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'qrtz_locks'
-      tags:
-        - layer_staging
-        - domain_ecat
-
-  - name: stg_ecat_qrtz_paused_trigger_grps
-    description: "Staging model của bảng ECAT.QRTZ_PAUSED_TRIGGER_GRPS"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'qrtz_paused_trigger_grps'
-      tags:
-        - layer_staging
-        - domain_ecat
-
-  - name: stg_ecat_qrtz_scheduler_state
-    description: "Staging model của bảng ECAT.QRTZ_SCHEDULER_STATE"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'qrtz_scheduler_state'
-      tags:
-        - layer_staging
-        - domain_ecat
-
-  - name: stg_ecat_qrtz_simple_triggers
-    description: "Staging model của bảng ECAT.QRTZ_SIMPLE_TRIGGERS"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'qrtz_simple_triggers'
-      tags:
-        - layer_staging
-        - domain_ecat
-
-  - name: stg_ecat_qrtz_simprop_triggers
-    description: "Staging model của bảng ECAT.QRTZ_SIMPROP_TRIGGERS"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'qrtz_simprop_triggers'
-      tags:
-        - layer_staging
-        - domain_ecat
-
-  - name: stg_ecat_qrtz_triggers
-    description: "Staging model của bảng ECAT.QRTZ_TRIGGERS"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'qrtz_triggers'
-      tags:
-        - layer_staging
-        - domain_ecat
-
   - name: stg_ecat_qualification_category
     description: "Staging model của bảng ECAT.QUALIFICATION_CATEGORY"
     config:
@@ -1106,19 +885,6 @@ models:
         - layer_staging
         - domain_ecat
 
-  - name: stg_ecat_security
-    description: "Staging model của bảng ECAT.SECURITY"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'security'
-      tags:
-        - layer_staging
-        - domain_ecat
-
   - name: stg_ecat_security_company
     description: "Staging model của bảng ECAT.SECURITY_COMPANY"
     config:
@@ -1154,45 +920,6 @@ models:
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_ecat_schema") }}'
       alias: 'shareholder_transaction_type'
-      tags:
-        - layer_staging
-        - domain_ecat
-
-  - name: stg_ecat_soap_incoming_log
-    description: "Staging model của bảng ECAT.SOAP_INCOMING_LOG"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: append
-      partition_by: ["created_at"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'soap_incoming_log'
-      tags:
-        - layer_staging
-        - domain_ecat
-
-  - name: stg_ecat_soap_reconcile_data_mapping
-    description: "Staging model của bảng ECAT.SOAP_RECONCILE_DATA_MAPPING"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: append
-      partition_by: ["created_at"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'soap_reconcile_data_mapping'
-      tags:
-        - layer_staging
-        - domain_ecat
-
-  - name: stg_ecat_soap_sync_log
-    description: "Staging model của bảng ECAT.SOAP_SYNC_LOG"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: append
-      partition_by: ["created_at"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'soap_sync_log'
       tags:
         - layer_staging
         - domain_ecat
@@ -1284,6 +1011,669 @@ models:
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_ecat_schema") }}'
       alias: 'working_schedule'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_accounting_practitioners
+    description: "Staging model của bảng ECAT.ACCOUNTING_PRACTITIONERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'accounting_practitioners'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_administrative_procedure_component_new
+    description: "Staging model của bảng ECAT.ADMINISTRATIVE_PROCEDURE_COMPONENT_NEW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'administrative_procedure_component_new'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_administrative_procedure_field
+    description: "Staging model của bảng ECAT.ADMINISTRATIVE_PROCEDURE_FIELD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'administrative_procedure_field'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_administrative_procedure_new
+    description: "Staging model của bảng ECAT.ADMINISTRATIVE_PROCEDURE_NEW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'administrative_procedure_new'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_administrative_procedure_version_map
+    description: "Staging model của bảng ECAT.ADMINISTRATIVE_PROCEDURE_VERSION_MAP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'administrative_procedure_version_map'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_af_file
+    description: "Staging model của bảng ECAT.AF_FILE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'af_file'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_approved_audit_firm_approval
+    description: "Staging model của bảng ECAT.APPROVED_AUDIT_FIRM_APPROVAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'approved_audit_firm_approval'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_approved_audit_firm_representative
+    description: "Staging model của bảng ECAT.APPROVED_AUDIT_FIRM_REPRESENTATIVE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'approved_audit_firm_representative'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_approved_audit_firm_status_history
+    description: "Staging model của bảng ECAT.APPROVED_AUDIT_FIRM_STATUS_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'approved_audit_firm_status_history'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_approved_auditor_approval
+    description: "Staging model của bảng ECAT.APPROVED_AUDITOR_APPROVAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'approved_auditor_approval'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_approved_auditor_attachment
+    description: "Staging model của bảng ECAT.APPROVED_AUDITOR_ATTACHMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'approved_auditor_attachment'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_approved_auditor_reminder
+    description: "Staging model của bảng ECAT.APPROVED_AUDITOR_REMINDER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'approved_auditor_reminder'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_approved_auditor_status_change
+    description: "Staging model của bảng ECAT.APPROVED_AUDITOR_STATUS_CHANGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'approved_auditor_status_change'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_approved_auditor_suspension
+    description: "Staging model của bảng ECAT.APPROVED_AUDITOR_SUSPENSION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'approved_auditor_suspension'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_approved_auditors_new
+    description: "Staging model của bảng ECAT.APPROVED_AUDITORS_NEW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'approved_auditors_new'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_business_activity_organization_type
+    description: "Staging model của bảng ECAT.BUSINESS_ACTIVITY_ORGANIZATION_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'business_activity_organization_type'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_business_event_organization_type
+    description: "Staging model của bảng ECAT.BUSINESS_EVENT_ORGANIZATION_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'business_event_organization_type'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_business_line
+    description: "Staging model của bảng ECAT.BUSINESS_LINE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'business_line'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_business_service_organization_type
+    description: "Staging model của bảng ECAT.BUSINESS_SERVICE_ORGANIZATION_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'business_service_organization_type'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_disclosure_report_operating_status
+    description: "Staging model của bảng ECAT.DISCLOSURE_REPORT_OPERATING_STATUS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'disclosure_report_operating_status'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_enterprise_department
+    description: "Staging model của bảng ECAT.ENTERPRISE_DEPARTMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'enterprise_department'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_enterprise_type_organization_type
+    description: "Staging model của bảng ECAT.ENTERPRISE_TYPE_ORGANIZATION_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'enterprise_type_organization_type'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_fmsqlq_status
+    description: "Staging model của bảng ECAT.FMSQLQ_STATUS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'fmsqlq_status'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_foreign_fund_branch_new
+    description: "Staging model của bảng ECAT.FOREIGN_FUND_BRANCH_NEW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'foreign_fund_branch_new'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_foreign_fund_manager_branch
+    description: "Staging model của bảng ECAT.FOREIGN_FUND_MANAGER_BRANCH"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'foreign_fund_manager_branch'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_foreign_securities_branches
+    description: "Staging model của bảng ECAT.FOREIGN_SECURITIES_BRANCHES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'foreign_securities_branches'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_gms_ids_company_relationship
+    description: "Staging model của bảng ECAT.GMS_IDS_COMPANY_RELATIONSHIP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'gms_ids_company_relationship'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_gms_ids_foreign_owner_limit
+    description: "Staging model của bảng ECAT.GMS_IDS_FOREIGN_OWNER_LIMIT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'gms_ids_foreign_owner_limit'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_gms_ids_legal_representative
+    description: "Staging model của bảng ECAT.GMS_IDS_LEGAL_REPRESENTATIVE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'gms_ids_legal_representative'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_gms_ids_lookup_values
+    description: "Staging model của bảng ECAT.GMS_IDS_LOOKUP_VALUES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'gms_ids_lookup_values'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_gms_ids_state_capital
+    description: "Staging model của bảng ECAT.GMS_IDS_STATE_CAPITAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'gms_ids_state_capital'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_holiday_templates
+    description: "Staging model của bảng ECAT.HOLIDAY_TEMPLATES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'holiday_templates'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_independent_audit_firm
+    description: "Staging model của bảng ECAT.INDEPENDENT_AUDIT_FIRM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'independent_audit_firm'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_legal_representatives
+    description: "Staging model của bảng ECAT.LEGAL_REPRESENTATIVES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'legal_representatives'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_lookup_values
+    description: "Staging model của bảng ECAT.LOOKUP_VALUES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'lookup_values'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_operational_status_type_organization_type
+    description: "Staging model của bảng ECAT.OPERATIONAL_STATUS_TYPE_ORGANIZATION_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'operational_status_type_organization_type'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_payment_custodian_bank_new
+    description: "Staging model của bảng ECAT.PAYMENT_CUSTODIAN_BANK_NEW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'payment_custodian_bank_new'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_position_department
+    description: "Staging model của bảng ECAT.POSITION_DEPARTMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'position_department'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_position_organization_type
+    description: "Staging model của bảng ECAT.POSITION_ORGANIZATION_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'position_organization_type'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_position_position_type
+    description: "Staging model của bảng ECAT.POSITION_POSITION_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'position_position_type'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_position_type_department
+    description: "Staging model của bảng ECAT.POSITION_TYPE_DEPARTMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'position_type_department'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_practice_certificate_type_organization_type
+    description: "Staging model của bảng ECAT.PRACTICE_CERTIFICATE_TYPE_ORGANIZATION_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'practice_certificate_type_organization_type'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_public_company_new
+    description: "Staging model của bảng ECAT.PUBLIC_COMPANY_NEW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'public_company_new'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_public_company_version_map
+    description: "Staging model của bảng ECAT.PUBLIC_COMPANY_VERSION_MAP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'public_company_version_map'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_scms_status
+    description: "Staging model của bảng ECAT.SCMS_STATUS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'scms_status'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_securities
+    description: "Staging model của bảng ECAT.SECURITIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'securities'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_tax_id_status
+    description: "Staging model của bảng ECAT.TAX_ID_STATUS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'tax_id_status'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_ubck_staff_organization_type
+    description: "Staging model của bảng ECAT.UBCK_STAFF_ORGANIZATION_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'ubck_staff_organization_type'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_ubck_staff_user_group
+    description: "Staging model của bảng ECAT.UBCK_STAFF_USER_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'ubck_staff_user_group'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_working_schedule_generated_year
+    description: "Staging model của bảng ECAT.WORKING_SCHEDULE_GENERATED_YEAR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'working_schedule_generated_year'
+      tags:
+        - layer_staging
+        - domain_ecat
+
+  - name: stg_ecat_working_schedule_new
+    description: "Staging model của bảng ECAT.WORKING_SCHEDULE_NEW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ecat_schema") }}'
+      alias: 'working_schedule_new'
       tags:
         - layer_staging
         - domain_ecat

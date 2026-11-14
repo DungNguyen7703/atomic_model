@@ -8,11 +8,12 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo GMS_AUDIT_UAT_schema.
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo AUDIT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: kieu int sang bigint (2 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
-    CAST(id AS int)                    AS id
+    CAST(id AS bigint)                 AS id
     , CAST(form_cd AS string)            AS form_cd
     , CAST(created_by AS string)         AS created_by
     , CAST(created_date AS timestamp)    AS created_date
@@ -30,7 +31,7 @@ SELECT
     , CAST(leader_approval_flg AS int)   AS leader_approval_flg
     , CAST(published_flg AS int)         AS published_flg
     , CAST(title_formula AS string)      AS title_formula
-    , CAST(parent_id AS int)             AS parent_id
+    , CAST(parent_id AS bigint)          AS parent_id
     , CAST(report_type AS int)           AS report_type
     , CAST(control_unit_cd AS string)    AS control_unit_cd
     , CAST(operating_unit_cd AS string)  AS operating_unit_cd

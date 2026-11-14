@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo KNT_UAT_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo KNT_ddl_prod.sql, brd_KNT.yaml va khao sat du lieu nguon prod: WHERE loc theo BRD filter_logic; kieu date sang timestamp (1 cot); yml snapshot/ds_snpst_dt -> append/created_at theo BRD.
 *--------------------------------------------------------------------*
 */
 
@@ -31,7 +32,7 @@ SELECT
     , CAST(gender AS int)                     AS gender
     , CAST(id_card_number AS string)          AS id_card_number
     , CAST(created_by AS string)              AS created_by
-    , CAST(created_at AS date)                AS created_at
+    , CAST(created_at AS timestamp)           AS created_at
     , CAST(subject_type_catalog_id AS string) AS subject_type_catalog_id
     , CAST(securities_code AS string)         AS securities_code
     , CAST(org_representative_name AS string) AS org_representative_name
@@ -41,3 +42,4 @@ SELECT
     , CAST(decision_id AS string)             AS decision_id
     , CAST(market AS int)                     AS market
 FROM {{ source('source_knt', 'raw_subject_profile') }}
+WHERE date_format(created_at, 'yyyy-MM-dd') >= to_date('{{ var("etl_date") }}', 'yyyy-MM-dd') AND date_format(created_at, 'yyyy-MM-dd') < to_date('{{ var("etl_date") }}', 'yyyy-MM-dd') + 1

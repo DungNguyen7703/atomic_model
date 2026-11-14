@@ -8,25 +8,26 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo GMS_AUDIT_UAT_schema.
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo AUDIT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: kieu int sang bigint (6 cot); kieu decimal(38,2) sang decimal(38,10) (1 cot); kieu date sang timestamp (2 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
     CAST(id AS decimal(19,0))         AS id
-    , CAST(company_profile_id AS int)   AS company_profile_id
-    , CAST(legal_entity_id AS int)      AS legal_entity_id
-    , CAST(company_data_id AS int)      AS company_data_id
-    , CAST(rep_form_id AS int)          AS rep_form_id
-    , CAST(data_value AS decimal(38,2)) AS data_value
+    , CAST(company_profile_id AS bigint) AS company_profile_id
+    , CAST(legal_entity_id AS bigint)    AS legal_entity_id
+    , CAST(company_data_id AS bigint)    AS company_data_id
+    , CAST(rep_form_id AS bigint)        AS rep_form_id
+    , CAST(data_value AS decimal(38,10)) AS data_value
     , CAST(text_value AS string)        AS text_value
-    , CAST(rep_row_id AS int)           AS rep_row_id
-    , CAST(rep_col_id AS int)           AS rep_col_id
+    , CAST(rep_row_id AS bigint)         AS rep_row_id
+    , CAST(rep_col_id AS bigint)         AS rep_col_id
     , CAST(rep_row_index AS int)        AS rep_row_index
     , CAST(rep_col_index AS int)        AS rep_col_index
     , CAST(col_data_type AS string)     AS col_data_type
     , CAST(row_data_type AS string)     AS row_data_type
     , CAST(created_by AS string)        AS created_by
-    , CAST(created_date AS date)        AS created_date
+    , CAST(created_date AS timestamp)    AS created_date
     , CAST(updated_by AS string)        AS updated_by
-    , CAST(updated_date AS date)        AS updated_date
+    , CAST(updated_date AS timestamp)    AS updated_date
 FROM {{ source('source_audit', 'raw_rep_data') }}

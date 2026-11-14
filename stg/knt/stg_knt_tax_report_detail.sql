@@ -8,12 +8,13 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo KNT_UAT_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo KNT_ddl_prod.sql, brd_KNT.yaml va khao sat du lieu nguon prod: kieu int sang bigint (2 cot); them cot data_dt; yml snapshot/ds_snpst_dt -> append/data_dt theo BRD.
 *--------------------------------------------------------------------*
 */
 
 SELECT
-    CAST(id AS int)                            AS id
-    , CAST(tax_report_id AS int)                 AS tax_report_id
+    CAST(id AS bigint)                         AS id
+    , CAST(tax_report_id AS bigint)              AS tax_report_id
     , CAST(indicator_code AS string)             AS indicator_code
     , CAST(indicator_name AS string)             AS indicator_name
     , CAST(explanation_note AS string)           AS explanation_note
@@ -40,4 +41,5 @@ SELECT
     , CAST(increase_current_year AS string)      AS increase_current_year
     , CAST(decrease_current_year AS string)      AS decrease_current_year
     , CAST(decrease_prior_year AS string)        AS decrease_prior_year
+    , to_date('{{ var("etl_date") }}', 'yyyy-MM-dd') AS data_dt
 FROM {{ source('source_knt', 'raw_tax_report_detail') }}

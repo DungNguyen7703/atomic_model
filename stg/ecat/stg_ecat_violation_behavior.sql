@@ -7,7 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo ECAT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: kieu int sang bigint (2 cot); them cot id_sync.
 *--------------------------------------------------------------------*
 */
 
@@ -18,8 +18,8 @@ SELECT
     , CAST(description AS string)             AS description
     , CAST(clause_reference AS string)        AS clause_reference
     , CAST(legal_document AS string)          AS legal_document
-    , CAST(min_fine_amount AS int)            AS min_fine_amount
-    , CAST(max_fine_amount AS int)            AS max_fine_amount
+    , CAST(min_fine_amount AS bigint)         AS min_fine_amount
+    , CAST(max_fine_amount AS bigint)         AS max_fine_amount
     , CAST(remediation_measure AS string)     AS remediation_measure
     , CAST(status AS int)                     AS status
     , CAST(note AS string)                    AS note
@@ -38,4 +38,5 @@ SELECT
     , CAST(created_by_name AS string)         AS created_by_name
     , CAST(updated_by_id AS string)           AS updated_by_id
     , CAST(updated_by_name AS string)         AS updated_by_name
+    , CAST(id_sync AS string)                 AS id_sync
 FROM {{ source('source_ecat', 'raw_violation_behavior') }}

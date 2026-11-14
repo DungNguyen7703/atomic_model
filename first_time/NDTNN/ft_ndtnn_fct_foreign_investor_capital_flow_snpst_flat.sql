@@ -3,6 +3,7 @@
 -- ────────────────────────────────────────────────────────────
 -- Model : ndtnn_fct_foreign_investor_capital_flow_snpst_flat
 -- Type  : FACT
+-- 2026-11-08 nghia.le: [DONG BO daily] them cot transaction_cd (MSGD) cuoi bang.
 -- 2026-10-18 nghia.le: [FIX] rpt_cdr_dt thieu nullIf(..., toDate('1970-01-01')) - ban truoc do sot khi dong bo tu
 -- daily, co nguy co ghi sentinel date 1970-01-01 thay vi NULL khi LEFT JOIN khong khop tren ClickHouse
 -- (join_use_nulls=0). Them nullIf khop dung daily.
@@ -21,6 +22,7 @@ SELECT
     f.period_val,
     f.nationality_nm,
     f.investor_nm,
+    f.transaction_cd,                    -- [MỚI 2026-11-08] MSGD 6 ký tự cuối in hoa — ngay sau investor_nm, khớp daily
     f.capital_flow_net_val,
     f.src_stm_code,
     submission_cal.cdr_dt AS snpst_cdr_dt,

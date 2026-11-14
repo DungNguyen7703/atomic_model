@@ -2,12 +2,14 @@
 -- Model : qlq_opr_foreign_fund_management_organization_unit_contract_list_flat
 -- Type  : OPERATIONAL
 -- 2026-10-14 claude: khởi tạo từ flat-table/QLQ/02_populate_qlq_flat_tables.sql #18 (commit d18cdaa0)
+-- 2026-11-09 claude: dynamic_row_nbr → table_idx theo dtm_opr_foreign_fund_management_organization_unit_contract_list (LLD commit 48c65dde, O_QLQ_82;
+--                    schema-changing, ORDER BY đổi — cần DROP + CREATE bảng ClickHouse, xem hướng dẫn DDL)
 -- ────────────────────────────────────────────────────────────
 
 SELECT
     -- OPERATIONAL Foreign Fund Management Organization Unit Contract List
     fmr_submission_code,
-    dynamic_row_nbr,
+    table_idx,
     foreign_fund_management_organization_unit_code,
     record_tp,
     period_tp_code,

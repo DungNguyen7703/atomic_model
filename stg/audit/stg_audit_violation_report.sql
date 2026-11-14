@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo GMS_AUDIT_UAT_schema.
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo AUDIT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: kieu int sang decimal(38,10) (2 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -18,8 +19,8 @@ SELECT
     , CAST(form_id AS decimal(38,0))               AS form_id
     , CAST(form_cd AS string)                      AS form_cd
     , CAST(period_name AS string)                  AS period_name
-    , CAST(period_quarter AS int)                  AS period_quarter
-    , CAST(period_year AS int)                     AS period_year
+    , CAST(period_quarter AS decimal(38,10))       AS period_quarter
+    , CAST(period_year AS decimal(38,10))          AS period_year
     , CAST(base_column AS string)                  AS base_column
     , CAST(base_date AS date)                      AS base_date
     , CAST(deadline_date AS date)                  AS deadline_date

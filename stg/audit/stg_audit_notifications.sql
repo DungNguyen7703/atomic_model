@@ -8,16 +8,17 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo GMS_AUDIT_UAT_schema.
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo AUDIT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: kieu int sang bigint (2 cot); kieu date sang timestamp (2 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
-    CAST(id AS int)                       AS id
+    CAST(id AS bigint)                    AS id
     , CAST(noti_cd AS string)               AS noti_cd
     , CAST(noti_title_vi AS string)         AS noti_title_vi
     , CAST(noti_title_en AS string)         AS noti_title_en
     , CAST(noti_category_cd AS string)      AS noti_category_cd
-    , CAST(form_id AS int)                  AS form_id
+    , CAST(form_id AS bigint)               AS form_id
     , CAST(form_cd AS string)               AS form_cd
     , CAST(send_schedule_type_cd AS string) AS send_schedule_type_cd
     , CAST(news_status_cd AS string)        AS news_status_cd
@@ -38,9 +39,9 @@ SELECT
     , CAST(reminder_before_due_days AS int) AS reminder_before_due_days
     , CAST(send_hour AS string)             AS send_hour
     , CAST(created_by AS string)            AS created_by
-    , CAST(created_date AS date)            AS created_date
+    , CAST(created_date AS timestamp)       AS created_date
     , CAST(updated_by AS string)            AS updated_by
-    , CAST(updated_date AS date)            AS updated_date
+    , CAST(updated_date AS timestamp)       AS updated_date
     , CAST(delete_flg AS int)               AS delete_flg
     , CAST(last_fire_date AS date)          AS last_fire_date
 FROM {{ source('source_audit', 'raw_notifications') }}

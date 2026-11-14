@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Bo sung STG theo FMS_UAT_schema.
+* 2026-11-08		tuan.nguyenvanb		Theo design: update sang append: yml snapshot/ds_snpst_dt -> append/date_created; WHERE loc date_created = etl_date (giong cac bang *_history Append khac).
 *--------------------------------------------------------------------*
 */
 
@@ -26,3 +27,4 @@ SELECT
     , CAST(modify_by AS string)         AS modify_by
     , CAST(snapshot_after AS string)    AS snapshot_after
 FROM {{ source('source_fms', 'raw_distributor_personnel_history') }}
+WHERE date_format(date_created, 'yyyy-MM-dd') = to_date('{{ var("etl_date") }}', 'yyyy-MM-dd')

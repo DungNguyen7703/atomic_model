@@ -44,7 +44,7 @@ ip_al_id_scms AS (
     FROM {{ ref('atm_ip_alternative_identification')}}_hstr
     WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
         AND ds_rcrd_st = 'ACTIVE'
-        AND identification_tp_code = 'NATIONAL_ID'
+        AND identification_tp_code = 'IDENTIFICATION'
         AND src_stm_code = 'SCMS_SC_FIRM_SENIOR_PERSONNEL'
 ),
 

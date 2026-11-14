@@ -8,14 +8,15 @@
 * Modified management
 * Date				User				Description
 * 2026-10-07		claude				Them country_id, province_id, ward_id (LLD Atomic FMS SECURITIES_IP_Postal_Address)
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo brd_FMS.yaml va khao sat du lieu nguon prod: kieu date sang timestamp (2 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
     HEX(id)                              AS id
-    , CAST(date_created AS date)         AS date_created
+    , CAST(date_created AS timestamp)    AS date_created
     , CAST(created_by AS string)         AS created_by
-    , CAST(date_modified AS date)        AS date_modified
+    , CAST(date_modified AS timestamp)   AS date_modified
     , CAST(modify_by AS string)          AS modify_by
     , HEX(status_id)                     AS status_id
     , CAST(item_name AS string)          AS item_name

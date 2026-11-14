@@ -71,6 +71,8 @@
 *                                       Doi cot: investment_account_nbr -> investor_account_nbr, investment_account_tp_code (string) -> investor_tp_code (int, so sanh bang so),
 *                                       event_dt -> open_dt. Cot output cua model khong doi -> khong ALTER mart/ClickHouse.
 * 2026-11-03		tuan.nguyenvanb		[SUA] atm_open_investor_account tren Spark khong con cot ds_snpst_dt (chi con partition open_dt): bo ds_snpst_dt khoi ORDER BY cua CTE inv_acc, chi xep theo open_dt DESC. Khong doi cot/kieu.
+* 2026-11-09		tuan.nguyenvanb		[LLD O_GSTT_80, BA STT 23 dong 559-562, K_GSTT_423-426] THEM 8 cot cuoi bang (sau negotiated_sell_val): round_lot_buy_vol/sell_vol/buy_val/sell_val (board G1,G2,G3,G6,G7,G8,T1,T2,T3,T6,R1)
+*                                       va odd_lot_buy_vol/sell_vol/buy_val/sell_val (board G4,T4); cung quy tac phan loai NDT nhu buy_vol/buy_val. Bang vat ly can ALTER ADD COLUMN ... AFTER negotiated_sell_val (insert theo vi tri).
 */
 
 WITH se_tr_sn_di_all AS (
@@ -198,7 +200,15 @@ se_tr_cat AS (
         SUM(CASE WHEN t.board_tp_code NOT IN ('T1','T2','T3','T4','T6','R1') THEN (CASE c.investor_category_code WHEN 'TU_DOANH' THEN t.buy_is_td WHEN 'NUOC_NGOAI' THEN t.buy_is_nn WHEN 'CA_NHAN' THEN t.buy_is_cn WHEN 'TO_CHUC_TRONG_NUOC' THEN t.buy_is_tc WHEN 'KHONG_XAC_DINH' THEN t.buy_is_kxd ELSE 0 END) * t.execution_val ELSE 0 END) AS matched_buy_val,
         SUM(CASE WHEN t.board_tp_code NOT IN ('T1','T2','T3','T4','T6','R1') THEN (CASE c.investor_category_code WHEN 'TU_DOANH' THEN t.sell_is_td WHEN 'NUOC_NGOAI' THEN t.sell_is_nn WHEN 'CA_NHAN' THEN t.sell_is_cn WHEN 'TO_CHUC_TRONG_NUOC' THEN t.sell_is_tc WHEN 'KHONG_XAC_DINH' THEN t.sell_is_kxd ELSE 0 END) * t.execution_val ELSE 0 END) AS matched_sell_val,
         SUM(CASE WHEN t.board_tp_code IN ('T1','T2','T3','T4','T6','R1') THEN (CASE c.investor_category_code WHEN 'TU_DOANH' THEN t.buy_is_td WHEN 'NUOC_NGOAI' THEN t.buy_is_nn WHEN 'CA_NHAN' THEN t.buy_is_cn WHEN 'TO_CHUC_TRONG_NUOC' THEN t.buy_is_tc WHEN 'KHONG_XAC_DINH' THEN t.buy_is_kxd ELSE 0 END) * t.execution_val ELSE 0 END) AS negotiated_buy_val,
-        SUM(CASE WHEN t.board_tp_code IN ('T1','T2','T3','T4','T6','R1') THEN (CASE c.investor_category_code WHEN 'TU_DOANH' THEN t.sell_is_td WHEN 'NUOC_NGOAI' THEN t.sell_is_nn WHEN 'CA_NHAN' THEN t.sell_is_cn WHEN 'TO_CHUC_TRONG_NUOC' THEN t.sell_is_tc WHEN 'KHONG_XAC_DINH' THEN t.sell_is_kxd ELSE 0 END) * t.execution_val ELSE 0 END) AS negotiated_sell_val
+        SUM(CASE WHEN t.board_tp_code IN ('T1','T2','T3','T4','T6','R1') THEN (CASE c.investor_category_code WHEN 'TU_DOANH' THEN t.sell_is_td WHEN 'NUOC_NGOAI' THEN t.sell_is_nn WHEN 'CA_NHAN' THEN t.sell_is_cn WHEN 'TO_CHUC_TRONG_NUOC' THEN t.sell_is_tc WHEN 'KHONG_XAC_DINH' THEN t.sell_is_kxd ELSE 0 END) * t.execution_val ELSE 0 END) AS negotiated_sell_val,
+        SUM(CASE WHEN t.board_tp_code IN ('G1','G2','G3','G6','G7','G8','T1','T2','T3','T6','R1') THEN (CASE c.investor_category_code WHEN 'TU_DOANH' THEN t.buy_is_td WHEN 'NUOC_NGOAI' THEN t.buy_is_nn WHEN 'CA_NHAN' THEN t.buy_is_cn WHEN 'TO_CHUC_TRONG_NUOC' THEN t.buy_is_tc WHEN 'KHONG_XAC_DINH' THEN t.buy_is_kxd ELSE 0 END) * t.execution_vol ELSE 0 END) AS round_lot_buy_vol,
+        SUM(CASE WHEN t.board_tp_code IN ('G1','G2','G3','G6','G7','G8','T1','T2','T3','T6','R1') THEN (CASE c.investor_category_code WHEN 'TU_DOANH' THEN t.sell_is_td WHEN 'NUOC_NGOAI' THEN t.sell_is_nn WHEN 'CA_NHAN' THEN t.sell_is_cn WHEN 'TO_CHUC_TRONG_NUOC' THEN t.sell_is_tc WHEN 'KHONG_XAC_DINH' THEN t.sell_is_kxd ELSE 0 END) * t.execution_vol ELSE 0 END) AS round_lot_sell_vol,
+        SUM(CASE WHEN t.board_tp_code IN ('G1','G2','G3','G6','G7','G8','T1','T2','T3','T6','R1') THEN (CASE c.investor_category_code WHEN 'TU_DOANH' THEN t.buy_is_td WHEN 'NUOC_NGOAI' THEN t.buy_is_nn WHEN 'CA_NHAN' THEN t.buy_is_cn WHEN 'TO_CHUC_TRONG_NUOC' THEN t.buy_is_tc WHEN 'KHONG_XAC_DINH' THEN t.buy_is_kxd ELSE 0 END) * t.execution_val ELSE 0 END) AS round_lot_buy_val,
+        SUM(CASE WHEN t.board_tp_code IN ('G1','G2','G3','G6','G7','G8','T1','T2','T3','T6','R1') THEN (CASE c.investor_category_code WHEN 'TU_DOANH' THEN t.sell_is_td WHEN 'NUOC_NGOAI' THEN t.sell_is_nn WHEN 'CA_NHAN' THEN t.sell_is_cn WHEN 'TO_CHUC_TRONG_NUOC' THEN t.sell_is_tc WHEN 'KHONG_XAC_DINH' THEN t.sell_is_kxd ELSE 0 END) * t.execution_val ELSE 0 END) AS round_lot_sell_val,
+        SUM(CASE WHEN t.board_tp_code IN ('G4','T4') THEN (CASE c.investor_category_code WHEN 'TU_DOANH' THEN t.buy_is_td WHEN 'NUOC_NGOAI' THEN t.buy_is_nn WHEN 'CA_NHAN' THEN t.buy_is_cn WHEN 'TO_CHUC_TRONG_NUOC' THEN t.buy_is_tc WHEN 'KHONG_XAC_DINH' THEN t.buy_is_kxd ELSE 0 END) * t.execution_vol ELSE 0 END) AS odd_lot_buy_vol,
+        SUM(CASE WHEN t.board_tp_code IN ('G4','T4') THEN (CASE c.investor_category_code WHEN 'TU_DOANH' THEN t.sell_is_td WHEN 'NUOC_NGOAI' THEN t.sell_is_nn WHEN 'CA_NHAN' THEN t.sell_is_cn WHEN 'TO_CHUC_TRONG_NUOC' THEN t.sell_is_tc WHEN 'KHONG_XAC_DINH' THEN t.sell_is_kxd ELSE 0 END) * t.execution_vol ELSE 0 END) AS odd_lot_sell_vol,
+        SUM(CASE WHEN t.board_tp_code IN ('G4','T4') THEN (CASE c.investor_category_code WHEN 'TU_DOANH' THEN t.buy_is_td WHEN 'NUOC_NGOAI' THEN t.buy_is_nn WHEN 'CA_NHAN' THEN t.buy_is_cn WHEN 'TO_CHUC_TRONG_NUOC' THEN t.buy_is_tc WHEN 'KHONG_XAC_DINH' THEN t.buy_is_kxd ELSE 0 END) * t.execution_val ELSE 0 END) AS odd_lot_buy_val,
+        SUM(CASE WHEN t.board_tp_code IN ('G4','T4') THEN (CASE c.investor_category_code WHEN 'TU_DOANH' THEN t.sell_is_td WHEN 'NUOC_NGOAI' THEN t.sell_is_nn WHEN 'CA_NHAN' THEN t.sell_is_cn WHEN 'TO_CHUC_TRONG_NUOC' THEN t.sell_is_tc WHEN 'KHONG_XAC_DINH' THEN t.sell_is_kxd ELSE 0 END) * t.execution_val ELSE 0 END) AS odd_lot_sell_val
     FROM se_tr t
     CROSS JOIN investor_category c
     GROUP BY t.security_symbol_code, t.trade_dt, c.investor_category_code
@@ -215,7 +225,15 @@ SELECT
     CAST(se_tr_cat.matched_buy_val AS decimal(23,2))            AS matched_buy_val,
     CAST(se_tr_cat.matched_sell_val AS decimal(23,2))           AS matched_sell_val,
     CAST(se_tr_cat.negotiated_buy_val AS decimal(23,2))         AS negotiated_buy_val,
-    CAST(se_tr_cat.negotiated_sell_val AS decimal(23,2))        AS negotiated_sell_val
+    CAST(se_tr_cat.negotiated_sell_val AS decimal(23,2))        AS negotiated_sell_val,
+    CAST(se_tr_cat.round_lot_buy_vol AS bigint)          AS round_lot_buy_vol,
+    CAST(se_tr_cat.round_lot_sell_vol AS bigint)         AS round_lot_sell_vol,
+    CAST(se_tr_cat.round_lot_buy_val AS decimal(23,2))   AS round_lot_buy_val,
+    CAST(se_tr_cat.round_lot_sell_val AS decimal(23,2))  AS round_lot_sell_val,
+    CAST(se_tr_cat.odd_lot_buy_vol AS bigint)            AS odd_lot_buy_vol,
+    CAST(se_tr_cat.odd_lot_sell_vol AS bigint)           AS odd_lot_sell_vol,
+    CAST(se_tr_cat.odd_lot_buy_val AS decimal(23,2))     AS odd_lot_buy_val,
+    CAST(se_tr_cat.odd_lot_sell_val AS decimal(23,2))    AS odd_lot_sell_val
 FROM se_tr_cat
 LEFT JOIN se_tr_sn_di_key se_tr_sn_di   -- [BACKFILL-UAT-NEW]
     -- 2026-10-10 tuan.nguyenvanb: [BACKFILL-UAT-NEW] dim MAIN chi giu san moi nhat (vd VNE: floor 04 -> key isin) nen ma doi san ra dim_id NULL; join them theo symbol.

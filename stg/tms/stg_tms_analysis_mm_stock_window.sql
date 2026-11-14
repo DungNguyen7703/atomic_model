@@ -8,21 +8,22 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Bo sung STG theo UAT_TMS_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo TMS_ddl_prod.sql, brd_TMS.yaml va khao sat du lieu nguon prod: kieu int sang bigint (3 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
     CAST(id AS string)                   AS id
     , CAST(case_file_id AS string)         AS case_file_id
-    , CAST(workflow_type AS int)           AS workflow_type
-    , CAST(result_type AS int)             AS result_type
+    , CAST(workflow_type AS bigint)        AS workflow_type
+    , CAST(result_type AS bigint)          AS result_type
     , CAST(securities_code_id AS string)   AS securities_code_id
     , CAST(securities_code AS string)      AS securities_code
     , CAST(analysis_date AS decimal(19,0)) AS analysis_date
     , CAST(from_time AS decimal(19,0))     AS from_time
     , CAST(to_time AS decimal(19,0))       AS to_time
     , CAST(time_range_display AS string)   AS time_range_display
-    , CAST(affected_stock_count AS int)    AS affected_stock_count
+    , CAST(affected_stock_count AS bigint) AS affected_stock_count
     , CAST(created_at AS timestamp)        AS created_at
     , CAST(updated_at AS timestamp)        AS updated_at
     , CAST(created_by_id AS string)        AS created_by_id

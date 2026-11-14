@@ -87,8 +87,8 @@ pd_su_be AS (
         pd_subject_behavior_code,
         pd_subject_id,
         violation_behavior_id,
-        cl_thanhtra_penalty_tp_id,
-        --description
+        cl_thanhtra_penalty_tp_id
+        --, description
     FROM {{ ref('atm_pd_subject_behavior') }}_hstr
     WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
         AND ds_rcrd_st = 'ACTIVE'

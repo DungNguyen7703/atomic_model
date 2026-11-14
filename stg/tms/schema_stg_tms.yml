@@ -5,7 +5,8 @@ models:
     description: "Staging model của bảng TMS.CASE_FILE"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_tms_schema") }}'
       alias: 'case_file'
@@ -17,7 +18,8 @@ models:
     description: "Staging model của bảng TMS.CASE_APPROVAL_STEP"
     config:
       materialized: incremental_rebase
-      incremental_strategy: append
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_tms_schema") }}'
       alias: 'case_approval_step'
@@ -1594,32 +1596,6 @@ models:
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_tms_schema") }}'
       alias: 'user_table_config'
-      tags:
-        - layer_staging
-        - domain_tms
-
-  - name: stg_tms_report
-    description: "Staging model: Danh muc bao cao dong UBCKNN va bo chi tieu"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_tms_schema") }}'
-      alias: 'tms_report'
-      tags:
-        - layer_staging
-        - domain_tms
-
-  - name: stg_tms_report_value
-    description: "Staging model: Gia tri chi tieu bao cao dong UBCKNN theo tung lan nop"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: snapshot
-      partition_by: ["ds_snpst_dt"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_tms_schema") }}'
-      alias: 'tms_report_value'
       tags:
         - layer_staging
         - domain_tms

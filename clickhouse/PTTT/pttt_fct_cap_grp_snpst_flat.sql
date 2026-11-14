@@ -4,14 +4,15 @@
 -- Joined dimension: dtm_cdr_dt_dim for calendar date
 -- Grain: 1 row per market cap group per trading day
 -- Filter: only the snapshot day equal to etl_date
--- Note: Liquidity share of each cap group, taken as is from the mart.
+-- Note: Market cap share of each cap group, taken as is from the mart.
 -- Modified: 2026-10-15 add header comment, no logic change
+-- Modified: 2026-11-10 rename liquidity_share_ratio -> market_cap_share_ratio (market cap share of group; need ALTER RENAME flat table first)
 
 SELECT /*+ BROADCAST(cal) */
     f.snpst_dt_dim_id,
     f.cap_group_code,
     f.total_trading_val,
-    f.liquidity_share_ratio,
+    f.market_cap_share_ratio,
     to_date(f.snpst_dt_dim_id, 'yyyyMMdd') AS snpst_cdr_dt
 FROM {{ ref('dtm_fct_cap_grp_snpst') }} f
 LEFT JOIN {{ ref('dtm_cdr_dt_dim') }} cal

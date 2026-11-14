@@ -17,6 +17,11 @@
 *                                       NHNCK_CERTIFICATE_RECORD_STATUS_HISTORIES) — ROW_NUMBER theo
 *                                       data_dt DESC, CAST(history_code AS BIGINT) DESC. Đảo lại thay đổi 2026-10-22
 *                                       (đã lấy sp_license_certificate_document.status_code) theo LLD hiện hành.
+* 2026-11-10        claude             BA O_NHNCK_48: (1) certificate_status_code lấy lại sp_license_certificate_document.status_code
+*                                       (bỏ nối CERTIFICATE_RECORD_STATUS_HISTORIES, bỏ CTE certificate_status_history);
+*                                       (2) revocation_dt chỉ có khi status 2/3, thiếu thì lấy ngày ký quyết định thu hồi;
+*                                       (3) THÊM cancellation_dt (status 4; dùng chung revocation_dt, thiếu thì ngày ký quyết định hủy)
+*                                       và cancellation_decision_nbr (số quyết định hủy).
 *--------------------------------------------------------------------*
 */
 
@@ -26,11 +31,13 @@ WITH certificate_document AS (
         sp_license_certificate_document_code,
         issue_dt,
         revocation_dt,
+        status_code,
         src_stm_code,
         sp_license_certificate_document_id,
         sp_license_certificate_tp_id,
         issue_sp_license_decision_document_id,
         revocation_sp_license_decision_document_id,
+        cancellation_sp_license_decision_document_id,
         certificate_nbr
     FROM {{ ref('atm_sp_license_certificate_document') }}_hstr
     WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
@@ -51,30 +58,12 @@ certificate_type AS (
 decision_document AS (
     SELECT
         decision_nbr,
+        decision_signed_dt,
         sp_license_decision_document_id
     FROM {{ ref('atm_sp_license_decision_document') }}_hstr
     WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
         AND ds_rcrd_st = 'ACTIVE'
         AND src_stm_code = 'NHNCK_DECISIONS'
-),
-
-certificate_status_history AS (
-    SELECT
-        sp_license_certificate_document_id,
-        new_certificate_status_code
-    FROM (
-        SELECT
-            sp_license_certificate_document_id,
-            new_certificate_status_code,
-            ROW_NUMBER() OVER (
-                PARTITION BY sp_license_certificate_document_id
-                ORDER BY data_dt DESC,
-                    CAST(sp_license_certificate_status_change_history_code AS BIGINT) DESC
-            ) AS rn
-        FROM {{ ref('atm_sp_license_certificate_status_change_history') }}
-        WHERE src_stm_code = 'NHNCK_CERTIFICATE_RECORD_STATUS_HISTORIES'
-    ) t
-    WHERE rn = 1
 ),
 
 certificate_status_lookup AS (
@@ -92,11 +81,15 @@ SELECT
     CAST(certificate_type.sp_license_certificate_tp_code AS string)           AS certificate_tp_code,
     CAST(certificate_type.certificate_tp_nm AS string)                        AS certificate_tp_nm,
     CAST(certificate_document.issue_dt AS date)                               AS issue_dt,
-    CAST(certificate_document.revocation_dt AS date)                          AS revocation_dt,
+    CAST(CASE WHEN certificate_document.status_code IN ('2', '3')
+              THEN COALESCE(certificate_document.revocation_dt, decision_document_2.decision_signed_dt) END AS date) AS revocation_dt,
     CAST(decision_document.decision_nbr AS string)                            AS issue_decision_nbr,
     CAST(decision_document_2.decision_nbr AS string)                          AS revocation_decision_nbr,
-    CAST(certificate_status_history.new_certificate_status_code AS string)    AS certificate_status_code,
+    CAST(certificate_document.status_code AS string)                          AS certificate_status_code,
     CAST(certificate_status_lookup.cl_nm AS string)                           AS certificate_status_nm,
+    CAST(CASE WHEN certificate_document.status_code = '4'
+              THEN COALESCE(certificate_document.revocation_dt, decision_document_3.decision_signed_dt) END AS date) AS cancellation_dt,
+    CAST(decision_document_3.decision_nbr AS string)                          AS cancellation_decision_nbr,
     CAST(certificate_document.src_stm_code AS string)                         AS src_stm_code
 FROM certificate_document
 -- LEFT JOIN sp_or_em_re
@@ -107,8 +100,8 @@ LEFT JOIN decision_document
     ON decision_document.sp_license_decision_document_id = certificate_document.issue_sp_license_decision_document_id
 LEFT JOIN decision_document AS decision_document_2
     ON decision_document_2.sp_license_decision_document_id = certificate_document.revocation_sp_license_decision_document_id
-LEFT JOIN certificate_status_history
-    ON certificate_status_history.sp_license_certificate_document_id = certificate_document.sp_license_certificate_document_id
+LEFT JOIN decision_document AS decision_document_3
+    ON decision_document_3.sp_license_decision_document_id = certificate_document.cancellation_sp_license_decision_document_id
 LEFT JOIN certificate_status_lookup
-    ON certificate_status_lookup.cl_code = certificate_status_history.new_certificate_status_code
+    ON certificate_status_lookup.cl_code = certificate_document.status_code
 

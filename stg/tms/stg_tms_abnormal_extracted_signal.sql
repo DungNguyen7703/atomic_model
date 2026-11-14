@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Bo sung STG theo UAT_TMS_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo TMS_ddl_prod.sql, brd_TMS.yaml va khao sat du lieu nguon prod: kieu int sang bigint (1 cot); kieu date sang timestamp (1 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -19,13 +20,13 @@ SELECT
     , CAST(report_form_id AS string)  AS report_form_id
     , CAST(submitter_id AS string)    AS submitter_id
     , CAST(form_code AS string)       AS form_code
-    , CAST(row_index AS int)          AS row_index
+    , CAST(row_index AS bigint)        AS row_index
     , CAST(column_code AS string)     AS column_code
     , CAST(account_code AS string)    AS account_code
     , CAST(semantic_field AS string)  AS semantic_field
     , CAST(value_norm AS string)      AS value_norm
     , CAST(paired_account AS string)  AS paired_account
-    , CAST(occurred_date AS date)     AS occurred_date
+    , CAST(occurred_date AS timestamp) AS occurred_date
     , CAST(created_at AS timestamp)   AS created_at
     , CAST(updated_at AS timestamp)   AS updated_at
     , CAST(created_by_id AS string)   AS created_by_id

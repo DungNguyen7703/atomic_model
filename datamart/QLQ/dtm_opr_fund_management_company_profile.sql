@@ -15,6 +15,9 @@
 * 2026-11-02		claude (sync)		Đối chiếu LLD commit 1fde1c17 (O_QLQ_67) + 4c3d0a67 (O_QLQ_68): charter_capital_amt, establishment_license_dt
 *                                       đã bị gỡ khỏi LLD (K_QLQ_26 đọc fact báo cáo BCĐKT mã 411) — SELECT hiện tại không còn 2 cột này,
 *                                       khớp LLD HEAD; ghi chú 2026-11-02 ở trên về 2 cột đó không còn hiệu lực
+* 2026-11-11		claude (sync)		Đồng bộ LLD commit 56eb71c6 (O_QLQ_88, SCHEMA-CHANGING): gỡ rating_class_code + total_score_amt khỏi Profile
+*                                       (chuyển sang dtm_fct_fund_management_company_rating_snpst, nối qua fmc_id); bỏ 3 CTE
+*                                       member_rating_period / atm_member_rating / member_rating và LEFT JOIN member_rating
 *--------------------------------------------------------------------*
 */
 
@@ -75,54 +78,6 @@ fund_agg AS (
         COUNT(*) AS fund_count
     FROM investment_fund
     GROUP BY fmc_id
-),
-
-member_rating_period AS (
-    SELECT
-        member_rating_period_code,
-        rating_finalized_flag,
-        CASE rating_period_tp_code
-            WHEN '1' THEN MAKE_DATE(rpt_year, 6, 30)
-            ELSE MAKE_DATE(rpt_year, 12, 31)
-        END AS rating_period_end_dt 
-    FROM {{ ref('atm_member_rating_period') }}_hstr
-    WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
-        AND ds_rcrd_st = 'ACTIVE'
-        AND src_stm_code = 'FMS_RATING_PD'
-),
-
-atm_member_rating AS (
-    SELECT
-        fmc_id,
-        member_rating_period_code,
-        rating_period_tp_code,
-        total_score_amt
-    FROM {{ ref('atm_member_rating') }}_hstr
-    WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
-        AND ds_rcrd_st = 'ACTIVE'
-        AND src_stm_code = 'FMS_RANK'
-),
-
-member_rating AS (
-    SELECT
-        fmc_id,
-        rating_class_code,
-        total_score_amt
-    FROM (
-        SELECT
-            mr.fmc_id,
-            mr.rating_period_tp_code                                       AS rating_class_code,
-            mr.total_score_amt,
-            ROW_NUMBER() OVER (PARTITION BY mr.fmc_id
-                               ORDER BY member_rating_period.rating_period_end_dt DESC,
-                                        member_rating_period.rating_finalized_flag DESC,
-                                        mr.total_score_amt DESC)           AS rn
-        FROM atm_member_rating mr
-        INNER JOIN member_rating_period
-            ON member_rating_period.member_rating_period_code = mr.member_rating_period_code
-        WHERE member_rating_period.rating_period_end_dt <= to_date('{{ var("etl_date") }}','yyyy-MM-dd')
-    ) t
-    WHERE rn = 1
 )
 
 SELECT
@@ -133,8 +88,6 @@ SELECT
     CAST(cl_fms_status.cl_fms_status_nm AS string)                          AS operation_status_nm,
     CAST(legal_representative.legal_representative_nm AS string)            AS legal_representative_nm,
     CAST(COALESCE(fund_agg.fund_count, 0) AS int)                           AS fund_count,
-    CAST(member_rating.rating_class_code AS string)                         AS rating_class_code,
-    CAST(member_rating.total_score_amt AS int)                              AS total_score_amt,
     CAST(fmc.src_stm_code AS string)                                        AS src_stm_code
 FROM fund_management_company fmc
 LEFT JOIN legal_representative
@@ -143,5 +96,3 @@ LEFT JOIN cl_fms_status
     ON cl_fms_status.cl_fms_status_code = fmc.operation_status_code
 LEFT JOIN fund_agg
     ON fund_agg.fmc_id = fmc.fmc_id
-LEFT JOIN member_rating
-    ON member_rating.fmc_id = fmc.fmc_id

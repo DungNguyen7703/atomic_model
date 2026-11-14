@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Bo sung STG theo UAT_TMS_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo TMS_ddl_prod.sql, brd_TMS.yaml va khao sat du lieu nguon prod: kieu int sang bigint (1 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -20,7 +21,7 @@ SELECT
     , CAST(threshold_type AS int)      AS threshold_type
     , CAST(min_value AS decimal(20,4)) AS min_value
     , CAST(max_value AS decimal(20,4)) AS max_value
-    , CAST(display_order AS int)       AS display_order
+    , CAST(display_order AS bigint)    AS display_order
     , CAST(status AS int)              AS status
     , CAST(notes AS string)            AS notes
     , CAST(created_at AS timestamp)    AS created_at

@@ -7,7 +7,7 @@ SELECT /*+ BROADCAST(cal) */
     f.snpst_dt_dim_id,
     f.cap_group_code,
     f.total_trading_val,
-    f.liquidity_share_ratio,
+    f.market_cap_share_ratio,
     to_date(f.snpst_dt_dim_id, 'yyyyMMdd') AS snpst_cdr_dt
 FROM {{ ft_ref('ft_dtm_fct_cap_grp_snpst') }} f
 LEFT JOIN {{ ref('dtm_cdr_dt_dim') }} cal

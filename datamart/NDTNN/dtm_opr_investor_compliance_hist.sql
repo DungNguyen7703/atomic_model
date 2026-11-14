@@ -48,9 +48,10 @@ pd_su_be AS (
 vi_be AS (
     SELECT
         violation_behavior_id,
-        description
-    FROM {{ ref('atm_violation_behavior') }}
-    WHERE src_stm_code = 'THANHTRA_VIOLATION_BEHAVIOR'
+        violation_behavior_nm
+    FROM {{ ref('atm_violation_behavior') }}_hstr
+    WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
+        AND src_stm_code = 'THANHTRA_VIOLATION_BEHAVIOR'
 ),
 
 pe_de AS (
@@ -79,7 +80,7 @@ SELECT
     CAST(pd_su.subject_id_nbr AS string)              AS subject_id_nbr,
     CAST(pe_de.issued_dt AS date)                     AS issued_dt,
     CAST(pe_ty.cl_thanhtra_penalty_tp_nm AS string)   AS penalty_tp_nm,
-    CAST(vi_be.description AS string)                 AS description,
+    CAST(vi_be.violation_behavior_nm AS string)                 AS description,
     CAST(pe_de.life_cycle_status_code AS string)      AS life_cycle_status_code,
     CAST(pd_su.src_stm_code AS string)                AS src_stm_code
 FROM pd_su

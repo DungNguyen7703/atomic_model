@@ -6,18 +6,10 @@
 * Created date:
 *--------------------------------------------------------------------*
 * Modified management
-* Date                User                Description
+* Date				User				Description
+* 2026-11-02		tuan.nguyenvanb		Dong bo SQL theo production (production la ban dung): kieu int sang bigint (11 cot); kieu date sang timestamp (4 cot).
 *--------------------------------------------------------------------*
 */
-{% if execute and flags.WHICH == 'run' %}
-    {% do run_query('SET spark.sql.datetime.java8API.enabled=false') %}
-{% endif %}
-
-{% set etl_date = var('etl_date') %}
-{% set next_date = (
-    modules.datetime.datetime.strptime(etl_date, '%Y-%m-%d')
-    + modules.datetime.timedelta(days=1)
-).strftime('%Y-%m-%d') %}
 
 SELECT
     CAST(id AS bigint)                      AS id
@@ -54,5 +46,4 @@ SELECT
     , CAST(updated_at AS timestamp)         AS updated_at
     , CAST(updated_by AS bigint)            AS updated_by
 FROM {{ source('source_nhnck', 'raw_organization_reports') }}
-WHERE created_at >= TIMESTAMP '{{ etl_date }} 00:00:00'
-  AND created_at < TIMESTAMP '{{ next_date }} 00:00:00'
+WHERE date_format(created_at, 'yyyy-MM-dd') = '{{ var("etl_date") }}'

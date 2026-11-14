@@ -7,7 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo ECAT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: them cot type.
 *--------------------------------------------------------------------*
 */
 
@@ -33,4 +33,5 @@ SELECT
     , CAST(updated_by_name AS string)         AS updated_by_name
     , CAST(stable_id AS string)               AS stable_id
     , CAST(effective AS int)                  AS effective
+    , CAST(type AS int)                       AS type
 FROM {{ source('source_ecat', 'raw_position_type') }}

@@ -8,10 +8,10 @@
 version: 2
 models:
 - name: ft_atm_foreign_ownership_info
-  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_foreign_ownership_info - ghi vao bang that foreign_ownership_info.'
+  description: '[FIRST-TIME] Ban khoi tao du lieu lich su cua atm_foreign_ownership_info - ghi vao bang that foreign_ownership_information.'
   config:
     materialized: ft_incremental_rebase
-    ft_target: foreign_ownership_info
+    ft_target: foreign_ownership_information
     incremental_strategy: append
     partition_by:
     - ds_snpst_dt
@@ -401,8 +401,37 @@ models:
     materialized: ft_incremental_rebase
     ft_target: fct_stock_portfolio_snpst
     incremental_strategy: append
+    pre_hook: "SET spark.sql.autoBroadcastJoinThreshold = -1"
+    ft_skip_count_check: true
     partition_by:
     - snpst_dt_dim_id
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_tmp_sp_se_tr_sn
+  description: '[FIRST-TIME, BANG TAM] Ban tin cuoi ngay cua snapshot (se_tr_sn_all + se_tr_sn) - phuc vu ft_dtm_fct_stock_portfolio_snpst, chay truoc model do.'
+  config:
+    materialized: table
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_tmp_sp_pc_financials
+  description: '[FIRST-TIME, BANG TAM] Khoi tai chinh pc_financials (doanh thu, LNST, VCSH, WAOS, ky TTM) - phuc vu ft_dtm_fct_stock_portfolio_snpst, chay truoc model do.'
+  config:
+    materialized: table
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("dtm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+- name: ft_tmp_sp_se_tr_agg
+  description: '[FIRST-TIME, BANG TAM] se_tr_agg (tong hop so lenh khop theo ma, ngay) - phuc vu ft_dtm_fct_stock_portfolio_snpst, chay truoc model do.'
+  config:
+    materialized: table
     file_format: '{{ var("file_format") }}'
     schema: '{{ var("dtm_schema") }}'
     tags:

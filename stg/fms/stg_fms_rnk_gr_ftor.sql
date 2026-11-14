@@ -7,7 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo brd_FMS.yaml va khao sat du lieu nguon prod: kieu decimal(38,0) sang int (1 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -17,5 +17,5 @@ SELECT
     , CAST(item_value AS decimal(18,2)) AS item_value
     , CAST(code AS string)              AS code
     , CAST(item_name AS string)         AS item_name
-    , CAST(weight AS decimal(38,0))     AS weight
+    , CAST(weight AS int)               AS weight
 FROM {{ source('source_fms', 'raw_rnk_gr_ftor') }}

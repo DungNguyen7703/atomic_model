@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Bo sung STG theo UAT_TMS_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo TMS_ddl_prod.sql, brd_TMS.yaml va khao sat du lieu nguon prod: kieu int sang bigint (1 cot); kieu int sang decimal(38,10) (1 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -22,7 +23,7 @@ SELECT
     , CAST(updated_by_id AS string)             AS updated_by_id
     , CAST(created_by_name AS string)           AS created_by_name
     , CAST(updated_by_name AS string)           AS updated_by_name
-    , CAST(version AS int)                      AS version
+    , CAST(version AS bigint)                   AS version
     , CAST(deleted AS int)                      AS deleted
     , CAST(status AS string)                    AS status
     , CAST(report_result_analysis AS string)    AS report_result_analysis
@@ -34,6 +35,6 @@ SELECT
     , CAST(securities_code_id AS string)        AS securities_code_id
     , CAST(securities_code AS string)           AS securities_code
     , CAST(workflow_id AS string)               AS workflow_id
-    , CAST(template_type AS int)                AS template_type
+    , CAST(template_type AS decimal(38,10))     AS template_type
     , CAST(analysis_execution_log_id AS string) AS analysis_execution_log_id
 FROM {{ source('source_tms', 'raw_analysis_report') }}

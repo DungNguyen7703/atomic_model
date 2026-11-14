@@ -8,16 +8,17 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo GMS_AUDIT_UAT_schema.
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo AUDIT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: kieu date sang timestamp (3 cot); kieu int sang bigint (3 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
-    CAST(actual_submit_date AS date)             AS actual_submit_date
-    , CAST(base_date AS date)                      AS base_date
-    , CAST(deadline_date AS date)                  AS deadline_date
-    , CAST(period_quarter AS int)                  AS period_quarter
-    , CAST(period_year AS int)                     AS period_year
-    , CAST(rn_ AS int)                             AS rn_
+    CAST(actual_submit_date AS timestamp)        AS actual_submit_date
+    , CAST(base_date AS timestamp)                 AS base_date
+    , CAST(deadline_date AS timestamp)             AS deadline_date
+    , CAST(period_quarter AS bigint)               AS period_quarter
+    , CAST(period_year AS bigint)                  AS period_year
+    , CAST(rn_ AS bigint)                          AS rn_
     , CAST(company_profile_id AS decimal(19,0))    AS company_profile_id
     , CAST(created_date AS timestamp)              AS created_date
     , CAST(form_id AS decimal(19,0))               AS form_id

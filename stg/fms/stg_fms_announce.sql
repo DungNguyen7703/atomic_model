@@ -7,15 +7,15 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo brd_FMS.yaml va khao sat du lieu nguon prod: kieu date sang timestamp (5 cot); kieu decimal(38,0) sang int (1 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
     HEX(id)                                AS id
-    , CAST(date_created AS date)           AS date_created
+    , CAST(date_created AS timestamp)      AS date_created
     , CAST(created_by AS string)           AS created_by
-    , CAST(date_modified AS date)          AS date_modified
+    , CAST(date_modified AS timestamp)     AS date_modified
     , CAST(modify_by AS string)            AS modify_by
     , HEX(sec_id)                          AS sec_id
     , HEX(fund_id)                         AS fund_id
@@ -28,12 +28,12 @@ SELECT
     , CAST(title AS string)                AS title
     , CAST(body AS string)                 AS body
     , CAST(note AS string)                 AS note
-    , CAST(announce_date AS date)          AS announce_date
+    , CAST(announce_date AS timestamp)     AS announce_date
     , CAST(file_data AS string)            AS file_data
     , HEX(user_id)                         AS user_id
-    , CAST(record_status AS decimal(38,0)) AS record_status
-    , CAST(send_date AS date)              AS send_date
-    , CAST(deadline_send AS date)          AS deadline_send
+    , CAST(record_status AS int)           AS record_status
+    , CAST(send_date AS timestamp)         AS send_date
+    , CAST(deadline_send AS timestamp)     AS deadline_send
     , HEX(fr_br_id)                        AS fr_br_id
     , HEX(stf_fb_id)                       AS stf_fb_id
     , HEX(pension_fund_id)                 AS pension_fund_id

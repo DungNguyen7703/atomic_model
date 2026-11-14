@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Bo sung STG theo UAT_TMS_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo TMS_ddl_prod.sql, brd_TMS.yaml va khao sat du lieu nguon prod: kieu int sang bigint (1 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -22,7 +23,7 @@ SELECT
     , CAST(upload_date AS timestamp)      AS upload_date
     , CAST(validation_status AS int)      AS validation_status
     , CAST(validation_errors AS string)   AS validation_errors
-    , CAST(total_rows AS int)             AS total_rows
+    , CAST(total_rows AS bigint)          AS total_rows
     , CAST(created_at AS timestamp)       AS created_at
     , CAST(updated_at AS timestamp)       AS updated_at
     , CAST(created_by_id AS string)       AS created_by_id

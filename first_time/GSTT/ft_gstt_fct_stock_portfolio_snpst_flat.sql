@@ -3,6 +3,7 @@
 -- ────────────────────────────────────────────────────────────
 -- Model : gstt_fct_stock_portfolio_snpst_flat
 -- Type  : FACT
+-- 2026-11-09 tuan.nguyenvanb: [FIX ft] listed_share_count lay tu atomic (decimal(23,2)) nay CAST bigint - ghi ClickHouse loi Code 27 'expected , before .00' vi cot dich Nullable(Int64). Khong doi cot/kieu cot dich -> khong can ALTER.
 -- 2026-11-02 tuan.nguyenvanb: [LLD v4.58, O_GSTT_78] Them 30 cot moi cua mart (24 cot lo chan/lo le, open_interest_quantity, fct_ceiling_price, fct_floor_price, fct_open_price,
 -- free_float_market_cap, market_cap) chen ngay sau f.securities_company_owner_equity, dung thu tu mart (ck_snapshot insert theo VI TRI cot): ALTER ... ADD COLUMN ... AFTER chuoi bat dau tu securities_company_owner_equity.
 -- 2026-10-15 tuan.nguyenvanb: [LLD v4.49] Them f.foreign_buy_derivative_vol/f.foreign_sell_derivative_vol (K_GSTT_374/375, mart moi) - chen ngay sau f.foreign_net_derivative_vol, dung vi tri nguon mart (model ck_snapshot insert theo VI TRI cot): ALTER ... ADD COLUMN ... AFTER foreign_net_derivative_vol.
@@ -157,7 +158,7 @@ SELECT /*+ REPARTITION(120), BROADCAST(cal) */
     sec_dim.isin_code                              AS isin_code,
     sec_dim.issuer_nm                              AS issuer_nm,
     -- [BACKFILL-UAT-ORIG] sec_dim.listed_share_count                     AS listed_share_count,
-    sts.listed_share_count                     AS listed_share_count,   -- [BACKFILL-UAT-NEW]
+    CAST(sts.listed_share_count AS bigint)     AS listed_share_count,   -- [BACKFILL-UAT-NEW] 2026-11-09: atomic la decimal(23,2) -> JSON ra 123.00, cot ClickHouse Nullable(Int64) -> Code 27
     sec_dim.first_trading_dt                       AS first_trading_dt,
     sec_dim.last_trading_dt                        AS last_trading_dt,
     sec_dim.issue_dt                               AS issue_dt,

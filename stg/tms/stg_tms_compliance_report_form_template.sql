@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Bo sung STG theo UAT_TMS_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo TMS_ddl_prod.sql, brd_TMS.yaml va khao sat du lieu nguon prod: kieu int sang bigint (1 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -35,7 +36,7 @@ SELECT
     , CAST(key_columns AS string)         AS key_columns
     , CAST(require_signature AS int)      AS require_signature
     , CAST(validation_rules AS string)    AS validation_rules
-    , CAST(version AS int)                AS version
+    , CAST(version AS bigint)             AS version
     , CAST(approval_type AS string)       AS approval_type
     , CAST(approver_config AS string)     AS approver_config
 FROM {{ source('source_tms', 'raw_compliance_report_form_template') }}

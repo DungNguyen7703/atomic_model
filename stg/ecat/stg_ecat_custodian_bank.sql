@@ -7,7 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo ECAT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: them cot business_event, change_reason, status_id, id_sync.
 *--------------------------------------------------------------------*
 */
 
@@ -28,7 +28,6 @@ SELECT
     , CAST(dec_date AS timestamp)             AS dec_date
     , CAST(status AS int)                     AS status
     , CAST(file_data AS string)               AS file_data
-    , CAST(file_name AS string)               AS file_name
     , CAST(note AS string)                    AS note
     , CAST(active AS int)                     AS active
     , CAST(deleted AS int)                    AS deleted
@@ -45,4 +44,9 @@ SELECT
     , CAST(old_id AS string)                  AS old_id
     , CAST(version AS int)                    AS version
     , CAST(stable_id AS string)               AS stable_id
+    , CAST(business_event AS string)          AS business_event
+    , CAST(change_reason AS string)           AS change_reason
+    , CAST(status_id AS string)               AS status_id
+    , CAST(id_sync AS string)                 AS id_sync
+    , CAST(file_name AS string)               AS file_name
 FROM {{ source('source_ecat', 'raw_custodian_bank') }}

@@ -8,13 +8,14 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo KNT_UAT_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo KNT_ddl_prod.sql, brd_KNT.yaml va khao sat du lieu nguon prod: kieu int sang bigint (2 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
-    CAST(id AS int)                     AS id
+    CAST(id AS bigint)                  AS id
     , CAST(reconciliation_date AS date)   AS reconciliation_date
-    , CAST(msg_packet_id AS int)          AS msg_packet_id
+    , CAST(msg_packet_id AS bigint)       AS msg_packet_id
     , CAST(packet_code AS string)         AS packet_code
     , CAST(msg_id AS string)              AS msg_id
     , CAST(tran_code AS string)           AS tran_code

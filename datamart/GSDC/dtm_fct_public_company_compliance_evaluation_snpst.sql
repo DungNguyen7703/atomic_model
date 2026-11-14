@@ -1,12 +1,13 @@
 /*
 *--------------------------------------------------------------------*
-* Program code: dtm_ 
+* Program code: dtm_fct_public_company_compliance_evaluation_snpst
 * Program name: Dtm Fct Public Company Compliance Evaluation Snpst
 * Created by:
 * Created date:
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
+* 2026-11-12		duc.luxuan			[SUA] CTE company: chi lay cong ty dai chung (public_company_status_code = 'APPROVED_PUBLIC').
 *
 *--------------------------------------------------------------------*
 */
@@ -19,6 +20,8 @@ WITH company AS (
     WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
         AND ds_rcrd_st = 'ACTIVE'
         AND src_stm_code = 'IDS_COMPANY_PROFILES'
+        -- Chi lay cong ty dai chung (da duoc duyet)
+        AND public_company_status_code = 'APPROVED_PUBLIC'
 ),
 
 evaluation AS (

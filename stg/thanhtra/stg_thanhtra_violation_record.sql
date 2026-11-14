@@ -9,7 +9,7 @@
 * Date				User				Description
 *
 * 2026-10-25		tuan.nguyenvanb		[LLD atomic lld_THANHTRA_VIOLATION_RECORD.yaml] them cot email_sent_at, sms_sent_at (cuoi danh sach)
-* 2026-11-03		nghia.le			[DDL moi THANHTRA.VIOLATION_RECORD] them cot no_longer_violation, no_longer_violation_note, no_longer_violation_at, no_longer_violation_by, violation_time_from, violation_time_to (cuoi danh sach)
+* 2026-11-02		tuan.nguyenvanb		Dong bo theo DDL production THANHTRA_ddl_prod.sql: kieu date sang timestamp (2 cot); doi thu tu cot.
 *--------------------------------------------------------------------*
 */
 
@@ -41,8 +41,8 @@ SELECT
     , CAST(numbered_at AS timestamp)                   AS numbered_at
     , CAST(sent_at AS timestamp)                       AS sent_at
     , CAST(sent_to_inspector AS int)                   AS sent_to_inspector
-    , CAST(created_at AS date)                         AS created_at
-    , CAST(last_modified_at AS date)                   AS last_modified_at
+    , CAST(created_at AS timestamp)                    AS created_at
+    , CAST(last_modified_at AS timestamp)              AS last_modified_at
     , CAST(created_by AS string)                       AS created_by
     , CAST(last_modified_by AS string)                 AS last_modified_by
     , CAST(version AS bigint)                          AS version
@@ -62,18 +62,12 @@ SELECT
     , CAST(viewed_at AS timestamp)                     AS viewed_at
     , CAST(downloaded_at AS timestamp)                 AS downloaded_at
     , CAST(uploaded_signed_at AS timestamp)            AS uploaded_signed_at
-    , CAST(assigned_signer_name AS string)             AS assigned_signer_name
     , CAST(assigned_signer_id AS string)               AS assigned_signer_id
+    , CAST(assigned_signer_name AS string)             AS assigned_signer_name
     , CAST(assigned_leader_signer_id AS string)        AS assigned_leader_signer_id
     , CAST(assigned_leader_signer_name AS string)      AS assigned_leader_signer_name
-    , CAST(created_by_ban_role AS string)              AS created_by_ban_role
     , CAST(signing_flow AS string)                     AS signing_flow
+    , CAST(created_by_ban_role AS string)              AS created_by_ban_role
     , CAST(email_sent_at AS timestamp)                 AS email_sent_at
     , CAST(sms_sent_at AS timestamp)                   AS sms_sent_at
-    , CAST(no_longer_violation AS int)                 AS no_longer_violation
-    , CAST(no_longer_violation_note AS string)         AS no_longer_violation_note
-    , CAST(no_longer_violation_at AS timestamp)        AS no_longer_violation_at
-    , CAST(no_longer_violation_by AS string)           AS no_longer_violation_by
-    , CAST(violation_time_from AS date)                AS violation_time_from
-    , CAST(violation_time_to AS date)                  AS violation_time_to
 FROM {{ source('source_thanhtra', 'raw_violation_record') }}

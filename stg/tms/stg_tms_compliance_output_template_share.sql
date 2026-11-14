@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Bo sung STG theo UAT_TMS_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo TMS_ddl_prod.sql, brd_TMS.yaml va khao sat du lieu nguon prod: kieu int sang decimal(38,10) (2 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -15,12 +16,12 @@ SELECT
     CAST(id AS string)                 AS id
     , CAST(output_template_id AS string) AS output_template_id
     , CAST(user_id AS string)            AS user_id
-    , CAST(status AS int)                AS status
+    , CAST(status AS decimal(38,10))     AS status
     , CAST(created_at AS timestamp)      AS created_at
     , CAST(created_by_id AS string)      AS created_by_id
     , CAST(created_by_name AS string)    AS created_by_name
     , CAST(updated_at AS timestamp)      AS updated_at
     , CAST(updated_by_id AS string)      AS updated_by_id
     , CAST(updated_by_name AS string)    AS updated_by_name
-    , CAST(deleted AS int)               AS deleted
+    , CAST(deleted AS decimal(38,10))    AS deleted
 FROM {{ source('source_tms', 'raw_compliance_output_template_share') }}

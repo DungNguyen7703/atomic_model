@@ -55,6 +55,19 @@ models:
       - concept::fact
       - domain::qlq
 
+  - name: qlq_fct_fund_management_company_rating_snpst_flat
+    description: "Flat table — Fact Fund Management Company Rating Snapshot × Calendar Date"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::qlq
+
   - name: qlq_opr_fund_management_company_profile_flat
     description: "Flat table — Operational Fund Management Company Profile"
     config:
@@ -159,6 +172,19 @@ models:
       - concept::operational
       - domain::qlq
 
+  - name: qlq_opr_foreign_fund_management_representative_office_profile_flat
+    description: "Flat table — Operational Foreign Fund Management Representative Office Profile"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - domain::qlq
+
   - name: qlq_opr_fund_management_report_sheet_list_flat
     description: "Flat table — Operational Fund Management Report Sheet List"
     config:
@@ -187,6 +213,19 @@ models:
 
   - name: qlq_opr_fund_management_company_contract_list_flat
     description: "Flat table — Operational Fund Management Company Contract List"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - domain::qlq
+
+  - name: qlq_opr_fund_management_company_contract_asset_list_flat
+    description: "Flat table — Operational Fund Management Company Contract Asset List"
     config:
       materialized: incremental_rebase
       incremental_strategy: ck_snapshot

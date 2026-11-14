@@ -8,11 +8,12 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo GMS_AUDIT_UAT_schema.
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo AUDIT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: kieu int sang bigint (2 cot); kieu date sang timestamp (2 cot).
 *--------------------------------------------------------------------*
 */
 
 SELECT
-    CAST(id AS int)                 AS id
+    CAST(id AS bigint)               AS id
     , CAST(lookup_group AS string)    AS lookup_group
     , CAST(lookup_cd AS string)       AS lookup_cd
     , CAST(lookup_value_vn AS string) AS lookup_value_vn
@@ -21,11 +22,11 @@ SELECT
     , CAST(description AS string)     AS description
     , CAST(active_flg AS int)         AS active_flg
     , CAST(created_by AS string)      AS created_by
-    , CAST(created_date AS date)      AS created_date
+    , CAST(created_date AS timestamp)  AS created_date
     , CAST(updated_by AS string)      AS updated_by
-    , CAST(updated_date AS date)      AS updated_date
+    , CAST(updated_date AS timestamp)  AS updated_date
     , CAST(sync_flg AS int)           AS sync_flg
     , CAST(delete_flg AS int)         AS delete_flg
     , CAST(system_cd AS string)       AS system_cd
-    , CAST(lookup_parent_id AS int)   AS lookup_parent_id
+    , CAST(lookup_parent_id AS bigint) AS lookup_parent_id
 FROM {{ source('source_audit', 'raw_lookup_values') }}

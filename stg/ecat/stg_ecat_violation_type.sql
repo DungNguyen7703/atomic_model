@@ -7,7 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo ECAT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: kieu int sang decimal(38,10) (1 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -15,7 +15,7 @@ SELECT
     CAST(id AS string)                        AS id
     , CAST(code AS string)                    AS code
     , CAST(name AS string)                    AS name
-    , CAST(fine_amount AS int)                AS fine_amount
+    , CAST(fine_amount AS decimal(38,10))     AS fine_amount
     , CAST(currency_id AS string)             AS currency_id
     , CAST(currency_version_id AS string)     AS currency_version_id
     , CAST(active AS int)                     AS active

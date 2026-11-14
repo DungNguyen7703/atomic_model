@@ -8,6 +8,9 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		Cap nhat cot theo SCMS_UAT_schema.
+* 2026-11-02		tuan.nguyenvanb		Dong bo theo DDL production SCMS_ddl_prod.sql: doi thu tu cot.
+* 2026-11-03		tuan.nguyenvanb		Dong bo theo DDL production SCMS_ddl_prod 1.sql va BRD brd_SCMS.yaml: kieu date sang timestamp (19 cot); doi thu tu cot.
+* 2026-11-03		tuan.nguyenvanb		Chinh kieu theo ket qua profiling du lieu nguon SCMS_NEW: timestamp sang date: business_license_date, sc_firm_registration_date, license_expiry_date, electronic_trading_decision_date, listing_date, custodian_cert_date, public_company_registration_date, amendment_effective_date, ownership_limit_to_date, ownership_limit_from_date, custodian_member_cert_date, foundation_license_date, official_operation_date, amendment_expiry_date, public_company_end_date, amendment_document_date, custodian_membership_revocation_date, custody_reg_cert_decision_date, business_reg_cert_date.
 *--------------------------------------------------------------------*
 */
 
@@ -30,7 +33,7 @@ SELECT
     , CAST(charter_capital AS decimal(38,0))                   AS charter_capital
     , CAST(tax_code AS string)                                 AS tax_code
     , CAST(business_license_number AS string)                  AS business_license_number
-    , CAST(business_license_date AS date)                      AS business_license_date
+    , CAST(business_license_date AS date)                 AS business_license_date
     , CAST(business_license_issuer AS string)                  AS business_license_issuer
     , CAST(company_type_id AS bigint)                          AS company_type_id
     , CAST(total_shares AS decimal(38,0))                      AS total_shares
@@ -38,9 +41,9 @@ SELECT
     , CAST(listed AS int)                                      AS listed
     , CAST(listing_exchange AS string)                         AS listing_exchange
     , CAST(securities_code AS string)                          AS securities_code
-    , CAST(sc_firm_registration_date AS date)                  AS sc_firm_registration_date
+    , CAST(sc_firm_registration_date AS date)             AS sc_firm_registration_date
     , CAST(decision_number AS string)                          AS decision_number
-    , CAST(license_expiry_date AS date)                        AS license_expiry_date
+    , CAST(license_expiry_date AS date)                   AS license_expiry_date
     , CAST(termination_decision_number AS string)              AS termination_decision_number
     , CAST(created_by AS bigint)                               AS created_by
     , CAST(created_at AS timestamp)                            AS created_at
@@ -51,7 +54,7 @@ SELECT
     , CAST(enterprise_code AS string)                          AS enterprise_code
     , CAST(electronic_trading_status AS string)                AS electronic_trading_status
     , CAST(electronic_trading_decision_number AS string)       AS electronic_trading_decision_number
-    , CAST(electronic_trading_decision_date AS date)           AS electronic_trading_decision_date
+    , CAST(electronic_trading_decision_date AS date)      AS electronic_trading_decision_date
     , CAST(electronic_trading_reason AS string)                AS electronic_trading_reason
     , CAST(note AS string)                                     AS note
     , CAST(attachment_path AS string)                          AS attachment_path
@@ -59,45 +62,45 @@ SELECT
     , CAST(district_id AS bigint)                              AS district_id
     , CAST(ward_id AS bigint)                                  AS ward_id
     , CAST(certificate_number AS string)                       AS certificate_number
-    , CAST(listing_date AS date)                               AS listing_date
+    , CAST(listing_date AS date)                          AS listing_date
     , CAST(custodian_cert_number AS string)                    AS custodian_cert_number
-    , CAST(custodian_cert_date AS date)                        AS custodian_cert_date
-    , CAST(public_company_registration_date AS date)           AS public_company_registration_date
+    , CAST(custodian_cert_date AS date)                   AS custodian_cert_date
+    , CAST(public_company_registration_date AS date)      AS public_company_registration_date
     , CAST(public_company_decision_number AS string)           AS public_company_decision_number
     , CAST(synced_from_admin_proc AS int)                      AS synced_from_admin_proc
     , CAST(amendment_declaration AS int)                       AS amendment_declaration
     , CAST(amendment_document_number AS string)                AS amendment_document_number
-    , CAST(amendment_effective_date AS date)                   AS amendment_effective_date
+    , CAST(amendment_effective_date AS date)              AS amendment_effective_date
     , CAST(amendment_document_file AS string)                  AS amendment_document_file
     , CAST(public_company AS int)                              AS public_company
     , CAST(event_type_id AS bigint)                            AS event_type_id
     , CAST(foundation_license_file AS string)                  AS foundation_license_file
-    , CAST(ownership_limit_to_date AS date)                    AS ownership_limit_to_date
-    , CAST(ownership_limit_from_date AS date)                  AS ownership_limit_from_date
+    , CAST(ownership_limit_to_date AS date)               AS ownership_limit_to_date
+    , CAST(ownership_limit_from_date AS date)             AS ownership_limit_from_date
     , CAST(foreign_investor_ownership_limit AS decimal(9,4))   AS foreign_investor_ownership_limit
     , CAST(business_license AS string)                         AS business_license
     , CAST(financial_report_type AS string)                    AS financial_report_type
     , CAST(custodian_member_code AS string)                    AS custodian_member_code
-    , CAST(custodian_member_cert_date AS date)                 AS custodian_member_cert_date
-    , CAST(foundation_license_date AS date)                    AS foundation_license_date
-    , CAST(official_operation_date AS date)                    AS official_operation_date
-    , CAST(amendment_expiry_date AS date)                      AS amendment_expiry_date
-    , CAST(public_company_end_date AS date)                    AS public_company_end_date
+    , CAST(custodian_member_cert_date AS date)            AS custodian_member_cert_date
+    , CAST(foundation_license_date AS date)               AS foundation_license_date
+    , CAST(official_operation_date AS date)               AS official_operation_date
+    , CAST(amendment_expiry_date AS date)                 AS amendment_expiry_date
+    , CAST(public_company_end_date AS date)               AS public_company_end_date
     , CAST(fiscal_year_end_date AS string)                     AS fiscal_year_end_date
-    , CAST(amendment_document_date AS date)                    AS amendment_document_date
+    , CAST(amendment_document_date AS date)               AS amendment_document_date
     , CAST(foundation_license_issuer AS string)                AS foundation_license_issuer
     , CAST(custodian_member_cert_number AS string)             AS custodian_member_cert_number
     , CAST(foundation_license_number AS string)                AS foundation_license_number
     , CAST(public_company_end_decision_number AS string)       AS public_company_end_decision_number
     , CAST(form_data_json AS string)                           AS form_data_json
     , CAST(custodian_membership_revocation_decision AS string) AS custodian_membership_revocation_decision
-    , CAST(custodian_membership_revocation_date AS date)       AS custodian_membership_revocation_date
+    , CAST(custodian_membership_revocation_date AS date)  AS custodian_membership_revocation_date
     , CAST(last_modified_by_alt AS decimal(19,0))              AS last_modified_by_alt
     , CAST(trading_registered AS int)                          AS trading_registered
     , CAST(custody_reg_cert_decision_number AS string)         AS custody_reg_cert_decision_number
-    , CAST(custody_reg_cert_decision_date AS date)             AS custody_reg_cert_decision_date
+    , CAST(custody_reg_cert_decision_date AS date)        AS custody_reg_cert_decision_date
     , CAST(deleted AS int)                                     AS deleted
     , CAST(business_reg_cert_number AS string)                 AS business_reg_cert_number
-    , CAST(business_reg_cert_date AS date)                     AS business_reg_cert_date
+    , CAST(business_reg_cert_date AS date)                AS business_reg_cert_date
     , CAST(business_reg_cert_issuer AS string)                 AS business_reg_cert_issuer
 FROM {{ source('source_scms', 'raw_sc_firm_info') }}

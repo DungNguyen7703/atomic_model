@@ -7,7 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-02		tuan.nguyenvanb		Dong bo theo DDL production THANHTRA_ddl_prod.sql: kieu date sang timestamp (2 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -19,8 +19,8 @@ SELECT
     , CAST(email AS string)               AS email
     , CAST(issuer AS string)              AS issuer
     , CAST(serial_number AS string)       AS serial_number
-    , CAST(valid_from AS date)            AS valid_from
-    , CAST(valid_to AS date)              AS valid_to
+    , CAST(valid_from AS timestamp)       AS valid_from
+    , CAST(valid_to AS timestamp)         AS valid_to
     , CAST(base64_data AS string)         AS base64_data
     , CAST(thumbprint AS string)          AS thumbprint
     , CAST(full_data AS string)           AS full_data

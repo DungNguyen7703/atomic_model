@@ -7,7 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo brd_FMS.yaml va khao sat du lieu nguon prod: kieu decimal(38,0) sang bigint (1 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -22,7 +22,7 @@ SELECT
     , HEX(bkm_id)                        AS bkm_id
     , HEX(fr_br_id)                      AS fr_br_id
     , CAST(report_year AS bigint)        AS report_year
-    , CAST(item_value AS decimal(38,0))  AS item_value
+    , CAST(item_value AS bigint)         AS item_value
     , CAST(date_created AS date)         AS date_created
     , CAST(period_type AS bigint)        AS period_type
     , CAST(period_value AS string)       AS period_value

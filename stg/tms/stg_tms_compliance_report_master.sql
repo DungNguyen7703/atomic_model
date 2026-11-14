@@ -8,6 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-18		tuan.nguyenvanb		[MOI] Bo sung STG theo UAT_TMS_schema.
+* 2026-11-08		tuan.nguyenvanb		Dong bo theo TMS_ddl_prod.sql, brd_TMS.yaml va khao sat du lieu nguon prod: kieu date sang timestamp (2 cot); kieu int sang bigint (1 cot).
 *--------------------------------------------------------------------*
 */
 
@@ -30,8 +31,8 @@ SELECT
     , CAST(approver_name AS string)       AS approver_name
     , CAST(approver_title AS string)      AS approver_title
     , CAST(rejection_reason AS string)    AS rejection_reason
-    , CAST(resubmit_from_date AS date)    AS resubmit_from_date
-    , CAST(resubmit_to_date AS date)      AS resubmit_to_date
+    , CAST(resubmit_from_date AS timestamp) AS resubmit_from_date
+    , CAST(resubmit_to_date AS timestamp)   AS resubmit_to_date
     , CAST(created_at AS timestamp)       AS created_at
     , CAST(updated_at AS timestamp)       AS updated_at
     , CAST(created_by_id AS string)       AS created_by_id
@@ -41,5 +42,5 @@ SELECT
     , CAST(deleted AS int)                AS deleted
     , CAST(submitter_title AS string)     AS submitter_title
     , CAST(submitter_type AS string)      AS submitter_type
-    , CAST(draft_revision AS int)         AS draft_revision
+    , CAST(draft_revision AS bigint)        AS draft_revision
 FROM {{ source('source_tms', 'raw_compliance_report_master') }}

@@ -7,12 +7,13 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
-*
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo ECAT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: them cot operational_status_type_stable_id.
 *--------------------------------------------------------------------*
 */
 
 SELECT
     CAST(operational_status_type_id AS string)  AS operational_status_type_id
     , CAST(enterprise_type_id AS string)        AS enterprise_type_id
+    , CAST(operational_status_type_stable_id AS string) AS operational_status_type_stable_id
     , CAST(enterprise_type_stable_id AS string) AS enterprise_type_stable_id
 FROM {{ source('source_ecat', 'raw_operational_status_type_enterprise_type') }}
