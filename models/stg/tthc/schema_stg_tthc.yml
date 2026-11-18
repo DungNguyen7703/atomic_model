@@ -1,0 +1,445 @@
+version: 2
+
+models:
+
+  - name: stg_tthc_aliaspartindex
+    description: "Staging model của bảng TTHC.ALIASPARTINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'aliaspartindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_audit_audittraileventindex
+    description: "Staging model của bảng TTHC.AUDIT_AUDITTRAILEVENTINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'audit_audittraileventindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_audit_document
+    description: "Staging model của bảng TTHC.AUDIT_DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'audit_document'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_autoroutepartindex
+    description: "Staging model của bảng TTHC.AUTOROUTEPARTINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'autoroutepartindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_booleanfieldindex
+    description: "Staging model của bảng TTHC.BOOLEANFIELDINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'booleanfieldindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_containedpartindex
+    description: "Staging model của bảng TTHC.CONTAINEDPARTINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'containedpartindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_contentitemindex
+    description: "Staging model của bảng TTHC.CONTENTITEMINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'contentitemindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_contentpickerfieldindex
+    description: "Staging model của bảng TTHC.CONTENTPICKERFIELDINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'contentpickerfieldindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_content_triggers
+    description: "Staging model của bảng TTHC.CONTENT_TRIGGERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'content_triggers'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_datefieldindex
+    description: "Staging model của bảng TTHC.DATEFIELDINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'datefieldindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_datetimefieldindex
+    description: "Staging model của bảng TTHC.DATETIMEFIELDINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'datetimefieldindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_deploymentplanindex
+    description: "Staging model của bảng TTHC.DEPLOYMENTPLANINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'deploymentplanindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_document
+    description: "Staging model của bảng TTHC.DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'document'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_htmlfieldindex
+    description: "Staging model của bảng TTHC.HTMLFIELDINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'htmlfieldindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_indexingtask
+    description: "Staging model của bảng TTHC.INDEXINGTASK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'indexingtask'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_layermetadataindex
+    description: "Staging model của bảng TTHC.LAYERMETADATAINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'layermetadataindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_linkfieldindex
+    description: "Staging model của bảng TTHC.LINKFIELDINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'linkfieldindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_multitextfieldindex
+    description: "Staging model của bảng TTHC.MULTITEXTFIELDINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'multitextfieldindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_notification_notificationindex
+    description: "Staging model của bảng TTHC.NOTIFICATION_NOTIFICATIONINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'notification_notificationindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_numericfieldindex
+    description: "Staging model của bảng TTHC.NUMERICFIELDINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'numericfieldindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_taxonomyindex
+    description: "Staging model của bảng TTHC.TAXONOMYINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'taxonomyindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_textfieldindex
+    description: "Staging model của bảng TTHC.TEXTFIELDINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'textfieldindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_timefieldindex
+    description: "Staging model của bảng TTHC.TIMEFIELDINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'timefieldindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_tmp_cii_id_remap
+    description: "Staging model của bảng TTHC.TMP_CII_ID_REMAP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'tmp_cii_id_remap'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_userbyclaimindex
+    description: "Staging model của bảng TTHC.USERBYCLAIMINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'userbyclaimindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_userbylogininfoindex
+    description: "Staging model của bảng TTHC.USERBYLOGININFOINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'userbylogininfoindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_userbyrolenameindex
+    description: "Staging model của bảng TTHC.USERBYROLENAMEINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'userbyrolenameindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_userbyrolenameindex_document
+    description: "Staging model của bảng TTHC.USERBYROLENAMEINDEX_DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'userbyrolenameindex_document'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_userindex
+    description: "Staging model của bảng TTHC.USERINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'userindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_userpickerfieldindex
+    description: "Staging model của bảng TTHC.USERPICKERFIELDINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'userpickerfieldindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_workflowblockingactivitiesindex
+    description: "Staging model của bảng TTHC.WORKFLOWBLOCKINGACTIVITIESINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'workflowblockingactivitiesindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_workflowindex
+    description: "Staging model của bảng TTHC.WORKFLOWINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'workflowindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_workflowtypeindex
+    description: "Staging model của bảng TTHC.WORKFLOWTYPEINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'workflowtypeindex'
+      tags:
+        - layer_staging
+        - domain_tthc
+
+  - name: stg_tthc_workflowtypestartactivitiesindex
+    description: "Staging model của bảng TTHC.WORKFLOWTYPESTARTACTIVITIESINDEX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_tthc_schema") }}'
+      alias: 'workflowtypestartactivitiesindex'
+      tags:
+        - layer_staging
+        - domain_tthc

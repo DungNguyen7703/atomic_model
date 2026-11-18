@@ -1,0 +1,97 @@
+version: 2
+
+models:
+  - name: dtm_fct_securities_offering_snpst
+    description: "Datamart model của bảng Fact Securities Offering"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: [snpst_dt_dim_id]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_securities_offering_snpst'
+      tags:
+        - layer_datamart
+
+  - name: dtm_fct_securities_offering_application_snpst
+    description: "Datamart model của bảng Fact Securities Offering Application"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: [snpst_dt_dim_id]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_securities_offering_application_snpst'
+      tags:
+        - layer_datamart
+
+  - name: dtm_fct_securities_offering_plan_snpst
+    description: "Datamart model của bảng Fact Securities Offering Plan"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: [snpst_dt_dim_id]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_securities_offering_plan_snpst'
+      tags:
+        - layer_datamart
+
+  - name: dtm_fct_securities_offering_result_snpst
+    description: "Datamart model của bảng Fact Securities Offering Result"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: [snpst_dt_dim_id]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_securities_offering_result_snpst'
+      tags:
+        - layer_datamart
+
+  - name: dtm_offering_method_dim
+    description: "Datamart model của bảng Offering Method Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["offering_method_dim_id"]
+      source_system: ["IDS_SECURITIES_OFFERING_PLAN"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'offering_method_dim'
+      tags:
+        - layer_datamart
+
+  - name: dtm_opr_securities_offering_360_profile
+    description: "Datamart model của bảng Securities Offering 360 Profile"
+    config:
+      materialized: scd4a
+      unique_key: ["securities_offering_code", "offering_method_code"]
+      source_system: ["IDS_SECURITIES_OFFERING"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'securities_offering_360_profile'
+      tags:
+        - layer_datamart
+  - name: dtm_fct_tthc_ap_document_stat
+    description: "Datamart model của bảng Fact TTHC Application Document Statistic"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: [ds_snpst_dt]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'dtm_fct_tthc_ap_document_stat'
+      tags:
+        - layer_datamart
+  
+  - name: dtm_fct_tthc_ap_document
+    description: "Datamart model của bảng Fact TTHC Application Document"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: [ds_snpst_dt]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_tthc_ap_document'
+      tags:
+        - layer_datamart

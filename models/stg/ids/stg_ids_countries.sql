@@ -1,0 +1,27 @@
+/*
+*--------------------------------------------------------------------*
+* Program code: stg_ids_countries
+* Program name: Staging IDS.COUNTRIES
+* Created by: tuan.nguyenvanb
+* Created date: 2026-10-18
+*--------------------------------------------------------------------*
+* Modified management
+* Date				User				Description
+* 2026-10-18		tuan.nguyenvanb		[MOI] Bo sung STG theo GMS_IDS_UAT_schema.
+*--------------------------------------------------------------------*
+*/
+
+SELECT
+    CAST(id AS int)                 AS id
+    , CAST(country_cd AS string)      AS country_cd
+    , CAST(country_name_vi AS string) AS country_name_vi
+    , CAST(country_name_en AS string) AS country_name_en
+    , CAST(created_by AS string)      AS created_by
+    , CAST(created_date AS date)      AS created_date
+    , CAST(updated_by AS string)      AS updated_by
+    , CAST(updated_date AS date)      AS updated_date
+    , CAST(active_flg AS int)         AS active_flg
+    , CAST(description AS string)     AS description
+    , CAST(status_flg AS int)         AS status_flg
+    , CAST(system_cd AS string)       AS system_cd
+FROM {{ source('source_ids', 'raw_countries') }}

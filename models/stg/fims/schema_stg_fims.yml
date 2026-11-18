@@ -1,0 +1,1273 @@
+version: 2
+
+models:
+  - name: stg_fims_announce
+    description: "Staging model của bảng FIMS.ANNOUNCE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'announce'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_announceinves
+    description: "Staging model của bảng FIMS.ANNOUNCEINVES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'announceinves'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_announceinveshis
+    description: "Staging model của bảng FIMS.ANNOUNCEINVESHIS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'announceinveshis'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_announcetype
+    description: "Staging model của bảng FIMS.ANNOUNCETYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'announcetype'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_authoannounce
+    description: "Staging model của bảng FIMS.AUTHOANNOUNCE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'authoannounce'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_authoannouncehis
+    description: "Staging model của bảng FIMS.AUTHOANNOUNCEHIS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'authoannouncehis'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_bankmoni
+    description: "Staging model của bảng FIMS.BANKMONI"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'bankmoni'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_branchs
+    description: "Staging model của bảng FIMS.BRANCHS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'branchs'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_branchsbusines
+    description: "Staging model của bảng FIMS.BRANCHSBUSINES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'branchsbusines'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_business
+    description: "Staging model của bảng FIMS.BUSINESS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'business'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_calendar
+    description: "Staging model của bảng FIMS.CALENDAR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'calendar'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_calendarmanagerment
+    description: "Staging model của bảng FIMS.CALENDARMANAGERMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'calendarmanagerment'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_categoriesstock
+    description: "Staging model của bảng FIMS.CATEGORIESSTOCK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'categoriesstock'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_categoriesstockhis
+    description: "Staging model của bảng FIMS.CATEGORIESSTOCKHIS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'categoriesstockhis'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_cdtwarn
+    description: "Staging model của bảng FIMS.CDTWARN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'cdtwarn'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_certfcate
+    description: "Staging model của bảng FIMS.CERTFCATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'certfcate'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_closing_price_securities
+    description: "Staging model của bảng FIMS.CLOSING_PRICE_SECURITIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["datecreated"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'closing_price_securities'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_companytype
+    description: "Staging model của bảng FIMS.COMPANYTYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'companytype'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_currency
+    description: "Staging model của bảng FIMS.CURRENCY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'currency'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_degree
+    description: "Staging model của bảng FIMS.DEGREE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'degree'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_department
+    description: "Staging model của bảng FIMS.DEPARTMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'department'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_depositorycenter
+    description: "Staging model của bảng FIMS.DEPOSITORYCENTER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'depositorycenter'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_document
+    description: "Staging model của bảng FIMS.DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'document'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_fundcombusines
+    description: "Staging model của bảng FIMS.FUNDCOMBUSINES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'fundcombusines'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_fundcompany
+    description: "Staging model của bảng FIMS.FUNDCOMPANY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'fundcompany'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_fundcomtype
+    description: "Staging model của bảng FIMS.FUNDCOMTYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'fundcomtype'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_grouproles
+    description: "Staging model của bảng FIMS.GROUPROLES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'grouproles'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_groups
+    description: "Staging model của bảng FIMS.GROUPS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'groups'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_groupusers
+    description: "Staging model của bảng FIMS.GROUPUSERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'groupusers'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_indirebusiness
+    description: "Staging model của bảng FIMS.INDIREBUSINESS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'indirebusiness'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_infodiscrepres
+    description: "Staging model của bảng FIMS.INFODISCREPRES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'infodiscrepres'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_investor
+    description: "Staging model của bảng FIMS.INVESTOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'investor'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_investorhis
+    description: "Staging model của bảng FIMS.INVESTORHIS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'investorhis'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_investortype
+    description: "Staging model của bảng FIMS.INVESTORTYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'investortype'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_jobtype
+    description: "Staging model của bảng FIMS.JOBTYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'jobtype'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_location
+    description: "Staging model của bảng FIMS.LOCATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'location'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_menus
+    description: "Staging model của bảng FIMS.MENUS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'menus'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_modules
+    description: "Staging model của bảng FIMS.MODULES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'modules'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_national
+    description: "Staging model của bảng FIMS.NATIONAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'national'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_parawarn
+    description: "Staging model của bảng FIMS.PARAWARN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'parawarn'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_permissions
+    description: "Staging model của bảng FIMS.PERMISSIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'permissions'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_relatedproperties
+    description: "Staging model của bảng FIMS.RELATEDPROPERTIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'relatedproperties'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_relationship
+    description: "Staging model của bảng FIMS.RELATIONSHIP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'relationship'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_report_templates
+    description: "Staging model của bảng FIMS.REPORT_TEMPLATES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'report_templates'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_reporttype
+    description: "Staging model của bảng FIMS.REPORTTYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'reporttype'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_roles
+    description: "Staging model của bảng FIMS.ROLES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'roles'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rolesmenus
+    description: "Staging model của bảng FIMS.ROLESMENUS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rolesmenus'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rpt_event_type
+    description: "Staging model của bảng FIMS.RPT_EVENT_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rpt_event_type'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rpt_event_type_legal_basis
+    description: "Staging model của bảng FIMS.RPT_EVENT_TYPE_LEGAL_BASIS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rpt_event_type_legal_basis'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rpt_event_type_schedule
+    description: "Staging model của bảng FIMS.RPT_EVENT_TYPE_SCHEDULE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rpt_event_type_schedule'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rpt_event_type_status_link
+    description: "Staging model của bảng FIMS.RPT_EVENT_TYPE_STATUS_LINK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rpt_event_type_status_link'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rpt_field_catalog
+    description: "Staging model của bảng FIMS.RPT_FIELD_CATALOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rpt_field_catalog'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rpt_field_catalog_usage
+    description: "Staging model của bảng FIMS.RPT_FIELD_CATALOG_USAGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rpt_field_catalog_usage'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rpt_value_catalog
+    description: "Staging model của bảng FIMS.RPT_VALUE_CATALOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rpt_value_catalog'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rpthtory
+    description: "Staging model của bảng FIMS.RPTHTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rpthtory'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rptmember
+    description: "Staging model của bảng FIMS.RPTMEMBER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rptmember'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rptoutfilesave
+    description: "Staging model của bảng FIMS.RPTOUTFILESAVE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rptoutfilesave'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rptoutmanagement
+    description: "Staging model của bảng FIMS.RPTOUTMANAGEMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rptoutmanagement'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rptpdsht
+    description: "Staging model của bảng FIMS.RPTPDSHT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rptpdsht'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rptperiod
+    description: "Staging model của bảng FIMS.RPTPERIOD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rptperiod'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rptprocess
+    description: "Staging model của bảng FIMS.RPTPROCESS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rptprocess'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rpttemp
+    description: "Staging model của bảng FIMS.RPTTEMP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rpttemp'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rpttpout
+    description: "Staging model của bảng FIMS.RPTTPOUT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rpttpout'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rptvalues
+    description: "Staging model của bảng FIMS.RPTVALUES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rptvalues'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rptvaluesmanagerment
+    description: "Staging model của bảng FIMS.RPTVALUESMANAGERMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rptvaluesmanagerment'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_seccombusines
+    description: "Staging model của bảng FIMS.SECCOMBUSINES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'seccombusines'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_seccomtype
+    description: "Staging model của bảng FIMS.SECCOMTYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'seccomtype'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_securities
+    description: "Staging model của bảng FIMS.SECURITIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'securities'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_securitiesaccount
+    description: "Staging model của bảng FIMS.SECURITIESACCOUNT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'securitiesaccount'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_securitiesaccounthis
+    description: "Staging model của bảng FIMS.SECURITIESACCOUNTHIS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'securitiesaccounthis'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_securitiescompany
+    description: "Staging model của bảng FIMS.SECURITIESCOMPANY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'securitiescompany'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_securitiestype
+    description: "Staging model của bảng FIMS.SECURITIESTYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'securitiestype'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_selfsetpd
+    description: "Staging model của bảng FIMS.SELFSETPD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'selfsetpd'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_shedlock
+    description: "Staging model của bảng FIMS.SHEDLOCK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'shedlock'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_sheet
+    description: "Staging model của bảng FIMS.SHEET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'sheet'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_sheetout
+    description: "Staging model của bảng FIMS.SHEETOUT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'sheetout'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_status
+    description: "Staging model của bảng FIMS.STATUS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'status'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_stockexchange
+    description: "Staging model của bảng FIMS.STOCKEXCHANGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'stockexchange'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_stockholdertype
+    description: "Staging model của bảng FIMS.STOCKHOLDERTYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'stockholdertype'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_tlprofiles
+    description: "Staging model của bảng FIMS.TLPROFILES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'tlprofiles'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_tradingauthorization
+    description: "Staging model của bảng FIMS.TRADINGAUTHORIZATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'tradingauthorization'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_tradingauthorizationhis
+    description: "Staging model của bảng FIMS.TRADINGAUTHORIZATIONHIS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["datecreated"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'tradingauthorizationhis'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_tradingauthorizationinves
+    description: "Staging model của bảng FIMS.TRADINGAUTHORIZATIONINVES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["datecreated"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'tradingauthorizationinves'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_tradingauthorizationinveshis
+    description: "Staging model của bảng FIMS.TRADINGAUTHORIZATIONINVESHIS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["datecreated"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'tradingauthorizationinveshis'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_tradingrepresentative
+    description: "Staging model của bảng FIMS.TRADINGREPRESENTATIVE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'tradingrepresentative'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_unit
+    description: "Staging model của bảng FIMS.UNIT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'unit'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_user_data_permission
+    description: "Staging model của bảng FIMS.USER_DATA_PERMISSION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'user_data_permission'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_userrpti
+    description: "Staging model của bảng FIMS.USERRPTI"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'userrpti'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_userrpto
+    description: "Staging model của bảng FIMS.USERRPTO"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'userrpto'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_users
+    description: "Staging model của bảng FIMS.USERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'users'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_usersessions
+    description: "Staging model của bảng FIMS.USERSESSIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'usersessions'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_usersmenus
+    description: "Staging model của bảng FIMS.USERSMENUS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'usersmenus'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_violationtype
+    description: "Staging model của bảng FIMS.VIOLATIONTYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'violationtype'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_violt
+    description: "Staging model của bảng FIMS.VIOLT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["datecreatedviolt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'violt'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_province_new
+    description: "Staging model của bảng FIMS.PROVINCE_NEW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'province_new'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_ward_new
+    description: "Staging model của bảng FIMS.WARD_NEW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'ward_new'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_rpt_member_tester_purge
+    description: "Staging model của bảng FIMS.RPT_MEMBER_TESTER_PURGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'rpt_member_tester_purge'
+      tags:
+        - layer_staging
+        - domain_fims
+
+  - name: stg_fims_user_event_type
+    description: "Staging model của bảng FIMS.USER_EVENT_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_fims_schema") }}'
+      alias: 'user_event_type'
+      tags:
+        - layer_staging
+        - domain_fims

@@ -1,0 +1,275 @@
+version: 2
+
+models:
+  - name: dtm_fct_public_company_compliance_evaluation_snpst
+    description: "Datamart model của bảng Fact Public Company Compliance Evaluation Snapshot — điểm (score) + mức độ/kết quả đánh giá (assessment) từng tiêu chí nhóm Tuân thủ"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_public_company_compliance_evaluation_snpst'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_fct_public_company_financial_evaluation_snpst
+    description: "Datamart model của bảng Fact Public Company Financial Evaluation Snapshot — điểm (score) + mức độ/kết quả đánh giá (assessment)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_public_company_financial_evaluation_snpst'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_fct_public_company_issuance_evaluation_snpst
+    description: "Datamart model của bảng Fact Public Company Issuance Evaluation Snapshot — điểm (score) + mức độ/kết quả đánh giá (assessment)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_public_company_issuance_evaluation_snpst'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_fct_public_company_nonfinancial_evaluation_snpst
+    description: "Datamart model của bảng Fact Public Company Non-Financial Evaluation Snapshot — điểm (score) + mức độ/kết quả đánh giá (assessment)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_public_company_nonfinancial_evaluation_snpst'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_fct_public_company_risk_evaluation_snpst
+    description: "Datamart model của bảng Fact Public Company Risk Evaluation Snapshot — điểm (score) + mức độ/kết quả đánh giá (assessment)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_public_company_risk_evaluation_snpst'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_fct_public_company_listed_share_snpst
+    description: "Datamart model của bảng Fact Public Company Listed Share Snapshot (tách từ listing_info)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_public_company_listed_share_snpst'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_fct_public_company_foreign_holding_snpst
+    description: "Datamart model của bảng Fact Public Company Foreign Holding Snapshot (tách từ listing_info)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_public_company_foreign_holding_snpst'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_fct_public_company_state_capital_snpst
+    description: "Datamart model của bảng Fact Public Company State Capital Snapshot (tách từ listing_info)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_public_company_state_capital_snpst'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_public_company_dim
+    description: "Datamart model của bảng Public Company Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["public_company_dim_id"]
+      source_system: ["IDS_COMPANY_PROFILES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'public_company_dim'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_financial_rpt_catalog_dim
+    description: "Datamart model của bảng Financial Report Catalog Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["financial_rpt_catalog_dim_id"]
+      source_system: ["IDS_REPORT_CATALOG"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'financial_rpt_catalog_dim'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_industry_dim
+    description: "Datamart model của bảng Industry Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["industry_dim_id"]
+      source_system: ["IDS_CATEGORIES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'industry_dim'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_fct_public_company_financial_rpt_val
+    description: "Datamart model của bảng Fact Public Company Financial Report Value"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_public_company_financial_rpt_val'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_fct_violation_rpt_snpst
+    description: "Datamart model của bảng Fact Violation Report Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_violation_rpt_snpst'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_public_company_exchange_financial_summary_rpt
+    description: "Datamart model của báo cáo Public Company Exchange Financial Summary Report (tham số hóa theo rpt_year/rpt_quarter)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["rpt_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'public_company_exchange_financial_summary_rpt'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_public_company_industry_financial_rpt
+    description: "Datamart model của báo cáo Public Company Industry Financial Report (tham số hóa theo rpt_year)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["rpt_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'public_company_industry_financial_rpt'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_public_company_exchange_industry_financial_rpt
+    description: "Datamart model của báo cáo Public Company Exchange × Industry Financial Report — cross-tab theo equity_listing_exchange_code × business_line_level_1_code/rpt_year/rpt_quarter, gồm 2 nhóm: (sàn cụ thể, ngành cụ thể) và (sàn='ALL', ngành cụ thể). Cùng bộ chỉ số với dtm_public_company_exchange_financial_summary_rpt, YoY đọc từ dtm_public_company_financial_yoy_rpt."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["rpt_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'public_company_exchange_industry_financial_rpt'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_public_company_multi_period_financial_rpt
+    description: "Datamart model của báo cáo Public Company Multi-Period Financial Report (tham số hóa theo rpt_year, 1 dòng toàn thị trường)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["rpt_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'public_company_multi_period_financial_rpt'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_public_company_regulatory_compliance_rpt
+    description: "Datamart model của báo cáo Public Company Regulatory Compliance Report (tham số hóa theo rpt_year/rpt_quarter/rpt_end_of_period_dt)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["rpt_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'public_company_regulatory_compliance_rpt'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_public_company_financial_yoy_rpt
+    description: "Datamart model của báo cáo Public Company Financial YoY Report — cross-tab theo equity_listing_exchange_code × business_line_level_1_code/rpt_year/rpt_quarter (mỗi chiều đều có nhóm rollup 'ALL', kể cả grand-total (san='ALL', nganh='ALL') thêm lại 2026-09-22), phục vụ dashboard: chọn sàn → xem breakdown theo ngành. Đổi tên 2026-09-19 từ dtm_public_company_exchange_financial_yoy_rpt về lại tên gốc sau khi gộp thêm chiều ngành vào cùng bảng thay vì tách bảng riêng (dtm_public_company_industry_financial_yoy_rpt đã bị xóa)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["rpt_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'public_company_financial_yoy_rpt'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_public_company_financial_ytd_chg_rpt
+    description: "Datamart model trung gian tính % thay đổi từ đầu năm (BCĐKT cột 'Số đầu năm') cho 9 chỉ tiêu cân đối: total_asset, inventory, total_liability, equity, contributed_capital, undistributed_profit, receivable, cash_and_equivalent và debt_to_equity (đều là tốc độ thay đổi %). Grain/universe giống dtm_public_company_financial_yoy_rpt (sàn × ngành, rollup 'ALL', 4 sàn). Chỉ phục vụ JOIN cho dtm_public_company_exchange_financial_summary_rpt và dtm_public_company_exchange_industry_financial_rpt, không có ClickHouse flat."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["rpt_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'public_company_financial_ytd_chg_rpt'
+      tags:
+        - layer_datamart
+        - domain_gsdc
+
+  - name: dtm_fct_public_company_financial_smy_snpst
+    description: "Datamart model của bảng Fact Public Company Financial Summary Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_public_company_financial_smy_snpst'
+      tags:
+        - layer_datamart
+        - domain_gsdc

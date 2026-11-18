@@ -6,11 +6,11 @@
 SELECT
     -- FACT Foreign Investor Trading Detail Report
     f.report_dt,
-    f.account_nbr,
+    fn_pii_encrypt(f.account_nbr, :aes_key_hex) AS account_nbr,
     f.symbol,
     f.trade_direction_code,
-    f.account_holder_nm,
-    f.investor_nm,
+    fn_pii_encrypt(f.account_holder_nm, :aes_key_hex) AS account_holder_nm,
+    fn_pii_encrypt(f.investor_nm, :aes_key_hex) AS investor_nm,
     f.execution_vol,
     f.execution_val,
     f.src_stm_code

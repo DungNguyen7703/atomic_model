@@ -9,6 +9,10 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
+* 2026-11-14		claude				Dong bo LLD O_NDTNN_59: bo dedupe pu_co_di (ROW_NUMBER theo public_company_code, khong co trong LLD) -
+*									LOOKUP public_company_dim ON equity_ticker_symbol = securities_dim.symbol. Them comment '-- LIVE:'
+*									(execution_val = match_price*match_quantity; security_symbol_code = ticker_symbol; market_id_code = market_code;
+*									ORDERTRADE_TRADE_BOOK_HOSE/HNX = HOSE_TRADE_BOOK/HNX_TRADE_BOOK).
 * 2026-10-22		nghia.le			[FIX] sts: bo sung dau phay con thieu giua cot 'sequence' va ROW_NUMBER()
 *									trong SELECT list (fix ngay 2026-10-21 ghi da sua nhung code thuc te
 *									van thieu dau phay), gay ParseException 'extra input (' khi chay model.
@@ -41,9 +45,10 @@
 WITH se_tr AS (
     SELECT
         trade_dt,
-        security_symbol_code,
-        src_stm_code,
-        market_id_code,
+        security_symbol_code,   -- LIVE: ticker_symbol
+        src_stm_code,           -- LIVE: 'HOSE_TRADE_BOOK','HNX_TRADE_BOOK' (ORDERTRADE_TRADE_BOOK_HOSE/HNX)
+        market_id_code,         -- LIVE: market_code
+        -- LIVE: execution_val = match_price * match_quantity
         SUM(CASE WHEN SUBSTR(buy_account_nbr, 4, 1) IN ('E','F') THEN execution_val ELSE 0 END)  AS foreign_buy_val,
         SUM(CASE WHEN SUBSTR(sell_account_nbr, 4, 1) IN ('E','F') THEN execution_val ELSE 0 END) AS foreign_sell_val,
         SUM(execution_val)                                                                       AS total_market_val
@@ -96,24 +101,10 @@ pu_co_di AS (
         public_company_dim_id,
         public_company_code,
         equity_ticker_symbol
-    FROM (
-        SELECT
-            public_company_dim_id,
-            public_company_code,
-            equity_ticker_symbol,
-            ROW_NUMBER() OVER (
-                PARTITION BY equity_ticker_symbol
-                ORDER BY
-                    cast(public_company_code as int) ASC
-            ) AS rn
-        -- [FT-ORIG] FROM {{ ref('dtm_public_company_dim') }}_hstr WHERE ds_snpst_dt = etl_date AND ds_rcrd_st = 'ACTIVE'
-        -- [FT-NEW 2026-10-26] doc bang MAIN (ACTIVE) cua dtm_public_company_dim, KHONG doc _hstr theo ngay (hstr thua ngay -> join theo ngay ra NULL)
-        FROM {{ ref('dtm_public_company_dim') }}
-        WHERE ds_rcrd_st = 'ACTIVE'
-          AND equity_ticker_symbol IS NOT NULL
-          AND public_company_code IS NOT NULL
-    ) t
-    WHERE rn = 1
+    -- [FT-ORIG] FROM {{ ref('dtm_public_company_dim') }}_hstr WHERE ds_snpst_dt = etl_date AND ds_rcrd_st = 'ACTIVE'
+    -- [FT-NEW 2026-10-26] doc bang MAIN (ACTIVE) cua dtm_public_company_dim, KHONG doc _hstr theo ngay (hstr thua ngay -> join theo ngay ra NULL)
+    FROM {{ ref('dtm_public_company_dim') }}
+    WHERE ds_rcrd_st = 'ACTIVE'
 ),
 
 -- [FT-NEW] Lookup Securities Dimension theo NGAY giao dich: tach 2 nhanh bang (HOSE theo symbol, HNX theo isin_code) thay cho 1 JOIN co OR

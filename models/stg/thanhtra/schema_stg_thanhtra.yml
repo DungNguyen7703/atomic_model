@@ -1,0 +1,977 @@
+version: 2
+
+models:
+  - name: stg_thanhtra_adhoc_admin_violation_report
+    description: "Staging model của bảng THANHTRA.ADHOC_ADMIN_VIOLATION_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'adhoc_admin_violation_report'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_adhoc_anti_corruption_report
+    description: "Staging model của bảng THANHTRA.ADHOC_ANTI_CORRUPTION_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'adhoc_anti_corruption_report'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_adhoc_inspection_report
+    description: "Staging model của bảng THANHTRA.ADHOC_INSPECTION_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'adhoc_inspection_report'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_admin_violation_report_outline
+    description: "Staging model của bảng THANHTRA.ADMIN_VIOLATION_REPORT_OUTLINE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'admin_violation_report_outline'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_anti_corruption_document
+    description: "Staging model của bảng THANHTRA.ANTI_CORRUPTION_DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'anti_corruption_document'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_anti_corruption_periodic_report
+    description: "Staging model của bảng THANHTRA.ANTI_CORRUPTION_PERIODIC_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'anti_corruption_periodic_report'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_anti_corruption_report_outline
+    description: "Staging model của bảng THANHTRA.ANTI_CORRUPTION_REPORT_OUTLINE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'anti_corruption_report_outline'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_anti_money_laundering_document
+    description: "Staging model của bảng THANHTRA.ANTI_MONEY_LAUNDERING_DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'anti_money_laundering_document'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_anti_money_laundering_report
+    description: "Staging model của bảng THANHTRA.ANTI_MONEY_LAUNDERING_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'anti_money_laundering_report'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_citizen_complaint_report_outline
+    description: "Staging model của bảng THANHTRA.CITIZEN_COMPLAINT_REPORT_OUTLINE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'citizen_complaint_report_outline'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_citizen_reception
+    description: "Staging model của bảng THANHTRA.CITIZEN_RECEPTION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'citizen_reception'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_code_sequence_counter
+    description: "Staging model của bảng THANHTRA.CODE_SEQUENCE_COUNTER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'code_sequence_counter'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_digital_certificate_users
+    description: "Staging model của bảng THANHTRA.DIGITAL_CERTIFICATE_USERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'digital_certificate_users'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_digital_certificates
+    description: "Staging model của bảng THANHTRA.DIGITAL_CERTIFICATES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'digital_certificates'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_document_attachment
+    description: "Staging model của bảng THANHTRA.DOCUMENT_ATTACHMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'document_attachment'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_document_attachment_content
+    description: "Staging model của bảng THANHTRA.DOCUMENT_ATTACHMENT_CONTENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'document_attachment_content'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_document_template
+    description: "Staging model của bảng THANHTRA.DOCUMENT_TEMPLATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'document_template'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_document_template_key_assign
+    description: "Staging model của bảng THANHTRA.DOCUMENT_TEMPLATE_KEY_ASSIGN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'document_template_key_assign'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_document_template_key_definition
+    description: "Staging model của bảng THANHTRA.DOCUMENT_TEMPLATE_KEY_DEFINITION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'document_template_key_definition'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_document_template_version
+    description: "Staging model của bảng THANHTRA.DOCUMENT_TEMPLATE_VERSION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'document_template_version'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_examination_annual_plan
+    description: "Staging model của bảng THANHTRA.EXAMINATION_ANNUAL_PLAN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'examination_annual_plan'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_examination_annual_plan_target
+    description: "Staging model của bảng THANHTRA.EXAMINATION_ANNUAL_PLAN_TARGET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'examination_annual_plan_target'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_examination_result_notice
+    description: "Staging model của bảng THANHTRA.EXAMINATION_RESULT_NOTICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'examination_result_notice'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_examination_result_notice_remedial
+    description: "Staging model của bảng THANHTRA.EXAMINATION_RESULT_NOTICE_REMEDIAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'examination_result_notice_remedial'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_examination_team
+    description: "Staging model của bảng THANHTRA.EXAMINATION_TEAM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'examination_team'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_examination_team_member
+    description: "Staging model của bảng THANHTRA.EXAMINATION_TEAM_MEMBER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'examination_team_member'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_examination_team_target
+    description: "Staging model của bảng THANHTRA.EXAMINATION_TEAM_TARGET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'examination_team_target'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_form_template
+    description: "Staging model của bảng THANHTRA.FORM_TEMPLATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'form_template'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_form_template_placeholder
+    description: "Staging model của bảng THANHTRA.FORM_TEMPLATE_PLACEHOLDER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'form_template_placeholder'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_form_template_version
+    description: "Staging model của bảng THANHTRA.FORM_TEMPLATE_VERSION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'form_template_version'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_inspection_annual_plan
+    description: "Staging model của bảng THANHTRA.INSPECTION_ANNUAL_PLAN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'inspection_annual_plan'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_inspection_annual_plan_target
+    description: "Staging model của bảng THANHTRA.INSPECTION_ANNUAL_PLAN_TARGET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'inspection_annual_plan_target'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_inspection_conclusion
+    description: "Staging model của bảng THANHTRA.INSPECTION_CONCLUSION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'inspection_conclusion'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_inspection_conclusion_remedial
+    description: "Staging model của bảng THANHTRA.INSPECTION_CONCLUSION_REMEDIAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'inspection_conclusion_remedial'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_inspection_report_outline
+    description: "Staging model của bảng THANHTRA.INSPECTION_REPORT_OUTLINE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'inspection_report_outline'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_inspection_team
+    description: "Staging model của bảng THANHTRA.INSPECTION_TEAM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'inspection_team'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_inspection_team_member
+    description: "Staging model của bảng THANHTRA.INSPECTION_TEAM_MEMBER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'inspection_team_member'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_inspection_team_target
+    description: "Staging model của bảng THANHTRA.INSPECTION_TEAM_TARGET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'inspection_team_target'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_legal_document
+    description: "Staging model của bảng THANHTRA.LEGAL_DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'legal_document'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_official_letter_type
+    description: "Staging model của bảng THANHTRA.OFFICIAL_LETTER_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'official_letter_type'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_penalty_decision
+    description: "Staging model của bảng THANHTRA.PENALTY_DECISION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'penalty_decision'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_penalty_decision_approval_history
+    description: "Staging model của bảng THANHTRA.PENALTY_DECISION_APPROVAL_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'penalty_decision_approval_history'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_penalty_decision_circumstance
+    description: "Staging model của bảng THANHTRA.PENALTY_DECISION_CIRCUMSTANCE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'penalty_decision_circumstance'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_penalty_decision_subject
+    description: "Staging model của bảng THANHTRA.PENALTY_DECISION_SUBJECT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'penalty_decision_subject'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_penalty_decision_subject_behavior
+    description: "Staging model của bảng THANHTRA.PENALTY_DECISION_SUBJECT_BEHAVIOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'penalty_decision_subject_behavior'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_penalty_decision_violation_record
+    description: "Staging model của bảng THANHTRA.PENALTY_DECISION_VIOLATION_RECORD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'penalty_decision_violation_record'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_penalty_type
+    description: "Staging model của bảng THANHTRA.PENALTY_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'penalty_type'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_penalty_type_violation_behavior
+    description: "Staging model của bảng THANHTRA.PENALTY_TYPE_VIOLATION_BEHAVIOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'penalty_type_violation_behavior'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_petition
+    description: "Staging model của bảng THANHTRA.PETITION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'petition'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_petition_document
+    description: "Staging model của bảng THANHTRA.PETITION_DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'petition_document'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_post_inspection_processing
+    description: "Staging model của bảng THANHTRA.POST_INSPECTION_PROCESSING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'post_inspection_processing'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_private_catalog_item
+    description: "Staging model của bảng THANHTRA.PRIVATE_CATALOG_ITEM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'private_catalog_item'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_proactive_notice
+    description: "Staging model của bảng THANHTRA.PROACTIVE_NOTICE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'proactive_notice'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_proactive_notice_recipient
+    description: "Staging model của bảng THANHTRA.PROACTIVE_NOTICE_RECIPIENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'proactive_notice_recipient'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_security_measure_decision
+    description: "Staging model của bảng THANHTRA.SECURITY_MEASURE_DECISION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'security_measure_decision'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_security_measure_decision_recipient
+    description: "Staging model của bảng THANHTRA.SECURITY_MEASURE_DECISION_RECIPIENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'security_measure_decision_recipient'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_security_measure_decision_subject
+    description: "Staging model của bảng THANHTRA.SECURITY_MEASURE_DECISION_SUBJECT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'security_measure_decision_subject'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_security_measure_execution
+    description: "Staging model của bảng THANHTRA.SECURITY_MEASURE_EXECUTION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'security_measure_execution'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_supervision_activity_report
+    description: "Staging model của bảng THANHTRA.SUPERVISION_ACTIVITY_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'supervision_activity_report'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_violation_behavior
+    description: "Staging model của bảng THANHTRA.VIOLATION_BEHAVIOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'violation_behavior'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_violation_behavior_legal_document
+    description: "Staging model của bảng THANHTRA.VIOLATION_BEHAVIOR_LEGAL_DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'violation_behavior_legal_document'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_violation_case
+    description: "Staging model của bảng THANHTRA.VIOLATION_CASE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'violation_case'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_violation_case_output_document
+    description: "Staging model của bảng THANHTRA.VIOLATION_CASE_OUTPUT_DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'violation_case_output_document'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_violation_case_received_document
+    description: "Staging model của bảng THANHTRA.VIOLATION_CASE_RECEIVED_DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'violation_case_received_document'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_violation_case_status_history
+    description: "Staging model của bảng THANHTRA.VIOLATION_CASE_STATUS_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'violation_case_status_history'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_violation_record
+    description: "Staging model của bảng THANHTRA.VIOLATION_RECORD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'violation_record'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_violation_record_behavior
+    description: "Staging model của bảng THANHTRA.VIOLATION_RECORD_BEHAVIOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'violation_record_behavior'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_vphc_process_official_letter
+    description: "Staging model của bảng THANHTRA.VPHC_PROCESS_OFFICIAL_LETTER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'vphc_process_official_letter'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_anti_money_laundering_dossier
+    description: "Staging model của bảng THANHTRA.ANTI_MONEY_LAUNDERING_DOSSIER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'anti_money_laundering_dossier'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_citizen_reception_participant
+    description: "Staging model của bảng THANHTRA.CITIZEN_RECEPTION_PARTICIPANT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'citizen_reception_participant'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_citizen_reception_petition_link
+    description: "Staging model của bảng THANHTRA.CITIZEN_RECEPTION_PETITION_LINK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'citizen_reception_petition_link'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_citizen_reception_subject
+    description: "Staging model của bảng THANHTRA.CITIZEN_RECEPTION_SUBJECT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'citizen_reception_subject'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_penalty_decision_subject_behavior_supplementary
+    description: "Staging model của bảng THANHTRA.PENALTY_DECISION_SUBJECT_BEHAVIOR_SUPPLEMENTARY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'penalty_decision_subject_behavior_supplementary'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_petition_internal_transfer_unit
+    description: "Staging model của bảng THANHTRA.PETITION_INTERNAL_TRANSFER_UNIT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'petition_internal_transfer_unit'
+      tags:
+        - layer_staging
+        - domain_thanhtra
+
+  - name: stg_thanhtra_petition_target
+    description: "Staging model của bảng THANHTRA.PETITION_TARGET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_thanhtra_schema") }}'
+      alias: 'petition_target'
+      tags:
+        - layer_staging
+        - domain_thanhtra

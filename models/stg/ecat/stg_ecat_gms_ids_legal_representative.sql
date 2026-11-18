@@ -1,0 +1,44 @@
+/*
+*--------------------------------------------------------------------*
+* Program code: stg_ecat_gms_ids_legal_representative
+* Program name: Staging ECAT.GMS_IDS_LEGAL_REPRESENTATIVE
+* Created by: tuan.nguyenvanb
+* Created date: 2026-11-06
+*--------------------------------------------------------------------*
+* Modified management
+* Date				User				Description
+* 2026-11-06		tuan.nguyenvanb		[MOI] Bo sung STG cho bang thieu so voi BRD brd_ECAT.yaml (cot/kieu theo ECAT_ddl_prod.sql).
+* 2026-11-07		tuan.nguyenvanb		Dong bo theo ECAT_ddl_prod.sql va ket qua khao sat du lieu nguon prod: kieu decimal(38,10) sang int (1 cot).
+*--------------------------------------------------------------------*
+*/
+
+SELECT
+    CAST(id AS string)                         AS id
+    , CAST(company_profile_id AS string)         AS company_profile_id
+    , CAST(company_profile_version_id AS string) AS company_profile_version_id
+    , CAST(company_profile_stable_id AS string)  AS company_profile_stable_id
+    , CAST(name AS string)                       AS name
+    , CAST(position_cd AS string)                AS position_cd
+    , CAST(appointment_date AS timestamp)        AS appointment_date
+    , CAST(phone_no AS string)                   AS phone_no
+    , CAST(email AS string)                      AS email
+    , CAST(identity_no AS string)                AS identity_no
+    , CAST(issue_date AS timestamp)              AS issue_date
+    , CAST(issue_place AS string)                AS issue_place
+    , CAST(representative_role AS int)           AS representative_role
+    , CAST(id_sync AS string)                    AS id_sync
+    , CAST(is_sync AS int)                       AS is_sync
+    , CAST(deleted AS int)                       AS deleted
+    , CAST(deleted_reason AS string)             AS deleted_reason
+    , CAST(version AS int)                       AS version
+    , CAST(effective_start_date AS timestamp)    AS effective_start_date
+    , CAST(effective_end_date AS timestamp)      AS effective_end_date
+    , CAST(old_id AS string)                     AS old_id
+    , CAST(stable_id AS string)                  AS stable_id
+    , CAST(created_at AS timestamp)              AS created_at
+    , CAST(updated_at AS timestamp)              AS updated_at
+    , CAST(created_by_id AS string)              AS created_by_id
+    , CAST(created_by_name AS string)            AS created_by_name
+    , CAST(updated_by_id AS string)              AS updated_by_id
+    , CAST(updated_by_name AS string)            AS updated_by_name
+FROM {{ source('source_ecat', 'raw_gms_ids_legal_representative') }}

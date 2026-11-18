@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: dtm_cdr_dt_dim
+    description: "Datamart model của bảng Calendar Date Dimension"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: merge
+      unique_key: ["cdr_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'cdr_dt_dim'
+      tags:
+        - layer_datamart
+        - domain_common
+
+  - name: dtm_cl_dim
+    description: "Datamart model của bảng Classification Dimension"
+    config:
+      materialized: scd2
+      unique_key: ["cl_dim_id"]
+      identity_col: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'cl_dim'
+      tags:
+        - layer_datamart
+        - domain_common
+

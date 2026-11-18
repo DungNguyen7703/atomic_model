@@ -1623,6 +1623,25 @@ sources:
       - name: raw_scms_ecat_working_schedule
         identifier: SCMS_ECAT_WORKING_SCHEDULE
 
+  - name: source_mdds_uat_stg
+    description: "Staging MDDS UAT (Iceberg) - nguon de day nguoc vao Oracle"
+    schema: '{{ var("stg_mdds_schema") }}'
+    tables:
+      - name: raw_jad_stockinfor
+        identifier: jad_stockinfor
+      - name: raw_jad_corpbondinfor
+        identifier: jad_corpbondinfor
+      - name: raw_jad_csidxinfor
+        identifier: jad_csidxinfor
+      - name: raw_jad_marketinfor
+        identifier: jad_marketinfor
+      - name: raw_jad_tradingviewhistory1day
+        identifier: jad_tradingviewhistory1day
+      - name: raw_jad_translog
+        identifier: jad_translog
+      - name: raw_jad_tvhistory1m
+        identifier: jad_tvhistory1m
+
   - name: source_mdds
     description: "Hệ thống phân phối dữ liệu thị trường — Bảng giá, sổ khớp, chỉ số thị trường realtime"
     schema: '{{ var("src_mdds_schema") }}'
@@ -2584,26 +2603,15 @@ sources:
         identifier: foreign_investor_report
 
   - name: source_fms_bcd
-    description: "Hệ thống quản lý giám sát công ty quản lý quỹ (FMS) - bảng ODS báo cáo động do Python DAG fms_staging_to_ods ghi (không qua dbt)"
+    description: "Kho dữ liệu - Tầng ODS - Dữ liệu phân hệ quản lý giám sát công ty quản lý quỹ và quỹ đầu tư chứng khoán"
     schema: '{{ var("ods_fms_schema") }}'
     tables:
       - name: raw_item_list
-        identifier: item_list
-      - name: raw_report_history
-        identifier: report_history
+        identifier: ods_fms_item_list
       - name: raw_item_value
-        identifier: item_value
-
-  - name: source_scms_bcd
-    description: "Hệ thống quản lý giám sát công ty chứng khoán (SCMS) - bảng ODS báo cáo động"
-    schema: '{{ var("ods_scms_schema") }}'
-    tables:
-      - name: raw_item_list
-        identifier: item_list
+        identifier: ods_fms_item_value
       - name: raw_report_history
-        identifier: report_history
-      - name: raw_item_value
-        identifier: item_value
+        identifier: ods_fms_report_history
 
   - name: source_atm
     description: "Hệ thống bảng danh mục khởi tạo trực tiếp tầng Atomic"

@@ -7,6 +7,11 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
+* 2026-11-14		claude				Ra soat LLD O_NDTNN_59: KHONG doi hanh vi. Them comment '-- LIVE:' cho ten cot/ma nguon Atomic dev
+*         (execution_val = match_price*match_quantity; security_symbol_code = ticker_symbol; market_id_code = market_code;
+*         ORDERTRADE_TRADE_BOOK_HOSE/HNX = HOSE_TRADE_BOOK/HNX_TRADE_BOOK; bond_order_book: trading_date = trading_dt,
+*         buying/selling_account_no = *_account_nbr, order_book_type = order_book_tp, trading/first_settlement_value = *_val,
+*         order_bond_quantity = order_bond_vol).
 * 2026-10-26		nghia.le			Dong bo LLD cap nhat 2026-10-23 (K_NDTNN_3, O_NDTNN_55(2)): bo sung cot total_market_val
 *									(tong GT giao dich toan thi truong, KHONG loc NDTNN, theo tung security_tp_group) -
 *									cung pham vi/nhom nhu buy_val nhung Securities Trade lay execution_val moi giao dich
@@ -51,10 +56,10 @@
 WITH se_tr AS (
     SELECT
         trade_dt,
-        security_symbol_code,
-        src_stm_code,
-        market_id_code,
-        execution_val,
+        security_symbol_code,   -- LIVE: ticker_symbol
+        src_stm_code,           -- LIVE: 'HOSE_TRADE_BOOK','HNX_TRADE_BOOK'
+        market_id_code,         -- LIVE: market_code
+        execution_val,          -- LIVE: match_price * match_quantity
         buy_account_nbr,
         sell_account_nbr
     FROM {{ ref('atm_securities_trade') }}

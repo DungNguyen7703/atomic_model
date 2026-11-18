@@ -7,6 +7,10 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
+* 2026-11-14		claude				Dong bo LLD O_NDTNN_59: bo dedupe pu_co_di (ROW_NUMBER theo public_company_code, khong co trong LLD) -
+*									LOOKUP public_company_dim ON equity_ticker_symbol = securities_dim.symbol. Them comment '-- LIVE:'
+*									(execution_val = match_price*match_quantity; security_symbol_code = ticker_symbol; market_id_code = market_code;
+*									ORDERTRADE_TRADE_BOOK_HOSE/HNX = HOSE_TRADE_BOOK/HNX_TRADE_BOOK).
 * 2026-10-21		nghia.le			[FIX] Dong bo LLD: sua loi cu phap CTE sts (thieu dau phay truoc ROW_NUMBER, cot 'sequence'
 *									khong co trong LLD) va sua market_id_code HOSE tu 'STO' thanh 'STK' (dung LLD).
 * 2026-10-17		nghia.le			[FIX] Bỏ filter stock_tp_code thừa (không có trong LLD) khỏi se_di (Securities Dimension) —
@@ -30,13 +34,13 @@
 
 WITH se_tr AS (
     SELECT
-        execution_val,
+        execution_val,   -- LIVE: match_price * match_quantity
         buy_account_nbr,
         sell_account_nbr,
         trade_dt,
-        security_symbol_code,
-        src_stm_code,
-        market_id_code
+        security_symbol_code,   -- LIVE: ticker_symbol
+        src_stm_code,           -- LIVE: 'HOSE_TRADE_BOOK','HNX_TRADE_BOOK'
+        market_id_code          -- LIVE: market_code
     FROM {{ ref('atm_securities_trade') }}
     WHERE trade_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
 ),
@@ -79,23 +83,9 @@ pu_co_di AS (
         public_company_dim_id,
         public_company_code,
         equity_ticker_symbol
-    FROM (
-        SELECT
-            public_company_dim_id,
-            public_company_code,
-            equity_ticker_symbol,
-            ROW_NUMBER() OVER (
-                PARTITION BY equity_ticker_symbol
-                ORDER BY
-                    cast(public_company_code as int) ASC
-            ) AS rn
-        FROM {{ ref('dtm_public_company_dim') }}_hstr
-        WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}', 'yyyy-MM-dd')
-          AND ds_rcrd_st = 'ACTIVE'
-          AND equity_ticker_symbol IS NOT NULL
-          AND public_company_code IS NOT NULL
-    ) t
-    WHERE rn = 1
+    FROM {{ ref('dtm_public_company_dim') }}_hstr
+    WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}', 'yyyy-MM-dd')
+        AND ds_rcrd_st = 'ACTIVE'
 )
 
 SELECT

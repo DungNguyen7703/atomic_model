@@ -1,0 +1,650 @@
+version: 2
+
+models:
+  - name: ods_ids_account_numbers
+    description: "ODS model của bảng IDS.ACCOUNT_NUMBERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'account_numbers'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_bond_listing_history
+    description: "ODS model của bảng IDS.BOND_LISTING_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'bond_listing_history'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_capital_mobilization
+    description: "ODS model của bảng IDS.CAPITAL_MOBILIZATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'capital_mobilization'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_categories
+    description: "ODS model của bảng IDS.CATEGORIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'categories'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_company_add_capital
+    description: "ODS model của bảng IDS.COMPANY_ADD_CAPITAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'company_add_capital'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_company_data
+    description: "ODS model của bảng IDS.COMPANY_DATA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'company_data'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_company_entity_role
+    description: "ODS model của bảng IDS.COMPANY_ENTITY_ROLE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'company_entity_role'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_company_inspection
+    description: "ODS model của bảng IDS.COMPANY_INSPECTION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'company_inspection'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_company_penalties
+    description: "ODS model của bảng IDS.COMPANY_PENALTIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'company_penalties'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_company_profiles
+    description: "ODS model của bảng IDS.COMPANY_PROFILES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'company_profiles'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_company_relationship
+    description: "ODS model của bảng IDS.COMPANY_RELATIONSHIP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'company_relationship'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_company_share_statistics
+    description: "ODS model của bảng IDS.COMPANY_SHARE_STATISTICS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'company_share_statistics'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_company_shareholding
+    description: "ODS model của bảng IDS.COMPANY_SHAREHOLDING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'company_shareholding'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_company_tender_offer
+    description: "ODS model của bảng IDS.COMPANY_TENDER_OFFER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'company_tender_offer'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_company_treasury_shares
+    description: "ODS model của bảng IDS.COMPANY_TREASURY_SHARES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'company_treasury_shares'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_company_treasury_stocks
+    description: "ODS model của bảng IDS.COMPANY_TREASURY_STOCKS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'company_treasury_stocks'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_data_values
+    description: "ODS model của bảng IDS.DATA_VALUES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'data_values'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_form_fields
+    description: "ODS model của bảng IDS.FORM_FIELDS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'form_fields'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_data
+    description: "ODS model của bảng IDS.DATA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'data'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_evaluation_cbonds
+    description: "ODS model của bảng IDS.EVALUATION_CBONDS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'evaluation_cbonds'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_evaluation_criteria
+    description: "ODS model của bảng IDS.EVALUATION_CRITERIA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'evaluation_criteria'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_evaluation_details
+    description: "ODS model của bảng IDS.EVALUATION_DETAILS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'evaluation_details'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_evaluation_groups
+    description: "ODS model của bảng IDS.EVALUATION_GROUPS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'evaluation_groups'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_evaluation_periods
+    description: "ODS model của bảng IDS.EVALUATION_PERIODS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'evaluation_periods'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_evaluations
+    description: "ODS model của bảng IDS.EVALUATIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'evaluations'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_foreign_owner_limit
+    description: "ODS model của bảng IDS.FOREIGN_OWNER_LIMIT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'foreign_owner_limit'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_forms
+    description: "ODS model của bảng IDS.FORMS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'forms'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_holder_relationship
+    description: "ODS model của bảng IDS.HOLDER_RELATIONSHIP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'holder_relationship'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_identity
+    description: "ODS model của bảng IDS.IDENTITY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'identity'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_legal_entities
+    description: "ODS model của bảng IDS.LEGAL_ENTITIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'legal_entities'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_legal_representative
+    description: "ODS model của bảng IDS.LEGAL_REPRESENTATIVE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'legal_representative'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_positions
+    description: "ODS model của bảng IDS.POSITIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'positions'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_pub_company_cancellation
+    description: "ODS model của bảng IDS.PUB_COMPANY_CANCELLATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'pub_company_cancellation'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_pub_company_registration
+    description: "ODS model của bảng IDS.PUB_COMPANY_REGISTRATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'pub_company_registration'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_rcol
+    description: "ODS model của bảng IDS.RCOL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'rcol'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_rep_column
+    description: "ODS model của bảng IDS.REP_COLUMN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'rep_column'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_rep_data
+    description: "ODS model của bảng IDS.REP_DATA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'rep_data'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_rep_forms
+    description: "ODS model của bảng IDS.REP_FORMS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'rep_forms'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_rep_row
+    description: "ODS model của bảng IDS.REP_ROW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'rep_row'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_report_catalog
+    description: "ODS model của bảng IDS.REPORT_CATALOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'report_catalog'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_report_extensions
+    description: "ODS model của bảng IDS.REPORT_EXTENSIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'report_extensions'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_rrow
+    description: "ODS model của bảng IDS.RROW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'rrow'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_securities_offering
+    description: "ODS model của bảng IDS.SECURITIES_OFFERING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'securities_offering'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_securities_offering_plan
+    description: "ODS model của bảng IDS.SECURITIES_OFFERING_PLAN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'securities_offering_plan'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_securities_offering_result
+    description: "ODS model của bảng IDS.SECURITIES_OFFERING_RESULT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'securities_offering_result'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_state_capital
+    description: "ODS model của bảng IDS.STATE_CAPITAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'state_capital'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_stock_controls
+    description: "ODS model của bảng IDS.STOCK_CONTROLS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'stock_controls'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_stock_listing_history
+    description: "ODS model của bảng IDS.STOCK_LISTING_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'stock_listing_history'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_treasury_share_trans_result
+    description: "ODS model của bảng IDS.TREASURY_SHARE_TRANS_RESULT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'treasury_share_trans_result'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_violation_report
+    description: "ODS model của bảng IDS.VIOLATION_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'violation_report'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_violation_templates
+    description: "ODS model của bảng IDS.VIOLATION_TEMPLATES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'violation_templates'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_company_tender_offer_result
+    description: "ODS model của bảng IDS.COMPANY_TENDER_OFFER_RESULT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'company_tender_offer_result'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_provinces
+    description: "ODS model của bảng IDS.PROVINCES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'provinces'
+      tags:
+        - layer_ods
+        - domain_ids
+
+  - name: ods_ids_lookup_values
+    description: "ODS model của bảng IDS.LOOKUP_VALUES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ids_schema") }}'
+      alias: 'lookup_values'
+      tags:
+        - layer_ods
+        - domain_ids

@@ -3,6 +3,7 @@
 -- ────────────────────────────────────────────────────────────
 -- Model : ndtnn_foreign_investor_trading_detail_rpt_flat
 -- Type  : OPERATIONAL
+-- 2026-11-14 claude: [DONG BO daily] ma hoa PII account_nbr/account_holder_nm/investor_nm (fn_pii_encrypt) giong daily.
 -- 2026-10-16 nghia.le: [FIRST-TIME NDTNN] Ban khoi tao: doc fact tu ban ft_ (ft_ref -> bang that) va BO loc
 -- report_dt = etl_date de nap toan bo lich su trong 1 lan; strategy ft_ck_by_day gan ds_snpst_dt = ngay cua tung
 -- dong (ft_day_column = report_dt) -> 1 partition = 1 ngay nhu daily.

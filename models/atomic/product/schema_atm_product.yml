@@ -1,0 +1,101 @@
+version: 2
+
+models:
+  - name: atm_corporate_bond_trading_snapshot
+    description: "Atomic model của bảng Corporate Bond Trading Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'corporate_bond_trading_snapshot'
+      source_system: ["MDDS_JAD_CORPBONDINFOR"]
+      tags:
+        - layer_atomic
+
+  - name: atm_listed_share_information
+    description: "Atomic model của bảng Listed Share Info – Multi Source (VSDC.OUTSTANDING_SHARES, HNX.LISTED_SECURITIES_LIST, HOSE.LISTED_SECURITIES_LIST)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt", "src_stm_code"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'listed_share_information'
+      source_system: ["VSDC_OUTSTANDING_SHARES", "HNX_LISTED_SECURITIES_LIST", "HOSE_LISTED_SECURITIES_LIST"]
+      tags:
+        - layer_atomic
+
+  - name: atm_listed_share_information_vsdc_outstanding_shares
+    description: "Atomic model của bảng Listed Share Info – VSDC.OUTSTANDING_SHARES"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_listed_share_information_hnx_listed_securities_list
+    description: "Atomic model của bảng Listed Share Info – HNX.LISTED_SECURITIES_LIST"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_listed_share_information_hose_listed_securities_list
+    description: "Atomic model của bảng Listed Share Info – HOSE.LISTED_SECURITIES_LIST"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_security_trading_snapshot
+    description: "Atomic model của bảng Security Trading Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'security_trading_snapshot'
+      source_system: ["MDDS_JAD_STOCKINFOR"]
+      tags:
+        - layer_atomic
+
+  - name: atm_market_price_snapshot
+    description: "Atomic model của bảng Market Price Snapshot (nến 1-phút MDDS.JAD_TVHISTORY1M + nến ngày MDDS.JAD_TRADINGVIEWHISTORY1DAY)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'market_price_snapshot'
+      source_system: ["MDDS_JAD_TVHISTORY1MIN", "MDDS_JAD_TRADINGVIEWHISTORY1DAY"]
+      tags:
+        - layer_atomic
+        
+  - name: atm_gov_bond_listing
+    description: "Atomic model của bảng Gov Bond Listing (HNX.GOV_BOND_LISTED_LIST)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt", "src_stm_code"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'gov_bond_listing'
+      source_system: ["HNX_GOV_BOND_LISTED_LIST"]
+      tags:
+        - layer_atomic
+
+  - name: atm_additional_gov_bond_listing
+    description: "Atomic model của bảng Additional Gov Bond Listing (HNX.GOV_BOND_ADDITIONAL_LISTING)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt", "src_stm_code"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'additional_gov_bond_listing'
+      source_system: ["HNX_GOV_BOND_ADDITIONAL_LISTING"]
+      tags:
+        - layer_atomic

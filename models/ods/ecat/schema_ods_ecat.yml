@@ -1,0 +1,122 @@
+version: 2
+
+models:
+  - name: ods_ecat_business_line_level_1
+    description: "ODS model của bảng ECAT.BUSINESS_LINE_LEVEL_1"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ecat_schema") }}'
+      alias: 'business_line_level_1'
+      tags:
+        - layer_ods
+        - domain_ecat
+
+  - name: ods_ecat_business_line_level_2
+    description: "ODS model của bảng ECAT.BUSINESS_LINE_LEVEL_2"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ecat_schema") }}'
+      alias: 'business_line_level_2'
+      tags:
+        - layer_ods
+        - domain_ecat
+        
+  - name: ods_ecat_country
+    description: "ODS model của bảng ECAT.COUNTRY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ecat_schema") }}'
+      alias: 'country'
+      tags:
+        - layer_ods
+        - domain_ecat
+
+  - name: ods_ecat_district_old
+    description: "ODS model của bảng ECAT.DISTRICT_OLD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ecat_schema") }}'
+      alias: 'district_old'
+      tags:
+        - layer_ods
+        - domain_ecat
+
+  - name: ods_ecat_province_new
+    description: "ODS model của bảng ECAT.PROVINCE_NEW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ecat_schema") }}'
+      alias: 'province_new'
+      tags:
+        - layer_ods
+        - domain_ecat
+
+  - name: ods_ecat_province_old
+    description: "ODS model của bảng ECAT.PROVINCE_OLD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ecat_schema") }}'
+      alias: 'province_old'
+      tags:
+        - layer_ods
+        - domain_ecat
+
+  - name: ods_ecat_region
+    description: "ODS model của bảng ECAT.REGION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ecat_schema") }}'
+      alias: 'region'
+      tags:
+        - layer_ods
+        - domain_ecat
+
+  - name: ods_ecat_ward_new
+    description: "ODS model của bảng ECAT.WARD_NEW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ecat_schema") }}'
+      alias: 'ward_new'
+      tags:
+        - layer_ods
+        - domain_ecat
+
+  - name: ods_ecat_ward_old
+    description: "ODS model của bảng ECAT.WARD_OLD"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ecat_schema") }}'
+      alias: 'ward_old'
+      tags:
+        - layer_ods
+        - domain_ecat
+
+  - name: ods_ecat_department
+    description: "ODS model của bảng ECAT.DEPARTMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_ecat_schema") }}'
+      alias: 'department'
+      tags:
+        - layer_ods
+        - domain_ecat

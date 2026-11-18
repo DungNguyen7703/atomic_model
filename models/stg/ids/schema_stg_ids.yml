@@ -1,0 +1,1130 @@
+version: 2
+
+models:
+  - name: stg_ids_account_numbers
+    description: "Staging model của bảng IDS.ACCOUNT_NUMBERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'account_numbers'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_alert_template_audit_dtl
+    description: "Staging model của bảng IDS.ALERT_TEMPLATE_AUDIT_DTL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'alert_template_audit_dtl'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_alert_template_audit_hdr
+    description: "Staging model của bảng IDS.ALERT_TEMPLATE_AUDIT_HDR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'alert_template_audit_hdr'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_bond_listing_history
+    description: "Staging model của bảng IDS.BOND_LISTING_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'bond_listing_history'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_capital_mobilization
+    description: "Staging model của bảng IDS.CAPITAL_MOBILIZATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'capital_mobilization'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_categories
+    description: "Staging model của bảng IDS.CATEGORIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'categories'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_company_add_capital
+    description: "Staging model của bảng IDS.COMPANY_ADD_CAPITAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'company_add_capital'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_company_change_role_his
+    description: "Staging model của bảng IDS.COMPANY_CHANGE_ROLE_HIS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'company_change_role_his'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_company_data
+    description: "Staging model của bảng IDS.COMPANY_DATA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'company_data'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_company_digital_certificates
+    description: "Staging model của bảng IDS.COMPANY_DIGITAL_CERTIFICATES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'company_digital_certificates'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_company_entity_role
+    description: "Staging model của bảng IDS.COMPANY_ENTITY_ROLE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'company_entity_role'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_company_inspection
+    description: "Staging model của bảng IDS.COMPANY_INSPECTION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'company_inspection'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_company_penalties
+    description: "Staging model của bảng IDS.COMPANY_PENALTIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'company_penalties'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_company_profiles
+    description: "Staging model của bảng IDS.COMPANY_PROFILES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'company_profiles'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_company_relationship
+    description: "Staging model của bảng IDS.COMPANY_RELATIONSHIP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'company_relationship'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_company_share_statistics
+    description: "Staging model của bảng IDS.COMPANY_SHARE_STATISTICS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'company_share_statistics'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_company_shareholding
+    description: "Staging model của bảng IDS.COMPANY_SHAREHOLDING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'company_shareholding'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_company_tender_offer
+    description: "Staging model của bảng IDS.COMPANY_TENDER_OFFER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'company_tender_offer'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_company_tender_offer_result
+    description: "Staging model của bảng IDS.COMPANY_TENDER_OFFER_RESULT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'company_tender_offer_result'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_company_treasury_shares
+    description: "Staging model của bảng IDS.COMPANY_TREASURY_SHARES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'company_treasury_shares'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_company_treasury_stocks
+    description: "Staging model của bảng IDS.COMPANY_TREASURY_STOCKS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'company_treasury_stocks'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_countries
+    description: "Staging model của bảng IDS.COUNTRIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'countries'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_data
+    description: "Staging model của bảng IDS.DATA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'data'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_data_types
+    description: "Staging model của bảng IDS.DATA_TYPES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'data_types'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_data_values
+    description: "Staging model của bảng IDS.DATA_VALUES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'data_values'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_departments
+    description: "Staging model của bảng IDS.DEPARTMENTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'departments'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_dynamic_report_template_fields
+    description: "Staging model của bảng IDS.DYNAMIC_REPORT_TEMPLATE_FIELDS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'dynamic_report_template_fields'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_dynamic_report_templates
+    description: "Staging model của bảng IDS.DYNAMIC_REPORT_TEMPLATES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'dynamic_report_templates'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_evaluation_cbonds
+    description: "Staging model của bảng IDS.EVALUATION_CBONDS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'evaluation_cbonds'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_evaluation_criteria
+    description: "Staging model của bảng IDS.EVALUATION_CRITERIA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'evaluation_criteria'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_evaluation_details
+    description: "Staging model của bảng IDS.EVALUATION_DETAILS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'evaluation_details'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_evaluation_groups
+    description: "Staging model của bảng IDS.EVALUATION_GROUPS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'evaluation_groups'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_evaluation_level_score
+    description: "Staging model của bảng IDS.EVALUATION_LEVEL_SCORE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'evaluation_level_score'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_evaluation_periods
+    description: "Staging model của bảng IDS.EVALUATION_PERIODS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'evaluation_periods'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_evaluations
+    description: "Staging model của bảng IDS.EVALUATIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'evaluations'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_fields
+    description: "Staging model của bảng IDS.FIELDS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'fields'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_files
+    description: "Staging model của bảng IDS.FILES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'files'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_foreign_owner_limit
+    description: "Staging model của bảng IDS.FOREIGN_OWNER_LIMIT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'foreign_owner_limit'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_form_field_history
+    description: "Staging model của bảng IDS.FORM_FIELD_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'form_field_history'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_form_fields
+    description: "Staging model của bảng IDS.FORM_FIELDS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'form_fields'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_forms
+    description: "Staging model của bảng IDS.FORMS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'forms'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_holder_relationship
+    description: "Staging model của bảng IDS.HOLDER_RELATIONSHIP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'holder_relationship'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_holiday_calendar
+    description: "Staging model của bảng IDS.HOLIDAY_CALENDAR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'holiday_calendar'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_identity
+    description: "Staging model của bảng IDS.IDENTITY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'identity'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_legal_entities
+    description: "Staging model của bảng IDS.LEGAL_ENTITIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'legal_entities'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_legal_representative
+    description: "Staging model của bảng IDS.LEGAL_REPRESENTATIVE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'legal_representative'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_login_permission_by_code
+    description: "Staging model của bảng IDS.LOGIN_PERMISSION_BY_CODE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'login_permission_by_code'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_logins
+    description: "Staging model của bảng IDS.LOGINS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'logins'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_lookup_values
+    description: "Staging model của bảng IDS.LOOKUP_VALUES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'lookup_values'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_manual_document
+    description: "Staging model của bảng IDS.MANUAL_DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'manual_document'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_positions
+    description: "Staging model của bảng IDS.POSITIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'positions'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_provinces
+    description: "Staging model của bảng IDS.PROVINCES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'provinces'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_pub_company_cancellation
+    description: "Staging model của bảng IDS.PUB_COMPANY_CANCELLATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'pub_company_cancellation'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_pub_company_registration
+    description: "Staging model của bảng IDS.PUB_COMPANY_REGISTRATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'pub_company_registration'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_rcol
+    description: "Staging model của bảng IDS.RCOL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'rcol'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_rep_column
+    description: "Staging model của bảng IDS.REP_COLUMN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'rep_column'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_rep_data
+    description: "Staging model của bảng IDS.REP_DATA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'rep_data'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_rep_forms
+    description: "Staging model của bảng IDS.REP_FORMS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'rep_forms'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_rep_row
+    description: "Staging model của bảng IDS.REP_ROW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'rep_row'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_report_catalog
+    description: "Staging model của bảng IDS.REPORT_CATALOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'report_catalog'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_report_extensions
+    description: "Staging model của bảng IDS.REPORT_EXTENSIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'report_extensions'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_rrow
+    description: "Staging model của bảng IDS.RROW"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'rrow'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_securities_offering
+    description: "Staging model của bảng IDS.SECURITIES_OFFERING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'securities_offering'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_securities_offering_plan
+    description: "Staging model của bảng IDS.SECURITIES_OFFERING_PLAN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'securities_offering_plan'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_securities_offering_result
+    description: "Staging model của bảng IDS.SECURITIES_OFFERING_RESULT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'securities_offering_result'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_state_capital
+    description: "Staging model của bảng IDS.STATE_CAPITAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'state_capital'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_stock_controls
+    description: "Staging model của bảng IDS.STOCK_CONTROLS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'stock_controls'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_stock_listing_history
+    description: "Staging model của bảng IDS.STOCK_LISTING_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'stock_listing_history'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_tender_offer
+    description: "Staging model của bảng IDS.TENDER_OFFER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'tender_offer'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_tender_offer_result
+    description: "Staging model của bảng IDS.TENDER_OFFER_RESULT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'tender_offer_result'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_treasury_share_trans_result
+    description: "Staging model của bảng IDS.TREASURY_SHARE_TRANS_RESULT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'treasury_share_trans_result'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_violation_penalty_config
+    description: "Staging model của bảng IDS.VIOLATION_PENALTY_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'violation_penalty_config'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_violation_report
+    description: "Staging model của bảng IDS.VIOLATION_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'violation_report'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_violation_templates
+    description: "Staging model của bảng IDS.VIOLATION_TEMPLATES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'violation_templates'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_wards
+    description: "Staging model của bảng IDS.WARDS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'wards'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_appraisal_criteria
+    description: "Staging model của bảng IDS.APPRAISAL_CRITERIA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'appraisal_criteria'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_bond_collateral
+    description: "Staging model của bảng IDS.BOND_COLLATERAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'bond_collateral'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_bond_listing
+    description: "Staging model của bảng IDS.BOND_LISTING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'bond_listing'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_bond_listing_history_tmp
+    description: "Staging model của bảng IDS.BOND_LISTING_HISTORY_TMP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'bond_listing_history_tmp'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_bond_payment_status
+    description: "Staging model của bảng IDS.BOND_PAYMENT_STATUS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'bond_payment_status'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_capital_increase_detail
+    description: "Staging model của bảng IDS.CAPITAL_INCREASE_DETAIL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'capital_increase_detail'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_capital_increase_plan
+    description: "Staging model của bảng IDS.CAPITAL_INCREASE_PLAN"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'capital_increase_plan'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_dossier_appraisal_result
+    description: "Staging model của bảng IDS.DOSSIER_APPRAISAL_RESULT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'dossier_appraisal_result'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_financial_indicator_mapping
+    description: "Staging model của bảng IDS.FINANCIAL_INDICATOR_MAPPING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'financial_indicator_mapping'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_financial_ratios_detail
+    description: "Staging model của bảng IDS.FINANCIAL_RATIOS_DETAIL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'financial_ratios_detail'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_lookup_key_financials
+    description: "Staging model của bảng IDS.LOOKUP_KEY_FINANCIALS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'lookup_key_financials'
+      tags:
+        - layer_staging
+        - domain_ids
+
+  - name: stg_ids_users
+    description: "Staging model của bảng IDS.USERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_ids_schema") }}'
+      alias: 'users'
+      tags:
+        - layer_staging
+        - domain_ids

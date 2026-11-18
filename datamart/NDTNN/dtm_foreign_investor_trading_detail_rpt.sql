@@ -7,6 +7,11 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date    User    Description
+* 2026-11-14  claude  Ra soat LLD O_NDTNN_59: KHONG doi hanh vi. Them comment '-- LIVE:' cho ten cot/ma nguon Atomic dev
+*         (execution_val = match_price*match_quantity; security_symbol_code = ticker_symbol; market_id_code = market_code;
+*         ORDERTRADE_TRADE_BOOK_HOSE/HNX = HOSE_TRADE_BOOK/HNX_TRADE_BOOK; bond_order_book: trading_date = trading_dt,
+*         buying/selling_account_no = *_account_nbr, order_book_type = order_book_tp, trading/first_settlement_value = *_val,
+*         order_bond_quantity = order_bond_vol).
 * 2026-10-26  nghia.le  [FIX] Dong bo LLD (sua 2026-10-20): them ORDER BY report_dt, account_nbr, symbol,
 *         trade_direction_code, src_stm_code (grain 5 thanh phan) - truoc do thieu ORDER BY.
 * 2026-10-21  nghia.le  [FIX] Dong bo LLD: bo sung filter stock_tp_code IN ('1','2','3','4','6') khi JOIN Securities
@@ -26,14 +31,14 @@
 WITH se_tr AS (
     SELECT
         trade_dt,
-        security_symbol_code,
-        src_stm_code,
+        security_symbol_code,   -- LIVE: ticker_symbol
+        src_stm_code,           -- LIVE: 'HOSE_TRADE_BOOK','HNX_TRADE_BOOK'
         buy_account_nbr,
-        buy_account_holder_nm,
+        buy_account_holder_nm,  -- LIVE: PENDING (Atomic LIVE da bo ten chu TK, LLD account_holder_nm = NULL)
         sell_account_nbr,
-        sell_account_holder_nm,
-        execution_vol,
-        execution_val
+        sell_account_holder_nm, -- LIVE: PENDING
+        execution_vol,          -- LIVE: match_quantity
+        execution_val           -- LIVE: match_price * match_quantity
     FROM {{ ref('atm_securities_trade') }}
     WHERE src_stm_code IN ('ORDERTRADE_TRADE_BOOK_HOSE','ORDERTRADE_TRADE_BOOK_HNX')
         AND trade_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')

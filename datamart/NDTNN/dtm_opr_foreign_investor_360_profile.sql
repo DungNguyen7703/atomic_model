@@ -7,6 +7,9 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
+* 2026-11-15		claude				Dong bo LLD O_NDTNN_62: them cot investor_object_tp_code (foreign_investor.investor_object_tp_code) o CUOI bang
+*									- can ALTER TABLE ... ADD COLUMNS (investor_object_tp_code string AFTER identification_nbr) tren bang chinh va _hstr.
+*									identification_nbr la CHUOI DON (1 giay to/NDT) theo LLD - ghi chu 2026-10-16 ben duoi ve mang da loi thoi.
 * 2026-09-29		tuan.nguyenvanb		Bổ sung cột investor_status_code
 *									(BA STT 11 dòng 72, datamart_model.yaml)
 * 2026-10-07		tuan.nguyenvanb		Đồng bộ LLD + Atomic FIMS UAT 20261006 (O_NDTNN_40):
@@ -39,7 +42,8 @@ WITH fo_in AS (
         custodian_bank_id,
         src_stm_code,
         cl_fims_status_id,
-        cl_fims_status_code
+        cl_fims_status_code,
+        investor_object_tp_code
     FROM {{ ref('atm_foreign_investor') }}_hstr
     WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
         AND ds_rcrd_st = 'ACTIVE'
@@ -106,7 +110,8 @@ SELECT
     CAST(fo_in.src_stm_code AS string)             AS src_stm_code,
     CAST(fo_in.cl_fims_status_code AS string)      AS investor_status_code,
     CAST(cl_st.cl_fims_status_nm AS string)        AS investor_status_nm,
-    CAST(ip_al_id.identification_nbr AS string)    AS identification_nbr
+    CAST(ip_al_id.identification_nbr AS string)    AS identification_nbr,
+    CAST(fo_in.investor_object_tp_code AS string)  AS investor_object_tp_code
 FROM fo_in
 LEFT JOIN ge_ar
     ON  ge_ar.geographic_area_id = fo_in.nationality_id

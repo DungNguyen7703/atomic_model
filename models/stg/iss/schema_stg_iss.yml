@@ -1,0 +1,260 @@
+version: 2
+
+models:
+  - name: stg_iss_input_report_template
+    description: "Staging model của bảng Input Report Template (mẫu báo cáo - master data)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'input_report_template'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_input_report_template_sheet
+    description: "Staging model của bảng Input Report Template Sheet (cấu trúc sheet của mẫu báo cáo - master data)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'input_report_template_sheet'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_input_report_metric
+    description: "Staging model của bảng Input Report Metric (cây chỉ tiêu báo cáo theo sheet - master data)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'input_report_metric'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_input_report
+    description: "Staging model của bảng Input Report (nghĩa vụ báo cáo theo kỳ - master data)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'input_report'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_input_report_submission
+    description: "Staging model của bảng Input Report Submission (bản ghi nộp báo cáo - master data, co the sua/soft-delete)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'input_report_submission'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_fact_report_data
+    description: "Staging model của bảng Fact Report Data (du lieu chi tiet da nop theo sheet/ky - master data, co the sua/soft-delete)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'fact_report_data'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_flat_metric_tree
+    description: "Flatten cay chi tieu INPUT_REPORT_METRIC (JOIN INPUT_REPORT_TEMPLATE_SHEET + INPUT_REPORT_TEMPLATE, mo phong CONNECT BY cua Oracle bang self-join level-by-level) - khong co bang nguon that, doc thang tu 3 raw source va tu tinh lai cay"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'flat_metric_tree'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_file_info
+    description: "Staging model của bảng ISS.FILE_INFO"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'file_info'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_input_report_deadline
+    description: "Staging model của bảng ISS.INPUT_REPORT_DEADLINE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'input_report_deadline'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_output_report
+    description: "Staging model của bảng ISS.OUTPUT_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'output_report'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_output_report_deadline
+    description: "Staging model của bảng ISS.OUTPUT_REPORT_DEADLINE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'output_report_deadline'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_output_report_generate_job
+    description: "Staging model của bảng ISS.OUTPUT_REPORT_GENERATE_JOB"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'output_report_generate_job'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_output_report_generate_job_item
+    description: "Staging model của bảng ISS.OUTPUT_REPORT_GENERATE_JOB_ITEM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'output_report_generate_job_item'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_output_report_metric
+    description: "Staging model của bảng ISS.OUTPUT_REPORT_METRIC"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'output_report_metric'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_output_report_source
+    description: "Staging model của bảng ISS.OUTPUT_REPORT_SOURCE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'output_report_source'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_output_report_template
+    description: "Staging model của bảng ISS.OUTPUT_REPORT_TEMPLATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'output_report_template'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_output_report_template_combo_used
+    description: "Staging model của bảng ISS.OUTPUT_REPORT_TEMPLATE_COMBO_USED"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'output_report_template_combo_used'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_report_permission_group
+    description: "Staging model của bảng ISS.REPORT_PERMISSION_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'report_permission_group'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_report_send_log
+    description: "Staging model của bảng ISS.REPORT_SEND_LOG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'report_send_log'
+      tags:
+        - layer_staging
+        - domain_iss
+
+  - name: stg_iss_user_permission_group
+    description: "Staging model của bảng ISS.USER_PERMISSION_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iss_schema") }}'
+      alias: 'user_permission_group'
+      tags:
+        - layer_staging
+        - domain_iss

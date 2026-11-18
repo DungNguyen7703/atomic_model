@@ -9,6 +9,8 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
+* 2026-11-14		claude				Ra soat LLD O_NDTNN_59: KHONG doi hanh vi. Them comment '-- LIVE:' (execution_val = match_price*match_quantity;
+*									security_symbol_code = ticker_symbol; market_id_code = market_code; ORDERTRADE_TRADE_BOOK_HOSE/HNX = HOSE_TRADE_BOOK/HNX_TRADE_BOOK).
 * 2026-10-26		nghia.le			Dong bo LLD cap nhat 2026-10-23 (K_NDTNN_3, O_NDTNN_55(2)): bo sung cot total_market_val,
 *									dong bo voi daily - xem ghi chu 2026-10-26 o dtm_foreign_investor_trading_statistics_rpt.sql.
 * 2026-10-23		nghia.le			Dong bo LLD cap nhat 2026-10-23 (BA Dung 2026-10-22 "Ma 11-14 bo sung chi tieu" — O_NDTNN_54):
@@ -57,7 +59,7 @@
 WITH se_tr AS (
     SELECT
         trade_dt,
-        security_symbol_code,
+        security_symbol_code,   -- LIVE: ticker_symbol; execution_val -> match_price * match_quantity; src_stm_code -> 'HOSE_TRADE_BOOK','HNX_TRADE_BOOK'
         src_stm_code,
         market_id_code,
         SUM(CASE WHEN SUBSTR(buy_account_nbr, 4, 1) IN ('E','F') THEN execution_val ELSE 0 END)  AS foreign_buy_val,

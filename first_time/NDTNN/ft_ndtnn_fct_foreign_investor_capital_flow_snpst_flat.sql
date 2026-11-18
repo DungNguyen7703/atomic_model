@@ -3,6 +3,8 @@
 -- ────────────────────────────────────────────────────────────
 -- Model : ndtnn_fct_foreign_investor_capital_flow_snpst_flat
 -- Type  : FACT
+-- 2026-11-15 claude: [DONG BO LLD O_NDTNN_62 + DDL ClickHouse] them investor_group_nm; thu tu cot ... src_stm_code, investor_group_nm,
+-- transaction_cd, snpst_cdr_dt, rpt_code, rpt_dt_dim_id, rpt_cdr_dt (khop 01_create/02_populate); ma hoa PII investor_nm (fn_pii_encrypt).
 -- 2026-11-08 nghia.le: [DONG BO daily] them cot transaction_cd (MSGD) cuoi bang.
 -- 2026-10-18 nghia.le: [FIX] rpt_cdr_dt thieu nullIf(..., toDate('1970-01-01')) - ban truoc do sot khi dong bo tu
 -- daily, co nguy co ghi sentinel date 1970-01-01 thay vi NULL khi LEFT JOIN khong khop tren ClickHouse
@@ -22,11 +24,12 @@ SELECT
     f.period_val,
     f.nationality_nm,
     f.investor_nm,
-    f.transaction_cd,                    -- [MỚI 2026-11-08] MSGD 6 ký tự cuối in hoa — ngay sau investor_nm, khớp daily
     f.capital_flow_net_val,
     f.src_stm_code,
+    f.investor_group_nm,                 -- [MỚI 2026-11-15, O_NDTNN_62] nhóm NĐT theo row_path: A-Tổ chức / B-Cá nhân
+    f.transaction_cd,                    -- MSGD 6 ký tự cuối in hoa — sau investor_group_nm, khớp LLD/DDL ClickHouse
     submission_cal.cdr_dt AS snpst_cdr_dt,
-    f.rpt_code,                          -- [MỚI 2026-10-13] mã báo cáo: IBOU9 (định kỳ) | EPW5C, V2YZM, 22ZBE (bất thường) — cột cuối, ALTER TABLE ADD COLUMN
+    f.rpt_code,                          -- mã báo cáo IBOU9 (PLIV-TT51, sheet I; O_NDTNN_62) — cột sau snpst_cdr_dt, khớp CK daily/DDL
     f.rpt_dt_dim_id,                     -- [MỚI 2026-10-14] FK ngày chốt số liệu (NULL khi nguồn không có DayReport)
     NULLIF(
         rpt_cal.cdr_dt,

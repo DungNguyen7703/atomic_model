@@ -1,0 +1,107 @@
+version: 2
+
+models:
+  - name: tknb_fct_foreign_proprietary_trading_index_snpst_flat
+    description: "Flat table — Fact Foreign Proprietary Trading Index Snapshot x Index Constituent Dimension"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::tknb
+
+  - name: tknb_fct_market_trading_snpst_flat
+    description: "Flat table — Fact Market Trading Index Snapshot x Index Constituent Dimension"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::tknb
+
+  - name: tknb_fct_private_corporate_bond_international_offering_snpst_flat
+    description: "Flat table — Fact Private Corporate Bond International Offering Snapshot x Private Corporate Bond Dimension"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::tknb
+
+  - name: tknb_fct_private_corporate_bond_issuance_snpst_flat
+    description: "Flat table — Fact Private Corporate Bond Issuance Snapshot x Private Corporate Bond Dimension"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::tknb
+
+  - name: tknb_fct_security_trading_detail_snpst_flat
+    description: "Flat table — Fact Security Trading Detail Snapshot x Security Trading Snapshot Dimension (GSTT)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::tknb
+
+  - name: tknb_fct_derivatives_security_detail_snpst_flat
+    description: "Flat table — Fact Derivatives Security Detail Snapshot x Security Trading Snapshot Dimension (GSTT)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::tknb
+
+  - name: tknb_fct_covered_warrant_outstanding_snpst_flat
+    description: "Flat table — Fact Covered Warrant Outstanding Snapshot x Security Trading Snapshot Dimension (GSTT)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::tknb
+
+
+  - name: tknb_fct_custody_account_open_close_snpst_flat
+    description: "Flat table — Fact Custody Account Open Close Snapshot x Depository Member Dimension"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::tknb

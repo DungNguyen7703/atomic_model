@@ -1,0 +1,43 @@
+version: 2
+models:
+- name: atm_fr_catalog
+  description: Atomic model của bảng Financial Report Catalog
+  config:
+    materialized: scd2
+    unique_key:
+    - fr_catalog_id
+    identity_col: []
+    type1_cols: []
+    type2_cols: []
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("atm_schema") }}'
+    alias: fr_catalog
+    tags:
+    - layer_atomic
+- name: atm_pc_evaluation_criterion
+  description: Atomic model của bảng Public Company Evaluation Criterion
+  config:
+    materialized: scd4a
+    unique_key:
+    - pc_evaluation_criterion_id
+    source_system:
+    - IDS_EVALUATION_CRITERIA
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("atm_schema") }}'
+    alias: pc_evaluation_criterion
+    tags:
+    - layer_atomic
+- name: atm_sp_qualification_examination_assessment_fee
+  description: Atomic model của bảng Securities Practitioner Qualification Examination
+    Assessment Fee
+  config:
+    materialized: scd4a
+    unique_key:
+    - sp_qualification_examination_assessment_fee_id
+    source_system:
+    - NHNCK_EXAM_SESSION_FEES
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("atm_schema") }}'
+    alias: sp_qualification_examination_assessment_fee
+    tags:
+    - layer_atomic

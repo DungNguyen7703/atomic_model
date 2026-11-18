@@ -10,10 +10,11 @@ SELECT
     f.dynamic_row_order,
     f.period_val,
     f.nationality_nm,
-    f.investor_nm,
-    f.transaction_cd,             -- [MỚI 2026-11-08] MSGD 6 ký tự cuối in hoa — ngay sau investor_nm (ALTER TABLE ADD COLUMN ... AFTER investor_nm); join hồ sơ 360 theo MSGD (K_29..32)
+    fn_pii_encrypt(f.investor_nm, :aes_key_hex) AS investor_nm,
     f.capital_flow_net_val,
     f.src_stm_code,
+    f.investor_group_nm,
+    f.transaction_cd,
     submission_cal.cdr_dt AS snpst_cdr_dt,
     f.rpt_code,                   -- [MỚI 2026-10-13] 3 cột cuối khớp ALTER TABLE ADD COLUMN,
     f.rpt_dt_dim_id,

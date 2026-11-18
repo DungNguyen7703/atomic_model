@@ -1,0 +1,93 @@
+version: 2
+
+models:
+  - name: vp_fct_investor_group_trading_snpst_flat
+    description: "[MOI 2026-10-29] Flat table ClickHouse — Fact Investor Group Trading Snapshot x Calendar Date x Security Trading Snapshot Dim x Industry Dim. Grain = 1 dong / ma CK|hop dong / ngay GD / san / investor_group_code / src_stm_code. Partition by cdr_dt (Date, derive tu snpst_dt_dim_id, khong NULL)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp
+
+  - name: vp_fct_derivative_contract_snpst_flat
+    description: "[MOI 2026-10-29] Flat table ClickHouse — Fact Derivative Contract Snapshot x Calendar Date x Security Trading Snapshot Dim. Grain = 1 dong / ma hop dong phai sinh / ngay GD. contract_close_price = gia dong cua tu MDDS floor_code=03."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp
+
+  - name: vp_fct_listed_corporate_bond_snpst_flat
+    description: "[MOI 2026-10-30] Flat table ClickHouse — Fact Listed Corporate Bond Snapshot x Calendar Date x Industry Dim. Grain = 1 ma ISIN / ngay GD."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp
+
+  - name: vp_fct_private_corporate_bond_trading_snpst_flat
+    description: "[MOI 2026-10-30] Flat table ClickHouse — Fact Private Corporate Bond Trading Snapshot x Calendar Date. Grain = 1 dong / ngay bao cao / src_stm_code. Nguon HNX09 ICP pivot trading_val / foreign_buy_val / foreign_sell_val."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp
+
+  - name: vp_fct_government_bond_trading_snpst_flat
+    description: "[MOI 2026-10-30] Flat table ClickHouse — Fact Government Bond Trading Snapshot x Calendar Date. Grain = 1 dong / ngay GD / order_book_tp / src_stm_code. order_book_tp IN (OUTRIGHT, REPO)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp
+
+  - name: vp_fct_private_corporate_bond_registration_snpst_flat
+    description: "[MOI 2026-10-30] Flat table ClickHouse — Fact Private Corporate Bond Registration Snapshot x Calendar Date. Grain = 1 ma TP / thang bao cao / src_stm_code. snpst_dt_dim_id = LAST_DAY(rpt_year, rpt_month). Factless — khong co measure."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp
+
+  - name: vp_fct_listed_equity_snpst_flat
+    description: "[MOI 2026-10-30] Flat table ClickHouse — Fact Listed Equity Snapshot x Calendar Date. Grain = 1 ma (stock_tp_code 2/3/6) / ngay GD. next_day_vol_weighted_average_price / market_price / market_cap_val = NULL cho dong ngay D."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp

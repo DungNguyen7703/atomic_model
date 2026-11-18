@@ -7,6 +7,9 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
+* 2026-11-14		claude				Dong bo LLD O_NDTNN_60: them rpt_dt_dim_id (LOOKUP MAX(rpt_day)) va asset_class_total_val
+*									(tong 6 nhom tai san, NULL tinh 0) o CUOI bang - can ALTER TABLE ADD COLUMNS; sua transaction_cd
+*									thanh MAX(CASE ... SUBSTR(UPPER(TRIM(val_raw)),-6) END) dung etl_logic LLD.
 * 2026-10-21		nghia.le			Dong bo LLD 2026-10-21: sua foreign_bank_branch_ind = CASE WHEN rpt_code = '59WJB' THEN 1 ELSE 0 END
 *									(BA STT 6 Ma 50: chi nhanh NH nuoc ngoai tai VN chi lay bao cao ma 59WJB, sheet II), thay gia
 *									dinh cu 'A-To chuc AND loai hinh LIKE %Ngan hang%' (O_NDTNN_46).
@@ -23,8 +26,8 @@
 *   sheet 'II' (PLIII-TT51). Doc dung theo LLD
 *   DTM_NDTNN_fct_foreign_investor_portfolio_report_snpst.csv, khong loc etl_date.
 * - Atomic fir_structure / foreign_investor_report materialize SCD2 (khong
-*   co _hstr): ban ghi hien hanh ds_rcrd_st = 'ACTIVE' AND
-*   ds_rcrd_end_dt = to_date('2400-01-01').
+*   co _hstr): ban ghi hien hanh ds_rcrd_st = 'ACTIVE'
+*   (dong da dong/xoa o nguon bi macro scd2 danh INACTIVE).
 * - snpst_dt_dim_id = ngay thuc te nop bao cao (MAX submission_dt).
 *--------------------------------------------------------------------*
 */
@@ -35,6 +38,7 @@ WITH fi_va AS (
         rpt_log_id,
         period_val,
         submission_dt,
+        rpt_day,
         dynamic_row_order,
         total_row_ind,
         section_echo_ind,
@@ -45,6 +49,7 @@ WITH fi_va AS (
         src_stm_code
     FROM {{ ref('atm_fir_value') }}
     WHERE src_stm_code = 'FIMS_FIR_VALUE'
+        AND ds_rcrd_st='ACTIVE'
 ),
 
 fi_st AS (
@@ -56,7 +61,6 @@ fi_st AS (
         column_path
     FROM {{ ref('atm_fir_structure') }}
     WHERE ds_rcrd_st = 'ACTIVE'
-        AND ds_rcrd_end_dt = to_date('2400-01-01')
 ),
 
 fo_in_re AS (
@@ -66,7 +70,6 @@ fo_in_re AS (
         sheet_nm
     FROM {{ ref('atm_foreign_investor_report') }}
     WHERE ds_rcrd_st = 'ACTIVE'
-        AND ds_rcrd_end_dt = to_date('2400-01-01')
 ),
 
 cd_dt_di AS (
@@ -83,13 +86,14 @@ po_re AS (
         fi_st.section_id,
         fi_va.dynamic_row_order,
         MAX(fi_va.submission_dt)                                   AS submission_dt,
+        MAX(fi_va.rpt_day)                                         AS rpt_day,
         MAX(fi_va.period_val)                                      AS period_val,
         MAX(fo_in_re.rpt_code)                                     AS rpt_code,
         MAX(fi_st.row_path)                                        AS investor_group_nm,
         MAX(CASE WHEN fi_st.column_path = 'Quốc tịch' THEN fi_va.val_raw END) AS nationality_nm,
         MAX(CASE WHEN fi_st.column_path = 'Loại hình đối với tổ chức' THEN fi_va.val_raw END) AS investor_type_nm,
         MAX(CASE WHEN fi_st.column_path = 'Tên khách hàng' THEN fi_va.val_raw END) AS investor_nm,
-        SUBSTR(UPPER(TRIM(MAX(CASE WHEN fi_st.column_path = 'Mã số giao dịch chứng khoán' THEN fi_va.val_raw END))), -6) AS transaction_cd,
+        MAX(CASE WHEN fi_st.column_path = 'Mã số giao dịch chứng khoán' THEN SUBSTR(UPPER(TRIM(fi_va.val_raw)), -6) END) AS transaction_cd,
         MAX(CASE WHEN fi_st.column_path = 'Tín phiếu > Giá trị' THEN TRY_CAST(REGEXP_REPLACE(fi_va.val_raw, '^''', '') AS DECIMAL(38,10)) END) AS bill_val,
         SUM(CASE WHEN fi_st.column_path IN (
             'Trái phiếu > Thời gian còn lại tới khi đáo hạn > Ngắn hạn > Dưới 12 tháng > Giá trị',
@@ -150,7 +154,13 @@ SELECT
     CAST(CASE WHEN po_re.rpt_code = '59WJB'
               THEN 1 ELSE 0 END AS int)                                       AS foreign_bank_branch_ind,
     CAST(po_re.transaction_cd AS string)                                      AS transaction_cd,
-    CAST(po_re.src_stm_code AS string)                                        AS src_stm_code
+    CAST(po_re.src_stm_code AS string)                                        AS src_stm_code,
+    CAST(rp_cd_dt_di.cdr_dt_dim_id AS string)                                 AS rpt_dt_dim_id,
+    CAST(COALESCE(po_re.bill_val, 0) + COALESCE(po_re.bond_val, 0) + COALESCE(po_re.listed_equity_fund_val, 0)
+         + COALESCE(po_re.upcom_equity_val, 0) + COALESCE(po_re.capital_contribution_val, 0)
+         + COALESCE(po_re.cash_equivalent_val, 0) AS decimal(23,2))             AS asset_class_total_val
 FROM po_re
 LEFT JOIN cd_dt_di
     ON  cd_dt_di.cdr_dt = po_re.submission_dt
+LEFT JOIN cd_dt_di rp_cd_dt_di
+    ON  rp_cd_dt_di.cdr_dt = po_re.rpt_day

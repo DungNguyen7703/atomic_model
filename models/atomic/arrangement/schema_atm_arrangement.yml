@@ -1,0 +1,111 @@
+version: 2
+
+models:
+  - name: atm_account_investor
+    description: "Atomic model của bảng Account Investor"
+    config:
+      materialized: scd4a
+      unique_key: ["account_investor_id"]
+      source_system: ["GSGD_INVESTOR_ACCOUNT"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'account_investor'
+      tags:
+        - layer_atomic
+
+  - name: atm_pc_share_statistics
+    description: "Atomic model của bảng Public Company Share Statistics"
+    config:
+      materialized: scd4a
+      unique_key: ["pc_share_statistics_id"]
+      source_system: ["IDS_COMPANY_SHARE_STATISTICS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'pc_share_statistics'
+      tags:
+        - layer_atomic
+
+  - name: atm_pc_shareholding
+    description: "Atomic model của bảng Public Company Shareholding"
+    config:
+      materialized: scd4a
+      unique_key: ["pc_shareholding_id"]
+      source_system: ["IDS_COMPANY_SHAREHOLDING"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'pc_shareholding'
+      tags:
+        - layer_atomic
+
+  - name: atm_pc_state_capital
+    description: "Atomic model của bảng Public Company State Capital"
+    config:
+      materialized: scd4a
+      unique_key: ["pc_state_capital_id"]
+      source_system: ["IDS_STATE_CAPITAL"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'pc_state_capital'
+      tags:
+        - layer_atomic
+
+  - name: atm_end_of_day_open_interest
+    description: "Atomic model của bảng End Of Day Open Interest (VSDC.END_OF_DAY_OPEN_INTEREST)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt", "src_stm_code"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'end_of_day_open_interest'
+      source_system: ["VSDC_END_OF_DAY_OPEN_INTEREST"]
+      tags:
+        - layer_atomic
+
+  - name: atm_discretionary_investment_account
+    description: "Atomic model của bảng Discretionary Investment Account"
+    config:
+      materialized: scd4a
+      unique_key: ["discretionary_investment_account_id"]
+      source_system: ["FMS_INVES_ACC"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'discretionary_investment_account'
+      tags:
+        - layer_atomic
+
+  - name: atm_open_investor_account
+    description: "Atomic model của bảng Open Investor Account (VSDC.OPEN_INVESTORS)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["open_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'open_investor_account'
+      tags:
+        - layer_atomic
+
+  - name: atm_closed_investor_account
+    description: "Atomic model của bảng Closed Investor Account (VSDC.CLOSED_INVESTORS)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["close_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'closed_investor_account'
+      tags:
+        - layer_atomic
+
+  - name: atm_updated_investor_account
+    description: "Atomic model của bảng Updated Investor Account (VSDC.UPDATED_INVESTORS)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["update_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'updated_investor_account'
+      tags:
+        - layer_atomic

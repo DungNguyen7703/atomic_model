@@ -91,40 +91,40 @@ SELECT
     , CAST(se_of_re.offering_end_date AS date)                                                          AS offering_end_dt
     , CAST(se_of_re.offering_method_cd AS string)                                                       AS offering_method_code_snpst
     , CAST(se_of_re.security_type_cd AS string)                                                         AS security_tp_code
-    , CAST(se_of_re.total_successful_qty AS int)                                                        AS total_successful_quantity
+    , CAST(se_of_re.total_successful_qty AS bigint)                                                        AS total_successful_quantity
     , CAST(se_of_re.actual_offering_price AS decimal(23,2))                                             AS actual_offering_price
     , CAST(se_of_re.total_collected_am AS decimal(23,2))                                                AS total_collected_amt
     , CAST(se_of_re.successful_ratio AS decimal(5,2))                                                   AS successful_ratio_percentage
-    , CAST(se_of_re.issuer_successful_qty AS int)                                                       AS issuer_successful_quantity
-    , CAST(se_of_re.shareholder_successful_qty AS int)                                                  AS shareholder_successful_quantity
+    , CAST(se_of_re.issuer_successful_qty AS bigint)                                                       AS issuer_successful_quantity
+    , CAST(se_of_re.shareholder_successful_qty AS bigint)                                                  AS shareholder_successful_quantity
     , CAST(se_of_re.issuer_collected_am AS decimal(23,2))                                               AS issuer_collected_amt
     , CAST(se_of_re.shareholder_collected_am AS decimal(23,2))                                          AS shareholder_collected_amt
     , CAST(se_of_re.capital_source AS string)                                                           AS capital_src
-    , CAST(se_of_re.employee_qty AS int)                                                                AS employee_quantity
-    , CAST(se_of_re.domestic_successful_qty AS int)                                                     AS domestic_successful_quantity
+    , CAST(se_of_re.employee_qty AS bigint)                                                                AS employee_quantity
+    , CAST(se_of_re.domestic_successful_qty AS bigint)                                                     AS domestic_successful_quantity
     , CAST(se_of_re.domestic_collected_am AS decimal(23,2))                                             AS domestic_collected_amt
-    , CAST(se_of_re.foreign_successful_qty AS int)                                                      AS foreign_successful_quantity
+    , CAST(se_of_re.foreign_successful_qty AS bigint)                                                      AS foreign_successful_quantity
     , CAST(se_of_re.foreign_collected_am AS decimal(23,2))                                              AS foreign_collected_amt
-    , CAST(se_of_re.post_issuance_total_qty AS int)                                                     AS post_issuance_total_quantity
+    , CAST(se_of_re.post_issuance_total_qty AS bigint)                                                     AS post_issuance_total_quantity
     , CAST(se_of_re.total_treasury_share AS int)                                                        AS total_treasury_share
     , CAST(se_of_re.total_outstanding_share AS int)                                                     AS total_outstanding_share
     , CAST(se_of_re.domestic_offering_price AS decimal(23,2))                                           AS domestic_offering_price
-    , CAST(se_of_re.domestic_offering_qty AS int)                                                       AS domestic_offering_quantity
-    , CAST(se_of_re.domestic_registered_qty AS int)                                                     AS domestic_registered_quantity
-    , CAST(se_of_re.domestic_distributed_qty AS int)                                                    AS domestic_distributed_quantity
-    , CAST(se_of_re.domestic_reg_investor_qty AS int)                                                   AS domestic_registered_investor_quantity
-    , CAST(se_of_re.domestic_dist_investor_qty AS int)                                                  AS domestic_distributed_investor_quantity
-    , CAST(se_of_re.domestic_undist_investor_qty AS int)                                                AS domestic_undistributed_investor_quantity
-    , CAST(se_of_re.domestic_remaining_qty AS int)                                                      AS domestic_remaining_quantity
+    , CAST(se_of_re.domestic_offering_qty AS bigint)                                                       AS domestic_offering_quantity
+    , CAST(se_of_re.domestic_registered_qty AS bigint)                                                     AS domestic_registered_quantity
+    , CAST(se_of_re.domestic_distributed_qty AS bigint)                                                    AS domestic_distributed_quantity
+    , CAST(se_of_re.domestic_reg_investor_qty AS bigint)                                                   AS domestic_registered_investor_quantity
+    , CAST(se_of_re.domestic_dist_investor_qty AS bigint)                                                  AS domestic_distributed_investor_quantity
+    , CAST(se_of_re.domestic_undist_investor_qty AS bigint)                                                AS domestic_undistributed_investor_quantity
+    , CAST(se_of_re.domestic_remaining_qty AS bigint)                                                      AS domestic_remaining_quantity
     , CAST(se_of_re.domestic_distributed_pct AS decimal(5,2))                                           AS domestic_distributed_percentage
     , CAST(se_of_re.foreign_offering_price AS decimal(23,2))                                            AS foreign_offering_price
-    , CAST(se_of_re.foreign_offering_qty AS int)                                                        AS foreign_offering_quantity
-    , CAST(se_of_re.foreign_registered_qty AS int)                                                      AS foreign_registered_quantity
-    , CAST(se_of_re.foreign_distributed_qty AS int)                                                     AS foreign_distributed_quantity
-    , CAST(se_of_re.foreign_reg_investor_qty AS int)                                                    AS foreign_registered_investor_quantity
-    , CAST(se_of_re.foreign_dist_investor_qty AS int)                                                   AS foreign_distributed_investor_quantity
-    , CAST(se_of_re.foreign_undist_investor_qty AS int)                                                 AS foreign_undistributed_investor_quantity
-    , CAST(se_of_re.foreign_remaining_qty AS int)                                                       AS foreign_remaining_quantity
+    , CAST(se_of_re.foreign_offering_qty AS bigint)                                                        AS foreign_offering_quantity
+    , CAST(se_of_re.foreign_registered_qty AS bigint)                                                      AS foreign_registered_quantity
+    , CAST(se_of_re.foreign_distributed_qty AS bigint)                                                     AS foreign_distributed_quantity
+    , CAST(se_of_re.foreign_reg_investor_qty AS bigint)                                                    AS foreign_registered_investor_quantity
+    , CAST(se_of_re.foreign_dist_investor_qty AS bigint)                                                   AS foreign_distributed_investor_quantity
+    , CAST(se_of_re.foreign_undist_investor_qty AS bigint)                                                 AS foreign_undistributed_investor_quantity
+    , CAST(se_of_re.foreign_remaining_qty AS bigint)                                                       AS foreign_remaining_quantity
     , CAST(se_of_re.foreign_distributed_pct AS decimal(5,2))                                            AS foreign_distributed_percentage
     , CAST(se_of_re.certificate_no AS string)                                                           AS certificate_nbr
     , CAST(se_of_re.certificate_date AS date)                                                           AS certificate_dt
@@ -144,8 +144,8 @@ SELECT
     , CAST(se_of_re.audit_fee AS decimal(23,2))                                                         AS audit_fee
     , CAST(se_of_re.other_expense AS decimal(23,2))                                                     AS other_expense
     , CAST(se_of_re.net_offering_proceeds AS decimal(23,2))                                             AS net_offering_proceeds
-    , CAST(se_of_re.is_sync AS int)                                                                     AS synced_from_external_stm_indicator
-    , CAST(se_of_re.delete_flg AS int)                                                                  AS deleted_indicator
+    , CAST(se_of_re.is_sync AS int)                                                                     AS synced_from_external_stm_ind
+    , CAST(se_of_re.delete_flg AS int)                                                                  AS deleted_ind
     , CAST(se_of_re.approver_comment AS string)                                                         AS approver_comment
     , CAST(se_of_re.extension_date AS date)                                                             AS extension_dt
     , CAST(se_of_re.bond_ticker AS string)                                                              AS bond_ticker

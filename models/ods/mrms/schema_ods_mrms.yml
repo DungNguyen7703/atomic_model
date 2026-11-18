@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: ods_mrms_risk_indicator
+    description: "ODS model của bảng MRMS.RISK_INDICATOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: merge
+      unique_key: ["id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_mrms_schema") }}'
+      alias: 'risk_indicator'
+      tags:
+        - layer_ods
+        - domain_mrms
+
+  - name: ods_mrms_risk_indicator_category
+    description: "ODS model của bảng MRMS.RISK_INDICATOR_CATEGORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: merge
+      unique_key: ["id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_mrms_schema") }}'
+      alias: 'risk_indicator_category'
+      tags:
+        - layer_ods
+        - domain_mrms
+
+  - name: ods_mrms_risk_indicator_value
+    description: "ODS model của bảng MRMS.RISK_INDICATOR_VALUE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_mrms_schema") }}'
+      alias: 'risk_indicator_value'
+      tags:
+        - layer_ods
+        - domain_mrms

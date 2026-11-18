@@ -7,6 +7,9 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
+* 2026-11-15		claude				[FIX] Đồng bộ LLD DTM_NDTNN_fct_public_company_foreign_ownership_snpst.csv: snpst_dt_dim_id = LOOKUP
+*									dtm_cdr_dt_dim theo make_date(rpt_year, rpt_month, rpt_day) (ngày báo cáo VSDC) thay cho ds_snpst_dt (ngày ETL);
+*									foreign_holding_value lấy close_price gần nhất <= ngày báo cáo (rpt_dt). Vẫn lọc snapshot ds_snpst_dt = etl_date.
 * 2026-10-17		nghia.le			snpst_dt_dim_id: đổi từ date_format(ds_snpst_dt,'yyyyMMdd') hard-format sang
 *									LOOKUP dtm_cdr_dt_dim (cdr_dt_dim.cdr_dt = foreign_ownership_info.ds_snpst_dt)
 *									đúng etl_logic_type=lookup_date theo LLD.
@@ -65,6 +68,7 @@ se_tr_sn AS (
         FROM {{ ref('atm_security_trading_snapshot') }}
         WHERE ds_snpst_dt <= to_date('{{ var("etl_date") }}','yyyy-MM-dd')
             AND trading_dt <= to_date('{{ var("etl_date") }}','yyyy-MM-dd')
+            AND stock_tp_code = 2
         )
     WHERE rn = 1
 )

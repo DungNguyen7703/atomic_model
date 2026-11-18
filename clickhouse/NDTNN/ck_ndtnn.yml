@@ -147,3 +147,29 @@ models:
       - layer::clickhouse
       - concept::fact
       - domain::ndtnn
+
+  - name: ndtnn_fct_foreign_bank_branch_portfolio_report_snpst_flat
+    description: "Flat table — Fact Foreign Bank Branch Portfolio Report Snapshot × Calendar Date Dimension"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::ndtnn
+
+  - name: ndtnn_fct_foreign_investor_portfolio_total_row_report_snpst_flat
+    description: "Flat table — Fact Foreign Investor Portfolio Total Row Report Snapshot × Calendar Date Dimension"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::ndtnn

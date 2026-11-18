@@ -1,0 +1,568 @@
+version: 2
+
+models:
+  - name: ods_nhnck_application_fees
+    description: "ODS model của bảng NHNCK.APPLICATION_FEES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'application_fees'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_application_re_exams
+    description: "ODS model của bảng NHNCK.APPLICATION_RE_EXAMS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'application_re_exams'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_application_specializations
+    description: "ODS model của bảng NHNCK.APPLICATION_SPECIALIZATIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'application_specializations'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_application_statuses
+    description: "ODS model của bảng NHNCK.APPLICATION_STATUSES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'application_statuses'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_applications
+    description: "ODS model của bảng NHNCK.APPLICATIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'applications'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_certificate_record_status_histories
+    description: "ODS model của bảng NHNCK.CERTIFICATE_RECORD_STATUS_HISTORIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'certificate_record_status_histories'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_certificate_records
+    description: "ODS model của bảng NHNCK.CERTIFICATE_RECORDS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'certificate_records'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_certificates
+    description: "ODS model của bảng NHNCK.CERTIFICATES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'certificates'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_countries
+    description: "ODS model của bảng NHNCK.COUNTRIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'countries'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_decisions
+    description: "ODS model của bảng NHNCK.DECISIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'decisions'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_departments
+    description: "ODS model của bảng NHNCK.DEPARTMENTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'departments'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_districts
+    description: "ODS model của bảng NHNCK.DISTRICTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'districts'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_documents
+    description: "ODS model của bảng NHNCK.DOCUMENTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'documents'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_exam_details
+    description: "ODS model của bảng NHNCK.EXAM_DETAILS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'exam_details'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_exam_session_fees
+    description: "ODS model của bảng NHNCK.EXAM_SESSION_FEES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'exam_session_fees'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_exam_sessions
+    description: "ODS model của bảng NHNCK.EXAM_SESSIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'exam_sessions'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_organization_reports
+    description: "ODS model của bảng NHNCK.ORGANIZATION_REPORTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["created_at"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'organization_reports'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_organizations
+    description: "ODS model của bảng NHNCK.ORGANIZATIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'organizations'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_post_cert_training_courses
+    description: "ODS model của bảng NHNCK.POST_CERT_TRAINING_COURSES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'post_cert_training_courses'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_post_cert_training_results
+    description: "ODS model của bảng NHNCK.POST_CERT_TRAINING_RESULTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'post_cert_training_results'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_professional_histories
+    description: "ODS model của bảng NHNCK.PROFESSIONAL_HISTORIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'professional_histories'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_professional_relationships
+    description: "ODS model của bảng NHNCK.PROFESSIONAL_RELATIONSHIPS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'professional_relationships'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_professional_work_histories
+    description: "ODS model của bảng NHNCK.PROFESSIONAL_WORK_HISTORIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'professional_work_histories'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_professionals
+    description: "ODS model của bảng NHNCK.PROFESSIONALS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'professionals'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_provinces
+    description: "ODS model của bảng NHNCK.PROVINCES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'provinces'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_specialization_course_details
+    description: "ODS model của bảng NHNCK.SPECIALIZATION_COURSE_DETAILS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'specialization_course_details'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_specialization_courses
+    description: "ODS model của bảng NHNCK.SPECIALIZATION_COURSES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'specialization_courses'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_specializations
+    description: "ODS model của bảng NHNCK.SPECIALIZATIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'specializations'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_units
+    description: "ODS model của bảng NHNCK.UNITS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'units'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_violations
+    description: "ODS model của bảng NHNCK.VIOLATIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'violations'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_application_sources
+    description: "ODS model của bảng NHNCK.APPLICATION_SOURCES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'application_sources'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_banks
+    description: "ODS model của bảng NHNCK.BANKS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'banks'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_positions
+    description: "ODS model của bảng NHNCK.POSITIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'positions'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_application_decisions
+    description: "ODS model của bảng NHNCK.APPLICATION_DECISIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'application_decisions'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_application_group_members
+    description: "ODS model của bảng NHNCK.APPLICATION_GROUP_MEMBERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'application_group_members'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_application_groups
+    description: "ODS model của bảng NHNCK.APPLICATION_GROUPS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'application_groups'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_certificate_departments
+    description: "ODS model của bảng NHNCK.CERTIFICATE_DEPARTMENTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'certificate_departments'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_certificate_record_group_members
+    description: "ODS model của bảng NHNCK.CERTIFICATE_RECORD_GROUP_MEMBERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'certificate_record_group_members'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_certificate_record_groups
+    description: "ODS model của bảng NHNCK.CERTIFICATE_RECORD_GROUPS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'certificate_record_groups'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_certificate_specializations
+    description: "ODS model của bảng NHNCK.CERTIFICATE_SPECIALIZATIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'certificate_specializations'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_decision_documents
+    description: "ODS model của bảng NHNCK.DECISION_DOCUMENTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'decision_documents'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_organization_report_yearlys
+    description: "ODS model của bảng NHNCK.ORGANIZATION_REPORT_YEARLYS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'organization_report_yearlys'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_verify_application_statuses
+    description: "ODS model của bảng NHNCK.VERIFY_APPLICATION_STATUSES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'verify_application_statuses'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_education_levels
+    description: "ODS model của bảng NHNCK.EDUCATION_LEVELS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'education_levels'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_mcdt_result_outbox
+    description: "ODS model của bảng NHNCK.MCDT_RESULT_OUTBOX"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'mcdt_result_outbox'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_identity_info_c06s
+    description: "ODS model của bảng NHNCK.IDENTITY_INFO_C06S"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'identity_info_c06s'
+      tags:
+        - layer_ods
+        - domain_nhnck
+
+  - name: ods_nhnck_users
+    description: "ODS model của bảng NHNCK.USERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_nhnck_schema") }}'
+      alias: 'users'
+      tags:
+        - layer_ods
+        - domain_nhnck

@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: ods_iss_flat_report
+    description: "ODS model tổng hợp dữ liệu báo cáo ISS đã flatten theo field/metric (master table, join input_report + submission + template + template_sheet + fact_report_data + flat_metric_tree, giải nén JSON theo posexplode/explode)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_iss_schema") }}'
+      alias: 'flat_report'
+      tags:
+        - layer_ods
+        - domain_iss

@@ -1,0 +1,467 @@
+version: 2
+
+models:
+  - name: stg_mrms_risk_indicator
+    description: "Staging model của bảng MRMS.RISK_INDICATOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_indicator'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_indicator_category
+    description: "Staging model của bảng MRMS.RISK_INDICATOR_CATEGORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_indicator_category'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_indicator_value
+    description: "Staging model của bảng MRMS.RISK_INDICATOR_VALUE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_indicator_value'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_permission_group
+    description: "Staging model của bảng MRMS.PERMISSION_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'permission_group'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_permission_group_indicator
+    description: "Staging model của bảng MRMS.PERMISSION_GROUP_INDICATOR"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'permission_group_indicator'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_permission_group_user
+    description: "Staging model của bảng MRMS.PERMISSION_GROUP_USER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'permission_group_user'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_qrtz_blob_triggers
+    description: "Staging model của bảng MRMS.QRTZ_BLOB_TRIGGERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'qrtz_blob_triggers'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_qrtz_calendars
+    description: "Staging model của bảng MRMS.QRTZ_CALENDARS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'qrtz_calendars'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_qrtz_cron_triggers
+    description: "Staging model của bảng MRMS.QRTZ_CRON_TRIGGERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'qrtz_cron_triggers'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_qrtz_fired_triggers
+    description: "Staging model của bảng MRMS.QRTZ_FIRED_TRIGGERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'qrtz_fired_triggers'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_qrtz_job_details
+    description: "Staging model của bảng MRMS.QRTZ_JOB_DETAILS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'qrtz_job_details'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_qrtz_locks
+    description: "Staging model của bảng MRMS.QRTZ_LOCKS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'qrtz_locks'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_qrtz_paused_trigger_grps
+    description: "Staging model của bảng MRMS.QRTZ_PAUSED_TRIGGER_GRPS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'qrtz_paused_trigger_grps'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_qrtz_scheduler_state
+    description: "Staging model của bảng MRMS.QRTZ_SCHEDULER_STATE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'qrtz_scheduler_state'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_qrtz_simple_triggers
+    description: "Staging model của bảng MRMS.QRTZ_SIMPLE_TRIGGERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'qrtz_simple_triggers'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_qrtz_simprop_triggers
+    description: "Staging model của bảng MRMS.QRTZ_SIMPROP_TRIGGERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'qrtz_simprop_triggers'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_qrtz_triggers
+    description: "Staging model của bảng MRMS.QRTZ_TRIGGERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'qrtz_triggers'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_alert
+    description: "Staging model của bảng MRMS.RISK_ALERT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_alert'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_alert_config
+    description: "Staging model của bảng MRMS.RISK_ALERT_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_alert_config'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_alert_history
+    description: "Staging model của bảng MRMS.RISK_ALERT_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_alert_history'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_alert_resolution
+    description: "Staging model của bảng MRMS.RISK_ALERT_RESOLUTION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_alert_resolution'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_alert_resolution_file
+    description: "Staging model của bảng MRMS.RISK_ALERT_RESOLUTION_FILE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_alert_resolution_file'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_indicator_custom
+    description: "Staging model của bảng MRMS.RISK_INDICATOR_CUSTOM"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_indicator_custom'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_indicator_data_permission
+    description: "Staging model của bảng MRMS.RISK_INDICATOR_DATA_PERMISSION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_indicator_data_permission'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_indicator_schedule
+    description: "Staging model của bảng MRMS.RISK_INDICATOR_SCHEDULE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_indicator_schedule'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_indicator_value_history
+    description: "Staging model của bảng MRMS.RISK_INDICATOR_VALUE_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_indicator_value_history'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_indicator_value_intraday
+    description: "Staging model của bảng MRMS.RISK_INDICATOR_VALUE_INTRADAY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_indicator_value_intraday'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_indicator_watchlist
+    description: "Staging model của bảng MRMS.RISK_INDICATOR_WATCHLIST"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_indicator_watchlist'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_market_report
+    description: "Staging model của bảng MRMS.RISK_MARKET_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_market_report'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_market_report_file
+    description: "Staging model của bảng MRMS.RISK_MARKET_REPORT_FILE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_market_report_file'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_market_report_type
+    description: "Staging model của bảng MRMS.RISK_MARKET_REPORT_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_market_report_type'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_notification
+    description: "Staging model của bảng MRMS.RISK_NOTIFICATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_notification'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_report_file
+    description: "Staging model của bảng MRMS.RISK_REPORT_FILE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_report_file'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_report_type
+    description: "Staging model của bảng MRMS.RISK_REPORT_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_report_type'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_risk_report_upload_batch
+    description: "Staging model của bảng MRMS.RISK_REPORT_UPLOAD_BATCH"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'risk_report_upload_batch'
+      tags:
+        - layer_staging
+        - domain_mrms
+
+  - name: stg_mrms_user_table_config
+    description: "Staging model của bảng MRMS.USER_TABLE_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_mrms_schema") }}'
+      alias: 'user_table_config'
+      tags:
+        - layer_staging
+        - domain_mrms

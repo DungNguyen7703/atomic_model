@@ -7,6 +7,10 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
+* 2026-11-14		claude				Ra soat LLD O_NDTNN_59: KHONG doi hanh vi. Them comment '-- LIVE:' cho ten cot/ma nguon Atomic dev
+*									(execution_val = match_price*match_quantity; security_symbol_code = ticker_symbol; ORDERTRADE_TRADE_BOOK_HOSE/HNX =
+*									HOSE_TRADE_BOOK/HNX_TRADE_BOOK; ds_snpst_dt = trading_dt). foreign_net_capital_flow_mtd_amt giu NULL (K_35 tinh o
+*									ClickHouse, quyet dinh 2026-10-14); LLD can cap nhat theo.
 * 2026-10-26		nghia.le			[FIX] Khoi phuc stock_tp_code IN ('1','2','3','6') theo dung cau lenh etl_logic
 *									trong LLD (DTM_NDTNN_fct_foreign_net_flow_market_index_snpst.csv) - doi lai thay
 *									doi 2026-10-17 (da bo '6' theo mo ta text, nhung mau thuan voi etl_logic SQL cua
@@ -33,9 +37,8 @@
 *   security_trading_snapshot + market_index_snapshot, khong phu thuoc
 *   fct_securities_foreign_trading_snpst (Nhom 2) hay fct_market_index_snpst
 *   (QLKD) - xem Datamart/hld/DTM_NDTNN_HLD.md Nhom 5.
-* - foreign_buy_val/foreign_sell_val: dung execution_val cho ca HOSE va HNX
-*   (Atomic securities_trade da tinh san execution_val cho HNX) - theo LLD
-*   [SUA 2026-09-25]. NDTNN = buy/sell_foreign_investor_tp_code IN ('10','20')
+* - foreign_buy_val/foreign_sell_val: dung execution_val (dev) cho ca HOSE va HNX
+*   (LIVE/LLD: match_price * match_quantity, O_NDTNN_59). NDTNN = buy/sell_foreign_investor_tp_code IN ('10','20')
 *   ca 2 san.
 * - JOIN security_trading_snapshot ban ghi trading_time moi nhat theo
 *   symbol x trading_dt (HOSE noi symbol, HNX noi isin_code).
@@ -49,24 +52,17 @@
 *   khop code: neu feed MDDS thieu ban ghi hom do, ma_in_di rong va CROSS
 *   JOIN se loai toan bo dong ket qua ngay do (khong con "dam bao FK not
 *   null" nhu ghi chu truoc).
-* - foreign_net_capital_flow_mtd_amt: SUM fir_value.val_raw (ep so) bao cao
-*   IBOU9, cot 'Gia tri dong von vao trong ky bao cao (+/-) (don vi USD)',
-*   dong 'Tong= (1) + (2)', submission_dt tu dau thang den etl_date. Don vi
-*   USD (khac VND cua 2 series con lai). Atomic fir_structure /
-*   foreign_investor_report la SCD2: ban ghi hien hanh ds_rcrd_st = 'ACTIVE'
-*   AND ds_rcrd_end_dt = to_date('2400-01-01').
-*   TODO (O_NDTNN_33/38): quy tac 'uu tien ban ky nua thang, bo ban ngay co ky
-*   nam trong ban nua thang cung thang' chua chot - chua ap dung, hien SUM
-*   nguyen van theo cong thuc LLD.
+* - foreign_net_capital_flow_mtd_amt: CAST(NULL) - K_NDTNN_35 tinh tren ClickHouse
+*   (quyet dinh 2026-10-14, xem changelog). Cot giu trong bang de khong doi cau truc.
 *--------------------------------------------------------------------*
 */
 
 WITH se_tr AS (
     SELECT
         trade_dt
-        , security_symbol_code
-        , src_stm_code
-        , execution_val
+        , security_symbol_code   -- LIVE: ticker_symbol
+        , src_stm_code           -- LIVE: 'HOSE_TRADE_BOOK','HNX_TRADE_BOOK'
+        , execution_val          -- LIVE: match_price * match_quantity
         , buy_foreign_investor_tp_code
         , sell_foreign_investor_tp_code
     FROM {{ ref('atm_securities_trade') }}
@@ -77,9 +73,9 @@ sts_all AS (
     SELECT
         ticker_symbol
         , isin_code
-        , ds_snpst_dt
-        --, trading_dt
-        , row_number() over (partition by ticker_symbol, ds_snpst_dt order by trading_time DESC, sequence DESC) as rn
+        --, ds_snpst_dt
+        , trading_dt
+        , row_number() over (partition by ticker_symbol, trading_dt order by trading_time DESC, sequence DESC) as rn
     FROM {{ ref('atm_security_trading_snapshot') }}
     WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
         AND stock_tp_code IN ('1','2','3','6')
@@ -89,7 +85,7 @@ sts AS (
     SELECT
         ticker_symbol
         , isin_code
-        , ds_snpst_dt
+        , trading_dt
     FROM sts_all
     WHERE rn = 1
 ),
@@ -109,7 +105,7 @@ trade_agg AS (
         END) AS foreign_sell_val
     FROM se_tr
     INNER JOIN sts
-        ON  sts.ds_snpst_dt = se_tr.trade_dt
+        ON  sts.trading_dt = se_tr.trade_dt
         AND ((se_tr.src_stm_code = 'ORDERTRADE_TRADE_BOOK_HOSE' AND sts.ticker_symbol = se_tr.security_symbol_code)
         OR   (se_tr.src_stm_code = 'ORDERTRADE_TRADE_BOOK_HNX' AND sts.isin_code = se_tr.security_symbol_code))
     GROUP BY se_tr.trade_dt

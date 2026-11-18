@@ -1,0 +1,184 @@
+version: 2
+
+models:
+  - name: dtm_fct_practitioner_daily_snpst
+    description: "Datamart model của bảng Fact Practitioner Daily Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_practitioner_daily_snpst'
+      tags:
+        - layer_datamart
+        - domain_nhnck
+
+  - name: dtm_fct_practitioner_license_certificate_snpst
+    description: "Datamart model của bảng Fact Practitioner License Certificate Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_practitioner_license_certificate_snpst'
+      tags:
+        - layer_datamart
+        - domain_nhnck
+
+  - name: dtm_opr_practitioner_360_profile
+    description: "Datamart model của bảng Operational Practitioner 360 Profile"
+    config:
+      materialized: scd4a
+      unique_key: ["practitioner_code"]
+      source_system: ["NHNCK_PROFESSIONALS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_practitioner_360_profile'
+      tags:
+        - layer_datamart
+        - domain_nhnck
+
+  - name: dtm_opr_practitioner_account_holding
+    description: "Datamart model của bảng Operational Practitioner Account Holding"
+    config:
+      materialized: scd4a
+      unique_key: ["practitioner_account_holding_id"]
+      source_system: ["VSDC_OPEN_INVESTORS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_practitioner_account_holding'
+      tags:
+        - layer_datamart
+        - domain_nhnck
+
+  - name: dtm_opr_practitioner_certificate_hist
+    description: "Datamart model của bảng Operational Practitioner Certificate History"
+    config:
+      materialized: scd4a
+      unique_key: ["practitioner_code", "license_certificate_document_code"]
+      source_system: ["NHNCK_CERTIFICATE_RECORDS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_practitioner_certificate_hist'
+      tags:
+        - layer_datamart
+        - domain_nhnck
+
+  - name: dtm_opr_practitioner_data_explorer
+    description: "Datamart model của bảng Operational Practitioner Data Explorer"
+    config:
+      materialized: scd4a
+      unique_key: ["practitioner_data_explorer_id"]
+      source_system: ["NHNCK_PROFESSIONALS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_practitioner_data_explorer'
+      tags:
+        - layer_datamart
+        - domain_nhnck
+
+  - name: dtm_opr_practitioner_employment_hist
+    description: "Datamart model của bảng Operational Practitioner Employment History"
+    config:
+      materialized: scd4a
+      unique_key: ["practitioner_code", "organization_employment_rpt_code"]
+      source_system: ["NHNCK_ORGANIZATION_REPORTS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_practitioner_employment_hist'
+      tags:
+        - layer_datamart
+        - domain_nhnck
+
+  - name: dtm_opr_practitioner_exam_hist
+    description: "Datamart model của bảng Operational Practitioner Exam History"
+    config:
+      materialized: scd4a
+      unique_key: ["practitioner_code", "examination_assessment_result_code"]
+      source_system: ["NHNCK_EXAM_DETAILS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_practitioner_exam_hist'
+      tags:
+        - layer_datamart
+        - domain_nhnck
+
+  - name: dtm_opr_practitioner_list_company_role
+    description: "Datamart model của bảng Operational Practitioner Listed Company Role"
+    config:
+      materialized: scd4a
+      unique_key: ["practitioner_code", "sc_shareholder_code"]
+      source_system: ["SCMS_SC_FIRM_SHAREHOLDER"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_practitioner_list_company_role'
+      tags:
+        - layer_datamart
+        - domain_nhnck
+
+  - name: dtm_opr_practitioner_related_party_profile
+    description: "Datamart model của bảng Operational Practitioner Related Party Profile"
+    config:
+      materialized: scd4a
+      unique_key: ["practitioner_code", "related_party_code"]
+      source_system: ["NHNCK_PROFESSIONAL_RELATIONSHIPS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_practitioner_related_party_profile'
+      tags:
+        - layer_datamart
+        - domain_nhnck
+
+  - name: dtm_opr_practitioner_training_hist
+    description: "Datamart model của bảng Operational Practitioner Training History"
+    config:
+      materialized: scd4a
+      unique_key: ["practitioner_code", "training_result_code"]
+      source_system: ["NHNCK_POST_CERT_TRAINING_RESULTS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_practitioner_training_hist'
+      tags:
+        - layer_datamart
+        - domain_nhnck
+
+  - name: dtm_opr_practitioner_violation_hist
+    description: "Datamart model của bảng Operational Practitioner Violation History"
+    config:
+      materialized: scd4a
+      unique_key: ["practitioner_code", "conduct_violation_code"]
+      source_system: ["NHNCK_VIOLATIONS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_practitioner_violation_hist'
+      tags:
+        - layer_datamart
+        - domain_nhnck
+
+  - name: dtm_securities_practitioner_dim
+    description: "Datamart model của bảng Securities Practitioner Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["securities_practitioner_dim_id"]
+      source_system: ["NHNCK_PROFESSIONALS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'securities_practitioner_dim'
+      tags:
+        - layer_datamart
+        - domain_nhnck
+
+  - name: dtm_sp_license_certificate_type_dim
+    description: "Datamart model của bảng SP License Certificate Type Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["certificate_tp_dim_id"]
+      source_system: ["NHNCK_CERTIFICATES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'sp_license_certificate_type_dim'
+      tags:
+        - layer_datamart
+        - domain_nhnck

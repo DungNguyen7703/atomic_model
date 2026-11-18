@@ -1,0 +1,301 @@
+version: 2
+
+models:
+  - name: dtm_fct_foreign_trading_min_snpst
+    description: "[MOI 2026-09-21] Datamart model của bảng Fact Foreign Trading Minute Snapshot - GD NDTNN theo phut (O_GSTT_8)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_foreign_trading_min_snpst'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_fct_investor_category_trading_snpst
+    description: "[MOI 2026-09-21] Datamart model của bảng Fact Investor Category Trading Snapshot - GD theo Phan loai NDT (CA_NHAN/TO_CHUC_TRONG_NUOC/TU_DOANH/NUOC_NGOAI)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_investor_category_trading_snpst'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_fct_major_shareholder_ownership_snpst
+    description: "[MOI 2026-09-25] Datamart model của bảng Fact Major Shareholder Ownership Snapshot - Co dong lon (nguon VSDC major_shareholder_ownership, thay the Operational Public Company Shareholding cu)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_major_shareholder_ownership_snpst'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_fct_investor_category_index_trading_snpst
+    description: "[MOI 2026-09-23] Datamart model của bảng Fact Investor Category Index Trading Snapshot - GD theo Phan loai NDT (CA_NHAN/TO_CHUC_TRONG_NUOC/TU_DOANH/NUOC_NGOAI) cua ca ro chi so"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_investor_category_index_trading_snpst'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_opr_public_company_shareholding
+    description: "Datamart model của bảng Operational Public Company Shareholding"
+    config:
+      materialized: scd4a
+      unique_key: ["public_company_shareholding_code"]
+      source_system: ["IDS_COMPANY_SHAREHOLDING"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_public_company_shareholding'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_fct_market_index_intraday
+    description: "Datamart model của bảng Fact Market Index Intraday"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["trade_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_market_index_intraday'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_fct_security_trading_intraday
+    description: "Datamart model của bảng Fact Security Trading Intraday"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["cdr_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_security_trading_intraday'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_fct_instrument_price_intraday
+    description: "[MOI 2026-10-06] Datamart model Fact Instrument Price Intraday - nen PHUT ma CK VA chi so (MDDS JAD_tvhistory1m), GSTT Nhom 34. Thay dtm_fct_security_trading_intraday."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["trade_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_instrument_price_intraday'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_fct_instrument_price_daily
+    description: "[MOI 2026-10-06] Datamart model Fact Instrument Price Daily - nen NGAY ma CK VA chi so (MDDS JAD_tvhistory1d) + Doanh thu/LNST ky BCTC gan nhat (rule GSDC), GSTT Nhom 34."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["trade_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_instrument_price_daily'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_opr_security_index_constituent_ref
+    description: "[MOI 2026-10-06] Datamart model Operational Security Index Constituent Reference - bang tham chieu Index Code <-> Symbol <-> ISIN (GSTT Nhom 44/45, K_GSTT_360-361). Grain 1 dong / ro chi so x ma CK thanh vien, current-state."
+    config:
+      materialized: scd4a
+      unique_key: ["index_code", "symbol"]
+      source_system: ["MDDS_JAD_CSIDXINFOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_security_index_constituent_ref'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_opr_security_ref
+    description: "[MOI 2026-10-09] Datamart model Operational Security Reference - bang tham chieu ma chung khoan (JAD_STOCKINFOR), 1 dong / symbol, current-state; tach tu opr_security_index_constituent_ref (LLD v4.42)."
+    config:
+      materialized: scd4a
+      unique_key: ["symbol"]
+      source_system: ["MDDS_JAD_STOCKINFOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_security_ref'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_fct_security_trading_daily
+    description: "[MOI 2026-09-30] Datamart model của bảng Fact Security Trading Daily - nen gia OHLCV theo ngay (MDDS.JAD_TRADINGVIEWHISTORY1DAY), khung thoi gian tu 1 thang tro len (O_GSTT_51)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["trade_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_security_trading_daily'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_fct_stock_portfolio_snpst
+    description: "Datamart model của bảng Fact Stock Portfolio Snapshot"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_stock_portfolio_snpst'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_fct_index_constituent_snpst
+    description: "[MOI 2026-09-14] Datamart model của bảng Fact Index Constituent Snapshot (Bridge factless) - tach khoi Fact Stock Portfolio Snapshot de het fan-out theo ro chi so"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_index_constituent_snpst'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_index_constituent_dim
+    description: "Datamart model của bảng Index Constituent Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["index_constituent_dim_id"]
+      source_system: ["MDDS_JAD_CSIDXINFOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'index_constituent_dim'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_legal_entity_position_dim
+    description: "Datamart model của bảng Legal Entity Position Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["legal_entity_position_dim_id"]
+      source_system: ["IDS_POSITIONS"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'legal_entity_position_dim'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_security_trading_snpst_dim
+    description: "Datamart model của bảng Security Trading Snapshot Dimension"
+    config:
+      materialized: scd4a
+      unique_key: ["security_trading_snpst_dim_id"]
+      source_system: ["MDDS_JAD_STOCKINFOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'security_trading_snpst_dim'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_opr_public_company_insider_ownership
+    description: "[MOI 2026-10-01] Datamart model Operational Public Company Insider Ownership - danh muc Nguoi noi bo cua cong ty dai chung (GSTT Nhom 35, K_GSTT_354-358). Grain 1 dong / Cong ty x Nguoi noi bo."
+    config:
+      materialized: scd4a
+      unique_key: ["public_company_entity_role_code"]
+      source_system: ["IDS_COMPANY_ENTITY_ROLE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_public_company_insider_ownership'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_fct_hnx_securities_order
+    description: "[MOI 2026-10-01] Datamart model của bảng Fact HNX Securities Order - lenh dat HNX (nguon ORDERTRADE_ORDER_BOOK_HNX)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["trade_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_hnx_securities_order'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_fct_hose_securities_order
+    description: "[MOI 2026-10-01] Datamart model của bảng Fact HOSE Securities Order - lenh dat HOSE (nguon ORDERTRADE_ORDER_BOOK_HOSE)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["trade_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_hose_securities_order'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_fct_hnx_securities_trade
+    description: "[MOI 2026-10-01] Datamart model của bảng Fact HNX Securities Trade - lenh khop HNX (nguon ORDERTRADE_TRADE_BOOK_HNX)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["trade_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_hnx_securities_trade'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_fct_hose_securities_trade
+    description: "[MOI 2026-10-01] Datamart model của bảng Fact HOSE Securities Trade - lenh khop HOSE (nguon ORDERTRADE_TRADE_BOOK_HOSE)"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["trade_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_hose_securities_trade'
+      tags:
+        - layer_datamart
+        - domain_gstt
+
+  - name: dtm_opr_trading_liquidity_explorer
+    description: "[MOI 2026-10-16, LLD HLD v4.53, O_GSTT_72] Datamart model Operational Trading Liquidity Explorer - bang phang Data Explorer Nhom 37, 1 dong / ma CK / chi so (hoac index_code = '') / ngay giao dich."
+    config:
+      materialized: scd4a
+      unique_key: ["trade_dt", "symbol", "index_code"]
+      source_system: ["MDDS_JAD_STOCKINFOR"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'opr_trading_liquidity_explorer'
+      tags:
+        - layer_datamart
+        - domain_gstt

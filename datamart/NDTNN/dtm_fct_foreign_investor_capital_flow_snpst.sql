@@ -7,6 +7,10 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date				User				Description
+* 2026-11-15		claude				Dong bo LLD O_NDTNN_62: them investor_group_nm (MAX(row_path)); doi thu tu cot theo LLD/DDL ClickHouse
+*									(..., src_stm_code, investor_group_nm, transaction_cd) - can ALTER TABLE ADD COLUMNS investor_group_nm AFTER src_stm_code
+*									va ALTER COLUMN transaction_cd AFTER investor_group_nm; BO phan ngoai LLD: bao cao bat thuong EPW5C/V2YZM/22ZBE,
+*									column_path thay the, NULLIF(transaction_cd,''). Chi con IBOU9 sheet 'I'; transaction_cd = MAX(CASE ... SUBSTR(...) END).
 * 2026-11-08		nghia.le			[THEM transaction_cd] Ma so giao dich (MSGD, 6 ky tu cuoi in hoa) cua NDT trong bao cao: cot 'Ma so giao dich chung khoan' (IBOU9 sheet I) hoac 'Ma so giao dich' (bao cao bat thuong
 *									sheet 'Input 2 - Von') - cung cach transaction_cd cua dtm_fct_foreign_investor_portfolio_report_snpst. Dung de JOIN ho so 360 theo MSGD (K_NDTNN_29..32) thay cho ten NDT.
 *									Cot dat NGAY SAU investor_nm (insert theo vi tri, sau do macro noi ds_*) -> ALTER TABLE ... ADD COLUMNS (transaction_cd string AFTER investor_nm) tren bang mart va nap lai first-time.
@@ -23,8 +27,8 @@
 *   sheet 'I' (PLIV-TT51). Doc dung theo LLD
 *   DTM_NDTNN_fct_foreign_investor_capital_flow_snpst.csv, khong loc etl_date.
 * - Atomic fir_structure / foreign_investor_report materialize SCD2 (khong
-*   co _hstr): ban ghi hien hanh ds_rcrd_st = 'ACTIVE' AND
-*   ds_rcrd_end_dt = to_date('2400-01-01').
+*   co _hstr): ban ghi hien hanh ds_rcrd_st = 'ACTIVE'
+*   (dong da dong/xoa o nguon bi macro scd2 danh INACTIVE).
 * - snpst_dt_dim_id = ngay thuc te nop bao cao (MAX submission_dt).
 *--------------------------------------------------------------------*
 */
@@ -46,6 +50,7 @@ WITH fi_va AS (
         rpt_day   -- ngày chốt số liệu GỐC, NULL khi nguồn không có (không fallback ở đây — ClickHouse tự ifNull theo ngày nộp)
     FROM {{ ref('atm_fir_value') }}
     WHERE src_stm_code = 'FIMS_FIR_VALUE'
+        AND ds_rcrd_st='ACTIVE'
 ),
 
 fi_st AS (
@@ -57,7 +62,6 @@ fi_st AS (
         column_path
     FROM {{ ref('atm_fir_structure') }}
     WHERE ds_rcrd_st = 'ACTIVE'
-        AND ds_rcrd_end_dt = to_date('2400-01-01')
 ),
 
 fo_in_re AS (
@@ -67,7 +71,6 @@ fo_in_re AS (
         sheet_nm
     FROM {{ ref('atm_foreign_investor_report') }}
     WHERE ds_rcrd_st = 'ACTIVE'
-        AND ds_rcrd_end_dt = to_date('2400-01-01')
 ),
 
 cd_dt_di AS (
@@ -86,20 +89,19 @@ ca_fl AS (
         MAX(fi_va.period_val)                                      AS period_val,
         MAX(CASE WHEN fi_st.column_path = 'Quốc tịch' THEN fi_va.val_raw END) AS nationality_nm,
         MAX(CASE WHEN fi_st.column_path = 'Tên nhà đầu tư' THEN fi_va.val_raw END) AS investor_nm,
-        NULLIF(SUBSTR(UPPER(TRIM(MAX(CASE WHEN fi_st.column_path IN ('Mã số giao dịch chứng khoán', 'Mã số giao dịch') THEN fi_va.val_raw END))), -6), '') AS transaction_cd,
-        MAX(CASE WHEN fi_st.column_path IN ('Giá trị dòng vốn vào trong kỳ báo cáo (+/-) (đơn vị USD)', 'Kỳ báo cáo > Giá trị dòng vốn vào trong kỳ báo cáo (+/-) (đơn vị USD)') THEN TRY_CAST(REGEXP_REPLACE(fi_va.val_raw, '^''', '') AS DECIMAL(38,10)) END) AS capital_flow_net_val,
+        MAX(CASE WHEN fi_st.column_path = 'Giá trị dòng vốn vào trong kỳ báo cáo (+/-) (đơn vị USD)' THEN TRY_CAST(REGEXP_REPLACE(fi_va.val_raw, '^''', '') AS DECIMAL(38,10)) END) AS capital_flow_net_val,
         MAX(fi_va.src_stm_code)                                    AS src_stm_code,
         MAX(fo_in_re.rpt_code)                                     AS rpt_code,
-        MAX(fi_va.rpt_day)                                         AS rpt_day
+        MAX(fi_va.rpt_day)                                         AS rpt_day,
+        MAX(fi_st.row_path)                                        AS investor_group_nm,
+        MAX(CASE WHEN fi_st.column_path = 'Mã số giao dịch chứng khoán' THEN SUBSTR(UPPER(TRIM(fi_va.val_raw)), -6) END) AS transaction_cd
     FROM fi_va
     INNER JOIN fi_st
         ON  fi_st.fir_structure_id = fi_va.fir_structure_id
     INNER JOIN fo_in_re
         ON  fo_in_re.fir_id = fi_st.fir_id
-    -- [RULE BAO CAO DINH KY / BAT THUONG 2026-10-13] IBOU9 (dinh ky, sheet 'I') + 3 mau bat thuong EPW5C/V2YZM/22ZBE (sheet 'Input 2 - Vốn', cung cau truc cot).
-    -- Moc dinh ky/bat thuong ap o tang KPI theo to_date (xem 03_kpi_queries.sql).
-    WHERE ((fo_in_re.rpt_code = 'IBOU9' AND fo_in_re.sheet_nm = 'I')
-           OR (fo_in_re.rpt_code IN ('EPW5C', 'V2YZM', '22ZBE') AND fo_in_re.sheet_nm = 'Input 2 - Vốn'))
+    WHERE fo_in_re.rpt_code = 'IBOU9'
+        AND fo_in_re.sheet_nm = 'I'
         AND fi_va.total_row_ind = 0
         AND fi_va.section_echo_ind = 0
         AND fi_va.band_overflow_ind = 0
@@ -118,9 +120,10 @@ SELECT
     CAST(ca_fl.rpt_code AS string)                                            AS rpt_code,
     CAST(ca_fl.nationality_nm AS string)                                      AS nationality_nm,
     CAST(ca_fl.investor_nm AS string)                                         AS investor_nm,
-    CAST(ca_fl.transaction_cd AS string)                                      AS transaction_cd,
     CAST(ca_fl.capital_flow_net_val AS decimal(23,2))                         AS capital_flow_net_val,
-    CAST(ca_fl.src_stm_code AS string)                                        AS src_stm_code
+    CAST(ca_fl.src_stm_code AS string)                                        AS src_stm_code,
+    CAST(ca_fl.investor_group_nm AS string)                                   AS investor_group_nm,
+    CAST(ca_fl.transaction_cd AS string)                                      AS transaction_cd
 FROM ca_fl
 LEFT JOIN cd_dt_di
     ON  cd_dt_di.cdr_dt = ca_fl.submission_dt

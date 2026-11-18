@@ -1,0 +1,263 @@
+version: 2
+
+models:
+
+  - name: stg_iam_groups
+    description: "Staging model của bảng IAM.GROUPS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'groups'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_group_role
+    description: "Staging model của bảng IAM.GROUP_ROLE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'group_role'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_module
+    description: "Staging model của bảng IAM.MODULE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'module'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_permission
+    description: "Staging model của bảng IAM.PERMISSION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'permission'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_permission_dependency
+    description: "Staging model của bảng IAM.PERMISSION_DEPENDENCY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'permission_dependency'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_representative_positions
+    description: "Staging model của bảng IAM.REPRESENTATIVE_POSITIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'representative_positions'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_resources
+    description: "Staging model của bảng IAM.RESOURCES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'resources'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_role
+    description: "Staging model của bảng IAM.ROLE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'role'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_role_permission
+    description: "Staging model của bảng IAM.ROLE_PERMISSION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'role_permission'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_users
+    description: "Staging model của bảng IAM.USERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'users'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_user_ext_individual_categories
+    description: "Staging model của bảng IAM.USER_EXT_INDIVIDUAL_CATEGORIES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'user_ext_individual_categories'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_user_group
+    description: "Staging model của bảng IAM.USER_GROUP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'user_group'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_user_object_type
+    description: "Staging model của bảng IAM.USER_OBJECT_TYPE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'user_object_type'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_user_object_type_assignments
+    description: "Staging model của bảng IAM.USER_OBJECT_TYPE_ASSIGNMENTS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'user_object_type_assignments'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_user_organization
+    description: "Staging model của bảng IAM.USER_ORGANIZATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'user_organization'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_user_positions
+    description: "Staging model của bảng IAM.USER_POSITIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'user_positions'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_user_role
+    description: "Staging model của bảng IAM.USER_ROLE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'user_role'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_user_sub_types
+    description: "Staging model của bảng IAM.USER_SUB_TYPES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'user_sub_types'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_user_verification_code
+    description: "Staging model của bảng IAM.USER_VERIFICATION_CODE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'user_verification_code'
+      tags:
+        - layer_staging
+        - domain_iam
+
+  - name: stg_iam_verification_config
+    description: "Staging model của bảng IAM.VERIFICATION_CONFIG"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("stg_iam_schema") }}'
+      alias: 'verification_config'
+      tags:
+        - layer_staging
+        - domain_iam

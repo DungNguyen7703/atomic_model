@@ -1,0 +1,251 @@
+# ClickHouse dbt YAML — Module PTTT
+
+version: 2
+
+models:
+  - name: pttt_fct_market_risk_snpst_flat
+    description: "Flat table — Fact Market Risk Snapshot × Calendar Date Dimension. Grain 1 dong / ngay."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt
+
+  - name: pttt_fct_investor_flow_snpst_flat
+    description: "Flat table — Fact Investor Flow Snapshot × Calendar Date Dimension × Investor Group Dimension. Grain 1 dong / nhom NDT / ngay."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt
+
+  - name: pttt_fct_sector_risk_snpst_flat
+    description: "Flat table — Fact Sector Risk Snapshot × Calendar Date Dimension × Sector Dimension. Grain 1 dong / nganh / ngay."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt
+
+  - name: pttt_fct_cap_grp_snpst_flat
+    description: "Flat table — Fact Cap Group Snapshot × Calendar Date Dimension. Grain 1 dong / nhom von hoa / ngay."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt
+
+  - name: pttt_fct_order_size_snpst_flat
+    description: "Flat table — Fact Order Size Snapshot × Calendar Date Dimension. Grain 1 dong / (ma CK, nhom quy mo lenh, ngay) - O_PTTT_49."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt
+
+  - name: pttt_fct_foreign_net_trade_snpst_flat
+    description: "Flat table — Fact Foreign Net Trade Snapshot × Calendar Date Dimension. Grain 1 dong / ma CK / ngay."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt
+
+  - name: pttt_fct_proprietary_net_trade_snpst_flat
+    description: "Flat table — Fact Proprietary Net Trade Snapshot × Calendar Date Dimension. Grain 1 dong / ma CK / ngay."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt
+
+  - name: pttt_fct_domestic_institution_net_trade_snpst_flat
+    description: "Flat table — Fact Domestic Institution Net Trade Snapshot × Calendar Date Dimension. Grain 1 dong / ma CK / ngay."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt
+
+  - name: pttt_fct_domestic_individual_net_trade_snpst_flat
+    description: "Flat table — Fact Domestic Individual Net Trade Snapshot × Calendar Date Dimension. Grain 1 dong / ma CK / ngay."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt
+
+  - name: pttt_fct_corporate_bond_market_snpst_flat
+    description: "Flat table — Fact Corporate Bond Market Snapshot × Calendar Date Dimension. Grain 1 dong / ngay, toan thi truong."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt
+
+  - name: pttt_fct_corporate_bond_maturity_wall_flat
+    description: "Flat table — Fact Corporate Bond Maturity Wall × Calendar Date Dimension × Securities Dimension. Grain 1 dong / (bond_flow_code, bond_code) / ky (quy), 2 luong LISTED/PRIVATE; securities_dim nullable (chi LISTED)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt
+
+  - name: pttt_fct_corporate_bond_sector_snpst_flat
+    description: "Flat table — Fact Corporate Bond Sector Snapshot × Calendar Date Dimension × Corp Bond Industry Dimension. Grain 1 dong / nganh TCPH / ngay."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt
+
+  - name: pttt_fct_futures_intraday_snpst_flat
+    description: "Flat table — Fact Futures Intraday Snapshot × Calendar Date Dimension. Grain 1 dong / ma HDTL / ngay."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt
+
+  - name: pttt_fct_futures_investor_flow_snpst_flat
+    description: "Flat table — Fact Futures Investor Flow Snapshot × Calendar Date Dimension. Grain 1 dong / ma HDTL / ngay."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt
+
+  - name: pttt_fct_market_statistics_snpst_flat
+    description: "Flat table — Fact Market Statistics Snapshot × Calendar Date Dimension. Grain 1 dong / chi so / ngay."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt
+
+  - name: pttt_opr_corporate_bond_issuer_credit_monitor_flat
+    description: "Flat table — Operational Corporate Bond Issuer Credit Monitor. Grain 1 dong / TCPH / ngay. Khong JOIN Calendar Date Dimension."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::operational
+      - domain::pttt
+
+  - name: pttt_fct_macro_indicator_snpst_flat
+    description: "Flat table — Fact Macro Indicator Snapshot × Calendar Date Dimension (full thuoc tinh lich). Grain 1 dong / chi tieu vi mo / ky bao cao."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt
+
+  - name: pttt_fct_securities_company_safety_snpst_flat
+    description: "Flat table — Fact Securities Company Safety Snapshot × Calendar Date Dimension × Securities Company Dimension. Grain 1 dong / CTCK / thang bao cao (O_PTTT_13 da resolve 2026-10-02)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt
+
+  - name: pttt_fct_securities_company_balance_snpst_flat
+    description: "Flat table — Fact Securities Company Balance Snapshot × Calendar Date Dimension × Securities Company Dimension. Grain 1 dong / CTCK niem yet / quy bao cao."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::pttt

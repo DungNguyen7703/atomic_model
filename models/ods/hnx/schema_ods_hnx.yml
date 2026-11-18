@@ -1,0 +1,184 @@
+version: 2
+
+models:
+  - name: ods_hnx_order_book
+    description: "ODS model của bảng HNX.ORDER_BOOK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["trade_date"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_hnx_schema") }}'
+      alias: 'order_book'
+      tags:
+        - layer_ods
+        - domain_hnx
+
+  - name: ods_hnx_trade_book
+    description: "ODS model của bảng HNX.TRADE_BOOK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["trade_date"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_hnx_schema") }}'
+      alias: 'trade_book'
+      tags:
+        - layer_ods
+        - domain_hnx
+
+  - name: ods_hnx_listed_securities_list
+    description: "ODS model của bảng HNX.LISTED_SECURITIES_LIST"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_hnx_schema") }}'
+      alias: 'listed_securities_list'
+      tags:
+        - layer_ods
+        - domain_hnx
+
+  - name: ods_hnx_gov_bond_listed_list
+    description: "ODS model của bảng HNX.GOV_BOND_LISTED_LIST"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_hnx_schema") }}'
+      alias: 'gov_bond_listed_list'
+      tags:
+        - layer_ods
+        - domain_hnx
+
+  - name: ods_hnx_gov_bond_additional_listing
+    description: "ODS model của bảng HNX.GOV_BOND_ADDITIONAL_LISTING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_hnx_schema") }}'
+      alias: 'gov_bond_additional_listing'
+      tags:
+        - layer_ods
+        - domain_hnx
+
+  - name: ods_hnx_private_corp_bond_offering
+    description: "ODS model của bảng HNX.PRIVATE_CORP_BOND_OFFERING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_hnx_schema") }}'
+      alias: 'private_corp_bond_offering'
+      tags:
+        - layer_ods
+        - domain_hnx
+
+  - name: ods_hnx_private_corp_bond_registration
+    description: "ODS model của bảng HNX.PRIVATE_CORP_BOND_REGISTRATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_hnx_schema") }}'
+      alias: 'private_corp_bond_registration'
+      tags:
+        - layer_ods
+        - domain_hnx
+
+  - name: ods_hnx_registration_status_change
+    description: "ODS model của bảng HNX.REGISTRATION_STATUS_CHANGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_hnx_schema") }}'
+      alias: 'registration_status_change'
+      tags:
+        - layer_ods
+        - domain_hnx
+
+  - name: ods_hnx_listing_status_change
+    description: "ODS model của bảng HNX.LISTING_STATUS_CHANGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_hnx_schema") }}'
+      alias: 'listing_status_change'
+      tags:
+        - layer_ods
+        - domain_hnx
+
+  - name: ods_hnx_brokerage_market_share
+    description: "ODS model của bảng HNX.BROKERAGE_MARKET_SHARE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_hnx_schema") }}'
+      alias: 'brokerage_market_share'
+      tags:
+        - layer_ods
+        - domain_hnx
+
+  - name: ods_hnx_outright_order_book
+    description: "ODS model của bảng HNX.OUTRIGHT_ORDER_BOOK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_hnx_schema") }}'
+      alias: 'outright_order_book'
+      tags:
+        - layer_ods
+        - domain_hnx
+
+  - name: ods_hnx_repo_order_book
+    description: "ODS model của bảng HNX.REPO_ORDER_BOOK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_hnx_schema") }}'
+      alias: 'repo_order_book'
+      tags:
+        - layer_ods
+        - domain_hnx
+
+  - name: ods_hnx_repo2_order_book
+    description: "ODS model của bảng HNX.REPO2_ORDER_BOOK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_hnx_schema") }}'
+      alias: 'repo2_order_book'
+      tags:
+        - layer_ods
+        - domain_hnx
+
+  - name: ods_hnx_mdds_order_book
+    description: "ODS model của bảng HNX.MDDS_ORDER_BOOK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_hnx_schema") }}'
+      alias: 'mdds_order_book'
+      tags:
+        - layer_ods
+        - domain_hnx

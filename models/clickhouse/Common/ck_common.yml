@@ -1,0 +1,16 @@
+# ClickHouse dbt YAML — Module Common (chia se giua cac phan he)
+
+version: 2
+
+models:
+  - name: cdr_dt_flat
+    description: "[2026-09-19] Flat table — Calendar Date Dimension. Danh muc TINH: moi lan chay ghi lai TOAN BO bang qua INSERT INTO thuan (materialized=incremental cua dbt-spark, incremental_strategy=append - KHONG dung macro incremental_rebase). Da thu merge/table/append+partition_by deu that bai vi connector Spark->ClickHouse (com.clickhouse.spark) khong ho tro OverwritePartitionsDynamic (loi 'does not support dynamic overwrite in batch mode') CHO DU bang co partition_by=['year'] hay khong (kiem chung thuc te, khong phai suy doan). Giai phap: khong OVERWRITE nua, chi INSERT thuan - dua vao co che dedup TU NHIEN cua ENGINE=ReplacingMergeTree (theo ORDER BY (cdr_dt, cdr_dt_dim_id)) o tang ClickHouse. He qua: sau khi insert co the ton tai tam thoi ban ghi cu+moi trung key cho toi khi ClickHouse merge nen xong - moi truy van xuong bang nay PHAI dung FINAL (VD: SELECT ... FROM cdr_dt_flat FINAL) de luon lay dung ban ghi moi nhat, khong duoc doc truc tiep khong FINAL."
+    config:
+      materialized: incremental
+      incremental_strategy: append
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::dimension
+      - domain::common

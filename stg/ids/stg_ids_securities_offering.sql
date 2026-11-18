@@ -6,7 +6,7 @@
 * Created date:
 *--------------------------------------------------------------------*
 * Modified management
-* Date				User				Description
+* Date    User    Description
 *
 *--------------------------------------------------------------------*
 */
@@ -18,6 +18,7 @@ SELECT
     , CAST(legal_entity_id AS bigint)          AS legal_entity_id
     , CAST(application_cd AS string)           AS application_cd
     , CAST(administrative_proc_cd AS string)   AS administrative_proc_cd
+    , CAST(administrative_status_cd AS int)    AS administrative_status_cd
     , CAST(certificate_no AS string)           AS certificate_no
     , CAST(certificate_date AS date)           AS certificate_date
     , CAST(official_letter_no AS string)       AS official_letter_no
@@ -51,5 +52,4 @@ SELECT
     , CAST(project_investment_flg AS int)      AS project_investment_flg
     , CAST(capital_purpose AS string)          AS capital_purpose
     , CAST(approver_comment AS string)         AS approver_comment
-    , CAST(administrative_status_cd AS string)    AS administrative_status_cd
 FROM {{ source('source_ids', 'raw_securities_offering') }}
