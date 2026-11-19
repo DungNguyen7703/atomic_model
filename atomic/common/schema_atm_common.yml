@@ -371,3 +371,24 @@ models:
       alias: 'cl_securities_company_position'
       tags:
         - layer_atomic
+
+  - name: atm_cl_ecat_administrative_procedure
+    description: "Atomic model của bảng Classification ECAT Administrative Procedure"
+    config:
+      materialized: scd2
+      unique_key: ["cl_ecat_ap_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'cl_ecat_administrative_procedure'
+      tags:
+        - layer_atomic
+
+  - name: atm_tthc_cl_value
+    description: "Atomic model của bảng TTHC Classification Value — danh mục phân loại hồ sơ thủ tục hành chính"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic

@@ -120,3 +120,135 @@ models:
       tags:
         - layer_ods
         - domain_fims
+
+  - name: ods_fims_branchs
+    description: "ODS model của bảng FIMS.BRANCHS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'branchs'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_depositorycenter
+    description: "ODS model của bảng FIMS.DEPOSITORYCENTER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'depositorycenter'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_fundcompany
+    description: "ODS model của bảng FIMS.FUNDCOMPANY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'fundcompany'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_infodiscrepres
+    description: "ODS model của bảng FIMS.INFODISCREPRES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'infodiscrepres'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_rptmember
+    description: "ODS model của bảng FIMS.RPTMEMBER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'rptmember'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_rpttemp
+    description: "ODS model của bảng FIMS.RPTTEMP"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'rpttemp'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_rptvalues
+    description: "ODS model của bảng FIMS.RPTVALUES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'rptvalues'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_sheet
+    description: "ODS model của bảng FIMS.SHEET"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'sheet'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_stockexchange
+    description: "ODS model của bảng FIMS.STOCKEXCHANGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'stockexchange'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_tradingauthorization
+    description: "ODS model của bảng FIMS.TRADINGAUTHORIZATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'tradingauthorization'
+      tags:
+        - layer_ods
+        - domain_fims
+
+  - name: ods_fims_categoriesstock
+    description: "ODS model của bảng FIMS.CATEGORIESSTOCK"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fims_schema") }}'
+      alias: 'categoriesstock'
+      tags:
+        - layer_ods
+        - domain_fims

@@ -2458,6 +2458,8 @@ sources:
         identifier: listed_securities_list
       - name: raw_private_corp_bond_trading
         identifier: private_corp_bond_trading
+      - name: raw_private_corp_bond_service_orgs
+        identifier: private_corp_bond_service_orgs
       - name: raw_share_auction_hnx
         identifier: share_auction
       - name: raw_gov_bond_offering

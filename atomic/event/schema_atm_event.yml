@@ -154,3 +154,17 @@ models:
       alias: 'sc_disclosure_securities_offering_item'
       tags:
         - layer_atomic
+
+  - name: atm_sc_administrative_sanction
+    description: "Atomic model của bảng Securities Company Administrative Sanction"
+    config:
+      materialized: scd2
+      unique_key: ["sc_administrative_sanction_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_administrative_sanction'
+      tags:
+        - layer_atomic

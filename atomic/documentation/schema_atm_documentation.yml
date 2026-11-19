@@ -5,8 +5,7 @@ models:
     config:
       materialized: incremental_rebase
       incremental_strategy: append
-      partition_by:
-      - created_tms
+      partition_by: ["data_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("atm_schema") }}'
       alias: et_declaration_report
@@ -28,7 +27,7 @@ models:
     config:
       materialized: incremental_rebase
       incremental_strategy: append
-      partition_by: []
+      partition_by: ["data_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("atm_schema") }}'
       alias: et_enforcement_debt_decision
@@ -61,7 +60,7 @@ models:
     config:
       materialized: incremental_rebase
       incremental_strategy: append
-      partition_by: []
+      partition_by: ["data_dt"]
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("atm_schema") }}'
       alias: et_violation_handling
@@ -375,7 +374,7 @@ models:
       alias: violation_case_received_document
       tags:
       - layer_atomic
-
+      
   - name: atm_sc_report_input_submission
     description: "Atomic model của bảng Securities Company Report Input Submission"
     config:
@@ -460,86 +459,6 @@ models:
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("atm_schema") }}'
       alias: 'fir_value'
-      tags:
-        - layer_atomic
-
-  - name: atm_dr_structure
-    description: "Atomic model của bảng Dynamic Report Structure – Multi Source"
-    config:
-      materialized: scd2
-      unique_key: ["dr_structure_id"]
-      identity_col: []
-      type1_cols: []
-      type2_cols: []
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("atm_schema") }}'
-      alias: 'dr_structure'
-      tags:
-        - layer_atomic
-
-  - name: atm_dr_structure_fms_item_list
-    description: "Atomic model của bảng Dynamic Report Structure – FMS.ITEM_LIST"
-    config:
-      materialized: ephemeral
-      tags:
-        - layer_atomic
-
-  - name: atm_dr_structure_scms_item_list
-    description: "Atomic model của bảng Dynamic Report Structure – SCMS.ITEM_LIST"
-    config:
-      materialized: ephemeral
-      tags:
-        - layer_atomic
-
-  - name: atm_dr_submission_history
-    description: "Atomic model của bảng Dynamic Report Submission History – Multi Source"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: append
-      partition_by: [submission_dt]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("atm_schema") }}'
-      alias: 'dr_submission_history'
-      tags:
-        - layer_atomic
-
-  - name: atm_dr_submission_history_fms_report_history
-    description: "Atomic model của bảng Dynamic Report Submission History – FMS.REPORT_HISTORY"
-    config:
-      materialized: ephemeral
-      tags:
-        - layer_atomic
-
-  - name: atm_dr_submission_history_scms_report_history
-    description: "Atomic model của bảng Dynamic Report Submission History – SCMS.REPORT_HISTORY"
-    config:
-      materialized: ephemeral
-      tags:
-        - layer_atomic
-
-  - name: atm_dr_value
-    description: "Atomic model của bảng Dynamic Report Value – Multi Source"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: merge
-      unique_key: ["dr_val_id"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("atm_schema") }}'
-      alias: 'dr_value'
-      tags:
-        - layer_atomic
-
-  - name: atm_dr_value_fms_item_value
-    description: "Atomic model của bảng Dynamic Report Value – FMS.ITEM_VALUE"
-    config:
-      materialized: ephemeral
-      tags:
-        - layer_atomic
-
-  - name: atm_dr_value_scms_item_value
-    description: "Atomic model của bảng Dynamic Report Value – SCMS.ITEM_VALUE"
-    config:
-      materialized: ephemeral
       tags:
         - layer_atomic
 
@@ -780,5 +699,57 @@ models:
     description: "Atomic model của bảng HOSE.BROKERAGE_MARKET_SHARE - feed vào atm_brokerage_market_share"
     config:
       materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_private_corp_bond_service_organization
+    description: "Atomic model của bảng private_corp_bond_service_organization"
+    config:
+      materialized: scd2
+      unique_key: ["private_corp_bond_service_organization_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'private_corp_bond_service_organization'
+      source_system: ["HNX_PRIVATE_CORP_BOND_SERVICE_ORGS"]
+      tags:
+        - layer_atomic
+
+  - name: atm_anti_corruption_document
+    description: "Atomic model của bảng Anti Corruption Document"
+    config:
+      materialized: scd2
+      unique_key: ["anti_corruption_document_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'anti_corruption_document'
+      tags:
+        - layer_atomic
+
+  - name: atm_anti_money_laundering_document
+    description: "Atomic model của bảng Anti Money Laundering Document"
+    config:
+      materialized: scd2
+      unique_key: ["anti_money_laundering_document_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'anti_money_laundering_document'
+      tags:
+        - layer_atomic
+
+  - name: atm_tthc_ap_document
+    description: "Atomic model của bảng TTHC Administrative Procedure Document"
+    config:
+      materialized: scd4a
+      unique_key: ["ap_document_id"]
+      source_system: ["TTHC_AP_DOCUMENT"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'tthc_ap_document'
       tags:
         - layer_atomic

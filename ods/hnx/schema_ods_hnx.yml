@@ -182,3 +182,15 @@ models:
       tags:
         - layer_ods
         - domain_hnx
+
+  - name: ods_hnx_private_corp_bond_service_orgs
+    description: "ODS model của bảng HNX.PRIVATE_CORP_BOND_SERVICE_ORGS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_hnx_schema") }}'
+      alias: 'private_corp_bond_service_orgs'
+      tags:
+        - layer_ods
+        - domain_hnx

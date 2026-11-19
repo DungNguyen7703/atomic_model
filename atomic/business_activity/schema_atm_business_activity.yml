@@ -582,3 +582,50 @@ models:
       tags:
         - layer_atomic
 
+  - name: atm_member_inspection_round
+    description: "Atomic model của bảng Member Inspection Round"
+    config:
+      materialized: scd4a
+      unique_key: ["member_inspection_round_id"]
+      source_system: ["FMS_INSPECTION_ROUND"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'member_inspection_round'
+      tags:
+        - layer_atomic
+
+  - name: atm_investment_fund_investor_capital_change_log
+    description: "Atomic model của bảng Investment Fund Investor Capital Change Log"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'investment_fund_investor_capital_change_log'
+      tags:
+        - layer_atomic
+
+  - name: atm_af_sanction
+    description: "Atomic model của bảng Af Sanction"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: merge
+      unique_key: ["af_sanction_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'af_sanction'
+      tags:
+        - layer_atomic
+
+  - name: atm_af_auditor_status_history
+    description: "Atomic model của bảng Af Auditor Status History"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: merge
+      unique_key: ["af_auditor_status_history_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'af_auditor_status_history'
+      tags:
+        - layer_atomic

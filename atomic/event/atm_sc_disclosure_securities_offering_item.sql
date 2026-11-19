@@ -26,6 +26,11 @@
     , ('participant_count', 'decimal(38,0)')
     , ('foreign_investor_participant_count', 'decimal(38,0)')
     , ('foreign_investor_issued_value', 'decimal(38,10)')
+    , ('plan_par_value', 'decimal(38,10)')
+    , ('plan_quantity', 'decimal(38,0)')
+    , ('plan_price', 'decimal(38,10)')
+    , ('plan_value_at_par', 'decimal(38,10)')
+    , ('plan_investor_count', 'decimal(38,0)')
 ] %}
 
 WITH it AS (
@@ -49,6 +54,17 @@ WITH it AS (
         , participant_count
         , foreign_investor_participant_count
         , foreign_investor_issued_value
+        , plan_offering_target_code
+        , plan_offering_method
+        , plan_par_value
+        , plan_quantity
+        , plan_price
+        , plan_value_at_par
+        , plan_investor_count
+        , plan_target_description
+        , plan_exchange_purpose
+        , plan_expected_start_date
+        , plan_expected_end_date
     FROM {{ ref('ods_scms_disclosure_securities_offering_item') }}
 )
 
@@ -139,5 +155,17 @@ SELECT
     , it_num.participant_count_num                                                             AS participant_count
     , it_num.foreign_investor_participant_count_num                                            AS foreign_investor_participant_count
     , it_num.foreign_investor_issued_value_num                                                 AS foreign_investor_issued_val_amt
+    -- plan_json
+    , CAST(it_num.plan_offering_target_code AS string)                                         AS plan_offering_target_tp_code
+    , CAST(it_num.plan_offering_method AS string)                                              AS plan_offering_method
+    , it_num.plan_par_value_num                                                                AS plan_par_val_amt
+    , it_num.plan_quantity_num                                                                 AS plan_quantity
+    , it_num.plan_price_num                                                                    AS plan_price_amt
+    , it_num.plan_value_at_par_num                                                             AS plan_val_at_par_amt
+    , it_num.plan_investor_count_num                                                           AS plan_investor_count
+    , CAST(it_num.plan_target_description AS string)                                           AS plan_target_description
+    , CAST(it_num.plan_exchange_purpose AS string)                                             AS plan_exchange_purpose
+    , try_cast(it_num.plan_expected_start_date AS date)                                        AS plan_expected_start_dt
+    , try_cast(it_num.plan_expected_end_date AS date)                                          AS plan_expected_end_dt
 FROM it_num
     LEFT JOIN sc_fi_in ON it_num.sc_firm_info_id = sc_fi_in.id

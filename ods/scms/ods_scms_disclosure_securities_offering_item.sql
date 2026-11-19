@@ -39,32 +39,65 @@ WITH src AS (
                 soLuongNguoiThamGia: STRING, slNdtnnThamGia: STRING, giaTriPhatHanhNdtnn: STRING
             >>') AS res_items
         , from_json(plan_json,
-            'ARRAY<STRUCT<duKienTuNgay: STRING, duKienDenNgay: STRING>>') AS plan_items
+            'ARRAY<STRUCT<
+                doiTuongChaoBan: STRING, loaiChaoBan: STRING, menhGia: STRING,
+                soLuongCb: STRING, giaCb: STRING, giaTriCbTheoMenhGia: STRING,
+                soLuongNguoiCb: STRING, moTaDoiTuong: STRING, mucDichHoanDoi: STRING,
+                duKienTuNgay: STRING, duKienDenNgay: STRING
+            >>') AS plan_items
     FROM src
 )
 
+/* explode thường (không _outer): id không có item nào thì không sinh dòng */
+, res AS (
+    SELECT p.id, p.sc_firm_info_id, p.ds_snpst_dt, r.itm
+    FROM parsed p
+    LATERAL VIEW explode(p.res_items) r AS itm
+)
+
+, pln AS (
+    SELECT p.id, p.sc_firm_info_id, p.ds_snpst_dt, q.itm
+    FROM parsed p
+    LATERAL VIEW explode(p.plan_items) q AS itm
+)
+
 SELECT
-    p.id
-    , p.sc_firm_info_id
-    -- kế hoạch chào bán
-    , e.item.doiTuongChaoBan                                            AS offering_target_code
-    , e.item.loaiChaoBan                                                AS offering_method
-    , e.item.menhGia AS par_value
-    , e.item.soLuongCb AS planned_quantity
-    , e.item.giaCb AS planned_price
-    , e.item.giaTriCbTheoMenhGia AS planned_value_at_par
-    , e.item.soLuongNguoiCb AS planned_investor_count
-    , e.item.moTaDoiTuong                                               AS target_description
-    , e.item.mucDichHoanDoi                                             AS exchange_purpose
-    -- thời gian dự kiến
-    , coalesce(e.item.duKienTuNgay,  CASE WHEN e.pos < size(p.plan_items) THEN p.plan_items[e.pos].duKienTuNgay END) AS expected_start_date
-    , coalesce(e.item.duKienDenNgay, CASE WHEN e.pos < size(p.plan_items) THEN p.plan_items[e.pos].duKienDenNgay END) AS expected_end_date
-    -- kết quả thực tế
-    , e.item.soLuongThucTe AS actual_quantity
-    , e.item.giaThucTe AS actual_price
-    , e.item.giaTriThucTe AS actual_value
-    , e.item.soLuongNguoiThamGia AS participant_count
-    , e.item.slNdtnnThamGia AS foreign_investor_participant_count
-    , e.item.giaTriPhatHanhNdtnn AS foreign_investor_issued_value
-FROM parsed p
-LATERAL VIEW posexplode_outer(p.res_items) e AS pos, item
+    coalesce(res.id, pln.id)                                                  AS id
+    , coalesce(res.sc_firm_info_id, pln.sc_firm_info_id)                      AS sc_firm_info_id
+    -- kế hoạch chào bán (result_json)
+    , coalesce(res.itm.doiTuongChaoBan, pln.itm.doiTuongChaoBan)              AS offering_target_code
+    , coalesce(res.itm.loaiChaoBan, pln.itm.loaiChaoBan)                      AS offering_method
+    , res.itm.menhGia                                                         AS par_value
+    , res.itm.soLuongCb                                                       AS planned_quantity
+    , res.itm.giaCb                                                           AS planned_price
+    , res.itm.giaTriCbTheoMenhGia                                             AS planned_value_at_par
+    , res.itm.soLuongNguoiCb                                                  AS planned_investor_count
+    , res.itm.moTaDoiTuong                                                    AS target_description
+    , res.itm.mucDichHoanDoi                                                  AS exchange_purpose
+    -- thời gian dự kiến: result_json trước, thiếu thì lấy plan_json
+    , coalesce(res.itm.duKienTuNgay, pln.itm.duKienTuNgay)                    AS expected_start_date
+    , coalesce(res.itm.duKienDenNgay, pln.itm.duKienDenNgay)                  AS expected_end_date
+    -- kết quả thực tế (result_json)
+    , res.itm.soLuongThucTe                                                   AS actual_quantity
+    , res.itm.giaThucTe                                                       AS actual_price
+    , res.itm.giaTriThucTe                                                    AS actual_value
+    , res.itm.soLuongNguoiThamGia                                             AS participant_count
+    , res.itm.slNdtnnThamGia                                                  AS foreign_investor_participant_count
+    , res.itm.giaTriPhatHanhNdtnn                                             AS foreign_investor_issued_value
+    -- plan_json
+    , pln.itm.doiTuongChaoBan                                                 AS plan_offering_target_code
+    , pln.itm.loaiChaoBan                                                     AS plan_offering_method
+    , pln.itm.menhGia                                                         AS plan_par_value
+    , pln.itm.soLuongCb                                                       AS plan_quantity
+    , pln.itm.giaCb                                                           AS plan_price
+    , pln.itm.giaTriCbTheoMenhGia                                             AS plan_value_at_par
+    , pln.itm.soLuongNguoiCb                                                  AS plan_investor_count
+    , pln.itm.moTaDoiTuong                                                    AS plan_target_description
+    , pln.itm.mucDichHoanDoi                                                  AS plan_exchange_purpose
+    , pln.itm.duKienTuNgay                                                    AS plan_expected_start_date
+    , pln.itm.duKienDenNgay                                                   AS plan_expected_end_date
+FROM res
+FULL OUTER JOIN pln
+    ON  res.id = pln.id
+    AND res.itm.loaiChaoBan <=> pln.itm.loaiChaoBan
+    AND res.itm.doiTuongChaoBan <=> pln.itm.doiTuongChaoBan

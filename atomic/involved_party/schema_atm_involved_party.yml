@@ -1419,3 +1419,163 @@ models:
       materialized: ephemeral
       tags:
         - layer_atomic
+
+  - name: atm_pc_related_entity
+    description: "Atomic model của bảng Pc Related Entity"
+    config:
+      materialized: scd4a
+      unique_key: ["pc_related_entity_id"]
+      source_system: ["IDS_COMPANY_RELATIONSHIP"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'pc_related_entity'
+      tags:
+        - layer_atomic
+
+  - name: atm_fmc_stakeholder
+    description: "Atomic model của bảng Fmc Stakeholder"
+    config:
+      materialized: scd4a
+      unique_key: ["fmc_stakeholder_id"]
+      source_system: ["FMS_STAKE"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'fmc_stakeholder'
+      tags:
+        - layer_atomic
+
+  - name: atm_fmc_insider_related_person
+    description: "Atomic model của bảng Fmc Insider Related Person"
+    config:
+      materialized: scd4a
+      unique_key: ["fmc_insider_related_person_id"]
+      source_system: ["FMS_INSDER_RELA"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'fmc_insider_related_person'
+      tags:
+        - layer_atomic
+
+  - name: atm_pension_fund
+    description: "Atomic model của bảng Pension Fund"
+    config:
+      materialized: scd4a
+      unique_key: ["pension_fund_id"]
+      source_system: ["FMS_PENSION_FUND"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'pension_fund'
+      tags:
+        - layer_atomic
+
+  - name: atm_pension_service_organization
+    description: "Atomic model của bảng Pension Service Organization – Multi Source"
+    config:
+      materialized: scd4a
+      unique_key: ["pension_service_organization_id"]
+      source_system: ["FMS_PENSION_AGENT", "FMS_PENSION_PROVIDER"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'pension_service_organization'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_ownership_relation
+    description: "Atomic model của bảng Securities Company Ownership Relation"
+    config:
+      materialized: scd2
+      unique_key: ["sc_ownership_relation_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_ownership_relation'
+      tags:
+        - layer_atomic
+
+  - name: atm_sc_practitioner
+    description: "Atomic model của bảng Securities Company Practitioner"
+    config:
+      materialized: scd4a
+      unique_key: ["sc_practitioner_id"]
+      source_system: ["SCMS_SC_FIRM_LICENSED_PRACTITIONER"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'sc_practitioner'
+      tags:
+        - layer_atomic
+
+  - name: atm_custodian_bank_employee
+    description: "Atomic model của bảng Custodian Bank Employee"
+    config:
+      materialized: scd4a
+      unique_key: ["custodian_bank_employee_id"]
+      source_system: ["FMS_BANK_EMPLOY"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'custodian_bank_employee'
+      tags:
+        - layer_atomic
+
+  - name: atm_transfer_agent
+    description: "Atomic model của bảng Transfer Agent"
+    config:
+      materialized: scd4a
+      unique_key: ["transfer_agent_id"]
+      source_system: ["FMS_TRANSFER_AGENT"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'transfer_agent'
+      tags:
+        - layer_atomic
+
+  - name: atm_audit_firm
+    description: "Atomic model của bảng Audit Firm"
+    config:
+      materialized: scd4a
+      unique_key: ["af_id"]
+      source_system: ["AUDIT_AF_PROFILES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'audit_firm'
+      tags:
+        - layer_atomic
+
+  - name: atm_af_auditor
+    description: "Atomic model của bảng Af Auditor"
+    config:
+      materialized: scd4a
+      unique_key: ["af_auditor_id"]
+      source_system: ["AUDIT_AF_AUDITOR_PROFILES"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'af_auditor'
+      tags:
+        - layer_atomic
+
+  - name: atm_pension_service_organization_fms_pension_agent
+    description: "Atomic model của bảng Pension Service Organization – FMS.PENSION_AGENT"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_pension_service_organization_fms_pension_provider
+    description: "Atomic model của bảng Pension Service Organization – FMS.PENSION_PROVIDER"
+    config:
+      materialized: ephemeral
+      tags:
+        - layer_atomic
+
+  - name: atm_tthc_ap_document_applicant
+    description: "Atomic model của bảng TTHC Administrative Procedure Document Applicant"
+    config:
+      materialized: scd4a
+      unique_key: ["ap_document_applicant_id"]
+      source_system: ["TTHC_AP_DOCUMENT_APPLICANT"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'ap_document_applicant'
+      tags:
+        - layer_atomic

@@ -1,0 +1,15 @@
+version: 2
+
+models:
+
+  - name: ods_iam_users
+    description: "ODS model của bảng IAM.USERS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_iam_schema") }}'
+      alias: 'users'
+      tags:
+        - layer_ods
+        - domain_iam

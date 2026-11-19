@@ -1,0 +1,148 @@
+version: 2
+
+models:
+  - name: ods_audit_af_approval
+    description: "ODS model của bảng AUDIT.AF_APPROVAL"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_audit_schema") }}'
+      alias: 'af_approval'
+      tags:
+        - layer_ods
+        - domain_audit
+
+  - name: ods_audit_af_auditor_practice_history
+    description: "ODS model của bảng AUDIT.AF_AUDITOR_PRACTICE_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_audit_schema") }}'
+      alias: 'af_auditor_practice_history'
+      tags:
+        - layer_ods
+        - domain_audit
+
+  - name: ods_audit_af_auditor_profiles
+    description: "ODS model của bảng AUDIT.AF_AUDITOR_PROFILES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_audit_schema") }}'
+      alias: 'af_auditor_profiles'
+      tags:
+        - layer_ods
+        - domain_audit
+
+  - name: ods_audit_af_auditor_status_history
+    description: "ODS model của bảng AUDIT.AF_AUDITOR_STATUS_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_audit_schema") }}'
+      alias: 'af_auditor_status_history'
+      tags:
+        - layer_ods
+        - domain_audit
+
+  - name: ods_audit_af_inspection
+    description: "ODS model của bảng AUDIT.AF_INSPECTION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_audit_schema") }}'
+      alias: 'af_inspection'
+      tags:
+        - layer_ods
+        - domain_audit
+
+  - name: ods_audit_af_legal_representative
+    description: "ODS model của bảng AUDIT.AF_LEGAL_REPRESENTATIVE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_audit_schema") }}'
+      alias: 'af_legal_representative'
+      tags:
+        - layer_ods
+        - domain_audit
+
+  - name: ods_audit_af_profiles
+    description: "ODS model của bảng AUDIT.AF_PROFILES"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_audit_schema") }}'
+      alias: 'af_profiles'
+      tags:
+        - layer_ods
+        - domain_audit
+
+  - name: ods_audit_af_sanctions
+    description: "ODS model của bảng AUDIT.AF_SANCTIONS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["data_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_audit_schema") }}'
+      alias: 'af_sanctions'
+      tags:
+        - layer_ods
+        - domain_audit
+
+  - name: ods_audit_af_status_history
+    description: "ODS model của bảng AUDIT.AF_STATUS_HISTORY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_audit_schema") }}'
+      alias: 'af_status_history'
+      tags:
+        - layer_ods
+        - domain_audit
+
+  - name: ods_audit_af_suspension
+    description: "ODS model của bảng AUDIT.AF_SUSPENSION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_audit_schema") }}'
+      alias: 'af_suspension'
+      tags:
+        - layer_ods
+        - domain_audit
+
+  - name: ods_audit_af_technical_audit
+    description: "ODS model của bảng AUDIT.AF_TECHNICAL_AUDIT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_audit_schema") }}'
+      alias: 'af_technical_audit'
+      tags:
+        - layer_ods
+        - domain_audit
+
+  - name: ods_audit_af_warning
+    description: "ODS model của bảng AUDIT.AF_WARNING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_audit_schema") }}'
+      alias: 'af_warning'
+      tags:
+        - layer_ods
+        - domain_audit

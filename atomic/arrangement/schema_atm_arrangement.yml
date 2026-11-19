@@ -109,3 +109,29 @@ models:
       alias: 'updated_investor_account'
       tags:
         - layer_atomic
+
+  - name: atm_investment_fund_investor_membership
+    description: "Atomic model của bảng Investment Fund Investor Membership"
+    config:
+      materialized: scd4a
+      unique_key: ["investment_fund_investor_membership_id"]
+      source_system: ["FMS_MB_FUND"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'investment_fund_investor_membership'
+      tags:
+        - layer_atomic
+
+  - name: atm_foreign_investor_securities_holding
+    description: "Atomic model của bảng Foreign Investor Securities Holding (FIMS.CATEGORIESSTOCK)"
+    config:
+      materialized: scd2
+      unique_key: ["foreign_investor_securities_holding_id"]
+      identity_col: []
+      type1_cols: []
+      type2_cols: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("atm_schema") }}'
+      alias: 'foreign_investor_securities_holding'
+      tags:
+        - layer_atomic

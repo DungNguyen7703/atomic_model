@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: ods_tthc_ap_document_applicant
+    description: "ODS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_tthc_schema") }}'
+      alias: 'ap_document_applicant'
+      tags:
+        - layer_ods
+        - domain_tthc 
+
+  - name: ods_tthc_ap_document
+    description: "ODS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_tthc_schema") }}'
+      alias: 'ap_document1'
+      tags:
+        - layer_ods
+        - domain_tthc
+  - name: ods_tthc_classification_value
+    description: "ODS"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_tthc_schema") }}'
+      alias: 'CLASSIFICATION_VALUE'
+      tags:
+        - layer_ods
+        - domain_tthc 

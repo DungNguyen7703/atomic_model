@@ -444,3 +444,124 @@ models:
       tags:
         - layer_ods
         - domain_fms
+
+  - name: ods_fms_bank_employ
+    description: "ODS model của bảng FMS.BANK_EMPLOY"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'bank_employ'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_insder_rela
+    description: "ODS model của bảng FMS.INSDER_RELA"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'insder_rela'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_inspection_round
+    description: "ODS model của bảng FMS.INSPECTION_ROUND"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'inspection_round'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_mb_change
+    description: "ODS model của bảng FMS.MB_CHANGE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["date_created"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'mb_change'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_pension_agent
+    description: "ODS model của bảng FMS.PENSION_AGENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'pension_agent'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_pension_fund
+    description: "ODS model của bảng FMS.PENSION_FUND"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'pension_fund'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_pension_provider
+    description: "ODS model của bảng FMS.PENSION_PROVIDER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'pension_provider'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_relation
+    description: "ODS model của bảng FMS.RELATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'relation'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_transfer_agent
+    description: "ODS model của bảng FMS.TRANSFER_AGENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'transfer_agent'
+      tags:
+        - layer_ods
+        - domain_fms
+
+  - name: ods_fms_stake
+    description: "ODS model của bảng FMS.STAKE"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_fms_schema") }}'
+      alias: 'stake'
+      tags:
+        - layer_ods
+        - domain_fms

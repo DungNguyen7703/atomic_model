@@ -361,3 +361,27 @@ models:
       tags:
         - layer_ods
         - domain_thanhtra
+
+  - name: ods_thanhtra_anti_corruption_document
+    description: "ODS model của bảng THANHTRA.ANTI_CORRUPTION_DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'anti_corruption_document'
+      tags:
+        - layer_ods
+        - domain_thanhtra
+
+  - name: ods_thanhtra_anti_money_laundering_document
+    description: "ODS model của bảng IDS.ANTI_MONEY_LAUNDERING_DOCUMENT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_thanhtra_schema") }}'
+      alias: 'anti_money_laundering_document'
+      tags:
+        - layer_ods
+        - domain_thanhtra

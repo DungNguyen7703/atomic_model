@@ -39,3 +39,16 @@ FROM {{ source('source_atm', 'raw_classification_value') }}
 WHERE ds_rcrd_st = 'ACTIVE'
     AND ds_rcrd_end_dt = to_date('2400-01-01')
     AND src_stm_code <> 'IDS_LOOKUP_VALUES'
+
+UNION ALL
+
+SELECT 
+    cl_code
+    , schema_code
+    , schema_nm
+    , src_stm_code
+    , cl_nm
+    , cl_nm_english
+    , cl_description
+FROM {{ ref('atm_tthc_cl_value') }}
+

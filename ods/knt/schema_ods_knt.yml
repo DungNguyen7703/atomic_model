@@ -1,0 +1,54 @@
+version: 2
+
+models:
+
+  - name: ods_knt_tax_registration_info
+    description: "ODS model của bảng KNT.TAX_REGISTRATION_INFO"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_knt_schema") }}'
+      alias: 'tax_registration_info'
+      tags:
+        - layer_ods
+        - domain_knt
+
+  - name: ods_knt_tax_enforcement_debt
+    description: "ODS model của bảng KNT.TAX_ENFORCEMENT_DEBT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_knt_schema") }}'
+      alias: 'tax_enforcement_debt'
+      tags:
+        - layer_ods
+        - domain_knt
+
+  - name: ods_knt_tax_violation_handling
+    description: "ODS model của bảng KNT.TAX_VIOLATION_HANDLING"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_knt_schema") }}'
+      alias: 'tax_violation_handling'
+      tags:
+        - layer_ods
+        - domain_knt
+
+  - name: ods_knt_tax_report
+    description: "ODS model của bảng KNT.TAX_REPORT"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: []
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_knt_schema") }}'
+      alias: 'tax_report'
+      tags:
+        - layer_ods
+        - domain_knt

@@ -619,3 +619,39 @@ models:
       tags:
         - layer_ods
         - domain_scms
+
+  - name: ods_scms_sc_firm_admin_sanction
+    description: "ODS model của bảng SCMS.SC_FIRM_ADMIN_SANCTION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_admin_sanction'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_ownership_relation
+    description: "ODS model của bảng SCMS.SC_FIRM_OWNERSHIP_RELATION"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_ownership_relation'
+      tags:
+        - layer_ods
+        - domain_scms
+
+  - name: ods_scms_sc_firm_licensed_practitioner
+    description: "ODS model của bảng SCMS.SC_FIRM_LICENSED_PRACTITIONER"
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("ods_scms_schema") }}'
+      alias: 'sc_firm_licensed_practitioner'
+      tags:
+        - layer_ods
+        - domain_scms
