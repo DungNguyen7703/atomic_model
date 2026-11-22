@@ -1,0 +1,65 @@
+# ==========================================================================================
+# FIRST-TIME TMS: model khoi tao du lieu cho chuoi compliance report value
+#   STG data + master (append, data_dt) -> ODS compliance_report_value (append, data_dt) -> atomic cr_value
+# - Ghi vao DUNG bang vat ly cua model daily qua config ft_target (macro macros/first_time).
+# - Tag first_time + domain_first_time: orchestrator chi chay khi chon dich danh. Tag first_time_tms: chon rieng bo TMS.
+# - 2026-11-19 tuan.nguyenvanb: tao moi.
+# ==========================================================================================
+version: 2
+models:
+- name: ft_stg_tms_compliance_report_data
+  description: '[FIRST-TIME] Ban khoi tao cua stg_tms_compliance_report_data - FULL bang nguon, ghi vao bang that compliance_report_data.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: compliance_report_data
+    incremental_strategy: append
+    partition_by:
+    - data_dt
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("stg_tms_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+    - first_time_tms
+- name: ft_stg_tms_compliance_report_master
+  description: '[FIRST-TIME] Ban khoi tao cua stg_tms_compliance_report_master - FULL bang nguon, ghi vao bang that compliance_report_master.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: compliance_report_master
+    incremental_strategy: append
+    partition_by:
+    - data_dt
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("stg_tms_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+    - first_time_tms
+- name: ft_ods_tms_compliance_report_value
+  description: '[FIRST-TIME] Ban khoi tao cua ods_tms_compliance_report_value - ghi vao bang that compliance_report_value.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: compliance_report_value
+    incremental_strategy: append
+    partition_by:
+    - data_dt
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("ods_tms_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+    - first_time_tms
+- name: ft_atm_cr_value
+  description: '[FIRST-TIME] Ban khoi tao cua atm_cr_value - append (ghi de toan bang theo src_stm_code), ghi vao bang that cr_value.'
+  config:
+    materialized: ft_incremental_rebase
+    ft_target: cr_value
+    incremental_strategy: append
+    partition_by:
+    - src_stm_code
+    file_format: '{{ var("file_format") }}'
+    schema: '{{ var("atm_schema") }}'
+    tags:
+    - first_time
+    - domain_first_time
+    - first_time_tms

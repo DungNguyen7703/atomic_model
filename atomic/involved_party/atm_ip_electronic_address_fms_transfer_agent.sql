@@ -1,0 +1,41 @@
+/*
+*--------------------------------------------------------------------*
+* Program code: atm_ip_electronic_address_fms_transfer_agent
+* Program name: Atomic IP Electronic Address FMS.TRANSFER_AGENT
+* Created by: tuan.nguyenvanb
+* Created date: 2026-11-12
+*--------------------------------------------------------------------*
+* Modified management
+* Date				User				Description
+* 2026-11-12		tuan.nguyenvanb		[MOI] Tao nhanh FMS theo lld_FMS_TRANSFER_AGENT_IP_Electronic_Address.yaml (UAT chua co).
+*--------------------------------------------------------------------*
+*/
+
+WITH ta AS (
+    SELECT
+        id
+        , phone
+        , fax
+    FROM {{ ref('ods_fms_transfer_agent') }}
+    WHERE id IS NOT NULL
+),
+
+unpvt AS (
+    SELECT *
+    FROM ta
+    UNPIVOT (
+        electronic_adr_val
+        FOR electronic_adr_tp_code IN (
+            phone AS PHONE,
+            fax AS FAX
+        )
+    )
+)
+
+SELECT
+    {{ generate_surrogate_key_bigint('FMS_TRANSFER_AGENT', "unpvt.id") }} AS ip_id
+    , CAST(unpvt.id AS string)                                              AS ip_code
+    , CAST('FMS_TRANSFER_AGENT' AS string)                                  AS src_stm_code
+    , CAST(unpvt.electronic_adr_tp_code AS string)                          AS electronic_adr_tp_code
+    , CAST(unpvt.electronic_adr_val AS string)                              AS electronic_adr_val
+FROM unpvt

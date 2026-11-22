@@ -60,32 +60,37 @@ WITH raw_union AS (
 SELECT
     CAST(id AS string)                 AS id
     , CAST(deleted AS int)         AS deleted
-    , CAST(datecreated AS date)        AS datecreated
+    , CAST(datecreated AS timestamp)        AS datecreated
     , CAST(createdby AS string)        AS createdby
-    , CAST(datemodified AS date)       AS datemodified
+    , CAST(datemodified AS timestamp)       AS datemodified
     , CAST(modifyby AS string)         AS modifyby
-    , CAST(mebid AS decimal(18,2))     AS mebid
-    , CAST(prdid AS decimal(18,2))     AS prdid
-    , CAST(sheetid AS decimal(18,2))   AS sheetid
-    , CAST(rptid AS decimal(18,2))     AS rptid
+    , CAST(mebid AS bigint)     AS mebid
+    , CAST(prdid AS bigint)     AS prdid
+    , CAST(sheetid AS bigint)   AS sheetid
+    , CAST(rptid AS bigint)     AS rptid
     , CAST(tgtid AS string)            AS tgtid
     , CAST(type AS int)                AS type
-    , CAST(periodtype AS int)          AS periodtype
+    , CAST(periodtype AS bigint)          AS periodtype
     , CAST(periodvalue AS string)      AS periodvalue
-    , CAST(yearvalue AS decimal(18,2)) AS yearvalue
+    , CAST(yearvalue AS int) AS yearvalue
     , CAST(values AS string)           AS values
     , CAST(code AS string)             AS code
     , CAST(formatdatatype AS string)   AS formatdatatype
     , CAST(isdynamic AS int)       AS isdynamic
-    , CAST(rowdynamic AS int)          AS rowdynamic
+    , CAST(rowdynamic AS bigint)          AS rowdynamic
     , CAST(tablename AS string)        AS tablename
     , CAST(fieldname AS string)        AS fieldname
     , CAST(identification AS int)      AS identification
-    , CAST(fundid AS decimal(18,2))    AS fundid
-    , CAST(secid AS decimal(18,2))     AS secid
-    , CAST(bankid AS decimal(18,2))    AS bankid
-    , CAST(depid AS decimal(18,2))     AS depid
-    , CAST(stockid AS decimal(18,2))   AS stockid
-    , CAST(inid AS decimal(18,2))      AS inid
-    , CAST(branid AS decimal(18,2))    AS branid
+    , CAST(fundid AS bigint)    AS fundid
+    , CAST(secid AS bigint)     AS secid
+    , CAST(bankid AS bigint)    AS bankid
+    , CAST(depid AS bigint)     AS depid
+    , CAST(stockid AS bigint)   AS stockid
+    , CAST(inid AS bigint)      AS inid
+    , CAST(branid AS bigint)    AS branid
+    , to_date('{{ var("etl_date") }}', 'yyyy-MM-dd') AS data_dt
 FROM raw_union
+-- WHERE (datecreated >= TO_TIMESTAMP('{{ var("etl_date") }}')
+--   AND datecreated <  TO_TIMESTAMP('{{ var("etl_date") }}') + INTERVAL 1 DAY)
+--    OR (datemodified >= TO_TIMESTAMP('{{ var("etl_date") }}')
+--   AND datemodified <  TO_TIMESTAMP('{{ var("etl_date") }}') + INTERVAL 1 DAY)
