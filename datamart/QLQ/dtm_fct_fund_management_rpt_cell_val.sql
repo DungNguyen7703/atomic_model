@@ -167,13 +167,9 @@ SELECT
     CAST(fund_management_rpt_cell.fund_management_rpt_cell_id AS string)                           AS fund_management_rpt_cell_id,
     CAST(fund_type.fund_type_id AS string)                                                         AS fund_type_id,
     CAST(investment_fund.open_fund_tp_code AS string)                                              AS open_fund_tp_code,
-<<<<<<< Updated upstream
     CAST(establishment_license.identification_issue_dt AS date)                                    AS fund_establishment_license_dt,
     CAST(fmr_value_period.fmr_val_code AS string)                                                  AS fmr_val_code,
     CAST(fmr_value_period.fmc_id AS string)                                                        AS fmc_id,
-=======
-    CAST(fmr_value_period.fmr_val_code AS string)                                                  AS fmr_val_code,
->>>>>>> Stashed changes
     CAST(fmr_value_period.fmc_code AS string)                                                      AS fmc_code,
     CAST(fmr_value_period.investment_fund_code AS string)                                          AS investment_fund_code,
     CAST(fmr_value_period.securities_distribution_agent_code AS string)                            AS securities_distribution_agent_code,
@@ -186,12 +182,8 @@ SELECT
     CAST(fmr_value_period.submitted_dt AS date)                                                    AS submitted_dt,
     CAST(fmr_value_period.cell_val AS string)                                                      AS cell_val,
     try_cast(regexp_replace(CAST(fmr_value_period.cell_val AS string), '%', '') AS decimal(38,10)) AS cell_numeric_val,
-<<<<<<< Updated upstream
     CAST(fmr_value_period.src_stm_code AS string)                                                  AS src_stm_code,
     CAST(row_indicator.row_indicator_val_code AS string)                                           AS row_indicator_val_code
-=======
-    CAST(fmr_value_period.src_stm_code AS string)                                                  AS src_stm_code
->>>>>>> Stashed changes
 FROM fmr_value_period
 LEFT JOIN fund_management_rpt_cell
     ON fund_management_rpt_cell.fmr_sheet_code = fmr_value_period.fmr_sheet_code

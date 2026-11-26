@@ -33,6 +33,68 @@ WITH sn_all AS (
     FROM {{ ref('atm_security_trading_snapshot') }}
     WHERE src_stm_code = 'MDDS_JAD_STOCKINFOR'
         AND floor_code = '03'
+        -- [DAILY] AND trading_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
+),
+
+sn AS (
+    SELECT
+        ticker_symbol,
+        trading_dt,
+        close_price
+    FROM sn_all
+    WHERE rn = 1
+),
+
+oi AS (
+    SELECT
+        ticker_symbol,
+        rpt_dt,
+        SUM(open_interest_quantity) AS open_interest_quantity
+    FROM {{ ref('atm_end_of_day_open_interest') }}
+    WHERE src_stm_code = 'VSDC_END_OF_DAY_OPEN_INTEREST'
+        -- [DAILY] AND rpt_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
+    GROUP BY ticker_symbol, rpt_dt
+),
+
+joined AS (
+    SELECT
+        COALESCE(sn.ticker_symbol, oi.ticker_symbol)   AS ticker_symbol,
+        COALESCE(sn.trading_dt, oi.rpt_dt)             AS snpst_dt,
+        sn.close_price,
+        oi.open_interest_quantity
+    FROM sn
+    FULL OUTER JOIN oi
+        ON oi.ticker_symbol = sn.ticker_symbol
+       AND oi.rpt_dt        = sn.trading_dt
+)
+
+SELECT
+    CAST({{ generate_surrogate_key_bigint('fct_derivative_contract_snpst', "CONCAT(date_format(j.snpst_dt,'yyyyMMdd'), '|', j.ticker_symbol)") }} AS string) AS derivative_contract_snpst_id,
+    CAST(date_format(j.snpst_dt, 'yyyyMMdd') AS string)                                    AS snpst_dt_dim_id,
+    CAST({{ generate_surrogate_key_bigint('MDDS_JAD_STOCKINFOR', 'j.ticker_symbol') }} AS string) AS security_trading_snpst_dim_id,
+    CAST(j.ticker_symbol AS string)                                                         AS ticker_symbol,
+    CAST(j.open_interest_quantity AS decimal(23,2))                                         AS open_interest_quantity,
+    CAST(j.close_price AS decimal(23,2))                                                    AS close_price
+FROM joined j
+
+/*
+*--------------------------------------------------------------------*
+* [DAILY] Code chay hang ngay — thay the toan bo phan WITH...SELECT
+* phia tren khi chuyen sang che do incremental theo etl_date.
+*--------------------------------------------------------------------*
+
+WITH sn_all AS (
+    SELECT
+        ticker_symbol,
+        trading_dt,
+        close_price,
+        ROW_NUMBER() OVER (
+            PARTITION BY ticker_symbol, trading_dt
+            ORDER BY trading_time DESC, sequence DESC
+        ) AS rn
+    FROM {{ ref('atm_security_trading_snapshot') }}
+    WHERE src_stm_code = 'MDDS_JAD_STOCKINFOR'
+        AND floor_code = '03'
         AND trading_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
 ),
 
@@ -56,15 +118,6 @@ oi AS (
     GROUP BY ticker_symbol, rpt_dt
 ),
 
-se_tr_sn_di AS (
-    SELECT
-        security_trading_snpst_dim_id,
-        symbol
-    FROM {{ ref('dtm_security_trading_snpst_dim') }}_hstr
-    WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
-        AND ds_rcrd_st = 'ACTIVE'
-),
-
 joined AS (
     SELECT
         COALESCE(sn.ticker_symbol, oi.ticker_symbol)   AS ticker_symbol,
@@ -79,11 +132,12 @@ joined AS (
 
 SELECT
     CAST({{ generate_surrogate_key_bigint('fct_derivative_contract_snpst', "CONCAT(date_format(j.snpst_dt,'yyyyMMdd'), '|', j.ticker_symbol)") }} AS string) AS derivative_contract_snpst_id,
-    CAST(date_format(j.snpst_dt, 'yyyyMMdd') AS string)    AS snpst_dt_dim_id,
-    CAST(d.security_trading_snpst_dim_id AS string)        AS security_trading_snpst_dim_id,
-    CAST(j.ticker_symbol AS string)                        AS ticker_symbol,
-    CAST(j.open_interest_quantity AS decimal(23,2))         AS open_interest_quantity,
-    CAST(j.close_price AS decimal(23,2))                   AS close_price
+    CAST(date_format(j.snpst_dt, 'yyyyMMdd') AS string)                                    AS snpst_dt_dim_id,
+    CAST({{ generate_surrogate_key_bigint('MDDS_JAD_STOCKINFOR', 'j.ticker_symbol') }} AS string) AS security_trading_snpst_dim_id,
+    CAST(j.ticker_symbol AS string)                                                         AS ticker_symbol,
+    CAST(j.open_interest_quantity AS decimal(23,2))                                         AS open_interest_quantity,
+    CAST(j.close_price AS decimal(23,2))                                                    AS close_price
 FROM joined j
-LEFT JOIN se_tr_sn_di d
-    ON d.symbol = j.ticker_symbol
+
+*--------------------------------------------------------------------*
+*/

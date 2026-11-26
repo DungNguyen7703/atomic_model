@@ -45,23 +45,23 @@ snapshot_dim AS (
 trade_raw AS (
     SELECT
         trade_dt,
-        ticker_symbol,
-        match_quantity,
-        match_price,
+        security_symbol_code    AS ticker_symbol,        -- LIVE: ticker_symbol
+        execution_vol           AS match_quantity,       -- LIVE: match_quantity
+        execution_price         AS match_price,          -- LIVE: match_price
         buy_account_nbr,
         sell_account_nbr
     FROM {{ ref('atm_securities_trade') }}
     WHERE trade_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
-        AND market_code = 'DVX'
+        AND market_id_code = 'DVX'                       -- LIVE: market_code
 ),
 
 open_interest AS (
     SELECT
-        make_date(rpt_year, rpt_month, rpt_day) AS rpt_dt,
+        rpt_dt,
         ticker_symbol,
         open_interest_quantity
     FROM {{ ref('atm_end_of_day_open_interest') }}
-    WHERE make_date(rpt_year, rpt_month, rpt_day) = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
+    WHERE rpt_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
         AND src_stm_code = 'VSDC_END_OF_DAY_OPEN_INTEREST'
 ),
 

@@ -91,3 +91,146 @@ models:
       tags:
         - layer_datamart
         - domain_vp
+
+  - name: dtm_fct_government_bond_listing_snpst
+    description: "[MOI 2026-11-05] Datamart model cua bang Fact Government Bond Listing Snapshot - danh sach TPCP niem yet theo thang bao cao HNX, 1 dong / ma TPCP / thang. snpst_dt = LAST_DAY(rpt_year, rpt_month). listed_bond_val = listed_bond_quantity * 100000 (menh gia TPCP). Filter etl_date = cuoi thang. Yeu cau atm_gov_bond_listing da co rpt_year / rpt_month (them 2026-11-04, O_VP_62)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_government_bond_listing_snpst'
+      tags:
+        - layer_datamart
+        - domain_vp
+
+  - name: dtm_fct_foreign_capital_flow_summary_snpst
+    description: "[MOI 2026-11-05] Datamart model cua bang Fact Foreign Capital Flow Summary Snapshot - dong von NDTNN theo ky nua thang (IBOU9, sheet 'I'), 1 dong / TVLK (reporting_entity_code) / period_val / rpt_year. Khử trung giu ban nop moi nhat (rpt_day DESC, submission_dt DESC, rpt_log_id DESC). Pivot dong 'Tong= (1) + (2)': capital_flow_net_val / capital_inflow_val / capital_outflow_val (USD). snpst_dt_dim_id = yyyyMMdd(submission_dt). Materialization append / partition snpst_dt_dim_id."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_foreign_capital_flow_summary_snpst'
+      tags:
+        - layer_datamart
+        - domain_vp
+
+  - name: dtm_fct_derivatives_account_snpst
+    description: "[MOI 2026-11-05] Datamart model cua bang Fact Derivatives Account Snapshot - so luong tai khoan phai sinh cuoi ky theo thang bao cao TTLK01_1, 1 dong / row_index / thang. Pivot column_path → total_account_quantity / domestic_account_quantity / foreign_account_quantity. snpst_dt = LAST_DAY thang bao cao. Nguon ICP, trang thai SUBMITTED/LATE_SUBMITTED, period_tp_code MONTHLY."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_derivatives_account_snpst'
+      tags:
+        - layer_datamart
+        - domain_vp
+
+  - name: dtm_fct_listing_status_change_snpst
+    description: "[MOI 2026-11-02, O_VP_39/44/45/53] Datamart model của bảng Fact Listing Status Change Snapshot - lịch sử thay đổi niêm yết / đăng ký GD, 1 dòng / quyết định × mã CK × Sở (HNX/HOSE). ETL nạp đủ LỊCH SỬ (append theo etl_date). snpst_dt_dim_id = etl_date (partition kỹ thuật); cdr_dt_dim_id = effective_date (ngày hiệu lực, dùng calendar JOIN ở flat layer). security_trading_snpst_dim_id generate inline theo symbol (không lọc ngày, O_VP_44). listing_floor_code: niêm yết mới lấy tại first_trading_date, bổ sung/hủy lấy phiên gần nhất <= effective_date (O_VP_53)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_listing_status_change_snpst'
+      tags:
+        - layer_datamart
+        - domain_vp
+
+  - name: dtm_fct_government_bond_listing_change_snpst
+    description: "[MOI 2026-11-08, O_VP_71] Datamart model cua bang Fact Government Bond Listing Change Snapshot - su kien thay doi niem yet TPCP tren HNX, 1 dong / su kien / listing_change_dt. listing_status giu nhan nguon ('Niem yet moi', 'Niem yet bo sung', 'Dao han'). Nguon HNX_GOV_BOND_ADDITIONAL_LISTING. Filter listing_change_dt = etl_date (daily)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_government_bond_listing_change_snpst'
+      tags:
+        - layer_datamart
+        - domain_vp
+
+  - name: dtm_fct_private_corporate_bond_registration_status_snpst
+    description: "[MOI 2026-11-08, O_VP_71] Datamart model cua bang Fact Private Corporate Bond Registration Status Snapshot - trang thai dang ky GD TPDN rieng le, 1 dong / ma TP / trang thai / thang bao cao HNX. So lieu luy ke tu dau nam. snpst_dt_dim_id = LAST_DAY(rpt_year, rpt_month). Chay vao ngay cuoi thang. Nguon HNX_REGISTRATION_STATUS_CHANGE."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_private_corporate_bond_registration_status_snpst'
+      tags:
+        - layer_datamart
+        - domain_vp
+
+  - name: dtm_fct_government_bond_bidding_result_snpst
+    description: "[MOI 2026-11-03, O_VP_49] Datamart model của bảng Fact Government Bond Bidding Result Snapshot - kết quả đấu thầu phát hành TPCP, 1 dòng / kết quả đấu thầu. Nguồn HNX_GOV_BOND_OFFERING, issue_dt <= etl_date. ETL nạp đủ lịch sử (upsert theo PK). issue_term_years quy đổi từ bond_term string (tuần/52, tháng/12, năm giữ nguyên)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_government_bond_bidding_result_snpst'
+      tags:
+        - layer_datamart
+        - domain_vp
+
+  - name: dtm_fct_investor_account_movement_snpst
+    description: "[MOI 2026-11-02, O_VP_46] Datamart model của bảng Fact Investor Account Movement Snapshot - phát sinh mở/đóng tài khoản NĐT theo ngày × loại NĐT (investor_tp_code VSDC IN 3/4/5/6/7, else NA). FULL OUTER JOIN open_agg và close_agg. ETL dựng lại toàn bộ mỗi lần vì sự kiện có thể khai báo lùi ngày — MERGE theo PK. Nguồn atm_open_investor_account + atm_closed_investor_account."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_investor_account_movement_snpst'
+      tags:
+        - layer_datamart
+        - domain_vp
+
+  - name: dtm_fct_share_auction_result_snpst
+    description: "[MOI 2026-11-05] Datamart model của bảng Fact Share Auction Result Snapshot - kết quả đấu giá cổ phần theo tháng báo cáo, 1 dòng / đợt đấu giá (row_index) / tháng / sàn (HNX05 hoặc HSX03). Pivot column_path → auction_tp_nm, domestic_winning_val, foreign_winning_val. snpst_dt = LAST_DAY tháng báo cáo. Nguồn ICP, trạng thái SUBMITTED/LATE_SUBMITTED. auction_tp_group_nm phân nhóm: IPO / Thoái vốn / Phát hành ra công chúng quyền mua / Khác."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: append
+      partition_by: ["snpst_dt_dim_id"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_share_auction_result_snpst'
+      tags:
+        - layer_datamart
+        - domain_vp
+
+  - name: dtm_fct_private_corporate_bond_offering_snpst
+    description: "[MOI 2026-11-11, O_VP_76] Datamart model của bảng Fact Private Corporate Bond Offering Snapshot - tình hình chào bán TPDN riêng lẻ theo tháng báo cáo HNX (BM 27/28), 1 dòng / mã TPDNRL x thị trường x ngày đăng tin x tháng. Số liệu nguồn là lũy kế từ đầu năm. Nạp 1 lần/tháng vào ngày cuối tháng. snpst_dt_dim_id = etl_date (partition); cdr_dt_dim_id = LAST_DAY(rpt_year, rpt_month)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_private_corporate_bond_offering_snpst'
+      tags:
+        - layer_datamart
+        - domain_vp
+
+  - name: dtm_fct_securities_offering_event
+    description: "[MOI 2026-11-11, O_VP_75] Datamart model của bảng Fact Securities Offering Event - sự kiện phát hành chứng khoán, 1 dòng / đợt phát hành x phương thức x loại CK. 3 nguồn UNION ALL: IDS (CTĐC), SCMS (CTCK - CHỜ ATOMIC), FMS (CTQLQ). Full history: certificate_dt <= etl_date, MERGE by PK. snpst_dt_dim_id = etl_date (partition); certificate_dt_dim_id = FK tới calendar dim."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: snapshot
+      partition_by: ["ds_snpst_dt"]
+      file_format: '{{ var("file_format") }}'
+      schema: '{{ var("dtm_schema") }}'
+      alias: 'fct_securities_offering_event'
+      tags:
+        - layer_datamart
+        - domain_vp

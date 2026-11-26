@@ -43,8 +43,9 @@ models:
       - concept::fact
       - domain::qlcb
 
-  - name: qlcb_fct_securities_offering_application_snpst_flat
-    description: "Flat table — Fact Securities Offering Application Snapshot × Calendar Date Dimension × Offering Method Dimension"
+
+  - name: qlcb_fct_securities_offering_detail_snpst_flat
+    description: "Flat table — Fact Securities Offering Detail (tổng hợp phương án + kết quả phát hành theo đợt)"
     config:
       materialized: incremental_rebase
       incremental_strategy: ck_snapshot
@@ -69,20 +70,8 @@ models:
       - concept::operational
       - domain::qlcb
 
-  - name: qlcb_fct_tthc_ap_document_stat_flat
-    description: "Flat table — Fact TTHC AP Document Statistic Snapshot"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: ck_snapshot
-      partition_by: ['ds_snpst_dt']
-      file_format: "{{ var('file_format') }}"
-      schema: "{{ var('ck_schema') }}"
-    tags:
-      - layer::clickhouse
-      - concept::fact
-      - domain::qlcb
 
-  - name: qlcb_fct_tthc_ap_document_flat
+  - name: qlcb_fct_ap_document_flat
     description: "Flat table — Fact TTHC AP Document Snapshot"
     config:
       materialized: incremental_rebase

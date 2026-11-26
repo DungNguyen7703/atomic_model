@@ -55,14 +55,14 @@ constituent_dim AS (
 trade_raw AS (
     SELECT
         trade_dt,
-        ticker_symbol,
-        match_amt,
-        match_quantity,
+        security_symbol_code    AS ticker_symbol,        -- LIVE: ticker_symbol
+        execution_val           AS match_amt,            -- LIVE: match_amt
+        execution_vol           AS match_quantity,       -- LIVE: match_quantity
         board_tp_code
     FROM {{ ref('atm_securities_trade') }}
     WHERE trade_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
-        AND src_stm_code IN ('HOSE_TRADE_BOOK','HNX_TRADE_BOOK')
-        AND market_code IN ('STK','STX','UPX')
+        AND src_stm_code IN ('ORDERTRADE_TRADE_BOOK_HOSE','ORDERTRADE_TRADE_BOOK_HNX')  -- LIVE: 'HOSE_TRADE_BOOK','HNX_TRADE_BOOK'
+        AND market_id_code IN ('STK','STX','UPX')        -- LIVE: market_code
 ),
 
 market_raw AS (
@@ -151,7 +151,7 @@ SELECT
     CAST(trade_summary.negotiated_trading_vol AS int)                    AS negotiated_trading_vol,
     CAST(trade_summary.odd_lot_trading_val AS decimal(23,2))             AS odd_lot_trading_val,
     CAST(trade_summary.odd_lot_trading_vol AS int)                       AS odd_lot_trading_vol,
-    CAST('ORDERTRADE_TRADE_BOOK_HOSE_HNX' AS string)                     AS src_stm_code
+    CAST('ORDERTRADE_TRADE_BOOK_HOSE_HNX' AS string)                     AS src_stm_code   -- LIVE: 'HOSE_HNX_TRADE_BOOK'
 FROM market_index
 LEFT JOIN trade_summary
     ON trade_summary.index_code = market_index.market_code

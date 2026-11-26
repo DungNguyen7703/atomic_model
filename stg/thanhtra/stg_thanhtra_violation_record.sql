@@ -10,6 +10,7 @@
 *
 * 2026-10-25		tuan.nguyenvanb		[LLD atomic lld_THANHTRA_VIOLATION_RECORD.yaml] them cot email_sent_at, sms_sent_at (cuoi danh sach)
 * 2026-11-02		tuan.nguyenvanb		Dong bo theo DDL production THANHTRA_ddl_prod.sql: kieu date sang timestamp (2 cot); doi thu tu cot.
+* 2026-11-26		tuan.nguyenvanb	Dong bo DDL UAT moi: them 6 cot no_longer_violation*, violation_time_from/to (cuoi danh sach); doi thu tu assigned_signer_name/id va created_by_ban_role/signing_flow.
 *--------------------------------------------------------------------*
 */
 
@@ -62,12 +63,18 @@ SELECT
     , CAST(viewed_at AS timestamp)                     AS viewed_at
     , CAST(downloaded_at AS timestamp)                 AS downloaded_at
     , CAST(uploaded_signed_at AS timestamp)            AS uploaded_signed_at
-    , CAST(assigned_signer_id AS string)               AS assigned_signer_id
     , CAST(assigned_signer_name AS string)             AS assigned_signer_name
+    , CAST(assigned_signer_id AS string)               AS assigned_signer_id
     , CAST(assigned_leader_signer_id AS string)        AS assigned_leader_signer_id
     , CAST(assigned_leader_signer_name AS string)      AS assigned_leader_signer_name
-    , CAST(signing_flow AS string)                     AS signing_flow
     , CAST(created_by_ban_role AS string)              AS created_by_ban_role
+    , CAST(signing_flow AS string)                     AS signing_flow
     , CAST(email_sent_at AS timestamp)                 AS email_sent_at
     , CAST(sms_sent_at AS timestamp)                   AS sms_sent_at
+    , CAST(no_longer_violation AS int)                 AS no_longer_violation
+    , CAST(no_longer_violation_note AS string)         AS no_longer_violation_note
+    , CAST(no_longer_violation_at AS timestamp)        AS no_longer_violation_at
+    , CAST(no_longer_violation_by AS string)           AS no_longer_violation_by
+    , CAST(violation_time_from AS date)                AS violation_time_from
+    , CAST(violation_time_to AS date)                  AS violation_time_to
 FROM {{ source('source_thanhtra', 'raw_violation_record') }}

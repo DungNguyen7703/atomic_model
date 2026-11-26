@@ -26,4 +26,9 @@ SELECT
     , CAST(created_by_name AS string)   AS created_by_name
     , CAST(updated_by_name AS string)   AS updated_by_name
     , CAST(deleted AS int)              AS deleted
+    , to_date('{{ var("etl_date") }}', 'yyyy-MM-dd') AS data_dt
 FROM {{ source('source_tms', 'raw_compliance_report_data') }}
+WHERE (created_at >= TO_TIMESTAMP('{{ var("etl_date") }}')
+  AND created_at <  TO_TIMESTAMP('{{ var("etl_date") }}') + INTERVAL 1 DAY)
+   OR (updated_at >= TO_TIMESTAMP('{{ var("etl_date") }}')
+  AND updated_at <  TO_TIMESTAMP('{{ var("etl_date") }}') + INTERVAL 1 DAY)

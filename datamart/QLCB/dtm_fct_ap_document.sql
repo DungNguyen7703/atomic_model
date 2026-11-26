@@ -13,10 +13,10 @@
 
 WITH apd AS (
     SELECT d.*
-    FROM {{ ref('atm_tthc_ap_document') }}_hstr d
-    INNER JOIN {{ ref('atm_cl_value') }} auth
+    FROM atomic.uat_atm.tthc_ap_document_hstr d
+    INNER JOIN atomic.uat_atm.cl_value auth
         ON  d.processing_authority_code = auth.cl_code
-        AND auth.schema_code            = 'TTHC.PROCESSING_AUTHORITY'
+        AND auth.SCHEMA_CODE            = 'TTHC.PROCESSING_AUTHORITY'
         AND auth.cl_nm                  = 'Ban Quản lý chào bán chứng khoán'
         AND auth.ds_rcrd_st             = 'ACTIVE'
         AND auth.src_stm_code           = 'TTHC_CLASSIFICATION_VALUE'
@@ -65,12 +65,12 @@ enriched AS (
         END                 AS document_status_group_nm,
         tp.cl_nm            AS offering_method_nm
     FROM apd
-    INNER JOIN {{ ref('atm_cl_value') }} st
+    INNER JOIN atomic.uat_atm.cl_value st
         ON  apd.processing_status_code = st.cl_code
         AND st.SCHEMA_CODE             = 'TTHC.PROCESSING_STATUS'
         AND st.ds_rcrd_st              = 'ACTIVE'
         AND st.src_stm_code            = 'TTHC_CLASSIFICATION_VALUE'
-    INNER JOIN {{ ref('atm_cl_value') }} tp
+    INNER JOIN atomic.uat_atm.cl_value tp
         ON  apd.document_tp_code       = tp.cl_code
         AND tp.SCHEMA_CODE             = 'TTHC.DOCUMENT_TYPE'
         AND tp.ds_rcrd_st              = 'ACTIVE'
@@ -85,7 +85,7 @@ SELECT
     CAST(e.submission_tms           AS DATE)   AS submission_dt,
     CAST(e.document_status_group_nm AS STRING) AS document_status_group_nm
 FROM enriched e
-LEFT JOIN {{ ref('atm_tthc_ap_document_applicant') }}_hstr app
+LEFT JOIN atomic.uat_atm.ap_document_applicant_hstr app
     ON  e.ap_document_applicant_id = app.ap_document_applicant_id
     AND app.ds_snpst_dt            = to_date('{{ var("etl_date") }}', 'yyyy-MM-dd')
     AND app.ds_rcrd_st             = 'ACTIVE'

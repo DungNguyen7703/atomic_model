@@ -16,6 +16,8 @@
 *                                 data_tp_code IN (CURRENCY,PERCENTAGE,NUMBER) bang TRY_CAST.
 *                                 O_VP_20: ds_snpst_dt cung cua BA -> dung ds_rcrd_st='ACTIVE'.
 *                                 O_VP_21: khoa o atomic chua gom nguon nop / trang thai nop.
+* 2026-11-18      claude          [O_VP_87] Them proprietary_buy_val, proprietary_sell_val
+*                                 (row_path tu doanh tu bao cao HNX09).
 * 2026-10-29      huy.pham        Them src_stm_code vao PK hash, GROUP BY va SELECT de
 *                                 tranh trung khoa khi nhieu nguon.
 *--------------------------------------------------------------------*
@@ -36,7 +38,7 @@ WITH rpt AS (
         AND period_tp_code          = 'DAILY'
         AND rpt_submission_stm_code = 'ICP'
         AND submission_status_code  IN ('SUBMITTED','LATE_SUBMITTED')
-        AND MAKE_DATE(rpt_year, rpt_month, rpt_day) = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
+        --AND MAKE_DATE(rpt_year, rpt_month, rpt_day) = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
         AND ds_rcrd_st              = 'ACTIVE'
 ),
 
@@ -44,7 +46,7 @@ rpt_agg AS (
     SELECT
         src_stm_code,
         rpt_dt,
-        SUM(CASE WHEN row_path = 'GIÁ TRỊ GIAO DỊCH'
+        SUM(CASE WHEN row_path = 'GIÁ TRỊ GIAO DỊCH'
                   AND data_tp_code IN ('CURRENCY','PERCENTAGE','NUMBER')
                  THEN TRY_CAST(cell_val AS decimal(38,15)) END)                                             AS trading_val,
         SUM(CASE WHEN row_path = 'GIÁ TRỊ GIAO DỊCH NHÀ ĐẦU TƯ NƯỚC NGOÀI - GIÁ TRỊ MUA'
@@ -52,7 +54,13 @@ rpt_agg AS (
                  THEN TRY_CAST(cell_val AS decimal(38,15)) END)                                             AS foreign_buy_val,
         SUM(CASE WHEN row_path = 'GIÁ TRỊ GIAO DỊCH NHÀ ĐẦU TƯ NƯỚC NGOÀI - GIÁ TRỊ BÁN'
                   AND data_tp_code IN ('CURRENCY','PERCENTAGE','NUMBER')
-                 THEN TRY_CAST(cell_val AS decimal(38,15)) END)                                             AS foreign_sell_val
+                 THEN TRY_CAST(cell_val AS decimal(38,15)) END)                                             AS foreign_sell_val,
+        SUM(CASE WHEN row_path = 'GIÁ TRỊ GIAO DỊCH CỦA KHỐI TỰ DOANH - GIÁ TRỊ MUA'
+                  AND data_tp_code IN ('CURRENCY','PERCENTAGE','NUMBER')
+                 THEN TRY_CAST(cell_val AS decimal(38,15)) END)                                             AS proprietary_buy_val,
+        SUM(CASE WHEN row_path = 'GIÁ TRỊ GIAO DỊCH CỦA KHỐI TỰ DOANH - GIÁ TRỊ BÁN'
+                  AND data_tp_code IN ('CURRENCY','PERCENTAGE','NUMBER')
+                 THEN TRY_CAST(cell_val AS decimal(38,15)) END)                                             AS proprietary_sell_val
     FROM rpt
     GROUP BY src_stm_code, rpt_dt
 )
@@ -63,5 +71,7 @@ SELECT
     CAST(trading_val AS decimal(23,2))                  AS trading_val,
     CAST(foreign_buy_val AS decimal(23,2))              AS foreign_buy_val,
     CAST(foreign_sell_val AS decimal(23,2))             AS foreign_sell_val,
-    CAST(src_stm_code AS string)                        AS src_stm_code
+    CAST(src_stm_code AS string)                        AS src_stm_code,
+    CAST(proprietary_buy_val AS decimal(23,2))          AS proprietary_buy_val,
+    CAST(proprietary_sell_val AS decimal(23,2))         AS proprietary_sell_val
 FROM rpt_agg

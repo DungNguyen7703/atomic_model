@@ -9,7 +9,8 @@
 * Date				User				Description
 *
 * 2026-10-25		tuan.nguyenvanb		[LLD atomic lld_THANHTRA_VIOLATION_RECORD.yaml] them cot email_sent_at, sms_sent_at (cuoi danh sach)
-* 2026-11-03		nghia.le			[DDL moi THANHTRA.VIOLATION_RECORD] them cot no_longer_violation, no_longer_violation_note, no_longer_violation_at, no_longer_violation_by, violation_time_from, violation_time_to (cuoi danh sach)
+* 2026-11-07		tuan.nguyenvanb		Dong bo cot theo stg_thanhtra_violation_record (ODS lay 1-1 tu staging); doi thu tu cot.
+* 2026-11-26		tuan.nguyenvanb	Dong bo theo stg: them 6 cot no_longer_violation*, violation_time_from/to; doi thu tu assigned_signer_name/id va created_by_ban_role/signing_flow.
 *--------------------------------------------------------------------*
 */
 

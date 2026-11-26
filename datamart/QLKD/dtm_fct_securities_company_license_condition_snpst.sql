@@ -59,7 +59,9 @@ WITH sc_al_vi AS (
         rpt_period_code,
         alert_period_val,
         severity_level_alt_code,
-        alert_dt
+        alert_dt,
+        actual_val,
+        violation_description
     FROM {{ ref('atm_sc_alert_violation') }}
     WHERE ds_rcrd_st = 'ACTIVE'
 ),
@@ -91,7 +93,9 @@ SELECT
     CAST(sc_al_vi.alert_period_val AS int)              AS alert_period_val,
     CAST(sc_al_vi.severity_level_alt_code AS string)    AS severity_level_alt_code,
     CAST(sc_al_vi.alert_dt AS date)                     AS alert_dt,
-    CAST(sc_al_vi.sc_alert_ind_id AS string)            AS securities_company_alert_indicator_dim_id
+    CAST(sc_al_vi.sc_alert_ind_id AS string)            AS securities_company_alert_indicator_dim_id,
+    CAST(sc_al_vi.actual_val AS decimal(23,2))          AS actual_val,
+    CAST(sc_al_vi.violation_description AS string)      AS violation_description
 FROM sc_al_vi
 LEFT JOIN cd_dt_di
     ON  cd_dt_di.cdr_dt = sc_al_vi.alert_dt

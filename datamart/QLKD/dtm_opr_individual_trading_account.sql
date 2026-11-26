@@ -8,7 +8,7 @@
 * Modified management
 * Date				User				Description
 * 2026-10-29		tuan.nguyenvanb		[SUA theo dung LLD, ket qua ra soat doi chieu Mapping]
-*                                       Sua ten cot sai src_rcrd_isrt_tms -> src_record_insert_tms
+*                                       Sua ten cot sai src_rcrd_isrt_tms -> src_rcrd_isrt_tms
 *                                       (dung ten cot that atm_sc_shareholder sinh ra, macro
 *                                       scd4a khong doi ten cot). Bo sung shareholder_tp_code
 *                                       (LLD dong 7, direct tu sc_shareholder, co san trong
@@ -37,7 +37,7 @@ WITH se_co_sh AS (
         shareholder_nm,
         shareholder_tp_code,
         src_stm_code,
-        src_record_insert_tms
+        src_rcrd_isrt_tms
     FROM {{ ref('atm_sc_shareholder') }}_hstr
     WHERE ds_snpst_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
         AND ds_rcrd_st = 'ACTIVE'
@@ -74,7 +74,7 @@ SELECT
     CAST(se_co_sh.shareholder_nm AS string)             AS shareholder_nm,
     CAST(se_co_sh.shareholder_tp_code AS string)        AS shareholder_tp_code,
     CAST(se_co_sh.src_stm_code AS string)               AS src_stm_code,
-    CAST(se_co_sh.src_record_insert_tms AS date)        AS created_dt
+    CAST(se_co_sh.src_rcrd_isrt_tms AS date)        AS created_dt
 FROM se_co_sh
 LEFT JOIN se_co
     ON  se_co.sc_id = se_co_sh.sc_id

@@ -1067,19 +1067,6 @@ models:
         - layer_staging
         - domain_ecat
 
-  - name: stg_ecat_administrative_procedure_version_map
-    description: "Staging model của bảng ECAT.ADMINISTRATIVE_PROCEDURE_VERSION_MAP"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: append
-      partition_by: ["created_at"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'administrative_procedure_version_map'
-      tags:
-        - layer_staging
-        - domain_ecat
-
   - name: stg_ecat_af_file
     description: "Staging model của bảng ECAT.AF_FILE"
     config:
@@ -1570,19 +1557,6 @@ models:
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("stg_ecat_schema") }}'
       alias: 'public_company_new'
-      tags:
-        - layer_staging
-        - domain_ecat
-
-  - name: stg_ecat_public_company_version_map
-    description: "Staging model của bảng ECAT.PUBLIC_COMPANY_VERSION_MAP"
-    config:
-      materialized: incremental_rebase
-      incremental_strategy: append
-      partition_by: ["created_at"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("stg_ecat_schema") }}'
-      alias: 'public_company_version_map'
       tags:
         - layer_staging
         - domain_ecat

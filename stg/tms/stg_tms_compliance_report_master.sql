@@ -13,7 +13,7 @@
 */
 
 SELECT
-    CAST(id AS string)                  AS id
+    CAST(id AS string)                    AS id
     , CAST(template_id AS string)         AS template_id
     , CAST(period_type AS string)         AS period_type
     , CAST(period_value AS int)           AS period_value
@@ -42,5 +42,10 @@ SELECT
     , CAST(deleted AS int)                AS deleted
     , CAST(submitter_title AS string)     AS submitter_title
     , CAST(submitter_type AS string)      AS submitter_type
-    , CAST(draft_revision AS bigint)        AS draft_revision
+    , CAST(draft_revision AS bigint)      AS draft_revision
+    , to_date('{{ var("etl_date") }}', 'yyyy-MM-dd') AS data_dt
 FROM {{ source('source_tms', 'raw_compliance_report_master') }}
+WHERE (created_at >= TO_TIMESTAMP('{{ var("etl_date") }}')
+  AND created_at <  TO_TIMESTAMP('{{ var("etl_date") }}') + INTERVAL 1 DAY)
+   OR (updated_at >= TO_TIMESTAMP('{{ var("etl_date") }}')
+  AND updated_at <  TO_TIMESTAMP('{{ var("etl_date") }}') + INTERVAL 1 DAY)

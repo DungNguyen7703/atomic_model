@@ -10,6 +10,9 @@
 * 2026-10-18		tuan.nguyenvanb		[MOI] Tao STG theo KNT_UAT_schema.
 * 2026-11-08		tuan.nguyenvanb		Dong bo theo KNT_ddl_prod.sql, brd_KNT.yaml va khao sat du lieu nguon prod: kieu int sang bigint (2 cot); kieu int sang decimal(38,10) (3 cot); kieu date sang timestamp (2 cot); them cot data_dt; yml snapshot/ds_snpst_dt -> append/data_dt theo BRD.
 * 2026-11-08		tuan.nguyenvanb		Theo design: bang Append khong partition (macro INSERT OVERWRITE = truncate insert): yml append, bo partition_by data_dt; giu cot data_dt.
+* 2026-11-10		tuan.nguyenvanb		Dong bo theo DDL prod (drive-download ddl): kieu du lieu 3 cot.
+* 2026-11-10		tuan.nguyenvanb		Dong bo theo DDL final (drive-download 2026-11-10): partition_by None -> data_dt.
+* 2026-11-12		tuan.nguyenvanb		Truncate then Insert (BRD): bo cot data_dt; yml append, bo partition_by.
 *--------------------------------------------------------------------*
 */
 
@@ -24,7 +27,7 @@ SELECT
     , CAST(form_description AS string)              AS form_description
     , CAST(declaration_xml_version AS string)       AS declaration_xml_version
     , CAST(declaration_type AS string)              AS declaration_type
-    , CAST(attempt_count AS decimal(38,10))         AS attempt_count
+    , CAST(attempt_count AS int)                    AS attempt_count
     , CAST(period_type AS string)                   AS period_type
     , CAST(declaration_period AS string)            AS declaration_period
     , CAST(declaration_from_date AS string)         AS declaration_from_date
@@ -59,7 +62,7 @@ SELECT
     , CAST(audit_opinion_code AS string)            AS audit_opinion_code
     , CAST(audit_opinion AS string)                 AS audit_opinion
     , CAST(audit_date AS date)                      AS audit_date
-    , CAST(created_at AS decimal(38,10))            AS created_at
+    , CAST(created_at AS timestamp)                 AS created_at
     , CAST(msg_packet_id AS bigint)                 AS msg_packet_id
     , CAST(add_info_submission_date AS date)        AS add_info_submission_date
     , CAST(add_info_received_date AS date)          AS add_info_received_date
@@ -73,7 +76,6 @@ SELECT
     , CAST(guid AS string)                          AS guid
     , CAST(is_latest AS int)                        AS is_latest
     , CAST(has_diff AS int)                         AS has_diff
-    , CAST(peer_report_id AS decimal(38,10))        AS peer_report_id
+    , CAST(peer_report_id AS bigint)                AS peer_report_id
     , CAST(dc_ready AS int)                         AS dc_ready
-    , to_date('{{ var("etl_date") }}', 'yyyy-MM-dd') AS data_dt
 FROM {{ source('source_knt', 'raw_tax_report') }}

@@ -1,12 +1,12 @@
 version: 2
 
 models:
-  - name: vp_fct_investor_group_trading_snpst_flat
+  - name: vp_fct_investor_group_trading_snpst_flat_1
     description: "[MOI 2026-10-29] Flat table ClickHouse — Fact Investor Group Trading Snapshot x Calendar Date x Security Trading Snapshot Dim x Industry Dim. Grain = 1 dong / ma CK|hop dong / ngay GD / san / investor_group_code / src_stm_code. Partition by cdr_dt (Date, derive tu snpst_dt_dim_id, khong NULL)."
     config:
       materialized: incremental_rebase
-      incremental_strategy: ck_snapshot
-      partition_by: ['ds_snpst_dt']
+      incremental_strategy: ck_event
+      partition_by: ['cdr_dt']
       file_format: "{{ var('file_format') }}"
       schema: "{{ var('ck_schema') }}"
     tags:
@@ -15,11 +15,11 @@ models:
       - domain::vp
 
   - name: vp_fct_derivative_contract_snpst_flat
-    description: "[MOI 2026-10-29] Flat table ClickHouse — Fact Derivative Contract Snapshot x Calendar Date x Security Trading Snapshot Dim. Grain = 1 dong / ma hop dong phai sinh / ngay GD. contract_close_price = gia dong cua tu MDDS floor_code=03."
+    description: "[MOI 2026-10-29] Flat table ClickHouse — Fact Derivative Contract Snapshot x Calendar Date x Security Trading Snapshot Dim. Grain = 1 dong / ma hop dong phai sinh / ngay GD. contract_close_price = gia dong cua tu MDDS floor_code=03. ck_event: DELETE + INSERT theo cdr_dt = trade_dt."
     config:
       materialized: incremental_rebase
-      incremental_strategy: ck_snapshot
-      partition_by: ['ds_snpst_dt']
+      incremental_strategy: ck_event
+      partition_by: ['cdr_dt']
       file_format: "{{ var('file_format') }}"
       schema: "{{ var('ck_schema') }}"
     tags:
@@ -28,7 +28,7 @@ models:
       - domain::vp
 
   - name: vp_fct_listed_corporate_bond_snpst_flat
-    description: "[MOI 2026-10-30] Flat table ClickHouse — Fact Listed Corporate Bond Snapshot x Calendar Date x Industry Dim. Grain = 1 ma ISIN / ngay GD."
+    description: "[MOI 2026-10-30] Flat table ClickHouse — Fact Listed Corporate Bond Snapshot x Calendar Date x Industry Dim. Grain = 1 ma ISIN / ngay GD. ck_snapshot: ghi de toan bo theo ds_snpst_dt = etl_date moi lan chay."
     config:
       materialized: incremental_rebase
       incremental_strategy: ck_snapshot
@@ -41,7 +41,7 @@ models:
       - domain::vp
 
   - name: vp_fct_private_corporate_bond_trading_snpst_flat
-    description: "[MOI 2026-10-30] Flat table ClickHouse — Fact Private Corporate Bond Trading Snapshot x Calendar Date. Grain = 1 dong / ngay bao cao / src_stm_code. Nguon HNX09 ICP pivot trading_val / foreign_buy_val / foreign_sell_val."
+    description: "[MOI 2026-10-30] Flat table ClickHouse — Fact Private Corporate Bond Trading Snapshot x Calendar Date. Grain = 1 dong / ngay bao cao / src_stm_code. Nguon HNX09 ICP pivot trading_val / foreign_buy_val / foreign_sell_val. ck_snapshot: ghi de toan bo theo ds_snpst_dt = etl_date moi lan chay."
     config:
       materialized: incremental_rebase
       incremental_strategy: ck_snapshot
@@ -54,7 +54,7 @@ models:
       - domain::vp
 
   - name: vp_fct_government_bond_trading_snpst_flat
-    description: "[MOI 2026-10-30] Flat table ClickHouse — Fact Government Bond Trading Snapshot x Calendar Date. Grain = 1 dong / ngay GD / order_book_tp / src_stm_code. order_book_tp IN (OUTRIGHT, REPO)."
+    description: "[MOI 2026-10-30] Flat table ClickHouse — Fact Government Bond Trading Snapshot x Calendar Date. Grain = 1 dong / ngay GD / order_book_tp / src_stm_code. order_book_tp IN (OUTRIGHT, REPO). ck_snapshot: ghi de toan bo theo ds_snpst_dt = etl_date moi lan chay."
     config:
       materialized: incremental_rebase
       incremental_strategy: ck_snapshot
@@ -67,7 +67,7 @@ models:
       - domain::vp
 
   - name: vp_fct_private_corporate_bond_registration_snpst_flat
-    description: "[MOI 2026-10-30] Flat table ClickHouse — Fact Private Corporate Bond Registration Snapshot x Calendar Date. Grain = 1 ma TP / thang bao cao / src_stm_code. snpst_dt_dim_id = LAST_DAY(rpt_year, rpt_month). Factless — khong co measure."
+    description: "[MOI 2026-10-30, SUA 2026-11-07] Flat table ClickHouse — Fact Private Corporate Bond Registration Snapshot x Calendar Date. Grain = 1 ma TP / thang bao cao / src_stm_code. snpst_dt_dim_id = etl_date (partition). rpt_dt_dim_id = LAST_DAY(rpt_year, rpt_month) → JOIN cal → cdr_dt. Factless — khong co measure. ck_snapshot: ghi de toan bo theo ds_snpst_dt = etl_date."
     config:
       materialized: incremental_rebase
       incremental_strategy: ck_snapshot
@@ -80,7 +80,150 @@ models:
       - domain::vp
 
   - name: vp_fct_listed_equity_snpst_flat
-    description: "[MOI 2026-10-30] Flat table ClickHouse — Fact Listed Equity Snapshot x Calendar Date. Grain = 1 ma (stock_tp_code 2/3/6) / ngay GD. next_day_vol_weighted_average_price / market_price / market_cap_val = NULL cho dong ngay D."
+    description: "[MOI 2026-10-30, SUA 2026-11-08] Flat table ClickHouse — Fact Listed Equity Snapshot x Calendar Date. Grain = 1 ma (stock_tp_code 2/3/6) / ngay GD. SELECT full tu dtm moi lan ETL, partition by ds_snpst_dt=etl_date. Khai thac WHERE ds_snpst_dt = max(ds_snpst_dt). Dong ngay moi nhat: market_price/market_cap_val = NULL voi UPCoM. ck_snapshot: ghi de toan bo theo ds_snpst_dt = etl_date."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp
+
+  - name: vp_fct_government_bond_bidding_result_snpst_flat
+    description: "[MOI 2026-11-03] Flat table ClickHouse — Fact Government Bond Bidding Result Snapshot x Calendar Date Dim. Grain = 1 dong ket qua dau thau TPCP. KHONG loc etl_date — nap TOAN BO lich su. ds_snpst_dt lay tu fact (snapshot macro inject). ck_event: chi inject ds_etl_pcs_tms, DELETE by ds_snpst_dt."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_event
+      partition_by: ['cdr_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp
+
+  - name: vp_fct_investor_account_movement_snpst_flat
+    description: "[MOI 2026-11-03] Flat table ClickHouse — Fact Investor Account Movement Snapshot x Calendar Date Dim. Grain = 1 ngay phat sinh / investor_tp_code. KHONG loc etl_date — nap TOAN BO lich su moi lan ETL (su kien co the khai bao lui ngay, O_VP_46). ReplicatedReplacingMergeTree tu dedup theo ORDER BY (cdr_dt, investor_account_movement_snpst_id). Query PHAI dung FINAL."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_event
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp
+
+  - name: vp_fct_listing_status_change_snpst_flat
+    description: "[MOI 2026-11-03] Flat table ClickHouse — Fact Listing Status Change Snapshot x Calendar Date x Security Trading Snapshot Dim. Grain = 1 quyet dinh x 1 ma CK x 1 So (HNX/HOSE). Loc theo effective_dt = etl_date (snpst_dt_dim_id). listing_floor_code = ma san tai thoi diem quyet dinh (O_VP_53). ck_snapshot: ghi de toan bo theo ds_snpst_dt = etl_date."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp
+
+  - name: vp_fct_share_auction_result_snpst_flat
+    description: "[MOI 2026-11-07] Flat table ClickHouse — Fact Share Auction Result Snapshot x Calendar Date. Grain = 1 dong / rpt_code (HNX05/HSX03) / thang bao cao / src_stm_code. snpst_dt_dim_id = LAST_DAY(rpt_year, rpt_month) = cdr_dt. Pivot auction_tp_nm / domestic_winning_val / foreign_winning_val."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp
+
+  - name: vp_fct_government_bond_listing_snpst_flat
+    description: "[MOI 2026-11-07] Flat table ClickHouse — Fact Government Bond Listing Snapshot x Calendar Date. Grain = 1 ma TPCP x 1 thang bao cao HNX. snpst_dt_dim_id = etl_date (partition). cdr_dt_dim_id = LAST_DAY(rpt_year, rpt_month) → JOIN cal → cdr_dt. listed_bond_val = listed_bond_quantity * 100000. ck_snapshot: ghi de toan bo theo ds_snpst_dt = etl_date."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp
+
+  - name: vp_fct_foreign_capital_flow_summary_snpst_flat
+    description: "[MOI 2026-11-07] Flat table ClickHouse — Fact Foreign Capital Flow Summary Snapshot x Calendar Date. Grain = 1 TVLK (reporting_entity_code) x 1 ky nua thang. snpst_dt_dim_id = yyyyMMdd(submission_dt). rpt_dt_dim_id = ky bao cao → JOIN cal → cdr_dt. Pivot capital_flow_net_val / capital_inflow_val / capital_outflow_val (USD)."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_event
+      partition_by: ['cdr_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp
+
+  - name: vp_fct_derivatives_account_snpst_flat
+    description: "[MOI 2026-11-07] Flat table ClickHouse — Fact Derivatives Account Snapshot x Calendar Date. Grain = 1 dong bieu mau (row_nbr) / thang bao cao TTLK01_1. snpst_dt_dim_id = etl_date (partition). cdr_dt_dim_id = LAST_DAY(rpt_year, rpt_month) → JOIN cal → cdr_dt. Pivot total / domestic / foreign account quantity."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_event
+      partition_by: ['cdr_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp
+
+  - name: vp_fct_government_bond_listing_change_snpst_flat
+    description: "[MOI 2026-11-08, O_VP_71] Flat table ClickHouse — Fact Government Bond Listing Change Snapshot x Calendar Date. Grain = 1 su kien thay doi niem yet TPCP / ngay. snpst_dt_dim_id = etl_date (loc). cdr_dt_dim_id = listing_change_dt → JOIN cal → cdr_dt. ck_snapshot: ghi de toan bo theo ds_snpst_dt = etl_date moi lan chay."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp
+
+  - name: vp_fct_private_corporate_bond_offering_snpst_flat
+    description: "[MOI 2026-11-11, O_VP_76] Flat table ClickHouse — Fact Private Corporate Bond Offering Snapshot x Calendar Date Dim. Grain = 1 ma TPDNRL x thi truong x ngay dang tin x thang bao cao HNX (BM 27/28). cdr_dt = LAST_DAY(rpt_year, rpt_month). ck_snapshot: ghi de toan bo theo ds_snpst_dt = etl_date moi lan chay."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp
+
+  - name: vp_fct_securities_offering_event_flat
+    description: "[MOI 2026-11-12, O_VP_75] Flat table ClickHouse — Fact Securities Offering Event x Calendar Date Dim. Grain = 1 đợt phát hành × 1 phương thức × 1 loại CK × 1 kỳ kết quả. 3 nguồn IDS/SCMS(chờ atomic)/FMS. Full history nạp theo ds_snpst_dt = etl_date. cdr_dt = certificate_dt. ck_snapshot: ghi đè toàn bộ theo ds_snpst_dt."
+    config:
+      materialized: incremental_rebase
+      incremental_strategy: ck_snapshot
+      partition_by: ['ds_snpst_dt']
+      file_format: "{{ var('file_format') }}"
+      schema: "{{ var('ck_schema') }}"
+    tags:
+      - layer::clickhouse
+      - concept::fact
+      - domain::vp
+
+  - name: vp_fct_private_corporate_bond_registration_status_snpst_flat
+    description: "[MOI 2026-11-08, O_VP_71] Flat table ClickHouse — Fact Private Corporate Bond Registration Status Snapshot x Calendar Date. Grain = 1 ma TP / 1 trang thai / 1 thang bao cao HNX. cdr_dt = LAST_DAY(rpt_year, rpt_month) = ngay cuoi thang. ck_snapshot: ghi de toan bo theo ds_snpst_dt = etl_date moi lan chay."
     config:
       materialized: incremental_rebase
       incremental_strategy: ck_snapshot

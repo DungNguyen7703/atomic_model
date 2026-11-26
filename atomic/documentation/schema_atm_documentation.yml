@@ -707,6 +707,7 @@ models:
     config:
       materialized: scd2
       unique_key: ["private_corp_bond_service_organization_id"]
+      identity_col: []
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("atm_schema") }}'
       alias: 'private_corp_bond_service_organization'
@@ -739,17 +740,5 @@ models:
       file_format: '{{ var("file_format") }}'
       schema: '{{ var("atm_schema") }}'
       alias: 'anti_money_laundering_document'
-      tags:
-        - layer_atomic
-
-  - name: atm_tthc_ap_document
-    description: "Atomic model của bảng TTHC Administrative Procedure Document"
-    config:
-      materialized: scd4a
-      unique_key: ["ap_document_id"]
-      source_system: ["TTHC_AP_DOCUMENT"]
-      file_format: '{{ var("file_format") }}'
-      schema: '{{ var("atm_schema") }}'
-      alias: 'tthc_ap_document'
       tags:
         - layer_atomic

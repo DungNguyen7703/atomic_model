@@ -52,16 +52,16 @@ constituent_dim AS (
 trade_raw AS (
     SELECT
         trade_dt,
-        ticker_symbol,
-        match_quantity,
-        match_amt,
+        security_symbol_code    AS ticker_symbol,        -- LIVE: ticker_symbol
+        execution_vol           AS match_quantity,       -- LIVE: match_quantity
+        execution_val           AS match_amt,            -- LIVE: match_amt
         board_tp_code,
         buy_account_nbr,
         sell_account_nbr
     FROM {{ ref('atm_securities_trade') }}
     WHERE trade_dt = to_date('{{ var("etl_date") }}','yyyy-MM-dd')
-        AND src_stm_code IN ('HOSE_TRADE_BOOK','HNX_TRADE_BOOK')
-        AND market_code IN ('STK','STX','UPX')
+        AND src_stm_code IN ('ORDERTRADE_TRADE_BOOK_HOSE','ORDERTRADE_TRADE_BOOK_HNX')  -- LIVE: 'HOSE_TRADE_BOOK','HNX_TRADE_BOOK'
+        AND market_id_code IN ('STK','STX','UPX')        -- LIVE: market_code
 ),
 
 market_raw AS (

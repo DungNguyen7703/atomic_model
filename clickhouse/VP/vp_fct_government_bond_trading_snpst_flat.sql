@@ -7,6 +7,7 @@
 *--------------------------------------------------------------------*
 * Modified management
 * Date            User            Description
+* 2026-11-18      claude          [O_VP_87] Them 6 cot KL/GT mua-ban NDTNN va tu doanh.
 * 2026-10-30      huy.pham        [MOI] Flat table ClickHouse: Fact Government Bond
 *                                 Trading Snapshot x Calendar Date Dim.
 *                                 Grain = 1 dong / ngay GD / order_book_tp / src_stm_code.
@@ -24,6 +25,12 @@ SELECT /*+ BROADCAST(cal) */
     CAST(f.foreign_buy_val                      AS decimal(23,2))    AS foreign_buy_val,
     CAST(f.foreign_sell_val                     AS decimal(23,2))    AS foreign_sell_val,
     CAST(f.src_stm_code                         AS string)           AS src_stm_code,
+    CAST(f.foreign_buy_vol                      AS bigint)           AS foreign_buy_vol,
+    CAST(f.proprietary_buy_vol                  AS bigint)           AS proprietary_buy_vol,
+    CAST(f.proprietary_buy_val                  AS decimal(23,2))    AS proprietary_buy_val,
+    CAST(f.foreign_sell_vol                     AS bigint)           AS foreign_sell_vol,
+    CAST(f.proprietary_sell_vol                 AS bigint)           AS proprietary_sell_vol,
+    CAST(f.proprietary_sell_val                 AS decimal(23,2))    AS proprietary_sell_val,
 
     -- From: CALENDAR DATE DIMENSION
     CAST(to_date(f.snpst_dt_dim_id, 'yyyyMMdd') AS date)            AS cdr_dt,
@@ -38,4 +45,4 @@ SELECT /*+ BROADCAST(cal) */
 FROM {{ ref('dtm_fct_government_bond_trading_snpst') }} f
 LEFT JOIN {{ ref('dtm_cdr_dt_dim') }} cal
     ON  cal.cdr_dt_dim_id = f.snpst_dt_dim_id
-WHERE f.snpst_dt_dim_id = date_format(to_date('{{ var("etl_date") }}', 'yyyy-MM-dd'), 'yyyyMMdd')
+--WHERE f.snpst_dt_dim_id = date_format(to_date('{{ var("etl_date") }}', 'yyyy-MM-dd'), 'yyyyMMdd')

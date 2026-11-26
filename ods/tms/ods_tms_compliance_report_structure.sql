@@ -1,6 +1,6 @@
 /*
 *--------------------------------------------------------------------*
-* Program code: compliance_report_structure
+* Program code: ods_tms_compliance_report_structure
 * Program name: ODS TMS.COMPLIANCE_REPORT_STRUCTURE
 * Created by: 
 * Created date: 
